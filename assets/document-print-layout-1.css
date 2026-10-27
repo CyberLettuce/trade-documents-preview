@@ -1,0 +1,68 @@
+/* Keep packages and description alongside one another on every printed goods row. */
+.certificate-goods-row > .goods-paper-description {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  column-gap: 12px;
+  align-items: start;
+}
+.certificate-goods-row > .goods-paper-description > p {
+  min-width: 0;
+}
+
+/* A modal portal is an absolutely positioned, zero-height screen container.
+   Put the complete paper into normal print flow, outside the editor's scroll area. */
+@media print {
+  html:has(.document-preview-dialog),
+  body:has(.document-preview-dialog) {
+    overflow: visible !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+  }
+  body:has(.document-preview-dialog) > :not(:has(.document-preview-dialog)) {
+    display: none !important;
+  }
+  body > :has(.document-preview-dialog),
+  .fui-FluentProvider:has(.document-preview-dialog) {
+    position: static !important;
+    inset: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    transform: none !important;
+  }
+  .fui-FluentProvider:has(> .document-preview-dialog) > :not(.document-preview-dialog) {
+    display: none !important;
+  }
+  .ch-fluent-dialog.document-preview-dialog {
+    position: static !important;
+    inset: auto !important;
+    display: block !important;
+    width: 640px !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    transform: none !important;
+  }
+  .document-preview-dialog :is(.fui-DialogBody, .fui-DialogContent, .ch-dialog-body, .document-canvas, .document-scaled-page, .document-paper-origin) {
+    display: block !important;
+    position: static !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    transform: none !important;
+  }
+  .document-preview-dialog .fui-DialogTitle__action {
+    display: none !important;
+  }
+  .document-preview-dialog .document-paper {
+    break-inside: avoid;
+  }
+}
