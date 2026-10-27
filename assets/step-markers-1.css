@@ -1,0 +1,28 @@
+/* Split each connector around the marker, including rows with wrapped labels. */
+.application-outline .outline-child::before {
+  top: 50%;
+}
+.application-outline .outline-child:not(:last-child)::after {
+  content: none;
+}
+.application-outline .outline-child > .outline-link::before,
+.application-outline .outline-child > .outline-link::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  width: 0;
+  border-left: 1px solid var(--colorNeutralStroke2);
+  pointer-events: none;
+}
+.application-outline .outline-child > .outline-link::before {
+  top: 0;
+  bottom: calc(50% + 10px);
+}
+.application-outline .outline-child > .outline-link::after {
+  top: calc(50% + 10px);
+  bottom: 0;
+}
+.application-outline .outline-child:first-child > .outline-link::before,
+.application-outline .outline-child:last-child > .outline-link::after {
+  content: none;
+}
