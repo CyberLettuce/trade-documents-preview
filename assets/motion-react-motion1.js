@@ -1,0 +1,1 @@
+import{r as t}from"./index-Cj32ATD7-motion1.js";function f(...e){return t.useRef(...e)}function u(...e){return t.useEffect(...e)}function r(...e){return t.useLayoutEffect(...e)}var n={useRef:f,useEffect:u,useLayoutEffect:r};export{n as default,u as useEffect,r as useLayoutEffect,f as useRef};
