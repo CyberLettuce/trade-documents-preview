@@ -1,0 +1,6 @@
+.ex-fluent .reports-workspace .report-table .report-performance-action-cell{width:48px;min-width:48px;white-space:nowrap;text-align:center;vertical-align:middle}
+.ex-fluent .reports-workspace .report-performance-action{display:inline-flex;align-items:center;justify-content:center;flex:none;width:36px;height:36px;min-width:36px;min-height:36px;padding:7px;border:0;border-radius:4px;background:transparent;color:var(--colorBrandForeground1);white-space:nowrap;line-height:1;vertical-align:middle}
+.ex-fluent .reports-workspace .report-performance-action>.ch-icon{display:block;width:20px;height:20px;flex:none}
+.ex-fluent .reports-workspace .report-performance-action:hover{background:var(--colorNeutralBackground1Hover)}
+.ex-fluent .reports-workspace .report-performance-action:focus-visible{outline:2px solid var(--colorBrandStroke1);outline-offset:2px}
+@media(pointer:coarse){.ex-fluent .reports-workspace .report-performance-action{width:44px;height:44px;min-width:44px;min-height:44px}}
