@@ -1,5 +1,5 @@
-# Dashboard overview source
+# Historical dashboard overview source
 
-Readable source for the Chamber and Exporter dashboards published on 9 November 2026. The JSX imports shared React, icons, dialogs and Chamber content from the existing application asset graph; it is compiled to assets/overview-overview1.js. overview-logic.mjs uses the same reporting rules as the existing User Performance report. overview.css is scoped to the new dashboards and appended to the release stylesheet. Existing application data, storage keys, routes and action handlers are retained.
+The overview redesign in this directory is retained for reference. It is no longer used by the live application: both dashboards have been restored to their layout from commit 6990445336c6b3a78d01de49f70544481bc29f25. The current dashboard components are in assets/App-CMPjbvax-dashboardrestore1.js (Chamber) and assets/App-CuqzWbkD-dashboardrestore1.js (Exporter). The release stylesheet restores the previous dashboard styles and retains the later report-action styles. All other active modules retain their latest behavior.
 
-The release is a static frontend on GitHub Pages. Other screens remain in the existing application modules; this directory contains the new dashboard source only.
+The static application remains on GitHub Pages; storage keys, application data, routes, context menus and report icons are preserved.
