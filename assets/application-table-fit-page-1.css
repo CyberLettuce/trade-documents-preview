@@ -1,0 +1,83 @@
+/* Keep all table fields within the available workspace at a readable size. */
+:is(.ex-fluent, .ch-app) .custom-table:has(> .custom-table-grid > :is(.report-table, .application-table), > .custom-table-grid .ch-reference) {
+  container: application-grid / inline-size;
+}
+.ex-fluent .custom-table:has(> .custom-table-grid > .application-table) {
+  container-name: application-list;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid > :is(.report-table, .application-table, table:has(.ch-reference)) {
+  table-layout: fixed;
+  width: 100%;
+  min-width: 0;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid > :is(.report-table, .application-table, table:has(.ch-reference)) > :is(thead, tbody) > tr > :is(th, td) {
+  min-width: 0;
+  max-width: none;
+  width: auto;
+  padding-inline: 8px;
+  overflow-wrap: anywhere;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid > :is(.report-table, .application-table, table:has(.ch-reference)) > thead > tr > th > button {
+  white-space: normal;
+  padding-inline: 8px;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid > :is(.report-table, .application-table, table:has(.ch-reference)) th[data-column="Reference"] {
+  width: 220px;
+}
+.ex-fluent .custom-table-grid > table.application-table th[data-column="Reference"] {
+  width: 290px;
+}
+.ch-app .custom-table-grid > table:has(.ch-reference) th[data-column="Application / exporter / holder"] {
+  width: 250px;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid > :is(.report-table, .application-table, table:has(.ch-reference)) th[data-column="Status"] {
+  width: 105px;
+}
+.ex-fluent .custom-table-grid > table.application-table th[data-column="Status"] {
+  width: 140px;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid > :is(.report-table, .application-table, table:has(.ch-reference)) th[data-column="Service"] {
+  width: 80px;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid > .report-table th[data-column="Last updated"] {
+  width: 110px;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid > .report-table th[data-column="Purchase order"] {
+  width: 80px;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid > .report-table th[data-column="Action"] {
+  width: 56px;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid > .application-table th[data-column="Actions"] {
+  width: 160px;
+}
+.ch-app .custom-table-grid > table:has(.ch-reference) th[data-column="Action"] {
+  width: 112px;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid > :is(.report-table, .application-table, table:has(.ch-reference)) .row-actions {
+  flex-wrap: wrap;
+}
+/* Below this width the existing record layout shows every selected field. */
+@container application-grid (max-width: 1179px) {
+  .custom-table-grid { display: none !important; }
+  .custom-table-records { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .record-sort-controls { display: flex !important; }
+  .table-record { min-width: 0; }
+  .table-record :is(dt, dd) { min-width: 0; overflow-wrap: anywhere; }
+}
+@container application-grid (max-width: 719px) {
+  .custom-table-records { grid-template-columns: minmax(0, 1fr); }
+}
+@container application-list (max-width: 999px) {
+  .custom-table-grid { display: none !important; }
+  .custom-table-records { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .record-sort-controls { display: flex !important; }
+  .table-record { min-width: 0; }
+  .table-record :is(dt, dd) { min-width: 0; overflow-wrap: anywhere; }
+}
+@container application-list (max-width: 719px) {
+  .custom-table-records { grid-template-columns: minmax(0, 1fr); }
+}
+:is(.ex-fluent, .ch-app) .custom-table:has(> .custom-table-grid > :is(.report-table, .application-table), > .custom-table-grid .ch-reference) > .custom-table-records .table-record dl > div:first-child {
+  grid-column: 1 / -1;
+}
