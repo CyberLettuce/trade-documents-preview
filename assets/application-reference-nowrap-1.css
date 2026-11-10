@@ -1,0 +1,8 @@
+/* Keep each application identifier intact in report and application tables. */
+:is(.ex-fluent, .ch-app) .custom-table-grid :is(.report-reference, .ch-reference),
+.ex-fluent .custom-table-grid .application-table .reference-button {
+  white-space: nowrap !important;
+  overflow-wrap: normal;
+  word-break: normal;
+  min-width: max-content;
+}
