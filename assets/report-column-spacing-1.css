@@ -1,0 +1,27 @@
+/* Match column values to their headings in application and report grids. */
+:is(.ex-fluent, .ch-app) .custom-table-grid :is(.report-table, .application-table, table:has(.ch-reference)) > :is(thead, tbody) > tr > :is(th, td) {
+  text-align: center;
+  vertical-align: middle;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid :is(.report-table, .application-table, table:has(.ch-reference)) > thead > tr > th > button {
+  justify-content: center;
+  text-align: center;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid :is(.report-table, .application-table, table:has(.ch-reference)) :is(.report-reference, .reference-button, .ch-reference) {
+  justify-content: center;
+  text-align: center;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid :is(.report-table, .application-table, table:has(.ch-reference)) :is(.ch-application-meta, .application-status-badges, .ch-lock, .row-actions) {
+  justify-content: center;
+}
+/* Semantic column names keep the spacing correct when columns are hidden. */
+:is(.ex-fluent, .ch-app) .custom-table-grid table [data-column="Documents"] {
+  min-width: 220px;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid table [data-column="Exporter"] {
+  min-width: 200px;
+}
+:is(.ex-fluent, .ch-app) .custom-table-grid table [data-column="Consignee"] {
+  min-width: 230px;
+}
+
