@@ -1,0 +1,5 @@
+/* Let complete words establish the minimum column width in report tables. */
+:is(.ex-fluent, .ch-app) .custom-table-grid .report-table > tbody > tr > td {
+  overflow-wrap: normal;
+  word-break: normal;
+}
