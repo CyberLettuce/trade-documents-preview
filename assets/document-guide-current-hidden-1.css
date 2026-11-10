@@ -1,0 +1,4 @@
+/* Keep document instructions available while hiding the current-source banner. */
+.document-guide-content .document-guide-latest {
+  display: none;
+}
