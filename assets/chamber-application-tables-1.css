@@ -1,0 +1,57 @@
+/* Use the same page-fitting table treatment for every Chamber queue. */
+.ch-app .ch-queue-panel .custom-table:has(> .custom-table-grid > .ch-table) > .custom-table-grid {
+  display: block !important;
+}
+.ch-app .ch-queue-panel .custom-table:has(> .custom-table-grid > .ch-table) > :is(.custom-table-records, .record-sort-controls) {
+  display: none !important;
+}
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table {
+  width: 100%;
+  min-width: 0;
+  table-layout: fixed;
+}
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table > :is(thead, tbody) > tr > :is(th, td) {
+  width: auto;
+  min-width: 0;
+  max-width: none;
+  padding-inline: 4px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table > tbody > tr > td {
+  font-size: 13px;
+  line-height: 20px;
+  padding-block: 16px;
+}
+.ch-app.ch-compact .ch-queue-panel .custom-table-grid > table.ch-table > tbody > tr > td {
+  padding-block: 8px;
+}
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table :is(.row-actions, .ch-lock, .ch-application-meta, .payment-indicator, .application-status-badges) {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Application / exporter / holder"] { width: 23%; }
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Certificate / Carnet number"] { width: 8%; }
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Documents"] { width: 13%; }
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Destination country"] { width: 9%; }
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Submitted"] { width: 10%; }
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Status"] { width: 10%; }
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Chamber User"] { width: 8%; }
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Payment"] { width: 7%; }
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Action"] { width: 12%; }
+/* Exporter drafts have eight columns and need room for the exporter email. */
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table:has(th[data-column="Exporter user"]) th[data-column="Application / exporter / holder"] { width: 22%; }
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table:has(th[data-column="Exporter user"]) th[data-column="Certificate / Carnet number"] { width: 10%; }
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table:has(th[data-column="Exporter user"]) th[data-column="Consignee"] { width: 16%; }
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table:has(th[data-column="Exporter user"]) th[data-column="Last modified"] { width: 10%; }
+.ch-app .ch-queue-panel .custom-table-grid > table.ch-table:has(th[data-column="Exporter user"]) th[data-column="Exporter user"] { width: 11%; }
+@media (max-width: 1279px) {
+  .ch-app .ch-queue-panel .custom-table-grid > table.ch-table .ch-reference {
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+}
