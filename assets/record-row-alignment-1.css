@@ -1,0 +1,4 @@
+/* Centre record values, badges and action controls within the same table row. */
+:is(.ex-fluent, .ch-app) .custom-table-grid .data-table > tbody > tr > td {
+  vertical-align: middle;
+}
