@@ -1,0 +1,21 @@
+/* Give each pair a common heading band and anchor both notes at the bottom. */
+.reports-workspace .report-chart-grid > .report-donut {
+  display: flex;
+  flex-direction: column;
+}
+.reports-workspace .report-chart-grid > .report-donut > .section-heading {
+  min-height: 72px;
+  align-items: flex-start;
+}
+/* Legend length must not move the donut down within its card. */
+.reports-workspace .report-chart-grid .report-donut-layout {
+  flex: 1;
+  align-items: start;
+  align-content: start;
+}
+/* Stacked cards do not need the shared heading space. */
+@media (max-width: 1150px) {
+  .reports-workspace .report-chart-grid > .report-donut > .section-heading {
+    min-height: 0;
+  }
+}
