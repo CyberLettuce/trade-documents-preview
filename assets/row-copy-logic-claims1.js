@@ -1,0 +1,1 @@
+function c(o,t,s){if(!o[t])throw new RangeError("The row to copy no longer exists.");const n={...structuredClone(o[t]),id:s()},r=[...o];return r.splice(t+1,0,n),{rows:r,copy:n}}function e(o,t){const s={id:t(),marks:o.shippingMarks||"",packages:o.packages||"",description:o.goods||""};return{rows:[s,...o.additionalGoods||[]],copy:s}}export{c as copyAfter,e as copyFirstGoods};
