@@ -1,0 +1,1 @@
+import{preserveValue,preserveDisplay,reportValue,elementTag,languageCreateElement,LanguageProvider,LanguageSelector,LanguageFlag,installLanguageRuntime}from"./language-runtime-dashboarddefault1.js";function s(e){return["Approved","Rejected"].includes(e.status)?e.processedBy||e.assigned||"":e.lockedBy||e.assigned||"";}export{s as queueChamberUser};
