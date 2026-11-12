@@ -4,7 +4,7 @@ The Exporter and Chamber workspaces support English, Dutch, Estonian and Arabic.
 
 Arabic uses a right-to-left document and Fluent provider, mirrored navigation and directional controls. Telephone numbers, email addresses, application references and original document pages retain their appropriate direction. Arabic uses a neutral Arabic-letter icon rather than a country flag.
 
-The language catalogues and runtime are readable source in assets/language-nl-audit1.js, assets/language-other-audit1.js and assets/language-runtime-audit1.js. Layout adjustments are in assets/language-audit1.css. English remains the business-data language: do not translate stored status values, option values, routes, IDs, CSV keys or submitted data. User-entered names, references, addresses, descriptions and notes retain their original wording. The interface choice does not translate issued forms or document previews.
+The language catalogues and runtime are readable source in assets/language-nl-dashboardviews1.js, assets/language-other-dashboardviews1.js and assets/language-runtime-dashboardviews1.js. Layout adjustments are in assets/language-dashboardviews1.css. English remains the business-data language: do not translate stored status values, option values, routes, IDs, CSV keys or submitted data. User-entered names, references, addresses, descriptions and notes retain their original wording. The interface choice does not translate issued forms or document previews.
 
 Translations run locally in the browser, without a translation service or uploading application data. The existing browser-only application storage is retained. New catalogue or runtime releases should use new asset names and update the active module graph to avoid stale browser caches.
 
