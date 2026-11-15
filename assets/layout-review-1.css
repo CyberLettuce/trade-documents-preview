@@ -1,0 +1,82 @@
+/* Keep dashboard actions visible inside a narrow dashboard column. */
+.ex-fluent .recent-section, .ex-fluent .recent-section .table-scroll { min-width: 0; }
+.ex-fluent .recent-table { table-layout: fixed; width: 100%; min-width: 0; }
+.ex-fluent .recent-table :is(th,td) { min-width: 0; padding-inline: 8px; vertical-align: middle; }
+.ex-fluent .recent-table :is(th,td):nth-child(1) { width: 33%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ex-fluent .recent-table :is(th,td):nth-child(2) { width: 25%; min-width: 0; overflow-wrap: break-word; }
+.ex-fluent .recent-table :is(th,td):nth-child(3) { width: 17%; white-space: normal; }
+.ex-fluent .recent-table :is(th,td):nth-child(4) { width: 17%; }
+.ex-fluent .recent-table :is(th,td):nth-child(5) { width: 8%; text-align: center; padding-inline: 2px; }
+.ex-fluent .recent-table .badge { max-width: 100%; white-space: normal; overflow-wrap: break-word; }
+.ex-fluent .recent-table .row-action-icon { min-width: 32px; }
+.dv-small-totals { align-self: stretch; width: 100%; box-sizing: border-box; }
+html[dir=rtl] .application-progress li:not(:last-child)::after { left: auto; right: 13px; }
+/* Sort icons can take a second line, while complete words stay together. */
+:is(.ex-fluent,.ch-app) .custom-table-grid > table > thead > tr > th { overflow-wrap: normal !important; word-break: normal; hyphens: auto; }
+:is(.ex-fluent,.ch-app) .custom-table-grid > table > thead > tr > th > button { padding-inline: 0 !important; flex-wrap: wrap; justify-content: center; overflow-wrap: normal !important; word-break: normal; hyphens: auto; }
+:is(.ex-fluent,.ch-app) .custom-table-grid > table > tbody > tr > td { overflow-wrap: break-word; word-break: normal; hyphens: auto; }
+:is(.ex-fluent,.ch-app) .custom-table-grid :is(.reference-button,.report-reference,.ch-reference) { display: block; width: 100%; max-width: 100%; min-width: 0; white-space: nowrap !important; overflow: hidden; text-overflow: ellipsis; }
+:is(.ex-fluent,.ch-app) .custom-table-grid :is(.reference-button,.report-reference,.ch-reference) > [data-i18n-user-value] { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Phone tables show the four essential columns; the application contains the rest. */
+/* Older edge padding was taking 32px from already narrow status columns. */
+:is(.ex-fluent,.ch-app) .custom-table-grid > :is(.application-table,.report-table,table:has(.ch-reference)) > :is(thead,tbody) > tr > :is(th,td) { padding-inline: 4px !important; overflow-wrap: break-word !important; }
+:is(.ex-fluent,.ch-app) .custom-table-grid > :is(.application-table,.report-table,table:has(.ch-reference)) > thead > tr > th { overflow-wrap: normal !important; }
+:is(.ex-fluent,.ch-app) .custom-table-grid :is(.application-status,.report-status,.ch-badge) { hyphens: none; overflow-wrap: break-word !important; }
+.ex-fluent .custom-table-grid .application-table .reference-button { display: block !important; width: 100% !important; }
+.ex-fluent .custom-table-grid .application-table td > .row-select { display: flex; width: max-content; margin-inline: auto; margin-bottom: 4px; }
+/* The overview has eleven columns: give names and destinations their own share. */
+.ch-app .custom-table-grid > table.report-table:has(th[data-column="Checks"]):has(th[data-column="Certificate"]) th[data-column="Reference"] { width: 18%; }
+.ch-app .custom-table-grid > table.report-table:has(th[data-column="Checks"]):has(th[data-column="Certificate"]) th[data-column="Exporter"] { width: 11%; }
+.ch-app .custom-table-grid > table.report-table:has(th[data-column="Checks"]):has(th[data-column="Certificate"]) th[data-column="Certificate"] { width: 8%; }
+.ch-app .custom-table-grid > table.report-table:has(th[data-column="Checks"]):has(th[data-column="Certificate"]) th[data-column="Documents"] { width: 11%; }
+.ch-app .custom-table-grid > table.report-table:has(th[data-column="Checks"]):has(th[data-column="Certificate"]) th[data-column="Destination"] { width: 9%; }
+.ch-app .custom-table-grid > table.report-table:has(th[data-column="Checks"]):has(th[data-column="Certificate"]) th[data-column="Last updated"] { width: 9%; }
+.ch-app .custom-table-grid > table.report-table:has(th[data-column="Checks"]):has(th[data-column="Certificate"]) th[data-column="Service"] { width: 7%; }
+.ch-app .custom-table-grid > table.report-table:has(th[data-column="Checks"]):has(th[data-column="Certificate"]) th[data-column="Status"] { width: 8%; }
+.ch-app .custom-table-grid > table.report-table:has(th[data-column="Checks"]):has(th[data-column="Certificate"]) th[data-column="Chamber User"] { width: 9%; }
+.ch-app .custom-table-grid > table.report-table:has(th[data-column="Checks"]):has(th[data-column="Certificate"]) th[data-column="Checks"] { width: 5%; }
+.ch-app .custom-table-grid > table.report-table:has(th[data-column="Checks"]):has(th[data-column="Certificate"]) th[data-column="Action"] { width: 5%; }
+@media (max-width: 1150px) {
+  :is(.ex-fluent,.ch-app) .custom-table-grid :is(.application-status,.report-status,.ch-badge) > svg { display: none; }
+}
+@media (max-width: 600px) {
+  :is(.ex-fluent,.ch-app) .custom-table:has(> .custom-table-grid > .application-table,> .custom-table-grid .ch-reference) .table-layout-tools { display: block; }
+  :is(.ex-fluent,.ch-app) .custom-table:has(> .custom-table-grid > .application-table,> .custom-table-grid .ch-reference) .table-layout-tools > :is(span,button) { display: none; }
+  :is(.ex-fluent,.ch-app) .custom-table:has(> .custom-table-grid > .application-table,> .custom-table-grid .ch-reference) .table-layout-tools::before { content: "Key columns · Open a row for full details"; font-size: 12px; line-height: 18px; color: var(--colorNeutralForeground2); }
+  html[lang=nl] :is(.ex-fluent,.ch-app) .custom-table .table-layout-tools::before { content: "Belangrijkste kolommen · Open een rij voor alle details" !important; }
+  html[lang=et] :is(.ex-fluent,.ch-app) .custom-table .table-layout-tools::before { content: "Põhiveerud · Kõigi üksikasjade vaatamiseks avage rida" !important; }
+  html[lang=ar] :is(.ex-fluent,.ch-app) .custom-table .table-layout-tools::before { content: "الأعمدة الأساسية · افتح صفًا لعرض التفاصيل الكاملة" !important; }
+  :is(.ex-fluent,.ch-app) .custom-table-grid > :is(table.application-table,table:has(.ch-reference)) > :is(thead,tbody) > tr > :is(th,td):not([data-column="Reference"],[data-column="Application / exporter / holder"],[data-column="Documents"],[data-column="Status"],[data-column="Actions"],[data-column="Action"]) { display: none; }
+  :is(.ex-fluent,.ch-app) .custom-table-grid > :is(table.application-table,table:has(.ch-reference)) :is(th,td)[data-column="Reference"],
+  .ch-app .custom-table-grid > table:has(.ch-reference) :is(th,td)[data-column="Application / exporter / holder"] { width: 29% !important; }
+  :is(.ex-fluent,.ch-app) .custom-table-grid > :is(table.application-table,table:has(.ch-reference)) :is(th,td)[data-column="Documents"] { width: 30% !important; }
+  :is(.ex-fluent,.ch-app) .custom-table-grid > :is(table.application-table,table:has(.ch-reference)) :is(th,td)[data-column="Status"] { width: 23% !important; }
+  :is(.ex-fluent,.ch-app) .custom-table-grid > :is(table.application-table,table:has(.ch-reference)) :is(th,td):is([data-column="Actions"],[data-column="Action"]) { width: 18% !important; }
+  :is(.ex-fluent,.ch-app) .custom-table-grid > :is(table.application-table,table:has(.ch-reference)) :is(th,td) { padding-inline: 4px; overflow-wrap: break-word; }
+  :is(.ex-fluent,.ch-app) .custom-table-grid > :is(table.application-table,table:has(.ch-reference)) :is(.application-status,.ch-badge) { padding-inline: 3px; word-break: normal; overflow-wrap: break-word; font-size: 12px; }
+  :is(.ex-fluent,.ch-app) .custom-table-grid > :is(table.application-table,table:has(.ch-reference)) :is(.application-status,.ch-badge) > svg { display: none; }
+  .ch-app .custom-table-grid > table:has(.ch-reference) th[data-column="Application / exporter / holder"] { font-size: 0; }
+  .ch-app .custom-table-grid > table:has(.ch-reference) th[data-column="Application / exporter / holder"]::before { content: "Reference"; font-size: 12px; }
+  html[lang=nl] .ch-app .custom-table-grid > table:has(.ch-reference) th[data-column="Application / exporter / holder"]::before { content: "Referentie"; }
+  html[lang=et] .ch-app .custom-table-grid > table:has(.ch-reference) th[data-column="Application / exporter / holder"]::before { content: "Viide"; }
+  html[lang=ar] .ch-app .custom-table-grid > table:has(.ch-reference) th[data-column="Application / exporter / holder"]::before { content: "المرجع"; }
+  .ex-fluent .recent-table :is(th,td):nth-child(3) { display: none; }
+  .ex-fluent .recent-table :is(th,td) { padding-inline: 4px; }
+  .ex-fluent .recent-table :is(th,td):nth-child(1) { width: 30% !important; }
+  .ex-fluent .recent-table :is(th,td):nth-child(2) { width: 28% !important; hyphens: auto; }
+  .ex-fluent .recent-table :is(th,td):nth-child(4) { width: 24% !important; }
+  .ex-fluent .recent-table :is(th,td):nth-child(5) { width: 18%; }
+  .ex-fluent .recent-table .badge { padding-inline: 2px; font-size: 12px; }
+  .ex-fluent .recent-table .badge > svg { display: none; }
+}
+/* Application registers in Reports use the same readable phone summary. */
+@media (max-width: 600px) {
+  :is(.ex-fluent,.ch-app) .custom-table:has(.report-table th[data-column="Documents"]):has(.report-table th[data-column="Status"]):has(.report-table th[data-column="Reference"]) .table-layout-tools { display: block; }
+  :is(.ex-fluent,.ch-app) .custom-table:has(.report-table th[data-column="Documents"]):has(.report-table th[data-column="Status"]):has(.report-table th[data-column="Reference"]) .table-layout-tools > :is(span,button) { display: none; }
+  :is(.ex-fluent,.ch-app) .custom-table:has(.report-table th[data-column="Documents"]):has(.report-table th[data-column="Status"]):has(.report-table th[data-column="Reference"]) .table-layout-tools::before { content: "Key columns · Open for full details"; font-size: 12px; line-height: 18px; color: var(--colorNeutralForeground2); }
+  :is(.ex-fluent,.ch-app) .custom-table-grid > table.report-table:has(th[data-column="Documents"]):has(th[data-column="Status"]):has(th[data-column="Reference"]) > :is(thead,tbody) > tr > :is(th,td):not([data-column="Reference"],[data-column="Documents"],[data-column="Status"],[data-column="Action"]) { display: none; }
+  :is(.ex-fluent,.ch-app) .custom-table-grid > table.report-table:has(th[data-column="Documents"]):has(th[data-column="Status"]):has(th[data-column="Reference"]) th[data-column="Reference"] { width: 29% !important; }
+  :is(.ex-fluent,.ch-app) .custom-table-grid > table.report-table:has(th[data-column="Documents"]):has(th[data-column="Status"]):has(th[data-column="Reference"]) th[data-column="Documents"] { width: 30% !important; }
+  :is(.ex-fluent,.ch-app) .custom-table-grid > table.report-table:has(th[data-column="Documents"]):has(th[data-column="Status"]):has(th[data-column="Reference"]) th[data-column="Status"] { width: 23% !important; }
+  :is(.ex-fluent,.ch-app) .custom-table-grid > table.report-table:has(th[data-column="Documents"]):has(th[data-column="Status"]):has(th[data-column="Reference"]) th[data-column="Action"] { width: 18% !important; }
+}
