@@ -1,0 +1,16 @@
+/* Shortcut icons have no permanent outline; keyboard focus remains visible. */
+@media screen {
+ :is(.suite-bar,.sidebar-dock-tools) :is(.icon-button,.suite-theme-toggle,.suite-chamber,.suite-chat,.language-flag-button) {
+  border-color:transparent; background:transparent; box-shadow:none;
+ }
+ :is(.suite-bar,.sidebar-dock-tools) :is(.icon-button,.suite-theme-toggle,.suite-chamber,.suite-chat,.language-flag-button):hover,
+ :is(.suite-bar,.sidebar-dock-tools) :is(.icon-button,.suite-theme-toggle,.suite-chamber,.suite-chat,.language-flag-button)[aria-expanded=true] {
+  border-color:transparent; background:var(--colorNeutralBackground3); box-shadow:none;
+ }
+ :is(.suite-bar,.sidebar-dock-tools) :is(.icon-button,.suite-theme-toggle,.suite-chamber,.suite-chat,.language-flag-button):focus-visible {
+  outline:2px solid var(--colorNeutralStrokeAccessible); outline-offset:2px;
+ }
+}
+@media screen and (forced-colors:active) {
+ :is(.suite-bar,.sidebar-dock-tools) :is(.icon-button,.suite-theme-toggle,.suite-chamber,.suite-chat,.language-flag-button):focus-visible { outline-color:Highlight; }
+}
