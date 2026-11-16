@@ -23,8 +23,10 @@ function add(name) {
 }
 add('index.html');
 for (const name of tracked.keys()) {
+  // The independent Vue comparison is published at /vue/ alongside React.
+  if (name.startsWith('vue/')) add(name);
   // PDF rendering loads its fonts, character maps and worker dynamically.
-  if (name.startsWith('assets/pdfjs-5.6.205/') || /^assets\/.*\.(?:svg|png|jpe?g|webp|gif|ico|woff2?|ttf|otf|wasm)$/i.test(name)) add(name);
+  if (name.includes('assets/pdfjs-5.6.205/') || /^assets\/.*\.(?:svg|png|jpe?g|webp|gif|ico|woff2?|ttf|otf|wasm)$/i.test(name)) add(name);
   if (['robots.txt', '.nojekyll', 'CNAME', 'assets/pdf-lib-LICENSE.txt'].includes(name)) add(name);
 }
 for (let i = 0; i < queue.length; i++) {
