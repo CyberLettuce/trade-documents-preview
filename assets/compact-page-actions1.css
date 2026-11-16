@@ -1,0 +1,19 @@
+@media screen {
+ .compact-inline-actions { display:flex; align-items:center; justify-content:flex-end; flex-wrap:wrap; gap:10px; min-width:0; }
+ .compact-tabs-and-actions { display:flex; align-items:flex-start; flex-wrap:wrap; gap:12px; min-width:0; margin-bottom:24px; }
+ .compact-tabs-and-actions>.ch-fluent-tabs { flex:1 1 450px; min-width:0; margin-bottom:0; flex-wrap:wrap; overflow:visible; white-space:normal; gap:4px 8px; }
+ .compact-tabs-and-actions>.ch-fluent-tabs [role=tab] { min-width:0; max-width:100%; white-space:normal; }
+ .compact-tabs-and-actions>.ch-fluent-tabs .fui-Tab__content { white-space:normal; overflow-wrap:anywhere; }
+ .compact-tabs-and-actions>.compact-overview-actions-list { flex:none; }
+ .application-view-controls .compact-overview-actions-list>.button-group { gap:8px; }
+}
+@media screen and (max-width:800px) {
+ .compact-overview-actions-top:has(>.button-group) { width:100%; }
+}
+@media screen and (min-width:801px) {
+ .page-heading:has(>.compact-overview-actions-top) { position:relative; }
+ .application-list-toolbar { gap:12px; }
+ .application-view-controls { flex-wrap:wrap; min-width:0; }
+ .attention-section>.section-heading { flex-wrap:wrap; }
+ .attention-section>.section-heading>.compact-overview-actions-list { margin-inline-start:auto; }
+}
