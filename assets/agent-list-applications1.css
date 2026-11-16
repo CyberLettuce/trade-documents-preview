@@ -1,0 +1,19 @@
+.client-clickable-row{cursor:pointer}.client-clickable-row:hover{background:var(--colorNeutralBackground1Hover,#f7f7f7)}.client-clickable-row:focus-visible{outline:2px solid var(--colorBrandStroke1,#b64900);outline-offset:-2px}
+.ex-fluent .application-tabs-and-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 20px;border-bottom:1px solid var(--colorNeutralStroke2,#ddd);margin-bottom:14px;min-width:0}
+.ex-fluent .application-tabs-and-actions>.status-tabs{flex:1 1 650px;min-width:0;margin:0;border-bottom:0}
+.ex-fluent .application-tabs-actions{flex:none;min-width:0;margin-inline-start:auto;padding-block:4px}
+.ex-fluent .application-tabs-actions>.button-group{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.ex-fluent .application-workspace .detail-title{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0}
+.ex-fluent .application-workspace .detail-title>div{min-width:0;max-width:100%;width:100%}
+.ex-fluent .application-workspace .detail-title h2{font-size:18px;line-height:26px;letter-spacing:normal;white-space:normal;overflow-wrap:anywhere;max-width:100%}
+.ex-fluent .application-workspace .detail-title h2 [data-i18n-user-value]{white-space:normal;overflow-wrap:anywhere}
+.ex-fluent .application-workspace .detail-title>:is(.badge,.application-status,.report-status){flex:none;max-width:100%;margin:0;white-space:normal;overflow-wrap:break-word}
+.ex-fluent .application-workspace .detail-title p{line-height:1.5;overflow-wrap:anywhere}
+.ex-fluent .application-workspace .application-reference-entry{display:grid;grid-template-columns:24px minmax(0,1fr);align-items:center;gap:8px;min-width:0}
+.ex-fluent .application-workspace .application-reference-entry>.row-select{margin:0;display:flex;justify-self:center;width:24px;min-width:0}
+.ex-fluent .application-workspace .application-reference-summary{min-width:0;text-align:center}
+.ex-fluent .application-workspace .application-reference-summary>small{display:block;line-height:18px;margin-top:3px;overflow-wrap:anywhere}
+.ex-fluent .application-workspace .application-table td{line-height:1.5}
+.ex-fluent .application-workspace .application-status-cell :is(.application-status,.badge){max-width:100%;height:auto;min-height:26px;white-space:normal;overflow-wrap:break-word;line-height:18px}
+@media(max-width:600px){.ex-fluent .application-workspace .application-reference-entry{grid-template-columns:minmax(0,1fr);gap:4px}.ex-fluent .application-workspace .application-reference-entry>.row-select{margin-inline:auto}.ex-fluent .application-workspace .application-reference-summary>small{display:none}}
+@media(max-width:600px){.ex-fluent .application-tabs-and-actions>.status-tabs{flex-basis:100%}.ex-fluent .application-tabs-actions{width:100%;margin-inline:0;padding-bottom:12px}.ex-fluent .application-tabs-actions .button-group>.button{flex:1;min-width:0;white-space:normal}}
