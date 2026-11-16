@@ -6,7 +6,7 @@ Exporter Settings → Dashboard contains Choose dashboard view. It is on by defa
 
 Data stays browser-only. Settings are scoped by Chamber using trade-documents-dashboard-layout-v1. Exporter opt-in and view are scoped by Chamber plus exporter account using trade-documents-dashboard-view-v1. Existing application, stored-record and announcement data are not rewritten. Different browsers do not share this data. Concurrent Chamber settings edits are checked by revision before saving. Storage failures retain the existing setting and show an error.
 
-Readable sources are assets/dashboard-views7.js, assets/dashboard-view-logic7.js and assets/dashboard-views7.css; editable authoring files and tests are in ../dashboard-views. New interface labels support English, Dutch, Estonian and Arabic. Custom section headings and announcement content keep their original wording.
+Readable sources are assets/dashboard-views8.js, assets/dashboard-view-logic8.js and assets/dashboard-views8.css; editable authoring files and tests are in ../dashboard-views. New interface labels support English, Dutch, Estonian and Arabic. Custom section headings and announcement content keep their original wording.
 
 Release date: 12 November 2026. Publication status is recorded in ../dashboard-views/release-status.json.
 
