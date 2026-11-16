@@ -1,0 +1,20 @@
+/* Keep labels readable according to their panel width, including the dashboard rail. */
+@media screen {
+ .ex-fluent .status-strip { container-type:inline-size; grid-template-columns:repeat(4,minmax(0,1fr)); height:auto; }
+ .ex-fluent .status-strip>.stat>small { grid-column:1 / -1; overflow-wrap:normal; word-break:normal; hyphens:none; }
+ .ch-settings-page>.ch-fluent-tabs { flex-wrap:wrap; overflow:visible; white-space:normal; gap:4px 8px; }
+ .ch-settings-page>.ch-fluent-tabs [role=tab] { min-width:0; max-width:100%; white-space:normal; }
+ .ch-settings-page>.ch-fluent-tabs .fui-Tab__content { white-space:normal; overflow-wrap:anywhere; }
+ .account-management-table th:nth-child(1) { width:32%; }
+ .account-management-table th:nth-child(2) { width:28%; }
+ .account-management-table th:nth-child(3) { width:22%; }
+ .account-management-table th:nth-child(4) { width:18%; }
+ html[data-shell-layout=sidebar] .ch-sidebar .mobile-search-shortcut { display:none; }
+}
+@container (max-width:600px) {
+ .ex-fluent .status-strip>.stat { grid-column:span 2; border:0; }
+}
+@media screen and (max-width:800px) {
+ /* The old header rule hides Search on phones; the sidebar still needs its own shortcut. */
+ .sidebar-dock-tools>.workspace-search-trigger { display:inline-flex!important; }
+}
