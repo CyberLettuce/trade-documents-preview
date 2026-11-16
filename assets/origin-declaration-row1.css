@@ -1,0 +1,5 @@
+/* The actual Fluent checkbox receives clicks across its whole declaration row. */
+.ex-fluent .declaration-statements>.declaration-statement{position:relative;box-sizing:border-box;width:100%;cursor:pointer}
+.ex-fluent .declaration-statements>.declaration-statement .fui-Checkbox__input{position:absolute;inset:0;width:100%;height:100%;min-width:0;min-height:0;max-width:none;max-height:none;margin:0;box-sizing:border-box;opacity:0;cursor:pointer;pointer-events:auto;z-index:1}
+.ex-fluent .declaration-statements>.declaration-statement .fui-Checkbox__indicator{pointer-events:none;flex-shrink:0}
+.ex-fluent .declaration-statements>.declaration-statement:has(.fui-Checkbox__input:focus-visible){outline:2px solid var(--colorStrokeFocus2,Highlight);outline-offset:-3px}
