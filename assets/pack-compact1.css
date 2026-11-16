@@ -1,0 +1,59 @@
+@media screen{
+ .ch-app.ch-pack-focus .ch-main{padding:16px 24px 0}
+ .ch-app .pack-review-heading{margin-bottom:14px}
+ .ch-app .pack-review-topline{display:flex;align-items:center;justify-content:space-between;gap:10px 24px;flex-wrap:wrap;margin-bottom:10px;min-width:0}
+ .ch-app .pack-review-topline .back-link{font-size:12px;min-height:36px;margin:0;flex:none}
+ .ch-app .pack-review-topline .autosave-status{min-width:0;max-width:100%;margin:0;font-size:12px;line-height:18px}
+ .ch-app .pack-review-topline .autosave-status.is-compact{padding:0;gap:4px 12px}
+ .ch-app .pack-review-topline .autosave-status.has-error{padding:8px 12px}
+ .ch-app .pack-review-topline .autosave-status small,.ch-app .pack-review-topline .autosave-browser-note{font-size:11px;line-height:17px}
+ .ch-app .pack-review-topline .autosave-browser-note{flex-basis:100%;overflow-wrap:anywhere}
+ .ch-app .pack-title-row{gap:12px}
+ .ch-app .ch-main .pack-title-row h1{font-size:26px;line-height:1.25;letter-spacing:-.4px}
+ .ch-app .pack-title-row .ch-badge{font-size:12px;line-height:18px;padding:3px 9px}
+ .ch-app .pack-identity{margin-top:7px;gap:6px 20px}
+ .ch-app .pack-identity p{font-size:12px;line-height:18px;gap:5px 12px}
+ .ch-app .pack-identity p:first-child{font-size:13px}
+ .ch-app .pack-review-workspace>.pack-review-checks{margin-bottom:10px}
+ .ch-app .pack-review-checks>summary{font-size:13px;line-height:20px;min-height:40px;padding:8px 12px;box-sizing:border-box;gap:8px}
+ .ch-app .pack-review-controls{padding:14px;gap:18px}
+ .ch-app .pack-list-heading{padding:12px 12px 8px;gap:8px}
+ .ch-app .pack-list-heading h2,.ch-app .pack-section-label{font-size:14px;line-height:20px}
+ .ch-app .pack-list-heading>span,.ch-app .pack-preview-toggle>div>span{font-size:12px}
+ .ch-app .pack-items{padding:4px 6px 8px}
+ .ch-app .pack-items button{min-height:88px;padding:10px 8px;gap:10px}
+ .ch-app .pack-item-copy strong{font-size:13px;line-height:19px}
+ .ch-app .pack-item-copy>span:not(.pack-selected),.ch-app .pack-item-copy small{font-size:12px;line-height:17px}
+ .ch-app .pack-preview-toggle{padding:9px 12px;margin-bottom:10px;gap:8px}
+ .ch-app .pack-toolbar{padding:8px 12px;gap:8px 12px}
+ .ch-app .pack-toolbar>h2{font-size:14px;line-height:20px}
+ .ch-app .pack-paging{gap:7px;font-size:12px}
+ .ch-app .ch-main .pack-paging .button,.ch-app .pack-view-controls .button,.ch-app .pack-preview-toggle>.button{font-size:12px;min-height:36px;padding:6px 10px}
+ .ch-app .pack-caption{font-size:12px;line-height:18px;padding:8px 12px}
+ .ch-app .pack-details-sidebar{padding:12px;font-size:13px;line-height:20px}
+ .ch-app .pack-details-sidebar>h2{font-size:16px;line-height:22px;margin-bottom:9px}
+ .ch-app .pack-details-sidebar .page-panel{margin:12px 0}
+ .ch-app .pack-details-sidebar .page-panel h2,.ch-app .pack-details-sidebar h3{font-size:14px;line-height:20px}
+ .ch-app .pack-details-sidebar .pack-detail-meta,.ch-app .pack-details-sidebar .detail-facts{font-size:12px;line-height:18px}
+ .ch-app .pack-details-sidebar .detail-facts dd{margin-bottom:8px}
+ .ch-app .pack-details-sidebar .ch-fluent-tabs{margin-bottom:14px}
+ .ch-app .pack-details-sidebar .ch-fluent-tabs button{min-height:36px;font-size:12px;padding:6px 8px}
+ .ch-app .pack-details-sidebar .form-field{margin-top:12px}
+ .ch-app .pack-details-sidebar .form-field>label,.ch-app .pack-details-sidebar .check-line{font-size:13px;line-height:20px}
+ .ch-app .pack-details-sidebar :is(input,select,textarea){font-size:13px;line-height:20px}
+ .ch-app .pack-details-sidebar .button,.ch-app .ch-main .pack-action-bar .button{font-size:12px;min-height:36px;padding:6px 12px}
+ .ch-app .pack-action-bar{justify-content:flex-end;margin:10px -24px 0;padding:9px 24px;gap:8px}
+ .ch-app .pack-actions{gap:8px}
+ .ch-app .pack-main .stamp-entry{padding:32px 20px;gap:14px}
+ .ch-app .pack-main .stamp-entry h3{font-size:15px;line-height:22px}
+ .ch-app .pack-main .stamp-entry p{font-size:12px;line-height:19px}
+}
+@media screen and (max-width:700px){
+ .ch-app.ch-pack-focus .ch-main{padding:12px 14px 0}
+ .ch-app .pack-review-topline{gap:6px;margin-bottom:8px;align-items:flex-start}
+ .ch-app .pack-review-topline .autosave-status{flex:1 1 100%;max-width:100%}
+ .ch-app .ch-main .pack-title-row h1{font-size:22px}
+ .ch-app .pack-review-topline .back-link,.ch-app .pack-review-checks>summary,.ch-app .ch-main .pack-paging .button,.ch-app .pack-view-controls .button,.ch-app .pack-preview-toggle>.button,.ch-app .pack-details-sidebar .button,.ch-app .ch-main .pack-action-bar .button,.ch-app .pack-details-sidebar .ch-fluent-tabs button{min-height:44px}
+ .ch-app .pack-details-sidebar :is(input,select,textarea){font-size:16px}
+ .ch-app .pack-action-bar{margin-inline:-14px;padding-inline:14px}
+}
