@@ -1,0 +1,54 @@
+@media screen{
+html[data-shell-layout=sidebar] .suite-bar{display:none!important}
+html[data-shell-layout=sidebar] .suite-frame{padding-top:0}
+html[data-shell-layout=sidebar] .suite-frame :is(.ch-sidebar,.ex-fluent .sidebar){top:0}
+html[data-shell-layout=sidebar] :is(.sidebar,.ch-sidebar).is-open{z-index:50}
+html[data-shell-layout=sidebar] :is(.app-body,.ch-shell){min-height:100dvh}
+.sidebar-dock{position:relative;margin-top:auto;padding:14px 12px 10px;min-width:0;border-top:1px solid var(--colorNeutralStroke2)}
+.sidebar-dock .suite-language{position:static}
+.sidebar-dock .language-menu{inset-inline:8px;top:auto;bottom:calc(100% - 10px);width:auto;min-width:0;max-width:none}
+.sidebar-dock-label{font-size:11px;line-height:18px;color:var(--colorNeutralForeground2);margin:0 0 6px}
+.sidebar-dock-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;align-items:center;justify-items:center;min-width:0}
+.sidebar-dock-tools .icon-button,.sidebar-dock-tools .suite-theme-toggle,.sidebar-dock-tools .suite-chat,.sidebar-dock-tools .suite-chamber,.sidebar-dock-tools .language-flag-button,.sidebar-dock-tools>button{min-width:40px;width:40px;max-width:100%;min-height:40px;padding:6px;display:inline-flex;justify-content:center;align-items:center;border-radius:5px}
+.sidebar-dock-tools .suite-chat>span,.sidebar-dock-tools .suite-chamber>span{display:none}
+.sidebar-dock-tools .suite-chamber>.ch-icon:last-child:not(:first-child){display:none}
+.sidebar-dock-tools>.workspace-search-trigger{font-size:0;gap:0}
+.sidebar-dock-tools>.workspace-search-trigger .ch-icon{font-size:18px}
+.sidebar-dock-account{margin-top:10px;padding-top:10px;border-top:1px solid var(--colorNeutralStroke2);min-width:0}
+.sidebar-dock-account .suite-account{width:100%;justify-content:flex-start;padding-inline:4px;gap:8px;min-width:0}
+.sidebar-dock-account .suite-account .suite-account-name{display:block!important;min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;text-align:start}
+.sidebar-dock-account .suite-account>.ch-icon{flex:none}
+.sidebar-dock-brand{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:18px 14px 14px;min-width:0}
+.sidebar-dock-logo{display:flex;align-items:center;gap:9px;min-width:0;color:var(--colorNeutralForeground1)}
+.sidebar-dock-logo img{width:30px;height:30px;object-fit:contain}
+.sidebar-dock-logo strong{font-size:15px;line-height:20px}
+.sidebar-dock-brand>.icon-button{display:none}
+html[data-shell-layout=sidebar] .ex-fluent .sidebar{overflow-y:auto}
+html[data-shell-layout=sidebar] .ch-sidebar-bottom{padding:0;margin-top:auto;display:block}
+html[data-shell-layout=sidebar] .sidebar-mobile-heading,html[data-shell-layout=sidebar] .ch-navigation-close{display:none}
+.dock-navigation-open{display:none}
+html[data-shell-layout=sidebar] .ch-app.ch-pack-focus .dock-navigation-open{display:flex;align-self:flex-start;margin:8px 20px 0;min-height:40px;background:var(--colorNeutralBackground1);border:1px solid var(--colorNeutralStroke2)}
+html[data-shell-layout=sidebar] .ch-app.ch-pack-focus .sidebar-dock-brand>.icon-button{display:flex}
+.shell-layout-settings{margin:16px 0;max-width:480px}
+.shell-layout-settings>label{display:grid;gap:7px;font-size:14px}
+.shell-layout-settings select{width:100%;min-width:0;max-width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--colorNeutralStroke1);border-radius:4px;background:var(--colorNeutralBackground1);color:var(--colorNeutralForeground1)}
+.shell-layout-settings p{font-size:12px;line-height:19px;margin:7px 0 0}
+.account-management-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:16px}
+.account-management-heading h2{margin:0;font-size:21px;line-height:28px}
+.account-management-heading p{margin:5px 0 0;font-size:13px;line-height:20px}
+.account-role-summary{padding:12px 16px;margin-bottom:18px;background:var(--colorNeutralBackground3);border-radius:5px}
+.account-role-summary p{margin:4px 0;font-size:13px;line-height:21px}
+.account-management-table{width:100%;min-width:0;table-layout:fixed}
+.account-management-table th:nth-child(1){width:34%}.account-management-table th:nth-child(2){width:29%}.account-management-table th:nth-child(3){width:22%}.account-management-table th:nth-child(4){width:15%}
+.account-management-table td{overflow-wrap:anywhere;vertical-align:middle}
+.account-management-table td small{display:block;font-size:11px;color:var(--colorNeutralForeground2)}
+.account-management-note{font-size:12px;line-height:20px;margin-top:14px}
+.ex-fluent .route-settings .ch-fluent-tabs{flex-wrap:wrap;overflow:visible;white-space:normal;gap:4px 8px}
+.ex-fluent .route-settings .ch-fluent-tabs [role=tab]{min-width:0;max-width:100%;white-space:normal}
+.ex-fluent .route-settings .ch-fluent-tabs .fui-Tab__content{white-space:normal;overflow-wrap:anywhere}
+.exporter-access-note{margin:12px 0;padding:10px 14px;background:var(--colorNeutralBackground3);border-radius:5px;font-size:13px;line-height:21px}
+}
+@media screen and (max-width:800px){html[data-shell-layout=sidebar] .dock-navigation-open{display:flex;align-self:flex-start;align-items:center;justify-content:center;margin:10px 16px 0;min-width:44px;min-height:44px;background:var(--colorNeutralBackground1);border:1px solid var(--colorNeutralStroke2)}.sidebar-dock-brand>.icon-button{display:flex}.account-management-table th,.account-management-table td{padding-inline:6px;font-size:12px}.account-management-table .row-actions{flex-wrap:wrap}}
+@media screen and (max-width:600px){.suite-bar .suite-brand{display:none}.suite-bar{gap:4px;padding-inline:4px}.suite-bar .suite-context{gap:2px}.suite-bar .shell-layout-switch,.suite-bar .dock-action,.suite-bar .suite-account{min-width:44px;width:44px;min-height:44px;padding:6px}}
+@media screen and (pointer:coarse){.sidebar-dock-tools .icon-button,.sidebar-dock-tools .suite-theme-toggle,.sidebar-dock-tools .suite-chat,.sidebar-dock-tools .suite-chamber,.sidebar-dock-tools>button{min-width:44px;min-height:44px;width:44px}}
+@media print{.sidebar-dock,.sidebar-dock-brand,.dock-navigation-open,.shell-layout-switch{display:none!important}}
