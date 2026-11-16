@@ -1,0 +1,36 @@
+/* Constrain the complete search dialog, including its title and padding. */
+@media screen {
+ .ch-app.ch-fluent-dialog.workspace-search-dialog {
+  box-sizing:border-box; min-width:0; width:min(640px,calc(100vw - 24px)); max-width:calc(100vw - 24px);
+  height:min(800px,calc(100dvh - 32px)); max-height:calc(100dvh - 32px);
+  display:flex; flex-direction:column; overflow:hidden;
+ }
+ .workspace-search-dialog>.fui-DialogBody {
+  flex:1; min-height:0; min-width:0; max-height:100%; display:grid; grid-template-rows:auto minmax(0,1fr);
+ }
+ .workspace-search-dialog .fui-DialogTitle { min-width:0; overflow-wrap:anywhere; }
+ .workspace-search-dialog .ch-dialog-body {
+  display:flex; flex-direction:column; min-height:0; min-width:0; max-height:none;
+  overflow:hidden; padding-top:12px;
+ }
+ .workspace-search-dialog .ch-dialog-body>* { flex-shrink:0; min-width:0; }
+ .workspace-search-dialog .ch-dialog-body>p { margin:0 0 12px; overflow-wrap:anywhere; }
+ .workspace-search-dialog .ch-dialog-body>.form-field { margin-block:0 12px; }
+ .workspace-search-dialog .ch-dialog-body>.workspace-search-results {
+  flex:1 1 0; min-height:0; min-width:0; overflow-y:auto; overflow-x:hidden;
+  align-content:start; overscroll-behavior:contain; scrollbar-gutter:stable;
+  padding:3px; margin:0 -3px; scroll-padding-block:4px;
+ }
+ .workspace-search-dialog .workspace-search-results button { box-sizing:border-box; text-align:start; }
+ .workspace-search-dialog .workspace-search-results button>.ch-icon { flex:none; }
+ .workspace-search-dialog .ch-dialog-body>.button { margin-top:12px; white-space:normal; }
+}
+@media screen and (max-width:600px) {
+ .ch-app.ch-fluent-dialog.workspace-search-dialog { width:calc(100vw - 16px)!important; max-width:calc(100vw - 16px); height:calc(100dvh - 16px); max-height:calc(100dvh - 16px); padding:16px; }
+}
+/* Landscape phones and on-screen keyboards can leave less room than the controls need. */
+@media screen and (max-height:520px) {
+ .ch-app.ch-fluent-dialog.workspace-search-dialog { height:calc(100dvh - 16px); max-height:calc(100dvh - 16px); padding:12px 16px; }
+ .workspace-search-dialog .ch-dialog-body { overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable; }
+ .workspace-search-dialog .ch-dialog-body>.workspace-search-results { flex:none; overflow:visible; }
+}
