@@ -1,0 +1,15 @@
+/* Keep the sidebar language control the same size as its neighbouring tools. */
+@media screen {
+  .sidebar-dock-tools .suite-language { display:flex; justify-content:center; min-width:0; width:40px; max-width:100%; }
+  .sidebar-dock-tools .language-flag-button { box-sizing:border-box; flex:none; width:40px; min-width:40px; height:40px; min-height:40px; padding:6px; gap:0; border-color:transparent; background:transparent; }
+  .sidebar-dock-tools .language-flag-button>.ch-icon { display:none; }
+  .sidebar-dock .language-flag-button>img,.sidebar-dock .language-menu img { flex:none; width:24px; height:18px; }
+  .sidebar-dock .language-arabic-icon { flex:none; }
+  .sidebar-dock-tools .language-flag-button:hover,.sidebar-dock-tools .language-flag-button[aria-expanded=true] { background:var(--colorNeutralBackground3); border-color:var(--colorNeutralStroke2); }
+  html[dir] .sidebar-dock .language-menu { box-sizing:border-box; inset-inline:8px; top:auto; bottom:calc(100% - 10px); width:auto; min-width:0; max-width:none; max-height:min(300px,calc(100dvh - 24px)); overflow-y:auto; }
+  .sidebar-dock .language-menu>button>span { min-width:0; overflow-wrap:anywhere; }
+}
+@media screen and (pointer:coarse) {
+  .sidebar-dock-tools .suite-language { width:44px; }
+  .sidebar-dock-tools .language-flag-button { width:44px; min-width:44px; height:44px; min-height:44px; }
+}
