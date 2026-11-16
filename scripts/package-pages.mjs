@@ -25,14 +25,14 @@ add('index.html');
 for (const name of tracked.keys()) {
   // PDF rendering loads its fonts, character maps and worker dynamically.
   if (name.startsWith('assets/pdfjs-5.6.205/') || /^assets\/.*\.(?:svg|png|jpe?g|webp|gif|ico|woff2?|ttf|otf|wasm)$/i.test(name)) add(name);
-  if (['robots.txt', '.nojekyll', 'CNAME'].includes(name)) add(name);
+  if (['robots.txt', '.nojekyll', 'CNAME', 'assets/pdf-lib-LICENSE.txt'].includes(name)) add(name);
 }
 for (let i = 0; i < queue.length; i++) {
   const name = queue[i];
   if (!/\.(?:html|m?js|css)$/.test(name) || name.startsWith('assets/pdfjs-5.6.205/')) continue;
   const source = await readFile(path.join(root, name), 'utf8');
   // Vite emits static imports, lazy import maps, URL assets and CSS URLs as literals.
-  const literals = source.matchAll(/["'`](\.?\.?\/?[A-Za-z0-9_./@+-]+\.(?:m?js|css|svg|png|jpe?g|webp|gif|ico|woff2?|ttf|otf|wasm)(?:[?#][^"'`\s]*)?)["'`]/g);
+  const literals = source.matchAll(/["'`](\.?\.?\/?[A-Za-z0-9_./@+-]+\.(?:m?js|css|pdf|svg|png|jpe?g|webp|gif|ico|woff2?|ttf|otf|wasm)(?:[?#][^"'`\s]*)?)["'`]/g);
   const cssUrls = source.matchAll(/url\(\s*([A-Za-z0-9_./@+-]+\.(?:woff2?|ttf|otf|svg|png|jpe?g|webp|gif))(?:[?#][^\s)]*)?\s*\)/g);
   for (const match of [...literals, ...cssUrls]) {
     const ref = match[1].split(/[?#]/)[0];
