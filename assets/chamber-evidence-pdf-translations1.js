@@ -1,0 +1,13 @@
+import {registerPatterns} from './language-runtime-review1-57775012.js';
+const words={
+ 'Download original PDF':['Originele PDF downloaden','Laadi algne PDF alla','تنزيل ملف PDF الأصلي','Ladda ned ursprunglig PDF','Descarregar PDF original'],
+ 'The PDF is still being saved. Try again in a moment.':['De PDF wordt nog opgeslagen. Probeer het zo opnieuw.','PDF-i salvestamine on pooleli. Proovige hetke pärast uuesti.','لا يزال ملف PDF قيد الحفظ. حاول مرة أخرى بعد قليل.','PDF-filen håller på att sparas. Försök igen om en stund.','O PDF ainda está a ser guardado. Tente novamente dentro de momentos.'],
+ 'The saved PDF is unavailable. Add the original PDF again.':['De opgeslagen PDF is niet beschikbaar. Voeg de originele PDF opnieuw toe.','Salvestatud PDF pole saadaval. Lisage algne PDF uuesti.','ملف PDF المحفوظ غير متاح. أضف ملف PDF الأصلي مجدداً.','Den sparade PDF-filen är inte tillgänglig. Lägg till den ursprungliga PDF-filen igen.','O PDF guardado não está disponível. Adicione novamente o PDF original.'],
+ '{0} is larger than 10 MB.':['{0} is groter dan 10 MB.','{0} on suurem kui 10 MB.','حجم {0} أكبر من 10 ميغابايت.','{0} är större än 10 MB.','{0} tem mais de 10 MB.'],
+ '{0} is not a PDF.':['{0} is geen PDF.','{0} ei ole PDF.','{0} ليس ملف PDF.','{0} är inte en PDF.','{0} não é um PDF.'],
+ '{0} could not be recognised as a PDF.':['{0} kon niet als PDF worden herkend.','Faili {0} ei tuvastatud PDF-ina.','تعذر التعرف على {0} كملف PDF.','{0} kunde inte identifieras som en PDF.','Não foi possível reconhecer {0} como PDF.'],
+ 'The PDF could not be saved in this browser.':['De PDF kon niet in deze browser worden opgeslagen.','PDF-i ei saanud selles brauseris salvestada.','تعذر حفظ ملف PDF في هذا المتصفح.','PDF-filen kunde inte sparas i den här webbläsaren.','Não foi possível guardar o PDF neste navegador.'],
+ 'The PDF could not be saved. Browser storage may be full.':['De PDF kon niet worden opgeslagen. De browseropslag is mogelijk vol.','PDF-i ei saanud salvestada. Brauseri salvestusruum võib olla täis.','تعذر حفظ ملف PDF. قد تكون مساحة تخزين المتصفح ممتلئة.','PDF-filen kunde inte sparas. Webbläsarens lagringsutrymme kan vara fullt.','Não foi possível guardar o PDF. O armazenamento do navegador pode estar cheio.'],
+ 'The saved PDF could not be opened.':['De opgeslagen PDF kon niet worden geopend.','Salvestatud PDF-i ei saanud avada.','تعذر فتح ملف PDF المحفوظ.','Den sparade PDF-filen kunde inte öppnas.','Não foi possível abrir o PDF guardado.']
+};
+for(const[index,locale]of['nl','et','ar','sv','pt'].entries())registerPatterns(Object.entries(words).map(([en,values])=>[en,values[index]]),locale);

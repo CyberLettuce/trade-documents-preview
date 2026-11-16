@@ -1,0 +1,33 @@
+/* Keep processing controls beside the document in the Application tab. */
+.ch-app .application-review-fields{display:flex;flex-direction:column;gap:16px;min-width:0;margin:16px 0}
+.ch-app .application-review-fields>*{min-width:0;max-width:100%}
+.ch-app .application-review-fields .fields-grid{grid-template-columns:minmax(0,1fr)}
+.ch-app .ch-assignment .avatar{background:var(--colorBrandBackground2);color:var(--colorBrandForeground2)}
+.ch-app .button.ch-reject,.ch-app .ch-text-danger{color:var(--colorStatusDangerForeground2)!important}
+.fluent-preview .paper-grid small,.fluent-preview .paper-goods small{color:#52616f}
+.fluent-preview .user-timing-note{background:var(--colorStatusWarningBackground1)!important;color:var(--colorNeutralForeground1)!important;border-color:var(--colorStatusWarningBorder2)}
+.fluent-preview .language-setting>label,.fluent-preview .shell-layout-settings label{color:var(--colorNeutralForeground1)!important}
+.fluent-preview .field-error{color:var(--colorStatusDangerForeground2)!important}
+.fluent-preview .application-pdf-controls label,.fluent-preview .application-pdf-password>label,.fluent-preview .application-uploads-preview>label,.fluent-preview .stamp-adjustments>label{color:var(--colorNeutralForeground1)!important}
+.chamber-evidence-pdfs .file-row{display:grid;grid-template-columns:18px minmax(0,1fr) 32px;gap:8px;align-items:center;padding:10px;background:var(--colorNeutralBackground3)!important;color:var(--colorNeutralForeground1)}
+.chamber-evidence-pdfs .file-row>svg{grid-column:1;grid-row:1}
+.chamber-evidence-pdfs .file-row>span{grid-column:2;grid-row:1;min-width:0;overflow-wrap:anywhere}
+.chamber-evidence-pdfs .file-row>.icon-button{grid-column:3;grid-row:1;min-width:32px;min-height:32px}
+.chamber-evidence-pdfs .file-row>.text-button{grid-column:2/4;grid-row:2;justify-self:start;min-height:28px;padding:0;text-align:start}
+.ex-fluent .application-tabs-and-actions>.status-tabs{flex:1 1 max-content;flex-wrap:wrap;overflow:visible;white-space:normal}
+.ex-fluent .application-tabs-and-actions>.application-tabs-actions{margin-inline-start:auto}
+.ex-fluent .application-tabs-and-actions>.status-tabs>button{white-space:nowrap;max-width:100%}
+.ch-app .pack-action-bar{scroll-margin-block:16px}
+.ch-app .application-review-fields :is(input,select,textarea,button):focus-visible{scroll-margin-block:88px}
+@media(max-width:600px){.ex-fluent .application-table td[data-column="Documents"]>small{display:none}}
+@media screen and (min-width:801px){
+ html[data-shell-layout=sidebar] .ch-app.ch-pack-focus .ch-sidebar.is-open{display:flex!important;position:fixed;inset-block:0;inset-inline-start:0;inset-inline-end:auto;width:260px;max-width:calc(100vw - 32px);height:100dvh;z-index:110;transform:none;overflow-y:auto;background:var(--colorNeutralBackground1)}
+ html[data-shell-layout=sidebar] .ch-app.ch-pack-focus .mobile-backdrop{display:block!important;position:fixed;inset:0;z-index:105;background:rgba(0,0,0,.45)}
+}
+
+@media(max-width:600px){
+html[lang=sv] :is(.ex-fluent,.ch-app) .custom-table .table-layout-tools::before{content:"Viktiga kolumner · Öppna en rad för alla uppgifter"!important}
+html[lang=pt] :is(.ex-fluent,.ch-app) .custom-table .table-layout-tools::before{content:"Colunas principais · Abra uma linha para ver todos os dados"!important}
+html[lang=sv] .ch-app .custom-table-grid>table:has(.ch-reference) th[data-column="Application / exporter / holder"]::before{content:"Referens"}
+html[lang=pt] .ch-app .custom-table-grid>table:has(.ch-reference) th[data-column="Application / exporter / holder"]::before{content:"Referência"}
+}
