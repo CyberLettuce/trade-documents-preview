@@ -1,0 +1,4 @@
+.ch-app .ch-badge.auto-accepted{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#eee7ff;color:#5930a8;border:0;border-radius:5px;font-size:12px;font-weight:600;line-height:18px;min-height:26px;padding:4px 8px;max-width:100%;min-width:0;box-sizing:border-box;white-space:normal;hyphens:none}
+.ch-app .auto-accepted-icon{display:block;width:14px;height:16px;flex:0 0 14px;object-fit:contain}
+.ch-app .auto-accepted-label{display:block;min-width:0;white-space:normal;overflow-wrap:normal;line-height:18px}
+@media(max-width:600px){.ch-app .ch-badge.auto-accepted{flex-wrap:wrap!important;gap:2px 4px;padding:2px 4px;justify-content:center}}
