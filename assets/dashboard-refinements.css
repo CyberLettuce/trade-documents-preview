@@ -24,13 +24,16 @@
 .dashboard-grid .attention:hover{background:var(--tint)}
 .dashboard-grid a.attention{display:grid;grid-template-columns:minmax(0,1fr) 48px 18px;gap:16px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:4px;margin-block:10px;min-height:40px}
 .dashboard-grid a.attention>strong{text-align:center}
-.mobile-shortcuts{display:contents}
+.mobile-shortcuts{display:block;min-width:0}
 .mobile-shortcuts>summary{display:none}
-.mobile-shortcuts-panel{display:contents}
+.mobile-shortcuts-panel{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
 .mobile-shortcut-item{display:contents}
 .mobile-shortcut-label{display:none}
 .shortcut-item{display:contents}
 .quick-access-header>.mobile-shortcut-item>.mobile-shortcut-label{display:none!important}
+.ch-dashboard-tools>summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;padding-block:16px}
+.ch-dashboard-tools[open]>summary>.icon{transform:rotate(180deg)}
+.ch-dashboard-tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
 html:not([data-shell-layout=sidebar]) .suite-frame{padding-top:var(--suite-header-height,56px)}
 html:not([data-shell-layout=sidebar]) .suite-frame :is(.ch-sidebar,.ex-fluent .sidebar){top:var(--suite-header-height,56px)}
 @media(max-width:760px){
