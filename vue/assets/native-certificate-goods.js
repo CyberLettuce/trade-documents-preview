@@ -1,4 +1,4 @@
-import { formatDate, jsx, Fragment } from "../paper-runtime.js?v=2026-11-17-vue-functional-parity-r2";
+import { formatDate, jsx, Fragment } from "../paper-runtime.js?v=2026-11-17-vue-combined-workspaces-r3";
 import { goodsRows, hasStructuredGoods, goodsBoxHeights, goodsFitKey, measuredGoodsFit, marksForDocument, certificateInvoices } from "./certificateGoods.js";
 import { invoiceLine, manufacturerPrintText, EUR1_MIXED_CONSIGNMENT } from "./certificateOfOrigin.js";
 function GoodsContents({ form: f, doc }) {

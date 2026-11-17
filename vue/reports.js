@@ -1,8 +1,8 @@
-import {documentNames,decisionStatus,isDecision,decisionUser,decisionDate,handlingMinutes,duration,performanceSummary,performanceBy,reportMatches} from './parity-model.js?v=2026-11-17-vue-functional-parity-r2';
-import {quoteDocuments} from './form-model.js?v=2026-11-17-vue-functional-parity-r2';
+import {documentNames,decisionStatus,isDecision,decisionUser,decisionDate,handlingMinutes,duration,performanceSummary,performanceBy,reportMatches} from './parity-model.js?v=2026-11-17-vue-combined-workspaces-r3';
+import {quoteDocuments} from './form-model.js?v=2026-11-17-vue-combined-workspaces-r3';
 import {ref,reactive,computed,watch} from './assets/vue.esm-browser.prod.js';
-import {ws,useApp,download,formatDate,money} from './workspace.js?v=2026-11-17-vue-functional-parity-r2';
-import {REPORTS,documentTypes,csvText,quoteApplication,uid,clone} from './workspace-model.js?v=2026-11-17-vue-functional-parity-r2';
+import {ws,useApp,download,formatDate,money} from './workspace.js?v=2026-11-17-vue-combined-workspaces-r3';
+import {REPORTS,documentTypes,csvText,quoteApplication,uid,clone} from './workspace-model.js?v=2026-11-17-vue-combined-workspaces-r3';
 export function reportRecords(records,filters={}){return records.filter(r=>reportMatches(r,filters));}
 export function performanceRows(records,users=[]){return performanceBy(records).map(r=>{const times=r.records.map(handlingMinutes).filter(n=>n!==null);return {...r,total:r.documents,minutes:times.length?times.reduce((a,b)=>a+b,0)/times.length:null,documents:[...new Set(r.records.flatMap(documentNames))].join(', ')};});}
 const colours=['#00877c','#ad4900','#b94155','#7960bb','#0876b8','#778296','#b28e06','#167b8a'];
@@ -10,7 +10,7 @@ export const Donut={props:['title','description','items','total','unit'],emits:[
 export const ReportsPage={components:{Donut},setup(){
  const app=useApp(),chamber=app.chamber,kind=ref('overview'),view=ref('user'),filters=reactive({from:'',to:'',status:'',document:'',user:'',exporter:'',service:'',query:''}),drill=ref(null),viewName=ref(''),viewDialog=ref(false),page=ref(1),pageSize=ref(25);
  const names=computed(()=>chamber.value?REPORTS:{overview:'Overview',applications:'Applications report'});
- watch(app.route,()=>{const routeKind=app.route.value.split('/')[3]?.split('?')[0];kind.value=names.value[routeKind]?routeKind:'overview'},{immediate:true});
+ watch(app.route,()=>{const routeKind=app.route.value.split('/')[3]?.split('?')[0];kind.value=names.value[routeKind]?routeKind:'overview';if(kind.value==='users'&&app.ui.performanceReport){const context=app.ui.performanceReport;filters.user=context.user;filters.from=context.month?new Date().toISOString().slice(0,7)+'-01':'';filters.to=context.month?new Date().toISOString().slice(0,10):'';delete app.ui.performanceReport}},{immediate:true});
  const source=computed(()=>app.visibleRecords?.value||app.records.value),matching=computed(()=>reportRecords(source.value,{...filters,decisionsOnly:kind.value==='users'})),done=computed(()=>matching.value.filter(r=>['Approved','Auto Accepted'].includes(decisionStatus(r)))),summary=computed(()=>performanceSummary(matching.value)),userNames=computed(()=>[...new Set([...ws.staff.map(s=>s.name),...source.value.filter(isDecision).map(decisionUser)])].sort()),exporters=computed(()=>[...new Set(source.value.map(r=>r.exporter))]);
  const groups=(rows,key)=>{const result=new Map;for(const r of rows){const label=key(r);result.set(label,(result.get(label)||0)+1)}return [...result].map(([label,count])=>({label,count}))};
  const byStatus=computed(()=>groups(matching.value,decisionStatus)),byDoc=computed(()=>groups(matching.value.flatMap(documentNames),d=>d)),byMonth=computed(()=>groups(matching.value,r=>(r.updatedAt||'').slice(0,7)||'Not recorded').sort((a,b)=>a.label.localeCompare(b.label))),byExporter=computed(()=>groups(matching.value,r=>r.exporter||'Not recorded'));

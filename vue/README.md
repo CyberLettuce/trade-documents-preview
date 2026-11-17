@@ -4,7 +4,7 @@ Published beside the original React prototype:
 - Vue: https://cyberlettuce.github.io/trade-documents-preview/vue/
 - React: https://cyberlettuce.github.io/trade-documents-preview/
 
-This is a separate Vue 3.5.45 implementation of the Exporter and Chamber workspaces. The comparison control switches workspace. Settings offers a top header or sidebar dock, light/dark mode, and English, Dutch, Estonian, Arabic, Swedish and Portuguese. Arabic uses right-to-left layout and the Saudi flag. The typeface remains DM Sans.
+This is a separate Vue 3.5.45 implementation of the Exporter and Chamber workspaces. The Account menu switches workspace and links to React. The exporter editor also retains its comparison controls. Settings offers a top header or sidebar dock, light/dark mode, and English, Dutch, Estonian, Arabic, Swedish and Portuguese. Arabic uses right-to-left layout and the Saudi flag. The typeface remains DM Sans.
 
 ## Included workflows
 
@@ -23,7 +23,7 @@ This is a separate Vue 3.5.45 implementation of the Exporter and Chamber workspa
 
 No package installation or build step is needed. Serve the repository root with a static HTTP server and open /vue/. Do not open index.html directly as a file. From the repository root, run the regression checks with:
 
-    node --test tests/vue/model.test.mjs tests/vue/parity.test.mjs tests/vue/audit-regression.test.mjs
+    node --test tests/vue/model.test.mjs tests/vue/parity.test.mjs tests/vue/audit-regression.test.mjs tests/vue/interface.test.mjs
 
 All runtime modules, libraries, fonts, flags and PDF assets are served locally. The JavaScript Vue components use Vue's template compiler and reactive state. HTML and CSS define the layout; there is no React runtime in the Vue bundle. The native paper adapter emits Vue VNodes from migrated presentation functions.
 
@@ -35,7 +35,7 @@ PDF support depends on PDF.js and PDF-lib. Encrypted, malformed or unusual PDFs 
 
 ## Validation — 17 November 2026
 
-45 automated checks pass, covering numbering, submission requirements, mixed document forms, CSV imports, roles, fees, print/reset eligibility, claims, queue filters and performance calculations. All 33 Vue component templates compile in the browser.
+48 automated checks pass, covering numbering, submission requirements, mixed document forms, CSV imports, roles, fees, print/reset eligibility, claims, queue filters and performance calculations. All 33 Vue component templates compile in the browser.
 
 Functional browser checks covered a combined COO and invoice through submission and Chamber approval; multi-page PDF upload and preview; certification and QR placements; retained originals and stamped copies; rejected-application copying; a 51-record queue; table-options cancellation; linked claims; Agent client CSV flags; and Basic-user restrictions. The six languages were exercised on Dashboard, Applications and Reports in both workspaces at 360, 768 and 1366 CSS pixels: 108 checks without page-wide horizontal overflow. Arabic dark-theme layouts were visually inspected.
 
@@ -44,3 +44,14 @@ All 17 document pages rendered. Ten native fixed-layout certificate pages fit wi
 This is evidence for the tested workflows, not a guarantee that every possible data combination or PDF behaves identically. The checks are not a WCAG certification. Sample content is not sent for translation, and English document artwork is deliberately preserved.
 
 See the included third-party licence files under assets/.
+
+## Combined workspace update — 17 November 2026
+
+Vue now combines React's compact navigation, dashboard hierarchy and Claims work queue with the Vue editor and its existing document workflows. The exporter editor retains its steps, central form and optional live preview. React remains independently available at the original URL, with separate saved data.
+
+- Consistent borderless shortcuts, language flags, notification counts, Help, account chevron and Chamber Settings. Top header and sidebar dock can be switched in either direction; Account and Settings offer the same layout preference.
+- Dashboard queue links clear stale search and advanced filters. User Performance carries the selected user and date period into its report.
+- Claims has actionable summary filters, collapsible detailed filters, removable filter labels, processing bars, owner and action dates, saved column choices and pagination. Cancel does not apply column changes. Mobile retains claim, next action and actions, with processing information below the holder.
+- Dates and currency formatting update immediately with the interface language. Company names remain user data. Contact details use the configured chamber.
+
+The update passed all 48 automated checks and 33 template compilations. Browser verification covered layout switching in both workspaces, reload persistence, Claim filters and column preferences, stage updates, notification read counts, Help navigation, Chamber scoping, dashboard queue recovery, User Performance filters, and the retained exporter editor/guide/preview controls. Responsive checks covered six routes, six languages and widths of 360, 768 and 1366 pixels. A cramped Dutch metric was fixed and the affected Dashboard/Claims combinations rechecked without overflowing page widths or buttons. Arabic RTL/dark mode and matched-size React/Vue screenshots were inspected. These are prototype checks, not a claim of complete WCAG conformance or universal PDF compatibility.

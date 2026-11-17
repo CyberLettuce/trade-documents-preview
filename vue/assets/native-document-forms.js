@@ -1,5 +1,5 @@
-import { formatDate, money, jsx, Fragment, createContext, useContext, useGoodsBoxFit } from "../paper-runtime.js?v=2026-11-17-vue-functional-parity-r2";
-import { CertificateGoods } from "./native-certificate-goods.js?v=2026-11-17-vue-functional-parity-r2";
+import { formatDate, money, jsx, Fragment, createContext, useContext, useGoodsBoxFit } from "../paper-runtime.js?v=2026-11-17-vue-combined-workspaces-r3";
+import { CertificateGoods } from "./native-certificate-goods.js?v=2026-11-17-vue-combined-workspaces-r3";
 import { certificateInvoices, goodsSummary } from "./certificateGoods.js";
 import { originCountries, arabOriginText, transportChoice, certificateRemarks, originStatementText, manufacturerPrintText, certificateKind, eur1Remarks, eur1SubmissionDate } from "./certificateOfOrigin.js";
 import { formPages } from "./documentPages.js";

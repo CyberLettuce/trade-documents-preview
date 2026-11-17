@@ -1,6 +1,6 @@
-import {reactive,computed,watch,inject} from './assets/vue.esm-browser.prod.js';
-import {STORAGE} from './model.js?v=2026-11-17-vue-functional-parity-r2';
-import {freshWorkspace,clone,now,uid,canManageUsers} from './workspace-model.js?v=2026-11-17-vue-functional-parity-r2';
+import {reactive,computed,watch,inject,ref} from './assets/vue.esm-browser.prod.js';
+import {STORAGE} from './model.js?v=2026-11-17-vue-combined-workspaces-r3';
+import {freshWorkspace,clone,now,uid,canManageUsers} from './workspace-model.js?v=2026-11-17-vue-combined-workspaces-r3';
 const key=STORAGE+'-workspace';let saved;try{saved=JSON.parse(localStorage.getItem(key))}catch{}
 export const ws=reactive(saved?.version===2?saved:freshWorkspace());
 if(!ws.content.publishedAt){ws.content.published=clone(ws.content.draft);ws.content.publishedAt=now();}
@@ -12,6 +12,9 @@ export function saveWorkspace(){try{localStorage.setItem(key,JSON.stringify(ws))
 watch(ws,saveWorkspace,{deep:true});
 export const useApp=()=>inject('app');
 export function download(name,content,type='text/csv;charset=utf-8'){const url=URL.createObjectURL(content instanceof Blob?content:new Blob([content],{type})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),15000);}
-export function money(n){return new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(Number(n)||0);}
-export function formatDate(s){if(!s)return'—';const d=new Date(s);return Number.isNaN(+d)?s:new Intl.DateTimeFormat(document.documentElement.lang==='en'?'en-GB':document.documentElement.lang||'en-GB',{day:'2-digit',month:'short',year:'numeric'}).format(d);}
+// Reactive locale avoids dates retaining the previous language after a switch.
+export const interfaceLocale=ref('en');
+const locale=()=>interfaceLocale.value==='en'?'en-GB':interfaceLocale.value;
+export function money(n){return new Intl.NumberFormat(locale(),{style:'currency',currency:'GBP'}).format(Number(n)||0);}
+export function formatDate(s){if(!s)return'—';const d=new Date(s);return Number.isNaN(+d)?s:new Intl.DateTimeFormat(locale(),{day:'2-digit',month:'short',year:'numeric'}).format(d);}
 export function safeLink(value){try{const url=new URL(value);return ['https:','http:','mailto:','tel:'].includes(url.protocol)?url.href:''}catch{return''}}
