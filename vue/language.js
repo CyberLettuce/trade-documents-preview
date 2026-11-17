@@ -1,3 +1,4 @@
+import auditLanguage from './assets/audit-language.js?v=2026-11-17-vue-functional-parity-r2';
 import nl from './assets/language-nl.js';
 import other from './assets/language-other.js';
 import sv from './assets/language-sv.js';
@@ -5,15 +6,16 @@ import pt from './assets/language-pt.js';
 import supplement from './assets/language-supplement.js';
 export const LANGUAGES=[{code:'en',name:'English',flag:'gb'},{code:'nl',name:'Dutch',flag:'nl'},{code:'et',name:'Estonian',flag:'ee'},{code:'ar',name:'العربية',flag:'sa'},{code:'sv',name:'Swedish',flag:'se'},{code:'pt',name:'Portuguese',flag:'pt'}];
 const dictionaries={nl,...other.dictionaries,sv,pt};
-for(const lang of Object.keys(dictionaries))Object.assign(dictionaries[lang],supplement[lang],other.patterns[lang]);
+for(const lang of Object.keys(dictionaries))Object.assign(dictionaries[lang],supplement[lang],other.patterns[lang],auditLanguage[lang]);
 for(const [lang,words] of Object.entries({nl:['Donkere modus','Lichte modus'],et:['Tume režiim','Hele režiim'],ar:['الوضع الداكن','الوضع الفاتح'],sv:['Mörkt läge','Ljust läge'],pt:['Modo escuro','Modo claro']})){dictionaries[lang]['Dark mode']=words[0];dictionaries[lang]['Light mode']=words[1];}
+const folded=Object.fromEntries(Object.entries(dictionaries).map(([lang,entries])=>[lang,Object.fromEntries(Object.entries(entries).map(([k,v])=>[k.toLowerCase(),v]))]));
 const patterns={},escape=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 export function translate(text,language,depth=0){
  if(language==='en'||!text||depth>3)return text;const dictionary=dictionaries[language]||{},trim=text.trim();
- if(dictionary[trim])return text.replace(trim,dictionary[trim]);
+ if(dictionary[trim])return text.replace(trim,dictionary[trim]);if(folded[language]?.[trim.toLowerCase()])return text.replace(trim,folded[language][trim.toLowerCase()]);
  if(!patterns[language])patterns[language]=Object.entries(dictionary).filter(([key])=>/\{\d+\}/.test(key)).sort((a,b)=>b[0].length-a[0].length).map(([key,value])=>{const indices=[];const expression=key.split(/(\{\d+\})/).map(part=>/^\{\d+\}$/.test(part)?(indices.push(part.slice(1,-1)),'(.+?)'):escape(part)).join('');return{re:new RegExp('^'+expression+'$'),value,indices}});
  for(const p of patterns[language]){const match=trim.match(p.re);if(match){const output=p.value.replace(/\{(\d+)\}/g,(_,i)=>translate(match[p.indices.indexOf(i)+1]||'',language,depth+1));return text.replace(trim,output)}}
- const parts=trim.split(/( · | — |: |\s*\*\s*$)/);if(parts.length>1)return text.replace(trim,parts.map(p=>translate(p,language,depth+1)).join(''));
+ const parts=trim.split(/( · | — |, |: |\s*\*\s*$)/);if(parts.length>1)return text.replace(trim,parts.map(p=>translate(p,language,depth+1)).join(''));
  const number=trim.match(/^(\d+) (applications|records|documents|files|pages|stamps placed)$/);if(number&&dictionary[number[2]])return number[1]+' '+dictionary[number[2]];
  const action=trim.match(/^(Open|View|Review|Copy|Delete|Archive|Remove|Download|Search|Updated|Submitted) (.+)$/);if(action&&dictionary[action[1]])return dictionary[action[1]]+' '+translate(action[2],language,depth+1);
  return text;

@@ -21,13 +21,9 @@ This is a separate Vue 3.5.45 implementation of the Exporter and Chamber workspa
 
 ## Running the source
 
-No package installation or build step is needed. With Node installed, run:
+No package installation or build step is needed. Serve the repository root with a static HTTP server and open /vue/. Do not open index.html directly as a file. From the repository root, run the regression checks with:
 
-    node server.cjs
-
-Then open http://127.0.0.1:5199/. Do not open index.html directly as a file. Run the focused checks with:
-
-    node --test model.test.mjs parity.test.mjs
+    node --test tests/vue/model.test.mjs tests/vue/parity.test.mjs tests/vue/audit-regression.test.mjs
 
 All runtime modules, libraries, fonts, flags and PDF assets are served locally. The JavaScript Vue components use Vue's template compiler and reactive state. HTML and CSS define the layout; there is no React runtime in the Vue bundle. The native paper adapter emits Vue VNodes from migrated presentation functions.
 
@@ -37,10 +33,14 @@ Both sites are browser-based prototypes. Vue has separate storage keys beginning
 
 PDF support depends on PDF.js and PDF-lib. Encrypted, malformed or unusual PDFs can require a different reader or a rendered copy. A canvas preview is not a complete accessible PDF text layer. UI translations have been checked for layout and obvious omissions; professional linguistic review remains appropriate before operational use.
 
-## Validation
+## Validation — 17 November 2026
 
-Twenty focused automated checks cover reference numbering, required submission fields, CSV validation, roles, approval without a checklist, invoice totals, reporting, stamps, delivery and language behavior. All 27 Vue templates compile. Seventeen document pages render across all eight types. Browser interaction checks cover submission and Chamber approval, uploaded multi-page PDFs, saved stamps and QR placement, client import, signatures, claims and role restrictions.
+45 automated checks pass, covering numbering, submission requirements, mixed document forms, CSV imports, roles, fees, print/reset eligibility, claims, queue filters and performance calculations. All 33 Vue component templates compile in the browser.
 
-The main 13 routes were checked in all six languages at desktop width and within a 320px test frame, with no page-wide horizontal overflow. Arabic dark mode, keyboard-friendly dialogs and sample light/dark states were also inspected. These checks are not a full WCAG certification or a claim of measured productivity improvement.
+Functional browser checks covered a combined COO and invoice through submission and Chamber approval; multi-page PDF upload and preview; certification and QR placements; retained originals and stamped copies; rejected-application copying; a 51-record queue; table-options cancellation; linked claims; Agent client CSV flags; and Basic-user restrictions. The six languages were exercised on Dashboard, Applications and Reports in both workspaces at 360, 768 and 1366 CSS pixels: 108 checks without page-wide horizontal overflow. Arabic dark-theme layouts were visually inspected.
 
-See the included third-party licence files under assets/. Vue documentation: https://vuejs.org/guide/quick-start.html
+All 17 document pages rendered. Ten native fixed-layout certificate pages fit within the A4 print region in a print-stylesheet test; deliberately excessive content triggers a print warning. Physical printer output and OS print dialogs were not verified.
+
+This is evidence for the tested workflows, not a guarantee that every possible data combination or PDF behaves identically. The checks are not a WCAG certification. Sample content is not sent for translation, and English document artwork is deliberately preserved.
+
+See the included third-party licence files under assets/.
