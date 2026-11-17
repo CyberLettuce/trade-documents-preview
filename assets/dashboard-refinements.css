@@ -16,6 +16,8 @@
 :is(.ch-dashboard,.ex-fluent) .stat .dashboard-stat-value{display:flex;align-items:center;gap:10px;grid-column:1/-1;grid-row:2;justify-content:flex-start}
 :is(.ch-dashboard,.ex-fluent) .stat .dashboard-stat-value strong{margin:0}
 :is(.ch-dashboard,.ex-fluent) .stat .dashboard-stat-value .ch-icon{width:24px;height:24px;color:var(--colorNeutralForeground2)}
+.ch-dashboard .stat.attention .dashboard-stat-value .ch-icon{color:var(--colorStatusDangerForeground1)}
+.ch-dashboard .stat.complete .dashboard-stat-value .ch-icon{color:var(--colorStatusSuccessForeground1)}
 .ch-dashboard .stat small{grid-column:1/-1;grid-row:1}
 .metrics button{border-right:0;border-inline-end:1px solid var(--line);text-align:start}
 .metrics button:last-child{border-inline-end:0}

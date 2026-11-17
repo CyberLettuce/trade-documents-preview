@@ -29,7 +29,7 @@ export function ListOptions({search, children, actions, result, active = false, 
   }, [currentRoute]);
   function toggle(value) { setOpen(value); writeOptionsOpen(optionsStorage(), key, value); }
   return h('section', {className:'list-options', onKeyDown:event => {
-    if (event.key === 'Escape' && open) { event.stopPropagation(); toggle(false); button.current?.focus(); }
+    if (event.key === 'Escape' && open && !event.target.closest('[role="dialog"],dialog,[role="menu"]')) { event.stopPropagation(); toggle(false); button.current?.focus(); }
   }}, h('div', {className:'list-options-bar'},
     h('div', {className:'list-options-search'}, search),
     h('button', {type:'button', className:'button outline list-options-toggle', ref:button, 'aria-expanded':open, 'aria-controls':id, onClick:() => toggle(!open)},
