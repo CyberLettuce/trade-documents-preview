@@ -1,4 +1,4 @@
-import qrcodegen from './qrcodegen1.js?v=2026-11-17-carnet-actions-r1';
+import qrcodegen from './qrcodegen1.js?v=2026-11-17-options-dashboard-r1';
 export function completedCarnet(record) {
   const carnet = record.docs?.includes('ata') || (record.documents || [record.document]).includes('ATA Carnet');
   return carnet && !record.archivedAt && ['Processed', 'Accepted', 'Approved', 'Completed', 'Auto Accepted'].includes(record.status);

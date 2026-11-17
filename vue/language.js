@@ -1,15 +1,16 @@
-import carnetWords from './assets/carnet-language1.js?v=2026-11-17-chamber-queue-print-r1';
-import shortcutWords from './assets/quick-access-language1.js?v=2026-11-17-chamber-queue-print-r1';
-import {ref,computed,nextTick,onMounted,onUnmounted,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-17-chamber-queue-print-r1';
-import auditLanguage from './assets/audit-language.js?v=2026-11-17-chamber-queue-print-r1';
-import nl from './assets/language-nl.js?v=2026-11-17-chamber-queue-print-r1';
-import other from './assets/language-other.js?v=2026-11-17-chamber-queue-print-r1';
-import sv from './assets/language-sv.js?v=2026-11-17-chamber-queue-print-r1';
-import pt from './assets/language-pt.js?v=2026-11-17-chamber-queue-print-r1';
-import supplement from './assets/language-supplement.js?v=2026-11-17-chamber-queue-print-r1';
+import optionsWords from "../assets/list-options-language.js";
+import carnetWords from './assets/carnet-language1.js?v=2026-11-17-options-dashboard-r1';
+import shortcutWords from './assets/quick-access-language1.js?v=2026-11-17-options-dashboard-r1';
+import {ref,computed,nextTick,onMounted,onUnmounted,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-17-options-dashboard-r1';
+import auditLanguage from './assets/audit-language.js?v=2026-11-17-options-dashboard-r1';
+import nl from './assets/language-nl.js?v=2026-11-17-options-dashboard-r1';
+import other from './assets/language-other.js?v=2026-11-17-options-dashboard-r1';
+import sv from './assets/language-sv.js?v=2026-11-17-options-dashboard-r1';
+import pt from './assets/language-pt.js?v=2026-11-17-options-dashboard-r1';
+import supplement from './assets/language-supplement.js?v=2026-11-17-options-dashboard-r1';
 export const LANGUAGES=[{code:'en',name:'English',flag:'gb'},{code:'nl',name:'Dutch',flag:'nl'},{code:'et',name:'Estonian',flag:'ee'},{code:'ar',name:'العربية',flag:'sa'},{code:'sv',name:'Swedish',flag:'se'},{code:'pt',name:'Portuguese',flag:'pt'}];
 const dictionaries={nl,...other.dictionaries,sv,pt};
-for(const lang of Object.keys(dictionaries))Object.assign(dictionaries[lang],supplement[lang],other.patterns[lang],auditLanguage[lang],shortcutWords[lang],carnetWords[lang]);
+for(const lang of Object.keys(dictionaries))Object.assign(dictionaries[lang],supplement[lang],other.patterns[lang],auditLanguage[lang],shortcutWords[lang],carnetWords[lang],optionsWords[lang]);
 for(const [lang,words] of Object.entries({nl:['Donkere modus','Lichte modus'],et:['Tume režiim','Hele režiim'],ar:['الوضع الداكن','الوضع الفاتح'],sv:['Mörkt läge','Ljust läge'],pt:['Modo escuro','Modo claro']})){dictionaries[lang]['Dark mode']=words[0];dictionaries[lang]['Light mode']=words[1];}
 const interfaceWords={nl:{'Workspace':'Werkruimte','Next action overdue':'Volgende actie te laat','Next action due soon':'Volgende actie binnenkort','Customise claims':'Claims aanpassen','Claim / holder (always shown)':'Claim / houder (altijd zichtbaar)','Actions (always shown)':'Acties (altijd zichtbaar)'},et:{'Next action overdue':'Järgmise toimingu tähtaeg on möödas','Next action due soon':'Järgmise toimingu tähtaeg läheneb'},ar:{'Next action overdue':'الإجراء التالي متأخر','Next action due soon':'موعد الإجراء التالي قريب'},sv:{'Next action overdue':'Nästa åtgärd är försenad','Next action due soon':'Nästa åtgärd förfaller snart'},pt:{'Next action overdue':'Próxima ação em atraso','Next action due soon':'Próxima ação a vencer'}};
 for(const [language,words] of Object.entries(interfaceWords))Object.assign(dictionaries[language],words);

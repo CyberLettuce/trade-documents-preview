@@ -1,5 +1,5 @@
-import {ref} from './assets/vue.esm-browser.prod.js?v=2026-11-17-chamber-queue-print-r1';
-import {ws,useApp} from './workspace.js?v=2026-11-17-chamber-queue-print-r1';
+import {ref} from './assets/vue.esm-browser.prod.js?v=2026-11-17-options-dashboard-r1';
+import {ws,useApp} from './workspace.js?v=2026-11-17-options-dashboard-r1';
 export const inChamber=(record,workspace=ws)=>workspace.allChambers||(record.chamber||'demo')===(workspace.activeChamber||'demo');
 export const chamberNames={demo:'Demonstration Chamber of Commerce',north:'Northshore Chamber of Commerce'};
 export const ChamberSwitcher={emits:['close'],setup(){const app=useApp();ws.activeChamber ||= 'demo';return{ws,chamberNames,change:()=>{app.ui.query='';app.ui.owner='All';app.ui.queueView='all';app.go('dashboard')}}},template:String.raw`<Modal title="Switch Chamber workspace" @close="$emit('close')"><label>Chamber<select v-model="ws.activeChamber" @change="change"><option v-for="(name,id) in chamberNames" :value="id">{{name}}</option></select></label><label>Preview as Chamber User<select v-model="ws.officer" @change="change"><option v-for="user in ws.staff.filter(s=>s.status==='Active')">{{user.name}}</option></select></label><label class="checkbox-row"><input type="checkbox" v-model="ws.allChambers" @change="change">Show records from all chambers</label><template #footer><button class="primary" @click="$emit('close')">Done</button></template></Modal>`};

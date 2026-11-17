@@ -1,0 +1,36 @@
+.list-options{margin-block:12px 18px;min-width:0;text-align:start}
+.list-options-bar{display:flex;align-items:center;gap:12px;min-width:0;flex-wrap:wrap}
+.list-options-search{flex:1 1 320px;min-width:0}
+.list-options-search>*,.list-options-search .field,.list-options-search label{margin:0!important;max-width:none;width:100%}
+.list-options-search label,.list-options-search .field>label{font-size:13px}
+.list-options-search input{width:100%;min-width:0}
+.list-options-toggle{display:inline-flex!important;align-items:center;justify-content:center;gap:9px;flex:0 0 auto;min-height:44px;white-space:nowrap;align-self:flex-end;margin:0!important}
+.list-options-toggle svg{width:16px;height:16px;flex:none}
+.list-options-active{font-size:12px;font-weight:600;color:var(--brand,var(--colorBrandForeground1,#a84400));white-space:nowrap;align-self:flex-end;line-height:44px}
+.list-options-count{font-size:13px;white-space:nowrap;align-self:flex-end;line-height:44px}
+.list-options-actions{display:flex;align-items:center;gap:8px;align-self:flex-end;flex-wrap:wrap}
+.list-options-panel{margin-block-start:12px;padding:18px;border:1px solid var(--line,var(--colorNeutralStroke2,#d9d9d9));border-radius:6px;background:var(--surface,var(--colorNeutralBackground1,#fff));min-width:0}
+.list-options-panel[hidden]{display:none!important}
+.list-options-content,.list-options-slots{display:flex;flex-direction:column;gap:16px;min-width:0}
+.list-options-slots:empty{display:none}
+.list-options-content:not(:empty)+.list-options-slots:not(:empty){margin-block-start:16px}
+.list-options-slot{min-width:0}
+.list-options-panel .record-toolbar,.list-options-panel .report-filter-grid,.list-options-panel .ch-filter-grid,.list-options-panel .claims-filter-grid,.list-options-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:14px;margin:0}
+.list-options-panel .record-toolbar>button{align-self:end;justify-self:start}
+.list-options-panel .application-filter-panel,.list-options-panel .advanced-filters,.list-options-panel .report-filter-panel,.list-options-panel .claims-filters,.list-options-panel .application-filters-content{margin:0;padding:0;border:0;box-shadow:none;background:transparent}
+.list-options-panel .application-filter-panel{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px}
+.list-options-panel .application-list-toolbar,.list-options-panel .queue-controls,.list-options-panel .report-filter-footer{margin:0;padding:0;border:0;min-height:0;flex-wrap:wrap;gap:12px}
+.list-options-panel .queue-views{margin:0;flex-wrap:wrap}
+.list-options-panel .application-archive-help{margin:0;font-size:12px}
+.list-options-panel .application-filters-content>.saved-views,.list-options-panel .saved-views{margin:0}
+.list-options-panel .table-adapt-controls,.list-options-panel .responsive-table-controls{padding:0;border:0}
+.list-options-panel label,.list-options-panel .field,.list-options-panel select{min-width:0;max-width:100%}
+.list-options-panel .button-row,.list-options-panel .button-group,.list-options-panel .application-view-controls{flex-wrap:wrap}
+.list-options-panel .application-sort{max-width:360px}
+.list-options-panel .report-filter-panel>.card-heading{display:none}
+.list-options-panel .card.advanced-filters{padding:0}
+.list-options-panel .condition-row{margin-block:12px}
+@media(max-width:700px){.list-options-bar{gap:8px}.list-options-search{flex-basis:100%}.list-options-toggle{margin-inline-end:auto!important}.list-options-panel{padding:14px}.list-options-actions{width:100%}.list-options-active,.list-options-count{line-height:40px}.list-options-panel .queue-controls{display:flex}.list-options-panel .condition-row{display:flex;flex-direction:column;align-items:stretch}.list-options-panel .condition-row>button{align-self:flex-end}}
+@media print{.list-options{display:none!important}}
+
+.list-options-panel .table-layout-tools{padding:0;border:0;min-height:0;gap:12px;flex-wrap:wrap}.list-options-panel .compact-overview-actions-list{display:flex!important}.list-options-panel .report-filters{margin:0;padding:0;border:0;background:transparent}.list-options-panel .claims-summary{margin:0}

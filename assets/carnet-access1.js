@@ -1,7 +1,7 @@
-import carnetWords from './carnet-language1.js?v=2026-11-17-carnet-actions-r1';
-import {languageCreateElement as h,registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-17-carnet-actions-r1';
-import {I as Icon} from './index-Cj32ATD7-review1-d3188122-nochecklist1.js?v=2026-11-17-carnet-actions-r1';
-import {carnetAccess,carnetQr,carnetActions} from './carnet-actions-model1.js?v=2026-11-17-carnet-actions-r1';
+import carnetWords from './carnet-language1.js?v=2026-11-17-options-dashboard-r1';
+import {languageCreateElement as h,registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-17-options-dashboard-r1';
+import {I as Icon} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1.js?v=2026-11-17-options-dashboard-r1';
+import {carnetAccess,carnetQr,carnetActions} from './carnet-actions-model1.js?v=2026-11-17-options-dashboard-r1';
 for(const [language,words] of Object.entries(carnetWords))registerPatterns(Object.entries(words),language);
 export function CarnetAccessPanel({app}) {
   const access=carnetAccess(app),qr=carnetQr(access.payload);

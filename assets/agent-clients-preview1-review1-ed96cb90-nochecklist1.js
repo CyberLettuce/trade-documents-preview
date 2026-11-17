@@ -1,7 +1,7 @@
-import './agent-client-translations1-review1-7f2a582a.js?v=2026-11-17-carnet-actions-r1';
-import {r as React,I as Icon,F as Field,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1.js?v=2026-11-17-carnet-actions-r1';
-import {languageCreateElement as h,preserveValue} from './language-runtime-review1-57775012.js?v=2026-11-17-carnet-actions-r1';
-import {W as parseCsv,M as download} from './ChamberContent-PZCQTEV1-review1-b928b4e1-nochecklist1.js?v=2026-11-17-carnet-actions-r1';
+import './agent-client-translations1-review1-7f2a582a.js?v=2026-11-17-options-dashboard-r1';
+import {r as React,I as Icon,F as Field,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1.js?v=2026-11-17-options-dashboard-r1';
+import {languageCreateElement as h,preserveValue} from './language-runtime-review1-57775012.js?v=2026-11-17-options-dashboard-r1';
+import {W as parseCsv,M as download} from './ChamberContent-PZCQTEV1-review1-b928b4e1-nochecklist1-options1.js?v=2026-11-17-options-dashboard-r1';
 const KEY='trade-documents-agent-clients-preview-v1',EVENT='agent-clients-updated';
 const empty={reference:'',name:'',contact:'',email:'',phone:'',address:'',city:'',postcode:'',country:'',autoEur1:false,autoCoo:false,autoLegalised:false};
 const columns=['reference','name','contact','email','phone','address','city','postcode','country','autoEur1','autoCoo','autoLegalised'];
