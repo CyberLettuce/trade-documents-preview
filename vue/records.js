@@ -1,7 +1,7 @@
-import {ref,reactive,computed,watch,nextTick} from './assets/vue.esm-browser.prod.js?v=2026-11-17-personal-quick-access-r1';
-import {schemas,clone,uid,validateRecord,importRecords,csvText,preservesAdministrator,defaultRates,documentTypes} from './workspace-model.js?v=2026-11-17-personal-quick-access-r1';
-import {ws,useApp,audit,download,admin} from './workspace.js?v=2026-11-17-personal-quick-access-r1';
-import {SignatureUpload} from './signature.js?v=2026-11-17-personal-quick-access-r1';
+import {ref,reactive,computed,watch,nextTick} from './assets/vue.esm-browser.prod.js?v=2026-11-17-grouped-application-steps-r1';
+import {schemas,clone,uid,validateRecord,importRecords,csvText,preservesAdministrator,defaultRates,documentTypes} from './workspace-model.js?v=2026-11-17-grouped-application-steps-r1';
+import {ws,useApp,audit,download,admin} from './workspace.js?v=2026-11-17-grouped-application-steps-r1';
+import {SignatureUpload} from './signature.js?v=2026-11-17-grouped-application-steps-r1';
 export const RecordManager={props:{kind:String,rows:Array,title:String,readonly:Boolean,accountId:String},components:{SignatureUpload},setup(props){const app=useApp(),query=ref(''),draft=ref(null),errors=ref({}),remove=ref(null),csvInput=ref(null),imported=ref(null),importError=ref(''),context=ref(null),printRecord=ref(null),tariffDocument=ref(documentTypes[0]),page=ref(1),pageSize=ref(10);
  const fields=computed(()=>schemas[props.kind]||[]),rows=computed(()=>props.rows.filter(r=>r.status!=='Archived'&&(!props.accountId||r.accountId===props.accountId)&&(!query.value||Object.values(r).filter(v=>typeof v==='string').join(' ').toLowerCase().includes(query.value.toLowerCase()))));
  const pageCount=computed(()=>Math.max(1,Math.ceil(rows.value.length/pageSize.value))),paged=computed(()=>rows.value.slice((page.value-1)*pageSize.value,page.value*pageSize.value));watch([query,pageSize,()=>props.kind],()=>page.value=1);watch(pageCount,n=>page.value=Math.min(page.value,n));

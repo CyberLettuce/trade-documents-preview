@@ -1,4 +1,4 @@
-import {h,Fragment} from './assets/vue.esm-browser.prod.js?v=2026-11-17-personal-quick-access-r1';
+import {h,Fragment} from './assets/vue.esm-browser.prod.js?v=2026-11-17-grouped-application-steps-r1';
 export {Fragment};
 let activeEdit;
 export function withPaperEdit(edit,render){const previous=activeEdit;activeEdit=edit;try{return render()}finally{activeEdit=previous}}
