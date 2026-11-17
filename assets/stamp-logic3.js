@@ -1,4 +1,4 @@
-import {createReferenceQr} from './qr-stamp1.js';
+import {createReferenceQr} from './qr-stamp1.js?v=2026-11-17-personal-quick-access-r1';
 export const STAMP_DB='trade-documents-stamping-v1';
 export const documentKey=(chamber,application,item)=>JSON.stringify([String(chamber),String(application),String(item)]);
 export const clamp=(value,min,max)=>Math.min(max,Math.max(min,Number(value)||0));
@@ -34,7 +34,7 @@ export function stampPng(stamp){if(pngCache.has(stamp.svg))return pngCache.get(s
 export async function loadPdfjs(){const module=await import('./pdfjs-5.6.205/pdf.mjs');module.GlobalWorkerOptions.workerSrc=new URL('./pdfjs-5.6.205/pdf.worker.mjs',import.meta.url).href;return module;}
 export function pdfOptions(bytes){return {data:new Uint8Array(bytes.slice(0)),isEvalSupported:false,cMapUrl:new URL('./pdfjs-5.6.205/cmaps/',import.meta.url).href,cMapPacked:true,standardFontDataUrl:new URL('./pdfjs-5.6.205/standard_fonts/',import.meta.url).href,wasmUrl:new URL('./pdfjs-5.6.205/wasm/',import.meta.url).href};}
 export async function exportStamped(record,pdf,onProgress=()=>{},library=STAMPS,rasterize=stampPng){
- const lib=await import('./pdf-lib-1.17.1.esm.js');let result,flattened=Boolean(record.signed);
+ const lib=await import('./pdf-lib-1.17.1.esm.js?v=2026-11-17-personal-quick-access-r1');let result,flattened=Boolean(record.signed);
  if(!flattened){try{result=await lib.PDFDocument.load(record.bytes,{updateMetadata:false});}catch{flattened=true;}}
  if(flattened){result=await lib.PDFDocument.create();for(let i=0;i<pdf.numPages;i++){onProgress(i+1,pdf.numPages);const source=await pdf.getPage(i+1),viewport=source.getViewport({scale:1}),render=source.getViewport({scale:Math.min(2,Math.sqrt(12000000/(viewport.width*viewport.height)))}),canvas=document.createElement('canvas');canvas.width=Math.ceil(render.width);canvas.height=Math.ceil(render.height);await source.render({canvasContext:canvas.getContext('2d'),viewport:render,annotationMode:1,background:'#ffffff'}).promise;const png=await result.embedPng(await (await new Promise(resolve=>canvas.toBlob(resolve,'image/png'))).arrayBuffer()),page=result.addPage([viewport.width,viewport.height]);page.drawImage(png,{x:0,y:0,width:viewport.width,height:viewport.height});canvas.width=canvas.height=1;}}
  const images=new Map();for(const mark of record.placements){if(mark.page<0||mark.page>=pdf.numPages)continue;const stamp=placedStamp(mark,library);if(!stamp)continue;if(!images.has(stamp.svg))images.set(stamp.svg,await result.embedPng(await rasterize(stamp)));const source=await pdf.getPage(mark.page+1),view=source.getViewport({scale:1}),target=result.getPage(mark.page);if(flattened){target.drawImage(images.get(stamp.svg),{x:mark.x*view.width,y:(1-mark.y-mark.h)*view.height,width:mark.w*view.width,height:mark.h*view.height});}else{const at=pdfPlacement(view,mark);target.drawImage(images.get(stamp.svg),{x:at.x,y:at.y,width:at.width,height:at.height,rotate:lib.degrees(at.angle)});}}

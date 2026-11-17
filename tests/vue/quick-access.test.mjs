@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {shortcutCatalog,shortcutDefaults,normaliseShortcuts,shortcutKey,readShortcuts,saveShortcuts} from '../../vue/assets/quick-access-model1.js';
+import {readFileSync} from 'node:fs';
+const storage=()=>{const values=new Map();return {getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v)}};
+test('an empty chosen menu stays empty and can be restored',()=>{const s=storage(),key=shortcutKey('vue','exporter','a');saveShortcuts(s,key,[],'exporter',true);assert.deepEqual(readShortcuts(s,key,'exporter',true),[]);assert.ok(shortcutDefaults('exporter',true).includes('settings'))});
+test('Basic users cannot select administrator shortcuts, including previously saved choices',()=>{assert.ok(!shortcutCatalog('exporter',false).some(x=>['users','new-user','new-signatory'].includes(x.id)));assert.deepEqual(normaliseShortcuts(['search','users','new-user','new-signatory','guides'],'exporter',false),['search','guides'])});
+test('unknown, duplicate and cross-workspace shortcuts are removed',()=>{assert.deepEqual(normaliseShortcuts(['pending','search','search','new-user','bad'],'chamber',true),['pending','search'])});
+test('preferences are separate per version, workspace and user',()=>{const s=storage(),a=shortcutKey('vue','exporter','a');saveShortcuts(s,a,['guides'],'exporter',true);for(const key of [shortcutKey('react','exporter','a'),shortcutKey('vue','chamber','a'),shortcutKey('vue','exporter','b')])assert.notDeepEqual(readShortcuts(s,key,'exporter',true),['guides']);assert.deepEqual(readShortcuts(s,a,'exporter',true),['guides'])});
+test('invalid saved values recover defaults and persistence failures are reported',()=>{assert.deepEqual(readShortcuts({getItem:()=>'{bad'},'x','chamber',false),shortcutDefaults('chamber',false));assert.throws(()=>saveShortcuts({setItem(){throw Error('full')}},'x',[],'chamber',false),/full/)});
+test('React and Vue use the same shortcut definitions',()=>assert.equal(readFileSync(new URL('../../assets/quick-access-model1.js',import.meta.url),'utf8'),readFileSync(new URL('../../vue/assets/quick-access-model1.js',import.meta.url),'utf8')));

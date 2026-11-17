@@ -1,4 +1,4 @@
-import qrcodegen from './qrcodegen1.js';
+import qrcodegen from './qrcodegen1.js?v=2026-11-17-personal-quick-access-r1';
 
 export function createReferenceQr(application={}){
  const payload=String(application.reference||application.stampReference||'SAMPLE');

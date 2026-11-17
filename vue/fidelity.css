@@ -16,6 +16,16 @@ main:not(.application-editor-page){padding:24px}
 .language-control select{cursor:pointer}
 .language-control:focus-within{outline:2px solid var(--focus);outline-offset:3px}
 .language-control:focus-within::after{display:block}
+.language-picker{display:inline-flex;justify-self:center;align-self:center;width:40px;height:44px}
+.language-picker .language-control img,.language-menu img{width:24px;height:18px;object-fit:cover;border-radius:2px;border:1px solid var(--line);flex:none}
+.language-picker .language-control[aria-expanded=true]::after{display:none}
+.language-menu{position:fixed;z-index:1100;box-sizing:border-box;width:200px;max-width:calc(100vw - 24px);padding:5px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text);box-shadow:0 6px 20px #0003;overflow-y:auto;overscroll-behavior:contain}
+.language-menu>button{display:flex;align-items:center;justify-content:flex-start;gap:10px;width:100%;min-height:44px;padding:9px;border:0;border-radius:4px;background:transparent;color:var(--text);font-size:14px;font-weight:400;text-align:start}
+.language-menu>button>span:not(.icon){min-width:0;overflow-wrap:anywhere}
+.language-menu>button>.icon{margin-inline-start:auto;width:16px;height:16px;color:var(--brand)}
+.language-menu>button>.icon svg{width:16px;height:16px}
+.language-menu>button:hover,.language-menu>button:focus-visible{background:var(--sidebar)}
+.language-menu>button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
 .identity{width:100%;display:grid!important;grid-template-columns:34px minmax(0,1fr) 18px;text-align:start;border:0;border-top:1px solid var(--line);border-radius:0;background:transparent;padding:16px 4px 0!important;min-height:52px;gap:10px;font-weight:400}
 .identity>span:nth-child(2){overflow-wrap:anywhere}
 .identity>.icon{margin-inline-start:auto;width:16px}

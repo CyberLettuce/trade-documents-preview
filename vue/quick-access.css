@@ -1,0 +1,35 @@
+/* Personal shortcut chooser, shared by the React and Vue workspaces. */
+.quick-access-heading {display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.quick-access-heading .quick-access-edit {border:0;background:transparent;color:inherit;min-height:32px;min-width:32px;padding:4px 7px;font:inherit;display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer}
+.quick-access-heading .quick-access-edit:hover {text-decoration:underline}
+.quick-access-edit svg {width:15px;height:15px}
+.quick-access-picker {min-width:0}
+.quick-access-picker>p {margin:0 0 16px;line-height:1.5}
+.quick-access-picker fieldset {border:0;padding:0;margin:0 0 20px;min-width:0}
+.quick-access-picker legend {font-size:14px;font-weight:650;padding:0;margin:0 0 8px}
+.quick-access-options {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px}
+.quick-access-options label {display:flex!important;flex-direction:row!important;text-align:start;justify-content:flex-start;align-items:center;gap:10px;margin:0!important;padding:10px!important;min-height:44px;border:1px solid var(--line,#ccc);border-radius:6px;cursor:pointer;font-size:14px;line-height:1.35;min-width:0}
+.quick-access-options input {flex:none;width:16px!important;height:16px!important;margin:0!important;accent-color:var(--brand,#b84600)}
+.quick-access-options svg {flex:none;width:18px;height:18px}
+.quick-access-options .icon {flex:none}
+.quick-access-options span:last-child {overflow-wrap:anywhere}
+.quick-access-footer {display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:16px}
+.quick-access-footer>button:first-child {margin-inline-end:auto}
+.quick-access-error {color:var(--danger,#c53639)}
+.sidebar-dock .sidebar-dock-tools.quick-access-scroll,.sidebar-bottom .dock.quick-access-scroll {max-height:32vh;overflow-y:auto;overflow-x:visible;scrollbar-width:thin;padding-block:4px}
+.quick-access-empty {font-size:12px;line-height:1.5;margin:6px 0 12px}
+.quick-access-header {display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:6px;min-width:0}
+.quick-access-header .suite-chat span,.quick-access-header .suite-chamber span {display:none}
+.quick-access-header .icon-button {flex:none}
+.quick-access-header .quick-access-edit {border:0;background:transparent;min-width:40px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;color:inherit;cursor:pointer}
+@media(max-width:540px){.quick-access-options {grid-template-columns:1fr}.quick-access-footer>button {flex:1 1 auto}}
+
+[data-tip]::after {display:none!important}
+.workspace-tooltip {position:fixed;z-index:1500;max-width:min(260px,calc(100vw - 16px));padding:8px 10px;border:1px solid var(--line);border-radius:5px;background:var(--surface);color:var(--text);font-size:12px;line-height:1.4;box-shadow:0 3px 12px #0003;overflow-wrap:anywhere;pointer-events:auto}
+.workspace-tooltip[hidden] {display:none}
+
+.top-header .header-tools {flex:1 1 0;min-width:0;justify-content:flex-end}
+.top-header .quick-access-header {flex:1 1 0;min-width:0}
+[data-layout=header] .sidebar {top:var(--workspace-header-height,64px)}
+html[data-layout=header] {scroll-padding-top:calc(var(--workspace-header-height,64px) + 16px)}
+@media(max-width:760px){.top-header>.brand {font-size:0;gap:0;min-width:28px}.top-header>.brand .icon {width:24px;height:24px}.top-header .quick-access-header {gap:2px;justify-content:flex-start}.top-header {align-items:flex-start}}

@@ -1,9 +1,11 @@
-import {r as React,I as Icon,F as Field,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1.js';
-import {languageCreateElement as h,preserveValue} from './language-runtime-review1-57775012.js';
-import {currentExporterUser,accessLevel,isExporterAdmin,saveExporterUser,removeExporterUser} from './access-logic1.js';
+import {useQuickCreate} from './shell-layout1-review1-60464f3b-nochecklist1.js?v=2026-11-17-personal-quick-access-r1';
+import {r as React,I as Icon,F as Field,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1.js?v=2026-11-17-personal-quick-access-r1';
+import {languageCreateElement as h,preserveValue} from './language-runtime-review1-57775012.js?v=2026-11-17-personal-quick-access-r1';
+import {currentExporterUser,accessLevel,isExporterAdmin,saveExporterUser,removeExporterUser} from './access-logic1.js?v=2026-11-17-personal-quick-access-r1';
 export function AccountManagement({space,updateSpace,notify}){
  const [draft,setDraft]=React.useState(null),[removing,setRemoving]=React.useState(null),[error,setError]=React.useState('');const admin=isExporterAdmin(space),self=currentExporterUser(space);
  const edit=user=>{setError('');setDraft(user?{...user,role:accessLevel(user)}:{id:'user-'+crypto.randomUUID(),name:'',email:'',role:'Basic'});};
+ useQuickCreate('users',admin,()=>edit());
  function save(event){event.preventDefault();try{saveExporterUser(space,draft);updateSpace(current=>saveExporterUser(current,draft));setDraft(null);setError('');notify?.('User saved.');}catch(problem){setError(problem.message);}}
  function remove(){try{removeExporterUser(space,removing.id);updateSpace(current=>removeExporterUser(current,removing.id));setRemoving(null);setError('');notify?.('User removed.');}catch(problem){setError(problem.message);}}
  if(!admin)return h('section',{className:'account-management'},h('h2',null,'Account Management'),h('p',{className:'notice'},'Only Administrators can manage users.'));
