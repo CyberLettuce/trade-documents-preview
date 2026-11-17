@@ -2,6 +2,7 @@ name: Check React and Vue interfaces
 on:
   push:
     branches: [codex/options-dashboard-20261117]
+    paths: ['index.html', 'assets/**', 'vue/**', 'scripts/**', 'tests/**', '.github/workflows/interface-checks.yml']
   workflow_dispatch:
 permissions:
   contents: read
