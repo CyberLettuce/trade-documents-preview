@@ -182,3 +182,9 @@ main:not(.application-editor-page){padding:24px}
  .queue-print-dialog>.dialog-heading,.queue-print-dialog>.dialog-actions{display:none!important}
  .queue-print-dialog>.modal-body{display:block!important;padding:0!important;max-height:none!important;overflow:visible!important}
 }
+
+/* Align dashboard attention counts independently of label length. */
+.card>button.attention{display:grid;grid-template-columns:minmax(0,1fr) minmax(2ch,max-content) 16px;align-items:center;column-gap:16px;text-align:start;min-height:44px;padding:10px 12px}
+.card>button.attention>span{min-width:0;overflow-wrap:break-word}
+.card>button.attention>strong{text-align:end;font-variant-numeric:tabular-nums;white-space:nowrap}
+.card>button.attention>svg{justify-self:end;flex-shrink:0}
