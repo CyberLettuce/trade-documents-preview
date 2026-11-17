@@ -1,7 +1,7 @@
-import swedish from "./language-sv1.js?v=2026-11-17-personal-quick-access-r1";
-import portuguese from "./language-pt1.js?v=2026-11-17-personal-quick-access-r1";
-import nlDictionary from './language-nl-review1-2e7b83fe.js?v=2026-11-17-personal-quick-access-r1';
-import additional from './language-other-review1-30f51c64.js?v=2026-11-17-personal-quick-access-r1';
+import swedish from "./language-sv1.js?v=2026-11-17-carnet-actions-r1";
+import portuguese from "./language-pt1.js?v=2026-11-17-carnet-actions-r1";
+import nlDictionary from './language-nl-review1-2e7b83fe.js?v=2026-11-17-carnet-actions-r1';
+import additional from './language-other-review1-30f51c64.js?v=2026-11-17-carnet-actions-r1';
 const dictionaries={nl:nlDictionary,...additional.dictionaries,sv:swedish,pt:portuguese};
 const languageOptions=[{"code":"en","name":"English","nameLanguage":"en","flag":"gb","locale":"en-GB","label":"Language","choose":"Choose language"},{"code":"nl","name":"Dutch","nameLanguage":"en","flag":"nl","locale":"nl-NL","label":"Taal","choose":"Taal kiezen"},{"code":"et","name":"Estonian","nameLanguage":"en","flag":"ee","locale":"et-EE","label":"Keel","choose":"Vali keel"},{"code":"ar","name":"العربية","nameLanguage":"ar","flag":"sa","locale":"ar-SA","label":"اللغة","choose":"اختر اللغة"},{"code":"sv","name":"Swedish","nameLanguage":"en","flag":"se","locale":"sv-SE","label":"Språk","choose":"Välj språk"},{"code":"pt","name":"Portuguese","nameLanguage":"en","flag":"pt","locale":"pt-PT","label":"Idioma","choose":"Escolher idioma"}];
 const validLanguage=value=>languageOptions.some(item=>item.code===value)?value:'en';

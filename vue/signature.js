@@ -1,5 +1,5 @@
-import {ref,reactive,computed,nextTick,onUnmounted} from './assets/vue.esm-browser.prod.js?v=2026-11-17-grouped-application-steps-r1';
-import {fileKind,readImage,findSignatures,inkBounds,cropVariants,makeCanvas,rotateCanvas} from './assets/signature-tools.js?v=2026-11-17-grouped-application-steps-r1';
+import {ref,reactive,computed,nextTick,onUnmounted} from './assets/vue.esm-browser.prod.js?v=2026-11-17-carnet-actions-r1';
+import {fileKind,readImage,findSignatures,inkBounds,cropVariants,makeCanvas,rotateCanvas} from './assets/signature-tools.js?v=2026-11-17-carnet-actions-r1';
 export async function loadPdf(bytes,password){const lib=await import('./assets/pdfjs-5.6.205/pdf.mjs');lib.GlobalWorkerOptions.workerSrc='./assets/pdfjs-5.6.205/pdf.worker.mjs';const task=lib.getDocument({data:new Uint8Array(bytes.slice(0)),password,cMapUrl:'./assets/pdfjs-5.6.205/cmaps/',cMapPacked:true,standardFontDataUrl:'./assets/pdfjs-5.6.205/standard_fonts/',wasmUrl:'./assets/pdfjs-5.6.205/wasm/'});return task.promise;}
 export const SignatureUpload={props:['modelValue'],emits:['update:modelValue'],setup(props,{emit}){const input=ref(null),preview=ref(''),error=ref(''),busy=ref(false),page=ref(1),pages=ref(0),candidates=ref([]),variants=ref(null),crop=reactive({x:0,y:0,w:1,h:1}),clean=ref(true);let source,pdf,dragStart,textRects=[];
  function updateCrop(c){Object.assign(crop,c);variants.value=cropVariants(source,crop)}

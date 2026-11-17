@@ -158,3 +158,17 @@ main:not(.application-editor-page){padding:24px}
 [dir=rtl] .grouped-outline .outline-chevron{transform:rotate(90deg)}
 .grouped-outline .outline-chevron.expanded{transform:none}
 @media(max-width:760px){.grouped-outline{width:100%;max-height:none;overflow:visible}.grouped-outline .outline-parent{min-height:44px}.grouped-outline .outline-child{min-height:40px}}
+
+.badge>.status-icon{display:block;width:14px;height:14px;flex:0 0 14px;align-self:center}.badge{column-gap:5px}[dir=rtl] .status-send{transform:scaleX(-1)}
+
+.chamber-content .content-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.chamber-content .content-grid.compact{grid-template-columns:minmax(0,1fr)}
+.chamber-content .chamber-block.notice{padding:20px 22px;border-inline-start:3px solid var(--brand);border-radius:4px;margin:0}
+.chamber-content .chamber-block p:last-child{margin-bottom:0}
+.carnet-row-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;min-width:0}
+.application-table .actions-col .carnet-row-actions button{display:inline-flex}
+.carnet-access dl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-block:16px}
+.carnet-access dd{margin:0;font-weight:600;overflow-wrap:anywhere}
+.carnet-access .carnet-qr{display:block;width:200px;max-width:100%;height:auto;margin:20px auto;background:white;border:1px solid #ddd}
+.carnet-access .demo-pin{font-variant-numeric:tabular-nums;letter-spacing:.15em}
+@media(max-width:480px){.chamber-content .chamber-block.notice{padding:16px}.carnet-access dl{grid-template-columns:1fr}.carnet-row-actions .icon-button{min-width:28px;width:28px;padding:4px}}

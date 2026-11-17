@@ -1,7 +1,7 @@
-import './quick-access-translations1.js?v=2026-11-17-personal-quick-access-r1';
-import {shortcutCatalog,normaliseShortcuts,shortcutDefaults,shortcutKey,readShortcuts,saveShortcuts} from './quick-access-model1.js?v=2026-11-17-personal-quick-access-r1';
-import {r as React,I as Icon,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1.js?v=2026-11-17-personal-quick-access-r1';
-import {languageCreateElement as h,LanguageFlag} from './language-runtime-review1-57775012.js?v=2026-11-17-personal-quick-access-r1';
+import './quick-access-translations1.js?v=2026-11-17-carnet-actions-r1';
+import {shortcutCatalog,normaliseShortcuts,shortcutDefaults,shortcutKey,readShortcuts,saveShortcuts} from './quick-access-model1.js?v=2026-11-17-carnet-actions-r1';
+import {r as React,I as Icon,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1.js?v=2026-11-17-carnet-actions-r1';
+import {languageCreateElement as h,LanguageFlag} from './language-runtime-review1-57775012.js?v=2026-11-17-carnet-actions-r1';
 const KEY='trade-documents-shell-layout-v1',EVENT='trade-documents-shell-layout',TAB='trade-documents-exporter-settings-tab';
 const valid=value=>value==='sidebar'?'sidebar':'header';
 function read(){try{return valid(localStorage.getItem(KEY));}catch{return 'header';}}
