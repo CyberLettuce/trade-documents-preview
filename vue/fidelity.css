@@ -172,3 +172,13 @@ main:not(.application-editor-page){padding:24px}
 .carnet-access .carnet-qr{display:block;width:200px;max-width:100%;height:auto;margin:20px auto;background:white;border:1px solid #ddd}
 .carnet-access .demo-pin{font-variant-numeric:tabular-nums;letter-spacing:.15em}
 @media(max-width:480px){.chamber-content .chamber-block.notice{padding:16px}.carnet-access dl{grid-template-columns:1fr}.carnet-row-actions .icon-button{min-width:28px;width:28px;padding:4px}}
+
+/* Print from the queue without printing the queue or changing its position. */
+@media print{
+ body:has(.queue-print-dialog) main>:not(.queue-print-dialog):not(:has(.queue-print-dialog)){display:none!important}
+ body:has(.queue-print-dialog),body:has(.queue-print-dialog) main{height:auto!important;max-height:none!important;overflow:visible!important}
+ dialog.queue-print-dialog{display:block!important;position:static!important;inset:auto!important;width:190mm!important;max-width:none!important;height:auto!important;max-height:none!important;margin:0!important;padding:0!important;border:0!important;overflow:visible!important;background:white!important;color:black!important;box-shadow:none!important;transform:none!important}
+ .queue-print-dialog::backdrop{display:none!important}
+ .queue-print-dialog>.dialog-heading,.queue-print-dialog>.dialog-actions{display:none!important}
+ .queue-print-dialog>.modal-body{display:block!important;padding:0!important;max-height:none!important;overflow:visible!important}
+}
