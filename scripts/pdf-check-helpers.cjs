@@ -25,7 +25,7 @@ async function seedPdf(page,framework){
  await page.getByText('accessible-test.pdf',{exact:true}).first().waitFor({state:'attached'});
 }
 async function openPdf(page,framework){
- const showFiles=page.locator('button[aria-controls=pack-page-list][aria-expanded=false]');if(await showFiles.count()&&await showFiles.isVisible())await showFiles.click();
+ const showFiles=page.locator('button[aria-controls=pack-page-list][aria-expanded=false]:visible').first();if(await showFiles.count())await showFiles.click();
  const file=page.getByRole('button',{name:/accessible-test\.pdf/}).first();await file.click();
  const viewer=page.locator(framework==='react'?'.application-pdf-viewer':'.pdf-viewer');await viewer.locator('.pdf-view-choice').waitFor();return viewer;
 }

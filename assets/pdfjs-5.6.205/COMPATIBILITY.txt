@@ -1,0 +1,14 @@
+PDF.js compatibility build, version 5.6.205
+
+pdf.compat.mjs and pdf.worker.compat.mjs are unmodified build/pdf.mjs and
+build/pdf.worker.mjs from Mozilla's official legacy distribution:
+https://github.com/mozilla/pdf.js/releases/download/v5.6.205/pdfjs-5.6.205-legacy-dist.zip
+Archive SHA-256: e558f7e066dfad5db8e78c33a4112bc483d0a1bf01e130e57b55396aa3e4ddf3
+Downloaded and verified against the release asset digest on 2026-11-19.
+The same files are used in vue/assets/pdfjs-5.6.205.
+
+The compatibility build supplies JavaScript polyfills needed by browsers
+that do not yet implement Map.getOrInsertComputed. Original Apache-2.0
+copyright and license notices are retained in the distributed modules.
+The version of the API and worker remains identical. Existing fonts,
+character maps and WebAssembly assets remain those of version 5.6.205.

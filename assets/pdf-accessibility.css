@@ -12,4 +12,5 @@
 .pdf-readable-content :is(ul,ol){padding-inline-start:1.5em}.pdf-readable-content dd{margin:0 0 1em}.pdf-readable-content dt{font-weight:600}
 .pdf-viewer .pdf-controls{flex-wrap:wrap;min-width:0}.pdf-viewer .pdf-controls label{display:flex;flex-wrap:wrap;gap:6px;min-width:0}.pdf-viewer .pdf-controls a{overflow-wrap:anywhere}
 .application-pdf-pages[hidden],.pdf-canvas[hidden]{display:none!important}
+.section-tabs{gap:8px}.section-tabs>button{flex:0 0 auto;max-width:100%;padding:8px 12px;overflow-wrap:anywhere}
 @media(forced-colors:active){.pdf-view-choice button[aria-pressed=true]{border:3px solid Highlight}.pdf-view-choice button:focus-visible,.pdf-text-view:focus-visible{outline-color:Highlight}}
