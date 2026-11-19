@@ -1,4 +1,4 @@
-import {registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-17-options-dashboard-r1';
+import {registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-19-sidebar-r1';
 const words={
  'Uploaded PDF preview':['Voorbeeld van geüploade PDF','Üleslaaditud PDF-i eelvaade','معاينة ملف PDF المرفوع'],
  'Uploaded PDF':['Geüploade PDF','Üleslaaditud PDF','ملف PDF المرفوع'],

@@ -1,4 +1,4 @@
-import qrcodegen from './qrcodegen1.js?v=2026-11-17-options-dashboard-r1';
+import qrcodegen from './qrcodegen1.js?v=2026-11-19-sidebar-r1';
 
 export function createReferenceQr(application={}){
  const payload=String(application.reference||application.stampReference||'SAMPLE');

@@ -1,4 +1,4 @@
-import {registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-17-options-dashboard-r1';
+import {registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-19-sidebar-r1';
 const words={
  'Download original PDF':['Originele PDF downloaden','Laadi algne PDF alla','تنزيل ملف PDF الأصلي','Ladda ned ursprunglig PDF','Descarregar PDF original'],
  'The PDF is still being saved. Try again in a moment.':['De PDF wordt nog opgeslagen. Probeer het zo opnieuw.','PDF-i salvestamine on pooleli. Proovige hetke pärast uuesti.','لا يزال ملف PDF قيد الحفظ. حاول مرة أخرى بعد قليل.','PDF-filen håller på att sparas. Försök igen om en stund.','O PDF ainda está a ser guardado. Tente novamente dentro de momentos.'],

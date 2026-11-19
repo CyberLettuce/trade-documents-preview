@@ -1,7 +1,7 @@
 name: Check React and Vue interfaces
 on:
   push:
-    branches: [codex/options-dashboard-20261117]
+    branches: [codex/options-dashboard-20261117, codex/sidebar-collapse-20261119]
     paths: ['index.html', 'assets/**', 'vue/**', 'scripts/**', 'tests/**', '.github/workflows/interface-checks.yml']
   workflow_dispatch:
 permissions:
@@ -26,7 +26,9 @@ jobs:
       - name: Check layouts and interactions
         env:
           NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
-        run: node scripts/check-interface.cjs
+        run: |
+          node scripts/check-interface.cjs
+          node scripts/check-sidebar.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

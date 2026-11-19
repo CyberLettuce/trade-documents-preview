@@ -1,0 +1,62 @@
+/* Desktop icon rail. The saved preference never compresses a mobile drawer. */
+.sidebar-heading{display:flex;align-items:center;gap:4px;flex-shrink:0;padding-inline:10px;min-height:52px}
+.sidebar-heading .sidebar-dock-brand{flex:1;min-width:0;padding:14px 0}
+.sidebar-heading .sidebar-dock-logo{gap:7px}
+.sidebar-heading .sidebar-dock-logo strong{font-size:14px}
+.sidebar-heading>.brand{flex:1;min-width:0;gap:8px;font-size:14px}
+.sidebar-collapse-toggle{flex:none;min-width:36px!important;width:36px!important;min-height:40px!important;padding:6px!important;border:0!important;background:transparent;color:inherit;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border-radius:5px;margin-inline-start:auto}
+.sidebar-collapse-toggle:hover{background:var(--colorNeutralBackground1Hover,var(--surface))}
+.sidebar-collapse-toggle:focus-visible{outline:2px solid var(--colorStrokeFocus2,var(--focus))!important;outline-offset:-2px!important}
+[dir=rtl] .sidebar-collapse-toggle>svg{transform:scaleX(-1)}
+#workspace-sidebar>.sidebar-heading{padding:0;margin-bottom:20px}
+[data-layout=header] #workspace-sidebar>.sidebar-heading{margin-bottom:0}
+[data-layout=header] #workspace-sidebar .sidebar-heading>.brand{display:none}
+@media screen and (min-width:801px){
+ html[data-sidebar-collapsed=true] .ch-app:not(.ch-pack-focus){--ch-sidebar:80px}
+ html[data-sidebar-collapsed=true] .ex-fluent{--sidebar:80px}
+ html[data-sidebar-collapsed=true] :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar):not(.is-open){width:80px;min-width:80px;padding-inline:8px;overflow-y:auto;scrollbar-width:thin}
+ html[data-sidebar-collapsed=true] #workspace-sidebar{padding-top:8px}
+ html[data-sidebar-collapsed=true] #app>main{margin-left:0;margin-inline-start:80px}
+ html[data-sidebar-collapsed=true] #app .review-actions{left:0;right:0;inset-inline-start:80px}
+ html[data-sidebar-collapsed=true] .sidebar-heading{justify-content:center;padding-inline:0;min-height:52px;margin-bottom:6px}
+ html[data-sidebar-collapsed=true] .sidebar-heading>:is(.sidebar-dock-brand,.brand){display:none}
+ html[data-sidebar-collapsed=true] .sidebar-collapse-toggle{margin-inline:0;width:44px!important;min-height:44px!important}
+ html[data-sidebar-collapsed=true] :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar)>nav{padding:0;margin:0;flex-shrink:0;overflow:visible}
+ html[data-sidebar-collapsed=true] :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar)>nav>button{width:100%;min-width:0;min-height:44px;justify-content:center;gap:0;padding:10px;margin-inline:0;font-size:0}
+ html[data-sidebar-collapsed=true] :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar)>nav>button>:is(span:not(.ch-icon),em,.nav-chevron),
+ html[data-sidebar-collapsed=true] #chamber-navigation>nav>button>.ch-icon:last-child:not(:first-child){position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important}
+ html[data-sidebar-collapsed=true] :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar)>nav>button>:is(svg,.ch-icon):first-child{width:20px;height:20px;flex:none;font-size:20px}
+ html[data-sidebar-collapsed=true] #chamber-navigation .ch-subnav{display:none;position:fixed;inset-inline-start:76px;top:clamp(70px,34vh,320px);width:240px;max-height:calc(100dvh - 340px);overflow:auto;z-index:65;padding:10px;margin:0;border:1px solid var(--colorNeutralStroke1);border-radius:6px;background:var(--colorNeutralBackground1);box-shadow:0 8px 24px #0003}
+ html[data-sidebar-collapsed=true] #chamber-navigation nav>button:is(:hover,:focus-visible)+.ch-subnav,
+ html[data-sidebar-collapsed=true] #chamber-navigation .ch-subnav:is(:hover,:focus-within){display:grid}
+ html[data-sidebar-collapsed=true] :is(.ch-workspace-label,.ch-demo-tag,.sidebar-help>small){display:none}
+ html[data-sidebar-collapsed=true] :is(.sidebar-dock,.ch-sidebar-bottom,#workspace-sidebar .sidebar-bottom){padding:10px 0 4px;margin-top:auto}
+ html[data-sidebar-collapsed=true] .ch-sidebar-bottom>.sidebar-dock{border-top:0}
+ html[data-sidebar-collapsed=true] .quick-access-heading{justify-content:center;margin:0 0 4px}
+ html[data-sidebar-collapsed=true] .quick-access-heading>:is(small,.sidebar-dock-label),html[data-sidebar-collapsed=true] .quick-access-heading .quick-access-edit>span{display:none}
+ html[data-sidebar-collapsed=true] .quick-access-heading .quick-access-edit{min-height:36px;min-width:40px;justify-content:center}
+ html[data-sidebar-collapsed=true] :is(.sidebar-dock-tools,#workspace-sidebar .dock){grid-template-columns:1fr;gap:2px;max-height:28vh;min-height:44px;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;padding:4px 0;justify-items:center}
+ html[data-sidebar-collapsed=true] .sidebar-dock-account{padding-top:8px;margin-top:8px}
+ html[data-sidebar-collapsed=true] .sidebar-dock-account .suite-account{padding:4px;justify-content:center}
+ html[data-sidebar-collapsed=true] .sidebar-dock-account .suite-account .suite-account-name,
+ html[data-sidebar-collapsed=true] .sidebar-dock-account .suite-account>.ch-icon,
+ html[data-sidebar-collapsed=true] #workspace-sidebar .identity>span:not(.avatar),
+ html[data-sidebar-collapsed=true] #workspace-sidebar .identity>svg{display:none!important}
+ html[data-sidebar-collapsed=true] #workspace-sidebar .identity{justify-content:center;padding:4px;margin-top:8px;width:100%}
+ html[data-sidebar-collapsed=true] :is(.sidebar-dock,#workspace-sidebar) .language-menu{position:fixed;inset-inline-start:80px;inset-inline-end:auto;top:auto;bottom:64px;width:220px;min-width:220px;max-width:calc(100vw - 96px);z-index:70}
+ html[data-sidebar-collapsed=true] :is(.navigation-shortcuts,.ch-sidebar-bottom){gap:6px}
+ html[data-sidebar-collapsed=true] :is(.navigation-shortcuts button,.ch-sidebar-bottom>button,.ch-sidebar-bottom>a,.sidebar-help button,.sidebar-back){font-size:0;justify-content:center;min-height:44px;gap:0;padding:8px;margin:0;width:100%}
+ html[data-sidebar-collapsed=true] :is(.navigation-shortcuts button,.ch-sidebar-bottom>button,.ch-sidebar-bottom>a,.sidebar-help button) .ch-icon{width:20px;height:20px;font-size:20px}
+ html[data-sidebar-collapsed=true] .navigation-shortcuts{margin:0!important;padding:0!important}
+ html[data-sidebar-collapsed=true] :is(.editor-navigation-top,.sidebar-help){padding:0;margin:0}
+ html[data-sidebar-collapsed=true] .sidebar-document-slot .application-outline{padding:0;margin:0}
+ html[data-sidebar-collapsed=true] .sidebar-document-slot :is(.outline-heading,.outline-intro,.outline-navigation-notice){display:none}
+ html[data-sidebar-collapsed=true] .sidebar-document-slot :is(.outline-group,.outline-link){justify-content:center;min-height:44px;padding:10px 0;gap:0}
+ html[data-sidebar-collapsed=true] .sidebar-document-slot :is(.outline-label,.outline-group>span),html[data-sidebar-collapsed=true] .sidebar-back>span{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important}
+ html[data-sidebar-collapsed=true] .sidebar-document-slot .outline-group>.ch-icon{display:none}
+ html[data-sidebar-collapsed=true] .sidebar-document-slot .outline-children{padding:0;margin:0}
+ html[data-sidebar-collapsed=true] .sidebar-document-slot :is(.outline-child,.outline-link)::before,html[data-sidebar-collapsed=true] .sidebar-document-slot :is(.outline-child,.outline-link)::after{display:none}
+ html[data-sidebar-collapsed=true] .sidebar-document-slot .outline-marker{width:20px;height:20px}
+}
+@media screen and (max-width:800px){.sidebar-collapse-toggle{display:none!important}.sidebar-heading{padding:0}.sidebar-heading .sidebar-dock-brand{padding:18px 14px 14px}.sidebar-heading>.brand{display:flex!important}#workspace-sidebar>.sidebar-heading{padding:0}}
+@media print{.sidebar-collapse-toggle{display:none!important}}
