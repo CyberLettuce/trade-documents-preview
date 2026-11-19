@@ -1,7 +1,7 @@
-import {ref,computed,onMounted,onUnmounted,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-19-audit-fixes-r1';
-import {useApp,ws,activeUser,admin} from './workspace.js?v=2026-11-19-audit-fixes-r1';
-import {LanguageControl} from './language.js?v=2026-11-19-audit-fixes-r1';
-import {shortcutCatalog,shortcutDefaults,shortcutKey,readShortcuts,saveShortcuts} from './assets/quick-access-model1.js?v=2026-11-19-audit-fixes-r1';
+import {ref,computed,onMounted,onUnmounted,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-19-signatures-r1';
+import {useApp,ws,activeUser,admin} from './workspace.js?v=2026-11-19-signatures-r1';
+import {LanguageControl} from './language.js?v=2026-11-19-signatures-r1';
+import {shortcutCatalog,shortcutDefaults,shortcutKey,readShortcuts,saveShortcuts} from './assets/quick-access-model1.js?v=2026-11-19-signatures-r1';
 const iconMap={building:'exporters',chat:'chat',search:'search',moon:'theme',bell:'bell','question-circle':'support',globe2:'language',gear:'settings',people:'account',grid:'layout','house-door':'dashboard','file-earmark-text':'applications',inbox:'pending','hourglass-split':'progress','check-circle':'approved','exclamation-triangle':'warning','shield':'claims','bar-chart-line':'reports',pencil:'review',send:'applications',database:'stored',book:'book','plus-lg':'new',pen:'signature','person-plus':'user-plus'};
 export const QuickAccess={props:{header:Boolean},components:{LanguageControl},setup(props){const app=useApp(),editing=ref(false),overflow=ref(null),draft=ref([]),error=ref(''),revision=ref(0),workspace=computed(()=>app.ui.workspace),key=computed(()=>shortcutKey('vue',workspace.value,app.chamber.value?[ws.activeChamber||'demo',ws.officer]:[ws.activeAccount,activeUser.value.id])),catalog=computed(()=>shortcutCatalog(workspace.value,admin.value)),selected=computed(()=>{revision.value;return readShortcuts(localStorage,key.value,workspace.value,admin.value)});
  const items=computed(()=>selected.value.map(id=>catalog.value.find(x=>x.id===id)).filter(Boolean));

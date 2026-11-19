@@ -1,11 +1,11 @@
-import {sidebarKey,readSidebar,saveSidebar,bindSidebarLabels} from './sidebar-state.js?v=2026-11-19-audit-fixes-r1';
-import sidebarWords from './sidebar-language.js?v=2026-11-19-audit-fixes-r1';
-import {registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-19-audit-fixes-r1';
+import {sidebarKey,readSidebar,saveSidebar,bindSidebarLabels} from './sidebar-state.js?v=2026-11-19-signatures-r1';
+import sidebarWords from './sidebar-language.js?v=2026-11-19-signatures-r1';
+import {registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-19-signatures-r1';
 for(const [locale,words] of Object.entries(sidebarWords))registerPatterns(Object.entries(words),locale);
-import './quick-access-translations1.js?v=2026-11-19-audit-fixes-r1';
-import {shortcutCatalog,normaliseShortcuts,shortcutDefaults,shortcutKey,readShortcuts,saveShortcuts} from './quick-access-model1.js?v=2026-11-19-audit-fixes-r1';
-import {r as React,I as Icon,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-audit-fixes-r1';
-import {languageCreateElement as h,LanguageFlag} from './language-runtime-review1-57775012.js?v=2026-11-19-audit-fixes-r1';
+import './quick-access-translations1.js?v=2026-11-19-signatures-r1';
+import {shortcutCatalog,normaliseShortcuts,shortcutDefaults,shortcutKey,readShortcuts,saveShortcuts} from './quick-access-model1.js?v=2026-11-19-signatures-r1';
+import {r as React,I as Icon,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-signatures-r1';
+import {languageCreateElement as h,LanguageFlag} from './language-runtime-review1-57775012.js?v=2026-11-19-signatures-r1';
 const KEY='trade-documents-shell-layout-v1',EVENT='trade-documents-shell-layout',TAB='trade-documents-exporter-settings-tab';
 const valid=value=>value==='sidebar'?'sidebar':'header';
 function read(){try{return valid(localStorage.getItem(KEY));}catch{return 'header';}}

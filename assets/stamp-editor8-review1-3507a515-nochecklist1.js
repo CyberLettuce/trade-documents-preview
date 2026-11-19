@@ -1,9 +1,9 @@
-import {ApplicationPdfViewer} from "./application-pdf-viewer1-clien-review1-1ea92b06-nochecklist1.js?v=2026-11-19-audit-fixes-r1";
-import {findAttachment,readPdf} from "./application-attachment-store1-review1-5e01d232.js?v=2026-11-19-audit-fixes-r1";
-import {r as React,I as Icon,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-audit-fixes-r1';
-import {languageCreateElement as h,preserveValue,translate} from './language-runtime-review1-57775012.js?v=2026-11-19-audit-fixes-r1';
-import {STAMPS,documentKey,fitStamp,stampImage,readDocument,writeDocument,loadPdfjs,pdfOptions,exportStamped,hasSignature,createStamps,placedStamp,stampSize} from './stamp-logic3.js?v=2026-11-19-audit-fixes-r1';
-import {placedStampForPage} from './qr-stamp1.js?v=2026-11-19-audit-fixes-r1';
+import {ApplicationPdfViewer} from "./application-pdf-viewer1-clien-review1-1ea92b06-nochecklist1.js?v=2026-11-19-signatures-r1";
+import {findAttachment,readPdf} from "./application-attachment-store1-review1-5e01d232.js?v=2026-11-19-signatures-r1";
+import {r as React,I as Icon,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-signatures-r1';
+import {languageCreateElement as h,preserveValue,translate} from './language-runtime-review1-57775012.js?v=2026-11-19-signatures-r1';
+import {STAMPS,documentKey,fitStamp,stampImage,readDocument,writeDocument,loadPdfjs,pdfOptions,exportStamped,hasSignature,createStamps,placedStamp,stampSize} from './stamp-logic3.js?v=2026-11-19-signatures-r1';
+import {placedStampForPage} from './qr-stamp1.js?v=2026-11-19-signatures-r1';
 const elIcon=name=>h(Icon,{name});
 const button=(label,fn,disabled=false,icon='',style='outline')=>h('button',{type:'button',className:'button '+style,onClick:fn,disabled,'aria-label':label,title:label},icon&&elIcon(icon),label);
 export function StampDocumentButton(props){const [open,setOpen]=React.useState(()=>new URLSearchParams(location.search).get('preview')==='stamp-style'),[saved,setSaved]=React.useState(false);return h('div',{className:'stamp-entry'},h(ApplicationPdfViewer,{application:props.application,item:props.item}),button('Stamp document',()=>setOpen(true),false,'','primary'),saved&&h('small',null,'Stamp placement saved in this browser.'),open&&h(Modal,{title:'Stamp document',wide:true,className:'stamp-modal',onClose:()=>setOpen(false)},h(StampEditor,{...props,onComplete:()=>{setSaved(true);setOpen(false);}})));}

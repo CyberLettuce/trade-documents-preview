@@ -1,5 +1,5 @@
-import {loadLocale} from './locale-loader.js?v=2026-11-19-audit-fixes-r1';
-import {languageLoadFailure,languageLoadSuccess} from './language-load-status.js?v=2026-11-19-audit-fixes-r1';
+import {loadLocale} from './locale-loader.js?v=2026-11-19-signatures-r1';
+import {languageLoadFailure,languageLoadSuccess} from './language-load-status.js?v=2026-11-19-signatures-r1';
 const dictionaries={};const loading=new Map();
 const languageOptions=[{"code":"en","name":"English","nameLanguage":"en","flag":"gb","locale":"en-GB","label":"Language","choose":"Choose language"},{"code":"nl","name":"Dutch","nameLanguage":"en","flag":"nl","locale":"nl-NL","label":"Taal","choose":"Taal kiezen"},{"code":"et","name":"Estonian","nameLanguage":"en","flag":"ee","locale":"et-EE","label":"Keel","choose":"Vali keel"},{"code":"ar","name":"العربية","nameLanguage":"ar","flag":"sa","locale":"ar-SA","label":"اللغة","choose":"اختر اللغة"},{"code":"sv","name":"Swedish","nameLanguage":"en","flag":"se","locale":"sv-SE","label":"Språk","choose":"Välj språk"},{"code":"pt","name":"Portuguese","nameLanguage":"en","flag":"pt","locale":"pt-PT","label":"Idioma","choose":"Escolher idioma"}];
 const validLanguage=value=>languageOptions.some(item=>item.code===value)?value:'en';

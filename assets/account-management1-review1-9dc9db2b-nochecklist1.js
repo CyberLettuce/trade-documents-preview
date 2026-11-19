@@ -1,7 +1,7 @@
-import {useQuickCreate} from './shell-layout1-review1-60464f3b-nochecklist1-options1-sidebar1.js?v=2026-11-19-audit-fixes-r1';
-import {r as React,I as Icon,F as Field,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-audit-fixes-r1';
-import {languageCreateElement as h,preserveValue} from './language-runtime-review1-57775012.js?v=2026-11-19-audit-fixes-r1';
-import {currentExporterUser,accessLevel,isExporterAdmin,saveExporterUser,removeExporterUser} from './access-logic1.js?v=2026-11-19-audit-fixes-r1';
+import {useQuickCreate} from './shell-layout1-review1-60464f3b-nochecklist1-options1-sidebar1.js?v=2026-11-19-signatures-r1';
+import {r as React,I as Icon,F as Field,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-signatures-r1';
+import {languageCreateElement as h,preserveValue} from './language-runtime-review1-57775012.js?v=2026-11-19-signatures-r1';
+import {currentExporterUser,accessLevel,isExporterAdmin,saveExporterUser,removeExporterUser} from './access-logic1.js?v=2026-11-19-signatures-r1';
 export function AccountManagement({space,updateSpace,notify}){
  const [draft,setDraft]=React.useState(null),[removing,setRemoving]=React.useState(null),[error,setError]=React.useState('');const admin=isExporterAdmin(space),self=currentExporterUser(space);
  const edit=user=>{setError('');setDraft(user?{...user,role:accessLevel(user)}:{id:'user-'+crypto.randomUUID(),name:'',email:'',role:'Basic'});};

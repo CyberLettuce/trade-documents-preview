@@ -1,0 +1,15 @@
+.signature-methods{display:flex;flex-wrap:wrap;gap:8px;margin-block:12px 16px}
+.signature-methods button{min-height:40px;padding:8px 16px;border:1px solid currentColor;border-radius:5px;background:transparent;color:inherit;font:inherit;cursor:pointer}
+.signature-methods button[aria-pressed=true]{background:#a43d00;color:#fff;font-weight:600}
+.signature-methods button:focus-visible,.signature-create :is(input,select,button):focus-visible{outline:3px solid #0078d4;outline-offset:3px}
+.signature-create{display:grid;gap:14px;min-width:0}
+.signature-create>label{display:grid;gap:6px;text-align:start;min-width:0}
+.signature-create :is(input,select){min-width:0;width:100%;min-height:40px;font:inherit;padding:8px}
+.signature-create p,.signature-create h4{margin:0}
+.signature-create .button-row{display:flex;flex-wrap:wrap;gap:8px}
+.signature-draw-canvas{display:block;width:100%;height:auto;aspect-ratio:10/3;touch-action:none;background:#fff;border:2px solid #626262;border-radius:5px;cursor:crosshair}
+.signature-created-preview{display:grid;gap:10px;border:1px solid #767676;padding:14px;border-radius:5px;min-width:0}
+.signature-created-preview img{display:block;max-width:100%;max-height:140px;width:auto;height:auto;object-fit:contain;background:white;padding:8px;border-radius:3px}
+.signature-created-preview p,.signature-draw-help{font-size:14px;line-height:1.5}
+.signature-create :is(button,input,select){max-width:100%}
+@media(forced-colors:active){.signature-draw-canvas,.signature-created-preview img{forced-color-adjust:none}.signature-methods button[aria-pressed=true]{border:3px solid Highlight}}

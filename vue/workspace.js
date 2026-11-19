@@ -1,7 +1,7 @@
-import {createDeferredSave} from './persistence.js?v=2026-11-19-audit-fixes-r1';
-import {reactive,computed,watch,inject,ref} from './assets/vue.esm-browser.prod.js?v=2026-11-19-audit-fixes-r1';
-import {STORAGE} from './model.js?v=2026-11-19-audit-fixes-r1';
-import {freshWorkspace,clone,now,uid,canManageUsers} from './workspace-model.js?v=2026-11-19-audit-fixes-r1';
+import {createDeferredSave} from './persistence.js?v=2026-11-19-signatures-r1';
+import {reactive,computed,watch,inject,ref} from './assets/vue.esm-browser.prod.js?v=2026-11-19-signatures-r1';
+import {STORAGE} from './model.js?v=2026-11-19-signatures-r1';
+import {freshWorkspace,clone,now,uid,canManageUsers} from './workspace-model.js?v=2026-11-19-signatures-r1';
 const key=STORAGE+'-workspace';let saved;try{saved=JSON.parse(localStorage.getItem(key))}catch{}
 export const ws=reactive(saved?.version===2?saved:freshWorkspace());
 if(!ws.content.publishedAt){ws.content.published=clone(ws.content.draft);ws.content.publishedAt=now();}

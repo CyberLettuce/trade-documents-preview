@@ -1,12 +1,12 @@
-import {readPreference,savePreference} from '../assets/review-preferences.js?v=2026-11-19-audit-fixes-r1';
-import {copiedDraft} from './applications.js?v=2026-11-19-audit-fixes-r1';
-import {eligiblePrintActions,changePrintAccess,printActions} from './approved-actions.js?v=2026-11-19-audit-fixes-r1';
-import {ref,computed,watch,onUnmounted} from './assets/vue.esm-browser.prod.js?v=2026-11-19-audit-fixes-r1';
-import {ws,useApp,audit,formatDate,money} from './workspace.js?v=2026-11-19-audit-fixes-r1';
-import {DocumentPreview} from './documents.js?v=2026-11-19-audit-fixes-r1';
-import {SupportingFiles} from './form-controls.js?v=2026-11-19-audit-fixes-r1';
-import {StampEditor} from './stamping.js?v=2026-11-19-audit-fixes-r1';
-import {quoteDocuments} from './form-model.js?v=2026-11-19-audit-fixes-r1';
+import {readPreference,savePreference} from '../assets/review-preferences.js?v=2026-11-19-signatures-r1';
+import {copiedDraft} from './applications.js?v=2026-11-19-signatures-r1';
+import {eligiblePrintActions,changePrintAccess,printActions} from './approved-actions.js?v=2026-11-19-signatures-r1';
+import {ref,computed,watch,onUnmounted} from './assets/vue.esm-browser.prod.js?v=2026-11-19-signatures-r1';
+import {ws,useApp,audit,formatDate,money} from './workspace.js?v=2026-11-19-signatures-r1';
+import {DocumentPreview} from './documents.js?v=2026-11-19-signatures-r1';
+import {SupportingFiles} from './form-controls.js?v=2026-11-19-signatures-r1';
+import {StampEditor} from './stamping.js?v=2026-11-19-signatures-r1';
+import {quoteDocuments} from './form-model.js?v=2026-11-19-signatures-r1';
 export const ReviewPage={props:['record'],components:{DocumentPreview,SupportingFiles,StampEditor},setup(props){const app=useApp(),filesOpen=ref(readPreference("files",false)),detailsOpen=ref(readPreference("details",true)),preview=ref(true),active=ref('application'),tab=ref('application'),stampFile=ref(null),useStamped=ref(true),busy=ref(false),comment=ref(''),details=ref(false),printPreview=ref(false),f=computed(()=>props.record),attachments=computed(()=>f.value.files||[]),file=computed(()=>attachments.value.find(x=>x.id===active.value)),displayFile=computed(()=>file.value?{...file.value,isStamped:!!(useStamped.value&&file.value.stampedId),id:useStamped.value&&file.value.stampedId?file.value.stampedId:file.value.id}:null),fees=computed(()=>f.value.fees||quoteDocuments(f.value,ws)),reviewable=app.canReview;let timer;const recordId=props.record.id;watch(filesOpen,v=>savePreference("files",v));watch(detailsOpen,v=>savePreference("details",v));watch(()=>props.record,()=>{clearTimeout(timer);timer=setTimeout(()=>app.edit.value?.id===recordId&&app.saveEdit(),250)},{deep:true});onUnmounted(()=>{clearTimeout(timer);if(app.edit.value?.id===recordId)app.saveEdit()});
  function saveComment(){if(!comment.value.trim())return;f.value.history.push({at:new Date().toISOString(),title:'Comment: '+comment.value.trim(),user:ws.officer});audit('Application comment added',f.value.reference);comment.value='';app.saveEdit('Comment saved.');}
  function requestChanges(){if(!comment.value.trim()){app.notify('Enter the changes required in the comment field.');return}f.value.workflow='Evidence requested';f.value.history.push({at:new Date().toISOString(),title:'Changes requested: '+comment.value.trim(),user:ws.officer});comment.value='';app.saveEdit('Changes requested.');}

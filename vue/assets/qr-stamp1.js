@@ -1,4 +1,4 @@
-import qrcodegen from './qrcodegen1.js?v=2026-11-19-audit-fixes-r1';
+import qrcodegen from './qrcodegen1.js?v=2026-11-19-signatures-r1';
 
 export function createReferenceQr(application={}){
  const payload=String(application.reference||application.stampReference||'SAMPLE');
