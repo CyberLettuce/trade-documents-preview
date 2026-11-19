@@ -15,6 +15,7 @@ jobs:
         with:
           node-version: 22
       - run: node scripts/package-pages.mjs _site-check
+      - run: node --test tests/vue/pdf-readable.test.mjs
       - name: Prepare cloud browsers
         run: |
           npm install --prefix "$RUNNER_TEMP/browser-check" --no-save --ignore-scripts playwright@1.56.1 axe-core@4.11.0
@@ -23,6 +24,11 @@ jobs:
         env:
           NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
         run: node scripts/check-browser-zoom.cjs
+      - name: Test readable PDF previews
+        if: ${{ !cancelled() }}
+        env:
+          NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
+        run: node scripts/check-readable-pdfs.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
