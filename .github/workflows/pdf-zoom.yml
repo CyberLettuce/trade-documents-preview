@@ -1,0 +1,31 @@
+name: PDF accessibility and browser zoom
+on:
+  push:
+    branches: [codex/pdf-accessibility-20261119]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/package-pages.mjs _site-check
+      - name: Prepare cloud browsers
+        run: |
+          npm install --prefix "$RUNNER_TEMP/browser-check" --no-save --ignore-scripts playwright@1.56.1 axe-core@4.11.0
+          "$RUNNER_TEMP/browser-check/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Test actual browser zoom
+        env:
+          NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
+        run: node scripts/check-browser-zoom.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pdf-zoom-evidence
+          path: qa-results/
+          retention-days: 7
