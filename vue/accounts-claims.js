@@ -1,10 +1,10 @@
-import {inChamber} from './workspace-tools.js?v=2026-11-19-editor-navigation-r1';
-import {CLAIM_LETTERS,claimProgress,claimDue} from './parity-model.js?v=2026-11-19-editor-navigation-r1';
-import {ref,computed,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-19-editor-navigation-r1';
-import {ws,useApp,activeAccount,admin,audit,download,formatDate,money} from './workspace.js?v=2026-11-19-editor-navigation-r1';
-import {clone,uid,now,csvText,schemas,validateRecord,countries} from './workspace-model.js?v=2026-11-19-editor-navigation-r1';
-import {RecordManager} from './records.js?v=2026-11-19-editor-navigation-r1';
-import {pdfStore} from './model.js?v=2026-11-19-editor-navigation-r1';
+import {inChamber} from './workspace-tools.js?v=2026-11-19-audit-fixes-r1';
+import {CLAIM_LETTERS,claimProgress,claimDue} from './parity-model.js?v=2026-11-19-audit-fixes-r1';
+import {ref,computed,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-19-audit-fixes-r1';
+import {ws,useApp,activeAccount,admin,audit,download,formatDate,money} from './workspace.js?v=2026-11-19-audit-fixes-r1';
+import {clone,uid,now,csvText,schemas,validateRecord,countries} from './workspace-model.js?v=2026-11-19-audit-fixes-r1';
+import {RecordManager} from './records.js?v=2026-11-19-audit-fixes-r1';
+import {pdfStore} from './model.js?v=2026-11-19-audit-fixes-r1';
 export const ExportersPage={components:{RecordManager},setup(){const app=useApp(),query=ref(''),status=ref(''),type=ref(''),selected=ref(null),draft=ref(null),tab=ref('account'),error=ref('');
  const rows=computed(()=>ws.accounts.filter(r=>inChamber(r)&&(!status.value||r.status===status.value)&&(!type.value||(type.value==='Agent'?r.agent:!r.agent))&&(!query.value||[r.name,r.reference,r.email].join(' ').toLowerCase().includes(query.value.toLowerCase())))),applications=computed(()=>app.visibleRecords.value.filter(r=>r.accountId===selected.value?.id||r.exporter===selected.value?.name));
  watch(app.route,()=>{const id=app.route.value.split('/')[3],row=ws.accounts.find(r=>r.id===id&&inChamber(r));if(row)open(row);else{selected.value=null;draft.value=null}},{immediate:true});

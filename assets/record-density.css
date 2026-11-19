@@ -1,0 +1,137 @@
+/* Shared record-table spacing. Document artwork and form grids retain their own layout. */
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) {
+  border-collapse:collapse;
+  width:100%;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) > :is(thead,tbody,tfoot) > tr > :is(th,td) {
+  padding:7px 6px!important;
+  text-align:center!important;
+  vertical-align:middle!important;
+  line-height:18px!important;
+  font-size:13px!important;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) > thead > tr > th {
+  padding-block:9px!important;
+  font-size:12px!important;
+  font-weight:600;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) th>button {
+  justify-content:center!important;
+  text-align:center!important;
+  gap:4px!important;
+  margin-inline:auto!important;
+  min-height:28px!important;
+  padding:2px 4px!important;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.row-actions,.application-icon-actions,.ch-lock,.ch-application-meta,.payment-indicator,.application-status-badges,.status-stack,.claim-due,.button-row) {
+  justify-content:center!important;
+  align-items:center!important;
+  gap:4px!important;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.reference,.reference-button,.ch-reference,.report-reference,.claims-reference,.record-link) {
+  min-height:26px!important;
+  height:auto!important;
+  padding:2px 0!important;
+  margin:0!important;
+  line-height:18px!important;
+  font-size:13px!important;
+  text-align:center!important;
+  justify-content:center!important;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.row-actions,.application-icon-actions,.actions) > button,
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.row-action-icon,.claims-view,.icon-button,.report-performance-action,.report-open-action) {
+  min-width:32px!important;
+  min-height:32px!important;
+  height:32px!important;
+  padding:6px!important;
+  margin-block:0!important;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.row-action-icon,.claims-view,.icon-button) {
+  width:32px!important;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) td > :is(button.button,a.button) {
+  min-height:32px!important;
+  padding:5px 10px!important;
+  line-height:20px!important;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.application-reference-summary,.claims-holder,.claim-processing,.claim-ref) {
+  text-align:center!important;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(small,.cell-subtext,.muted) {
+  line-height:16px!important;
+  margin-block:2px 0!important;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.claims-progress,.claims-progress.is-compact) {
+  gap:4px!important;
+  justify-items:center;
+  text-align:center;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) progress {
+  margin:4px auto!important;
+  max-width:108px;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.claims-task-text,.claims-holder) {
+  margin-block:0 2px!important;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.badge,.ch-badge,.application-status,.report-status,.claims-due) {
+  padding:3px 6px!important;
+  min-height:24px!important;
+  line-height:18px!important;
+  font-size:12px!important;
+  justify-content:center!important;
+  align-items:center!important;
+}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) .application-reference-entry {gap:5px!important}
+html body main table:is(.data-table,.records-table,.application-table,.ch-table) td :is(input[type=checkbox],.row-select) {vertical-align:middle}
+@media(max-width:600px) {
+  html body main table:is(.data-table,.records-table,.application-table,.ch-table) > :is(thead,tbody,tfoot) > tr > :is(th,td) {padding-inline:4px!important}
+  html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.row-actions,.application-icon-actions,.actions)>button,
+  html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.row-action-icon,.claims-view,.icon-button) {min-width:36px!important;min-height:36px!important;width:36px!important;height:36px!important}
+}
+
+@media(min-width:1200px) {
+ html body .application-table th:last-child {width:180px!important}
+ html body .application-table :is(.row-actions,.application-icon-actions) {flex-wrap:nowrap!important;flex-direction:row!important}
+ html body .ex-fluent .application-table th[data-column=Reference] {width:27%!important}
+}
+
+/* Comfortable is the approved compact baseline; Compact trims the remaining padding. */
+html body main :is(.density-compact,.is-compact) table:is(.data-table,.records-table,.application-table,.ch-table)>tbody>tr>td,
+html body main table.records-table.compact>tbody>tr>td{padding-block:5px!important}
+html body .dashboard-performance-metrics dd small{display:block;font-size:12px;font-weight:400;line-height:1.5;margin-top:4px}
+html body .application-reference-summary>.reference-button{min-height:22px!important;padding-block:0!important;line-height:18px!important}
+@media(max-width:600px){
+ html body .claims-table :is(th,td):is(:nth-child(2),:nth-child(3),:nth-child(4),:nth-child(6)){display:none!important}
+ html body .claims-table{table-layout:fixed!important;min-width:0!important;width:100%!important}
+ html body .claims-table :is(th,td):first-child{width:36%!important}
+ html body .claims-table :is(th,td):nth-child(5){width:50%!important}
+ html body .claims-table :is(th,td):last-child{width:14%!important}
+ html body .claims-table th{white-space:normal!important;overflow-wrap:normal!important}
+ html body .claims-table .claims-reference{white-space:normal!important;overflow-wrap:anywhere!important}
+ html body .claims-table .claims-holder{overflow-wrap:normal!important}
+}
+#language-load-error{position:fixed;inset:auto 16px 16px;z-index:10000;max-width:620px;margin-inline:auto;padding:16px;background:var(--colorNeutralBackground1,#fff);color:var(--colorNeutralForeground1,#222);border:1px solid currentColor;border-radius:6px;box-shadow:0 4px 20px #0002}
+#language-load-error button{min-height:36px;margin-inline-start:12px}
+/* Document review: independently collapsible navigation and details, with no remount. */
+html body .review-layout-actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px}
+html body .site-review-pack{display:grid;grid-template-columns:minmax(0,1fr) minmax(290px,340px);gap:16px;align-items:start}
+html body .site-review-pack.files-open{grid-template-columns:190px minmax(0,1fr) minmax(290px,340px)}
+html body .site-review-pack:not(.details-open){grid-template-columns:minmax(0,1fr)}
+html body .site-review-pack.files-open:not(.details-open){grid-template-columns:190px minmax(0,1fr)}
+html body .site-review-pack:not(.files-open) :is(.pack-page-list,.pack-files){display:none!important}
+html body .site-review-pack :is(.pack-mobile-pages,[hidden]){display:none!important}
+html body .site-review-pack :is(.pack-page-list,.pack-files){position:sticky;top:16px;max-height:70vh;overflow:auto;min-width:0;display:block}
+html body .site-review-pack :is(.pack-main,.document-pane,.processing,.ch-pack-details){min-width:0;margin-top:0}
+html body .site-review-pack .pack-toolbar{align-items:center;gap:8px}
+html body .site-review-pack .pack-paging{gap:6px;flex-wrap:wrap}
+html body .site-review-pack .pdf-controls{gap:6px;padding:12px;flex-wrap:wrap}
+html body .site-review-pack .pdf-controls label{min-width:0}
+html body .site-review-pack.preview-hidden{grid-template-columns:minmax(0,1fr)}
+html body .site-review-pack.preview-hidden .processing{max-width:none}
+@media(max-width:1050px){
+ html body .site-review-pack,html body .site-review-pack.files-open,html body .site-review-pack.files-open:not(.details-open){grid-template-columns:minmax(0,1fr)}
+ html body .site-review-pack :is(.pack-page-list,.pack-files){position:static;max-height:250px;grid-column:1/-1}
+}
+@media print{html body .review-layout-actions{display:none!important}}
+
+.dashboard-order{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin:0 0 16px;font-size:13px}.dashboard-order select{width:auto!important;min-width:170px;min-height:36px}.ch-dashboard .dashboard-order{grid-column:1/-1}@media(max-width:500px){.dashboard-order{justify-content:flex-start;flex-wrap:wrap}}

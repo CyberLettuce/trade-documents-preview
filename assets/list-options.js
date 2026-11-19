@@ -1,8 +1,8 @@
-import {r as React, Q as ReactDOM, I as Icon} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-editor-navigation-r1';
-import {languageCreateElement as h, registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-19-editor-navigation-r1';
-import words from './list-options-language.js';
-import {optionsStorage,optionsStorageKey, readOptionsOpen, writeOptionsOpen} from './list-options-model.js';
-export {hasOptionFilters} from './list-options-model.js';
+import {r as React, Q as ReactDOM, I as Icon} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-audit-fixes-r1';
+import {languageCreateElement as h, registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-19-audit-fixes-r1';
+import words from './list-options-language.js?v=2026-11-19-audit-fixes-r1';
+import {optionsStorage,optionsStorageKey, readOptionsOpen, writeOptionsOpen} from './list-options-model.js?v=2026-11-19-audit-fixes-r1';
+export {hasOptionFilters} from './list-options-model.js?v=2026-11-19-audit-fixes-r1';
 export {h as listElement};
 for (const [locale, entries] of Object.entries(words)) registerPatterns(Object.entries(entries), locale);
 

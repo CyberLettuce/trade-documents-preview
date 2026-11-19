@@ -1,9 +1,9 @@
-import { formatDate, money, jsx, Fragment, createContext, useContext, useGoodsBoxFit } from "../paper-runtime.js?v=2026-11-19-editor-navigation-r1";
-import { CertificateGoods } from "./native-certificate-goods.js?v=2026-11-19-editor-navigation-r1";
-import { certificateInvoices, goodsSummary } from "./certificateGoods.js?v=2026-11-19-editor-navigation-r1";
-import { originCountries, arabOriginText, transportChoice, certificateRemarks, originStatementText, manufacturerPrintText, certificateKind, eur1Remarks, eur1SubmissionDate } from "./certificateOfOrigin.js?v=2026-11-19-editor-navigation-r1";
-import { formPages } from "./documentPages.js?v=2026-11-19-editor-navigation-r1";
-import { formPages as formPages2 } from "./documentPages.js?v=2026-11-19-editor-navigation-r1";
+import { formatDate, money, jsx, Fragment, createContext, useContext, useGoodsBoxFit } from "../paper-runtime.js?v=2026-11-19-audit-fixes-r1";
+import { CertificateGoods } from "./native-certificate-goods.js?v=2026-11-19-audit-fixes-r1";
+import { certificateInvoices, goodsSummary } from "./certificateGoods.js?v=2026-11-19-audit-fixes-r1";
+import { originCountries, arabOriginText, transportChoice, certificateRemarks, originStatementText, manufacturerPrintText, certificateKind, eur1Remarks, eur1SubmissionDate } from "./certificateOfOrigin.js?v=2026-11-19-audit-fixes-r1";
+import { formPages } from "./documentPages.js?v=2026-11-19-audit-fixes-r1";
+import { formPages as formPages2 } from "./documentPages.js?v=2026-11-19-audit-fixes-r1";
 function Box({ label, section, field, className = "", onEdit, children }) {
   return /* @__PURE__ */ jsx("div", { className: "certificate-box " + className, "data-paper-section": section }, /* @__PURE__ */ jsx("small", null, label), /* @__PURE__ */ jsx("div", { className: "certificate-value" }, children || /* @__PURE__ */ jsx("span", { className: "certificate-blank" }, "To be completed")), onEdit && section && /* @__PURE__ */ jsx("button", { type: "button", className: "certificate-box-target", "aria-label": `Edit ${label}`, title: `Edit ${label}`, onClick: () => onEdit(section, field) }));
 }

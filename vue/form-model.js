@@ -1,6 +1,6 @@
-import {EUR1_REMARK_TEMPLATES,eur1RemarkFields,EUR1_REPLACEMENT_REASONS} from './assets/certificateOfOrigin.js?v=2026-11-19-editor-navigation-r1';
-import {documentAllowed} from './assets/destinations.js?v=2026-11-19-editor-navigation-r1';
-import {uid,clone,parseCSV,normalizeOrigin,quoteApplication} from './workspace-model.js?v=2026-11-19-editor-navigation-r1';
+import {EUR1_REMARK_TEMPLATES,eur1RemarkFields,EUR1_REPLACEMENT_REASONS} from './assets/certificateOfOrigin.js?v=2026-11-19-audit-fixes-r1';
+import {documentAllowed} from './assets/destinations.js?v=2026-11-19-audit-fixes-r1';
+import {uid,clone,parseCSV,normalizeOrigin,quoteApplication} from './workspace-model.js?v=2026-11-19-audit-fixes-r1';
 export const UNITS=['Gram','Kilogram','Metric Ton','Litre'];
 export const unitCodes={Gram:'g',Kilogram:'kg','Metric Ton':'t',Litre:'L'};
 export const unitAliases={g:'Gram',gram:'Gram',grams:'Gram',kg:'Kilogram',kilogram:'Kilogram',kilograms:'Kilogram',t:'Metric Ton',tonne:'Metric Ton',tonnes:'Metric Ton',metricton:'Metric Ton',metrictons:'Metric Ton',metrictonne:'Metric Ton',l:'Litre',litre:'Litre',litres:'Litre',liter:'Litre',liters:'Litre'};

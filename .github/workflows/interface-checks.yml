@@ -38,6 +38,11 @@ jobs:
         run: |
           node scripts/check-interface.cjs
           node scripts/check-sidebar.cjs
+      - name: Check reviewed fixes
+        if: ${{ !cancelled() }}
+        env:
+          NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
+        run: node scripts/check-review-fixes.cjs
       - name: Capture slimmer row previews
         if: ${{ !cancelled() }}
         env:

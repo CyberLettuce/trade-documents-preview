@@ -1,5 +1,5 @@
-import {ref,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-19-editor-navigation-r1';
-import {optionsStorage,optionsStorageKey,readOptionsOpen,writeOptionsOpen} from '../assets/list-options-model.js';
+import {ref,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-19-audit-fixes-r1';
+import {optionsStorage,optionsStorageKey,readOptionsOpen,writeOptionsOpen} from '../assets/list-options-model.js?v=2026-11-19-audit-fixes-r1';
 let nextId=0;
 export const ListOptions={
  props:{page:{type:String,default:'list'},active:{type:[Boolean,Number],default:false},result:{type:String,default:''}},

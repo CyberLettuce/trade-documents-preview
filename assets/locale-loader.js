@@ -1,0 +1,3 @@
+const pending=new Map();
+const loaders={nl:()=>import('./locales/nl.js?v=2026-11-19-audit-fixes-r1'),et:()=>import('./locales/et.js?v=2026-11-19-audit-fixes-r1'),ar:()=>import('./locales/ar.js?v=2026-11-19-audit-fixes-r1'),sv:()=>import('./locales/sv.js?v=2026-11-19-audit-fixes-r1'),pt:()=>import('./locales/pt.js?v=2026-11-19-audit-fixes-r1')};
+export function loadLocale(language){if(!loaders[language])return Promise.resolve({});if(!pending.has(language))pending.set(language,loaders[language]().then(m=>m.default).catch(error=>{pending.delete(language);throw error}));return pending.get(language);}
