@@ -27,13 +27,22 @@ jobs:
           else
             "$RUNNER_TEMP/browser-check/node_modules/.bin/playwright" install --with-deps chromium
           fi
+      - name: Check application navigation
+        env:
+          NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
+        run: node scripts/check-editor-navigation.cjs
       - name: Check layouts and interactions
+        if: ${{ !cancelled() }}
         env:
           NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
         run: |
           node scripts/check-interface.cjs
           node scripts/check-sidebar.cjs
-          node scripts/check-editor-navigation.cjs
+      - name: Capture slimmer row previews
+        if: ${{ !cancelled() }}
+        env:
+          NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
+        run: node scripts/preview-slimmer-rows.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
