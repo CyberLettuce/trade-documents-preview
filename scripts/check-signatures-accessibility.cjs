@@ -23,7 +23,7 @@ async function transparentPng(page,src){assert(src.startsWith('data:image/png;ba
 (async()=>{
  await new Promise(resolve=>server.listen(5204,'127.0.0.1',resolve));browser=await chromium.launch(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE?{executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE}:{});
  for(const framework of ['react','vue'])for(const workspace of ['exporter','chamber'])await check(framework+'-'+workspace+'-type-draw-signature',async page=>{
-  const modal=await openSignature(page,framework,workspace);
+  let modal=await openSignature(page,framework,workspace);
   const name=modal.getByLabel(/^(Signatory name|Name)\s*\*?$/i).first();await name.fill('Signature Test');
   const reference=modal.getByLabel(/^Reference\s*\*?$/i);if(await reference.count())await reference.first().fill('SIG-TEST');
   await modal.getByRole('button',{name:'Type signature',exact:true}).click();await modal.getByLabel('Signature text',{exact:true}).fill('Alex Morgan');
@@ -31,6 +31,7 @@ async function transparentPng(page,src){assert(src.startsWith('data:image/png;ba
   const typed=await modal.locator('.signature-created-preview img').getAttribute('src'),pixels=await transparentPng(page,typed);assert(pixels.ink>100&&pixels.clear>100);assert(pixels.width<=1232);
   await screenshot(page,framework+'-'+workspace+'-typed-signature');
   await modal.getByRole('button',{name:'Use this signature',exact:true}).click();assert.equal(await modal.locator('.signature-saved-image img,.signature-thumb').first().getAttribute('src'),typed);
+  await modal.getByRole('button',{name:/^Save( signatory)?$/i}).click();await modal.waitFor({state:'hidden'});await page.reload();await ready(page);assert((await page.locator('main img').evaluateAll(images=>images.map(i=>i.getAttribute('src')))).includes(typed),'Saved typed signature must survive reload');await page.getByRole('row').filter({hasText:'Signature Test'}).getByRole('button',{name:/Edit/i}).first().click();modal=page.getByRole('dialog');
   await modal.getByRole('button',{name:'Draw signature',exact:true}).click();const canvas=modal.locator('.signature-draw-canvas');await canvas.scrollIntoViewIfNeeded();const box=await canvas.boundingBox();
   async function stroke(offset){await canvas.scrollIntoViewIfNeeded();const box=await canvas.boundingBox();await page.mouse.move(box.x+box.width*.15,box.y+box.height*(.3+offset));await page.mouse.down();await page.mouse.move(box.x+box.width*.4,box.y+box.height*(.7-offset),{steps:12});await page.mouse.move(box.x+box.width*.75,box.y+box.height*(.3+offset),{steps:12});await page.mouse.up()}
   await stroke(0);await stroke(.1);const draw1=await modal.locator('.signature-created-preview img').getAttribute('src');await modal.getByRole('button',{name:'Undo last stroke',exact:true}).click();assert.notEqual(await modal.locator('.signature-created-preview img').getAttribute('src'),draw1);

@@ -58,6 +58,11 @@ jobs:
         env:
           NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
         run: node scripts/audit-sites.cjs
+      - name: Verify accessibility follow-ups
+        if: ${{ !cancelled() }}
+        env:
+          NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
+        run: node scripts/check-accessibility-followups.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
