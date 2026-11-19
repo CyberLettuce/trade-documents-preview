@@ -12,7 +12,7 @@ async function withinPage(page){const size=await page.evaluate(()=>({width:inner
 async function openDraft(page,doc){
  await loaded(page,'/#applications');
  const draftTab=page.getByRole('tab',{name:/^Drafts/}).or(page.getByRole('button',{name:/^Drafts/}));await draftTab.first().click();
- const row=page.getByRole('row').filter({hasText:new RegExp('SAMPLE-DRAFT-'+doc.toUpperCase()+'(?:\\s|$)')}).first();await row.click({button:'right'});await page.getByRole('menuitem',{name:'Continue',exact:true}).click();
+ const row=page.getByRole('row').filter({has:page.getByText('SAMPLE-DRAFT-'+doc.toUpperCase(),{exact:true})}).first();await row.click({button:'right'});await page.getByRole('menuitem',{name:'Continue',exact:true}).click();
  await page.locator('.editor-application-navigation').waitFor();
 }
 (async()=>{await new Promise(resolve=>server.listen(5204,'127.0.0.1',resolve));browser=await chromium.launch(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE?{executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE}:{});
@@ -28,7 +28,7 @@ for(const doc of ['ata','coo','arab','eur','eurmed','invoice','iic','upload'])aw
 });
 for(const [width,language,theme,layout]of [[1024,'en','light','header'],[390,'en','light','sidebar'],[1366,'ar','dark','sidebar'],[1366,'nl','light','header']])await check('react-editor-responsive-'+width+'-'+language,async page=>{
  await loaded(page,'/#applications');await preferences(page,'react',{layout,theme});await page.locator('.sidebar-collapse-toggle').click();await openDraft(page,'ata');
- if(language!=='en'){await page.evaluate(language=>localStorage.setItem('trade-documents-language-v1',language),language);await page.reload();await page.locator('.editor-application-navigation').waitFor()}
+ if(language!=='en'){await page.locator('.language-flag-button:visible').first().click();await page.getByRole('menuitemradio',{name:new RegExp(language==='ar'?'العربية':'Dutch')}).click();await page.waitForFunction(language=>document.documentElement.lang===language,language)}
  await page.setViewportSize({width,height:width===390?844:900});await page.evaluate(()=>scrollTo(0,0));await withinPage(page);
  const outline=page.locator('.editor-application-navigation');if(width===390){const sections=outline.locator('.outline-mobile-toggle');await sections.click();assert.equal(await sections.getAttribute('aria-expanded'),'true');assert.ok(await outline.locator('.outline-link').first().isVisible());await screenshot(page,'react-editor-mobile-sections');await outline.locator('.outline-link').first().click();assert.equal(await sections.getAttribute('aria-expanded'),'false')}
  else {const nav=await outline.boundingBox(),form=await page.locator('.editor-work-area').boundingBox();assert.ok(language==='ar'?form.x+form.width<=nav.x:nav.x+nav.width<=form.x,'Steps and form do not overlap');assert.ok((await outline.locator('.outline-label').first().boundingBox()).width>60)}
