@@ -1,6 +1,6 @@
-import {SignatureCreate} from './signature-create.js?v=2026-11-19-wcag22-r1';
-import {ref,reactive,computed,nextTick,onUnmounted,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-19-wcag22-r1';
-import {fileKind,readImage,findSignatures,inkBounds,cropVariants,makeCanvas,rotateCanvas} from './assets/signature-tools.js?v=2026-11-19-wcag22-r1';
+import {SignatureCreate} from './signature-create.js?v=2026-11-19-pdf-zoom-r1';
+import {ref,reactive,computed,nextTick,onUnmounted,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-19-pdf-zoom-r1';
+import {fileKind,readImage,findSignatures,inkBounds,cropVariants,makeCanvas,rotateCanvas} from './assets/signature-tools.js?v=2026-11-19-pdf-zoom-r1';
 export async function loadPdf(bytes,password){const lib=await import('./assets/pdfjs-5.6.205/pdf.mjs');lib.GlobalWorkerOptions.workerSrc='./assets/pdfjs-5.6.205/pdf.worker.mjs';const task=lib.getDocument({data:new Uint8Array(bytes.slice(0)),password,cMapUrl:'./assets/pdfjs-5.6.205/cmaps/',cMapPacked:true,standardFontDataUrl:'./assets/pdfjs-5.6.205/standard_fonts/',wasmUrl:'./assets/pdfjs-5.6.205/wasm/'});return task.promise;}
 const UploadSignature={props:['modelValue'],emits:['update:modelValue','pending'],setup(props,{emit}){const input=ref(null),preview=ref(''),error=ref(''),busy=ref(false),page=ref(1),pages=ref(0),candidates=ref([]),variants=ref(null),crop=reactive({x:0,y:0,w:1,h:1}),clean=ref(true);let source,pdf,dragStart,textRects=[];
  function updateCrop(c){Object.assign(crop,c);variants.value=cropVariants(source,crop)}

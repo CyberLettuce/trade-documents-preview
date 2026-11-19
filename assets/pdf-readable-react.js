@@ -1,6 +1,6 @@
-import {r as React} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-wcag22-r1';
-import {languageCreateElement as h} from './language-runtime-review1-57775012.js?v=2026-11-19-wcag22-r1';
-import {readPdfText,renderPdfText} from './pdf-readable-text.js?v=2026-11-19-wcag22-r1';
+import {r as React} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-pdf-zoom-r1';
+import {languageCreateElement as h} from './language-runtime-review1-57775012.js?v=2026-11-19-pdf-zoom-r1';
+import {readPdfText,renderPdfText} from './pdf-readable-text.js?v=2026-11-19-pdf-zoom-r1';
 export function PdfTextView({pdf,page}) {
  const [model,setModel]=React.useState(null),[error,setError]=React.useState(false),host=React.useRef(null);
  React.useEffect(()=>{let active=true;setModel(null);setError(false);(async()=>{try{const sheet=await pdf.getPage(page),value=await readPdfText(sheet);if(active)setModel(value)}catch{if(active)setError(true)}})();return()=>{active=false}},[pdf,page]);

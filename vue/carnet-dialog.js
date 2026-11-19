@@ -1,5 +1,5 @@
-import {computed,ref} from './assets/vue.esm-browser.prod.js?v=2026-11-19-wcag22-r1';
-import {carnetAccess,carnetQr} from './assets/carnet-actions-model1.js?v=2026-11-19-wcag22-r1';
+import {computed,ref} from './assets/vue.esm-browser.prod.js?v=2026-11-19-pdf-zoom-r1';
+import {carnetAccess,carnetQr} from './assets/carnet-actions-model1.js?v=2026-11-19-pdf-zoom-r1';
 export const CarnetDialog={props:['record','mode'],emits:['close','return'],setup(props){const confirmed=ref(false),access=computed(()=>carnetAccess(props.record)),qr=computed(()=>carnetQr(access.value.payload));return{confirmed,access,qr}},template:String.raw`
 <Modal :title="mode==='carnet'?'eCarnet ID and PIN':'Return Carnet'" @close="$emit('close')">
   <div v-if="mode==='carnet'" class="carnet-access">
