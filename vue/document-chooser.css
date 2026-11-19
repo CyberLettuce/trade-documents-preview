@@ -2,7 +2,7 @@
 .vue-document-chooser>h3{margin:0 0 14px}
 .vue-document-chooser .document-choices{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin:14px 0}
 .vue-document-card{position:relative;min-width:0;display:flex;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
-.vue-document-chooser .document-choices .vue-document-select{display:grid;grid-template-columns:47px minmax(0,1fr) 22px;align-items:center;gap:10px;width:100%;min-width:0;min-height:96px;border:0;border-radius:5px;padding:12px;background:transparent;color:var(--text);text-align:start;white-space:normal}
+.vue-document-chooser .document-choices .vue-document-select{display:grid;grid-template-columns:47px minmax(0,1fr) 44px;align-items:center;gap:10px;width:100%;min-width:0;min-height:96px;border:0;border-radius:5px;padding:12px;background:transparent;color:var(--text);text-align:start;white-space:normal}
 .vue-document-chooser .document-choice-copy{display:grid;gap:4px;min-width:0}
 .vue-document-chooser .document-choice-copy strong{font-size:14px;line-height:20px;font-weight:600;overflow-wrap:anywhere}
 .vue-document-chooser .document-choice-copy>span{font-size:14px;line-height:20px;font-weight:400;color:var(--muted);overflow-wrap:anywhere}
@@ -10,15 +10,20 @@
 .vue-document-chooser .document-choice-upload{width:47px;min-height:68px;display:grid;place-items:center;color:var(--muted)}
 .vue-document-chooser .document-choice-upload::before{content:'';display:block;width:30px;height:30px;background:currentColor;mask:url('./assets/document-upload.svg') center/contain no-repeat}
 .vue-document-chooser .document-choice-unavailable{display:block;margin-top:4px;font-size:12px;line-height:18px;font-weight:600}
-.vue-document-chooser .document-choice-marker{display:grid;place-items:center;align-self:start;width:22px;height:22px;border:1px solid var(--muted);border-radius:3px;background:var(--surface)}
+.vue-document-chooser .document-choice-marker{display:grid;place-items:center;align-self:start;justify-self:center;width:22px;height:22px;border:1px solid var(--muted);border-radius:3px;background:var(--surface)}
 .vue-document-chooser .document-choice-marker .icon{width:16px;height:16px}
 .vue-document-card:hover{border-color:var(--muted)}
 .vue-document-card.is-selected{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand);background:var(--tint)}
-.vue-document-card.is-selected .document-choice-marker{background:var(--action,#a74100);border-color:var(--action,#a74100);color:#fff}
-.vue-document-chooser .document-choices .document-choice-preview{position:absolute;inset-inline-end:5px;bottom:5px;display:grid;place-items:center;width:36px;height:36px;min-height:36px;padding:8px;border:0;background:transparent;color:var(--brand)}
+.vue-document-card.is-selected .document-choice-marker{background:var(--brand);border-color:var(--brand);color:var(--surface)}
+.vue-document-chooser .document-choices .document-choice-preview{position:absolute;inset-inline-end:12px;bottom:4px;display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:10px;border:0;background:transparent;color:var(--brand)}
 .vue-document-card:focus-within{outline:2px solid var(--text);outline-offset:3px}
 .vue-document-select:focus-visible{outline:none}
-.vue-document-card.is-unavailable:not(.is-selected){background:var(--hover,var(--surface))}
+.vue-document-card.is-unavailable:not(.is-selected){background:var(--sidebar)}
+.vue-document-chooser .vue-document-select:disabled{opacity:1}
+.vue-document-card.is-unavailable:not(.is-selected) .document-choice-copy{color:#bdbdbd}
+.vue-document-card.is-unavailable:not(.is-selected) .document-choice-copy>span{color:inherit}
+.vue-document-card.is-unavailable .document-choice-copy .document-choice-unavailable{color:var(--muted)}
+.vue-document-card.is-unavailable:not(.is-selected) .document-choice-marker{border-color:var(--line)}
 .vue-document-card.is-unavailable:not(.is-selected) .document-choice-thumbnail{opacity:.4;filter:grayscale(1)}
 .vue-document-card.is-unavailable.is-selected{border-color:var(--danger,#a4262c)}
 .vue-document-chooser .document-choice-locked{margin:0 0 14px;padding:10px 14px;border-radius:6px;background:var(--tint);font-size:14px;line-height:20px;font-weight:500}
