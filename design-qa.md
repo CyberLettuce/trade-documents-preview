@@ -1,43 +1,44 @@
-# Search, Options and dashboard refinements — 17 November 2026
+# Vue Setup document selection — 19 November 2026
 
-Final result: **passed for this release scope**.
+final result: passed
 
-Compared the approved Search + Options concept and desktop, mobile and Arabic dark dashboard concepts with screenshots of the implemented React and Vue pages. The concepts are illustrative, with different sample data and canvas dimensions; existing DM Sans typography, application tables, navigation choices and workspace-specific content are retained intentionally.
+## Source and evidence
 
-## Findings and verification
+Source visual truth: C:/Users/Ben_lear/AppData/Local/Temp/codex-clipboard-18edd614-4f6a-4800-9907-c063f38d4b22.png, plus the active React Setup captured from the same release package as Vue. Implementation: /vue/#/exporter/applications/sample-draft-20261117-coo, browser-tested application commit b3d447ab7ee9e52ac178079c873cf316350261ac.
 
-- Resolved: default desktop quick-access tools initially wrapped across three rows after introducing the mobile disclosure. The disclosure now lays out its tools in a flex row on desktop and a labelled grid on mobile. Final screenshots show a single header row.
-- Resolved: status icons and numbers now stay together, with logical dividers in Arabic. React approval and rejection icons retain their semantic colours after grouping.
-- Resolved: dashboard rows display the stored application reference; queue summaries explicitly state how many pending records are shown. Performance wording distinguishes documents processed from applications timed.
-- Resolved: search stays visible while saved views, filters, sorting, density, table preferences and exports sit under Options. Chamber queue export was moved into that panel in the final iteration. Primary creation actions, queue tabs and bulk selection actions remain accessible.
-- Resolved: Escape closes Options and returns focus to its trigger. Closing a nested Table options dialog leaves Options open. Preference persistence is separate for each interface, workspace and page.
-- The initial mobile Vue top-of-page test captured a retained scroll position after resizing. The comparison now resets to the top; actual mobile header clearance passes in both languages and workspaces.
+Evidence folder: ../vue-react-fidelity-20261117/chooser-verified/screenshots/. Source full view: react-setup.png. Implementation full view: vue-setup.png. Combined full-grid comparison: comparison.png. Combined focused selected-card comparison: comparison-detail.png. Additional states: vue-destination-required.png, vue-arabic-dark.png, vue-arabic-dark-cards.png, vue-setup-{768,390,320}.png and vue-cards-{768,390,320}.png.
+
+Both full-screen captures are 1906 × 1000 CSS/image pixels, deviceScaleFactor 1, English/light, Germany selected, UK Certificate of Origin selected, live preview closed. Card grids are 1384 × 239 (React) and 1332 × 232 (Vue); first-card crops are 339 × 119 and 326 × 112. Combined comparisons preserve 1:1 density. Width differences reflect Vue's retained editor container. React's initial grid retains a focus ring; the detail comparison shows unfocused selected states. The user's screenshot has no destination selected, covered by the additional destination-required capture. Language/theme checks use 1366 × 900; responsive widths are 768, 390 and 320 at height 900. Long component captures include the existing fixed footer at its viewport position, a screenshot-composition limitation; focus scroll margins and footer behavior are retained.
+
+## Findings and comparison history
+
+1. Initial 26f099b comparison: P2 — Vue used a 22px control track versus React's 44px, altering line wrapping. Fixed to 44px with 10px gaps and 12px padding. P2 — inherited disabled-button opacity made availability explanations too faint. Removed inherited opacity, applied the existing sidebar surface, muted disabled content separately and preserved readable explanation text.
+2. Revised 0875bbe: source and implementation grids and first cards inspected together. Both earlier findings resolved. Added mobile component captures for longer labels.
+3. Final b3d447a: corrected two Dutch labels by composing existing translated strings. Repeated focused cloud checks with explicit translation assertions. Reopened comparison.png and comparison-detail.png with mobile and Arabic dark captures. No actionable P0/P1/P2 differences remain.
 
 ## Required fidelity surfaces
 
-- **Typography:** retained the existing DM Sans family and hierarchy; inspected titles, row references, counts, selectors and translated labels. Longer labels wrap within their controls. No new display font introduced.
-- **Spacing:** inspected collapsed and expanded Options, desktop header, mobile shortcuts, dashboard metrics and performance. Search remains above the results; secondary controls disappear when collapsed. No page-width overflow in the tested 390px and 1366px states.
-- **Colours:** existing light/dark tokens are used for panels, borders, selectors and text. Arabic dark screenshots show consistent card surfaces and readable labels. This is a targeted visual check, not a full WCAG conformance assessment.
-- **Assets and icons:** retained the existing logo, flags and icon system. The compact header uses existing notifications, account and quick-access icons. Directional grouping was inspected in Arabic.
-- **Copy:** new Options and performance/queue wording has translations for Dutch, Estonian, Arabic, Swedish and Portuguese. Stored references, company names and Chamber-authored announcements keep their original content. No mockup explanatory headings were inserted into the product.
+- Typography: existing DM Sans, 14px card titles/descriptions, 20px line-height, 600/400 weights. Matching hierarchy; natural wrapping in narrower Vue containers, no replacement font or clipping.
+- Spacing: 47px artwork, flexible copy, 44px controls, 10px gaps, 12px padding, 6px outer radius. Grid adapts from four columns to one. No description/marker overlaps or page-width overflow in tested viewports.
+- Colours/tokens: existing light/dark surface, text, muted, brand and tint tokens. Selected peach/orange follows the existing product design; dark selection uses its established lighter accent. Disabled cards retain readable reasons.
+- Assets: exact React document-thumbnails.webp sprite and crop positions at 47 × 68. Upload uses the existing Fluent ArrowUpload20Regular path; preview/check use existing Vue icons. No substitute document drawings.
+- Copy: same document order, labels and descriptions as React, preserving Vue record identifiers. Preview and availability labels translate in all six languages. The concise “Not available: Germany” formulation and existing translated “Selected” summary are intentional.
 
-## Evidence
+## Behavior and test evidence
 
-- [Final cloud browser run](https://github.com/CyberLettuce/trade-documents-preview/actions/runs/44136276033), tested application commit `a2714dae0a892d0c3c0d050d4096ba33e620297e`.
-- 46 browser scenarios passed: 14 list routes and their Search/Options interactions; desktop/mobile Chamber and Exporter dashboards in React and Vue; English and Arabic dark themes; mobile Options in Dutch, Estonian, Swedish and Portuguese.
-- 63 business-rule/preference tests passed; 37 Vue templates compiled; 139 JavaScript modules and 41 stylesheets parsed; the release package resolved all tracked dependencies.
-- Cloud screenshots and results are in the `interface-evidence` workflow artifact and the local `vue-react-fidelity-20261117/interface-evidence-final` evidence folder adjacent to this repository.
+Eight document choices; existing destination and selection rules retained, including ATA Carnet plus uploaded document and retaining the last required selection. Selected-card preview opens the correct document; Tab/Enter/Escape and focus return tested. Reload retains selections.
+
+Focused cloud run https://github.com/CyberLettuce/trade-documents-preview/actions/runs/44579253368: 16/16 scenarios passed, six languages in both themes, three narrow widths, no uncaught page errors. Scoped axe WCAG 2.x A/AA checks passed for cards and the preview dialog.
+
+Wider regression https://github.com/CyberLettuce/trade-documents-preview/actions/runs/44578458411: all steps passed, including 74 business-rule tests, navigation, interfaces, reviewed fixes, signatures, tables and accessibility follow-ups. The two final label changes were covered by the subsequent focused run. Release packaging passed. No browser or package installation was performed on the user's PC.
 
 ## Accepted differences and limits
 
-React and Vue retain their existing table columns, sample records, individual navigation affordances and Chamber content. Vue's announcement/contact area remains available. The mobile header keeps the logo icon to allow adequate control space. These are deliberate adaptations of the approved direction, rather than a wholesale replacement of either interface.
-
-Screenshots were reviewed for the changed surfaces. These checks do not establish full accessibility conformance, native-speaker translation sign-off, or exhaustive coverage of every application/document flow.
+Vue retains its form, steps, container widths and live preview. Existing Vue toggle-button semantics remain; React uses native checkboxes. Existing Vue tick artwork and accessible accent tokens produce minor expected differences. These are deliberate compatibility choices. This targeted review does not establish full-site WCAG conformance or native-speaker translation certification.
 
 ## Completion checklist
 
-- [x] Search and Options applied to the relevant list/report screens in both versions.
-- [x] Dashboard references, units, queue counts, header and dark/RTL refinements checked.
-- [x] Keyboard closing and nested-dialog behaviour checked.
-- [x] Responsive and language screenshots reviewed after corrections.
-- [x] Cloud tests and release packaging passed before publication.
+- [x] React document artwork, labels and compact cards reused.
+- [x] Selected, unavailable and preview states implemented.
+- [x] Keyboard, persistence, six languages, both themes and responsive checks passed.
+- [x] Revised implementation compared with React at grid and detail levels.
