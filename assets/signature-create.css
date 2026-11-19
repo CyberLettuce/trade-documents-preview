@@ -13,4 +13,8 @@
 .signature-thumb,.signature-saved-image img{background:#fff;padding:4px;border-radius:3px}
 .signature-created-preview p,.signature-draw-help{font-size:14px;line-height:1.5}
 .signature-create :is(button,input,select){max-width:100%}
+/* Keep the primary action readable immediately when drawing enables it. */
+.signature-create button.primary{transition:none}
+.signature-create button.primary:not(:disabled){background:#a43d00;color:#fff;opacity:1}
+.signature-create button.primary:not(:disabled):hover{background:#803000}
 @media(forced-colors:active){.signature-draw-canvas,.signature-created-preview img{forced-color-adjust:none}.signature-methods button[aria-pressed=true]{border:3px solid Highlight}}
