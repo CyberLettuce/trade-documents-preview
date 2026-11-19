@@ -1,4 +1,4 @@
-import {registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-19-sidebar-r1';
+import {registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-19-editor-navigation-r1';
 const words={"Account type":["Accounttype","Konto tüüp","نوع الحساب"],"Exporter Account":["Exporteursaccount","Eksportija konto","حساب مصدّر"],"Open client {0}":["Klant {0} openen","Ava klient {0}","فتح العميل {0}"],
  'Agent Account':['Agentaccount','Agendikonto','حساب وكيل'],
  'Agent account':['Agentaccount','Agendikonto','حساب وكيل'],

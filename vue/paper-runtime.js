@@ -1,4 +1,4 @@
-import {h,Fragment} from './assets/vue.esm-browser.prod.js?v=2026-11-19-sidebar-r1';
+import {h,Fragment} from './assets/vue.esm-browser.prod.js?v=2026-11-19-editor-navigation-r1';
 export {Fragment};
 let activeEdit;
 export function withPaperEdit(edit,render){const previous=activeEdit;activeEdit=edit;try{return render()}finally{activeEdit=previous}}

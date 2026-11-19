@@ -1,0 +1,42 @@
+/* Match Vue's independent workspace rail and labelled application outline. */
+.has-application-navigation .application-editor-workspace{margin-top:0;gap:24px}
+.editor-application-navigation{position:sticky;top:calc(var(--suite-header-height,56px) + 20px);max-height:calc(100dvh - var(--suite-header-height,56px) - 120px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:4px 4px 20px;min-width:0}
+html[data-shell-layout=sidebar] .editor-application-navigation{top:20px;max-height:calc(100dvh - 120px)}
+.editor-back-applications{display:flex;align-items:center;gap:10px;min-height:44px;margin-bottom:14px;text-align:start;line-height:1.4}
+.editor-back-applications>.ch-icon{width:18px;height:18px;flex:none}
+.editor-application-identity{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 18px;min-height:28px;font-size:13px}
+.editor-application-reference{overflow-wrap:anywhere;min-width:0}
+.editor-application-status{display:inline-flex;align-items:center;gap:5px;padding:3px 7px;border-radius:4px;background:var(--colorNeutralBackground3);color:var(--colorNeutralForeground2);font-size:12px;line-height:18px;white-space:nowrap}
+.editor-application-status>.ch-icon{width:13px;height:13px}
+.editor-application-navigation .application-outline{position:static;border:0;border-radius:0;background:transparent;max-height:none;overflow:visible}
+.editor-application-navigation .outline-heading{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.editor-application-navigation .outline-roots{padding:0;margin:0;list-style:none}
+.editor-application-navigation :is(.outline-group,.outline-link){padding-inline:8px;gap:12px}
+.editor-application-navigation .outline-stage{margin-block:0 6px}
+.has-application-navigation .editor-work-area>.page-heading{margin-top:0;margin-bottom:18px}
+.has-application-navigation .editor-work-area>.page-heading h1{font-size:24px;line-height:1.3}
+.has-application-navigation .editor-work-area>.page-heading p{line-height:1.5}
+.has-application-navigation .editor-work-area{container-type:inline-size}
+@container (max-width:780px){
+ .has-application-navigation .editor-layout.editor-live-layout{grid-template-columns:minmax(0,1fr)}
+ .has-application-navigation .editor-view-tabs{display:flex}
+ .has-application-navigation .editor-live-layout.view-form .editor-preview-column,
+ .has-application-navigation .editor-live-layout.view-preview .editor-form-column{display:none}
+ .has-application-navigation .editor-live-layout.is-document-chooser .editor-form-column,
+ .has-application-navigation .editor-live-layout.is-preview-off .editor-form-column{display:block}
+}
+@media screen and (min-width:801px){
+ .ex-fluent.has-application-navigation{--sidebar:232px}
+ .has-application-navigation .application-editor-workspace:not(.has-integrated-navigation){display:grid;grid-template-columns:210px minmax(0,1fr);gap:24px}
+ .editor-application-navigation .outline-mobile-toggle{display:none!important}
+ .editor-application-navigation .application-outline .outline-content[data-open]{display:block;border:0}
+}
+@media screen and (max-width:800px){
+ .has-application-navigation .application-editor-workspace{display:block}
+ .editor-application-navigation{position:static;max-height:none;overflow:visible;padding:0;margin-bottom:18px}
+ .editor-back-applications{margin-bottom:6px}
+ .editor-application-identity{margin-bottom:10px}
+ .editor-application-navigation .application-outline{border:1px solid var(--colorNeutralStroke2);border-radius:6px;background:var(--colorNeutralBackground1)}
+ .editor-application-navigation .outline-content[data-open=true]{padding:10px}
+}
+@media print{.editor-application-navigation{display:none!important}}

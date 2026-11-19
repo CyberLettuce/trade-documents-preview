@@ -1,4 +1,4 @@
-import {ref,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-19-sidebar-r1';
+import {ref,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-19-editor-navigation-r1';
 import {optionsStorage,optionsStorageKey,readOptionsOpen,writeOptionsOpen} from '../assets/list-options-model.js';
 let nextId=0;
 export const ListOptions={
