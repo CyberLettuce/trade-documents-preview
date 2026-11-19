@@ -79,7 +79,7 @@ export function registerPatterns(entries,locale='nl') {
 function applyLanguage(){dictionary=dictionaries[language]||{};countries=countriesByLanguage[language]||new Map();document.documentElement.lang=language;document.documentElement.dir=language==='ar'?'rtl':'ltr';document.documentElement.dataset.uiLanguage=language;for(const listener of listeners)listener();updateTitle();}
 async function ensureLanguage(value){if(value==='en'||dictionaries[value])return;if(!loading.has(value))loading.set(value,loadLocale(value).then(words=>{dictionaries[value]=words;registerPatterns(Object.entries(words).filter(([key])=>key.includes('{')),value)}).catch(error=>{loading.delete(value);throw error}));return loading.get(value);}
 let languageRequest=0;
-export async function setLanguage(value){const next=validLanguage(value),request=++languageRequest;try{await ensureLanguage(next);if(request!==languageRequest)return;language=next;try{localStorage.setItem(STORAGE_KEY,language)}catch{}languageLoadSuccess();applyLanguage();}catch{languageLoadFailure(()=>setLanguage(next));}}
+export async function setLanguage(value){const next=validLanguage(value),request=++languageRequest;try{await ensureLanguage(next);if(request!==languageRequest)return;language=next;try{localStorage.setItem(STORAGE_KEY,language)}catch{}languageLoadSuccess();applyLanguage();}catch{if(request===languageRequest)languageLoadFailure(()=>setLanguage(next));}}
 window.addEventListener('storage',event=>{if(event.key===STORAGE_KEY)setLanguage(event.newValue)});
 let originalTitle=document.title,renderedTitle=document.title,titleObserver;
 function updateTitle(){const next=language!=='en'?translate(originalTitle):originalTitle;renderedTitle=next;if(document.title!==next)document.title=next;}

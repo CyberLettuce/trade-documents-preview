@@ -88,7 +88,7 @@ async function language(page,framework,name,code){
   await loaded(page,framework==='react'?'/#applications':'/vue/#/exporter/applications');let requests=0;
   await page.route('**/assets/locales/nl.js*',route=>++requests===1?route.abort():route.continue());
   await page.locator(framework==='react'?'.language-flag-button':'.language-control').first().click();await page.getByRole('menuitemradio',{name:'Dutch',exact:true}).click();
-  await page.locator('#language-load-error').waitFor();assert.equal(await page.locator('html').getAttribute('lang'),'en');
+  await page.locator('#language-load-error').waitFor();await page.waitForTimeout(250);assert.equal(requests,1,'Failed language loading should wait for Retry, not repeatedly retry on DOM changes');assert.equal(await page.locator('html').getAttribute('lang'),'en');
   await page.locator('#language-load-error button').click();await page.waitForFunction(()=>document.documentElement.lang==='nl');assert.equal(await page.locator('#language-load-error').count(),0);assert(requests>=2);
  });
  await browser.close();server.close();fs.writeFileSync(path.join(out,'review-fixes-results.json'),JSON.stringify(results,null,2));console.log(JSON.stringify({checks:results.length,passed:results.filter(r=>r.pass).length,failed:results.filter(r=>!r.pass).map(r=>r.name)},null,2));process.exitCode=results.some(r=>!r.pass)?1:0;
