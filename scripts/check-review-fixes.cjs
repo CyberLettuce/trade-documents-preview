@@ -55,8 +55,8 @@ async function language(page,framework,name,code){
  });
  await check('vue-carnet-upload-and-save',async page=>{
   const url='/vue/#/exporter/applications/sample-draft-20261117-ata';await loaded(page,url);
-  await page.locator('.document-choices button').filter({hasText:'Uploaded document'}).click();
-  assert.deepEqual((await page.locator('.document-choices button[aria-pressed=true]').allTextContents()).map(s=>s.trim()),['ATA Carnet','Uploaded document']);
+  await page.locator('.document-choices').getByRole('button',{name:'Upload a document',exact:true}).click();
+  assert.deepEqual(await page.locator('.document-choices button[aria-pressed=true]').evaluateAll(es=>es.map(e=>e.dataset.document)),['ATA Carnet','Uploaded document']);
   assert((await page.locator('.application-outline,.editor-outline,.workflow-outline').allTextContents()).join('').includes('Carnet details'));
   const reference=page.getByLabel('Your reference',{exact:false}).first();await reference.fill('SAVE-FLUSH-CHECK');
   await page.getByRole('button',{name:'Back to Applications',exact:true}).click();await page.waitForURL('**/#/exporter/applications');await loaded(page,url);assert.equal(await page.getByLabel('Your reference',{exact:false}).first().inputValue(),'SAVE-FLUSH-CHECK');

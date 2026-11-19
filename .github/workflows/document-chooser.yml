@@ -1,0 +1,31 @@
+name: Vue document selection preview
+on:
+  push:
+    branches: [codex/vue-document-chooser-20261119]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/package-pages.mjs _site-check
+      - name: Prepare cloud browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/browser-check" --no-save --ignore-scripts playwright@1.56.1 axe-core@4.11.0
+          echo "PLAYWRIGHT_CHROMIUM_EXECUTABLE=$(command -v google-chrome)" >> "$GITHUB_ENV"
+      - name: Compare document selection and check accessibility
+        env:
+          NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
+        run: node scripts/check-document-chooser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: document-chooser-preview
+          path: qa-results/
+          retention-days: 7
