@@ -13,18 +13,20 @@ async function withinPage(page){const size=await page.evaluate(()=>({width:inner
 for(const framework of ['react','vue'])for(const workspace of ['chamber','exporter'])for(const layout of ['sidebar','header'])await check(`${framework}-${workspace}-rail-${layout}`,async page=>{
  const url=framework==='react'?(workspace==='chamber'?'/#chamber/dashboard':'/#dashboard'):`/vue/#/${workspace}/dashboard`;
  const sidebar=page.locator(framework==='react'?(workspace==='chamber'?'#chamber-navigation':'#exporter-navigation'):'#workspace-sidebar'),toggle=page.locator('.sidebar-collapse-toggle'),main=page.locator('main').last();
- await loaded(page,url);await preferences(page,framework,{layout});await toggle.waitFor();
+ await loaded(page,url);await preferences(page,framework,{layout});await toggle.waitFor();await page.evaluate(()=>scrollTo(0,0));
  assert.equal(await toggle.getAttribute('aria-expanded'),'true');const before=await main.boundingBox();await screenshot(page,`${framework}-${workspace}-${layout}-expanded`);
  await toggle.focus();await page.keyboard.press('Enter');assert.equal(await toggle.getAttribute('aria-expanded'),'false');
  await page.waitForFunction(()=>document.documentElement.dataset.sidebarCollapsed==='true');
  assert.equal(Math.round((await sidebar.boundingBox()).width),80);assert.ok((await main.boundingBox()).width>before.width+80,'Collapsed sidebar gives space back to page');await withinPage(page);
  assert.equal(await toggle.evaluate(el=>el===document.activeElement),true,'Toggle keeps keyboard focus');
- const nav=sidebar.locator('nav').first(),buttons=nav.locator(':scope > button');assert.ok(await buttons.count()>=6);for(const button of await buttons.all()){assert.ok(await button.getAttribute('aria-label'));const rect=await button.boundingBox();assert.ok(rect.width>=40&&rect.height>=40)}
+ const nav=sidebar.locator('nav').first(),buttons=nav.locator(':scope > button');assert.ok(await buttons.count()>=6);for(const button of await buttons.all()){assert.ok(await button.getAttribute('aria-label'));const rect=await button.boundingBox();assert.ok(rect.width>=40&&rect.height>=40);const icon=button.locator('svg').first(),iconRect=await icon.boundingBox();assert.ok(iconRect&&iconRect.width>=14&&iconRect.height>=14,'Navigation icon must remain visible')}
  await screenshot(page,`${framework}-${workspace}-${layout}-collapsed`);
  await page.reload();await toggle.waitFor();assert.equal(await toggle.getAttribute('aria-expanded'),'false');assert.equal(Math.round((await sidebar.boundingBox()).width),80);
  await loaded(page,framework==='react'?(workspace==='chamber'?'/#dashboard':'/#chamber/dashboard'):'/vue/#/'+(workspace==='chamber'?'exporter':'chamber')+'/dashboard');assert.equal(await toggle.getAttribute('aria-expanded'),'false','Switching workspace preserves the choice');await loaded(page,url);await buttons.nth(1).click();await page.locator('.list-options-toggle').waitFor();assert.equal(Math.round((await sidebar.boundingBox()).width),80,'Navigating keeps the rail collapsed');
  if(workspace==='chamber'&&framework==='react'){await buttons.nth(5).click();await buttons.nth(5).focus();await page.keyboard.press('Tab');assert.equal(await page.locator('.ch-subnav').evaluate(el=>el.contains(document.activeElement)),true,'Setup subpages are keyboard reachable');await page.keyboard.press('Enter')}
  if(layout==='sidebar'){
+  const railBounds=await sidebar.boundingBox();for(const control of await sidebar.locator('.dock>button,.sidebar-dock-tools .shortcut-item>button').all()){await control.scrollIntoViewIfNeeded();const box=await control.boundingBox();assert.ok(box.x>=railBounds.x&&box.x+box.width<=railBounds.x+railBounds.width,'Shortcut fits inside rail')}
+
   const language=sidebar.locator(framework==='react'?'.language-flag-button':'.language-control').first();
   if(await language.count()){await language.scrollIntoViewIfNeeded();await language.click();const menu=page.locator('.language-menu');await menu.waitFor({state:'visible'});const box=await menu.boundingBox();assert.ok(box.width>=200&&box.x>=0&&box.x+box.width<=1366,'Language menu fits outside icon rail');await screenshot(page,`${framework}-${workspace}-rail-language`);await page.keyboard.press('Escape')}
  }

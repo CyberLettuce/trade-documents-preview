@@ -12,51 +12,51 @@
 [data-layout=header] #workspace-sidebar>.sidebar-heading{margin-bottom:0}
 [data-layout=header] #workspace-sidebar .sidebar-heading>.brand{display:none}
 @media screen and (min-width:801px){
- html[data-sidebar-collapsed=true] .ch-app:not(.ch-pack-focus){--ch-sidebar:80px}
- html[data-sidebar-collapsed=true] .ex-fluent{--sidebar:80px}
- html[data-sidebar-collapsed=true] :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar):not(.is-open){width:80px;min-width:80px;padding-inline:8px;overflow-y:auto;scrollbar-width:thin}
- html[data-sidebar-collapsed=true] #workspace-sidebar{padding-top:8px}
- html[data-sidebar-collapsed=true] #app>main{margin-left:0;margin-inline-start:80px}
- html[data-sidebar-collapsed=true] #app .review-actions{left:0;right:0;inset-inline-start:80px}
- html[data-sidebar-collapsed=true] .sidebar-heading{justify-content:center;padding-inline:0;min-height:52px;margin-bottom:6px}
- html[data-sidebar-collapsed=true] .sidebar-heading>:is(.sidebar-dock-brand,.brand){display:none}
- html[data-sidebar-collapsed=true] .sidebar-collapse-toggle{margin-inline:0;width:44px!important;min-height:44px!important}
- html[data-sidebar-collapsed=true] :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar)>nav{padding:0;margin:0;flex-shrink:0;overflow:visible}
- html[data-sidebar-collapsed=true] :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar)>nav>button{width:100%;min-width:0;min-height:44px;justify-content:center;gap:0;padding:10px;margin-inline:0;font-size:0}
- html[data-sidebar-collapsed=true] :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar)>nav>button>:is(span:not(.ch-icon),em,.nav-chevron),
- html[data-sidebar-collapsed=true] #chamber-navigation>nav>button>.ch-icon:last-child:not(:first-child){position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important}
- html[data-sidebar-collapsed=true] :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar)>nav>button>:is(svg,.ch-icon):first-child{width:20px;height:20px;flex:none;font-size:20px}
- html[data-sidebar-collapsed=true] #chamber-navigation .ch-subnav{display:none;position:fixed;inset-inline-start:76px;top:clamp(70px,34vh,320px);width:240px;max-height:calc(100dvh - 340px);overflow:auto;z-index:65;padding:10px;margin:0;border:1px solid var(--colorNeutralStroke1);border-radius:6px;background:var(--colorNeutralBackground1);box-shadow:0 8px 24px #0003}
- html[data-sidebar-collapsed=true] #chamber-navigation nav>button:is(:hover,:focus-visible)+.ch-subnav,
- html[data-sidebar-collapsed=true] #chamber-navigation .ch-subnav:is(:hover,:focus-within){display:grid}
- html[data-sidebar-collapsed=true] :is(.ch-workspace-label,.ch-demo-tag,.sidebar-help>small){display:none}
- html[data-sidebar-collapsed=true] :is(.sidebar-dock,.ch-sidebar-bottom,#workspace-sidebar .sidebar-bottom){padding:10px 0 4px;margin-top:auto}
- html[data-sidebar-collapsed=true] .ch-sidebar-bottom>.sidebar-dock{border-top:0}
- html[data-sidebar-collapsed=true] .quick-access-heading{justify-content:center;margin:0 0 4px}
- html[data-sidebar-collapsed=true] .quick-access-heading>:is(small,.sidebar-dock-label),html[data-sidebar-collapsed=true] .quick-access-heading .quick-access-edit>span{display:none}
- html[data-sidebar-collapsed=true] .quick-access-heading .quick-access-edit{min-height:36px;min-width:40px;justify-content:center}
- html[data-sidebar-collapsed=true] :is(.sidebar-dock-tools,#workspace-sidebar .dock){grid-template-columns:1fr;gap:2px;max-height:28vh;min-height:44px;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;padding:4px 0;justify-items:center}
- html[data-sidebar-collapsed=true] .sidebar-dock-account{padding-top:8px;margin-top:8px}
- html[data-sidebar-collapsed=true] .sidebar-dock-account .suite-account{padding:4px;justify-content:center}
- html[data-sidebar-collapsed=true] .sidebar-dock-account .suite-account .suite-account-name,
- html[data-sidebar-collapsed=true] .sidebar-dock-account .suite-account>.ch-icon,
- html[data-sidebar-collapsed=true] #workspace-sidebar .identity>span:not(.avatar),
- html[data-sidebar-collapsed=true] #workspace-sidebar .identity>svg{display:none!important}
- html[data-sidebar-collapsed=true] #workspace-sidebar .identity{justify-content:center;padding:4px;margin-top:8px;width:100%}
- html[data-sidebar-collapsed=true] :is(.sidebar-dock,#workspace-sidebar) .language-menu{position:fixed;inset-inline-start:80px;inset-inline-end:auto;top:auto;bottom:64px;width:220px;min-width:220px;max-width:calc(100vw - 96px);z-index:70}
- html[data-sidebar-collapsed=true] :is(.navigation-shortcuts,.ch-sidebar-bottom){gap:6px}
- html[data-sidebar-collapsed=true] :is(.navigation-shortcuts button,.ch-sidebar-bottom>button,.ch-sidebar-bottom>a,.sidebar-help button,.sidebar-back){font-size:0;justify-content:center;min-height:44px;gap:0;padding:8px;margin:0;width:100%}
- html[data-sidebar-collapsed=true] :is(.navigation-shortcuts button,.ch-sidebar-bottom>button,.ch-sidebar-bottom>a,.sidebar-help button) .ch-icon{width:20px;height:20px;font-size:20px}
- html[data-sidebar-collapsed=true] .navigation-shortcuts{margin:0!important;padding:0!important}
- html[data-sidebar-collapsed=true] :is(.editor-navigation-top,.sidebar-help){padding:0;margin:0}
- html[data-sidebar-collapsed=true] .sidebar-document-slot .application-outline{padding:0;margin:0}
- html[data-sidebar-collapsed=true] .sidebar-document-slot :is(.outline-heading,.outline-intro,.outline-navigation-notice){display:none}
- html[data-sidebar-collapsed=true] .sidebar-document-slot :is(.outline-group,.outline-link){justify-content:center;min-height:44px;padding:10px 0;gap:0}
- html[data-sidebar-collapsed=true] .sidebar-document-slot :is(.outline-label,.outline-group>span),html[data-sidebar-collapsed=true] .sidebar-back>span{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important}
- html[data-sidebar-collapsed=true] .sidebar-document-slot .outline-group>.ch-icon{display:none}
- html[data-sidebar-collapsed=true] .sidebar-document-slot .outline-children{padding:0;margin:0}
- html[data-sidebar-collapsed=true] .sidebar-document-slot :is(.outline-child,.outline-link)::before,html[data-sidebar-collapsed=true] .sidebar-document-slot :is(.outline-child,.outline-link)::after{display:none}
- html[data-sidebar-collapsed=true] .sidebar-document-slot .outline-marker{width:20px;height:20px}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .ch-app:not(.ch-pack-focus){--ch-sidebar:80px}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .ex-fluent{--sidebar:80px}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar):not(.is-open){width:80px;min-width:80px;padding-inline:8px;overflow-y:auto;scrollbar-width:thin}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) #workspace-sidebar{padding-top:8px}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) #app>main{margin-left:0;margin-inline-start:80px}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) #app .review-actions{left:0;right:0;inset-inline-start:80px}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-heading{justify-content:center;padding-inline:0;min-height:52px;margin-bottom:6px;position:sticky;top:0;z-index:3;background:inherit}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-heading>:is(.sidebar-dock-brand,.brand){display:none}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-collapse-toggle{margin-inline:0;width:44px!important;min-height:44px!important}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar)>nav{padding:0;margin:0;flex-shrink:0;overflow:visible}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar)>nav>button{width:100%;min-width:0;min-height:44px;justify-content:center;gap:0;padding:10px;margin-inline:0;font-size:0}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar)>nav>button>:is(span:not(.ch-icon):not(.icon),em,.nav-chevron),
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) #chamber-navigation>nav>button>.ch-icon:last-child:not(:first-child){position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) :is(#chamber-navigation,#exporter-navigation,#workspace-sidebar)>nav>button>:is(svg,.ch-icon):first-child{width:20px;height:20px;flex:none;font-size:20px}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) #chamber-navigation .ch-subnav{display:none;position:fixed;inset-inline-start:76px;top:clamp(70px,34vh,320px);width:240px;max-height:calc(100dvh - 340px);overflow:auto;z-index:65;padding:10px;margin:0;border:1px solid var(--colorNeutralStroke1);border-radius:6px;background:var(--colorNeutralBackground1);box-shadow:0 8px 24px #0003}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) #chamber-navigation nav>button:is(:hover,:focus-visible)+.ch-subnav,
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) #chamber-navigation .ch-subnav:is(:hover,:focus-within){display:grid}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) :is(.ch-workspace-label,.ch-demo-tag,.sidebar-help>small){display:none}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) :is(.sidebar-dock,.ch-sidebar-bottom,#workspace-sidebar .sidebar-bottom){padding:10px 0 4px;margin-top:auto}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .ch-sidebar-bottom>.sidebar-dock{border-top:0}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .quick-access-heading{justify-content:center;margin:0 0 4px}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .quick-access-heading>:is(small,.sidebar-dock-label),html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .quick-access-heading .quick-access-edit>span:not(.icon){display:none}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .quick-access-heading .quick-access-edit{min-height:36px;min-width:40px;justify-content:center}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) :is(.sidebar-dock-tools,#workspace-sidebar .dock){grid-template-columns:1fr!important;gap:2px;max-height:none;min-height:44px;overflow:visible;scrollbar-width:thin;padding:4px 0;justify-items:center}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-dock-account{padding-top:8px;margin-top:8px}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-dock-account .suite-account{padding:4px;justify-content:center}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-dock-account .suite-account .suite-account-name,
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-dock-account .suite-account>.ch-icon,
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) #workspace-sidebar .identity>span:not(.avatar),
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) #workspace-sidebar .identity>svg{display:none!important}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) #workspace-sidebar .identity{display:flex!important;justify-content:center;padding:4px!important;margin-top:8px;width:100%}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) :is(.sidebar-dock,#workspace-sidebar) .language-menu{position:fixed;inset-inline-start:80px;inset-inline-end:auto;top:auto;bottom:64px;width:220px;min-width:220px;max-width:calc(100vw - 96px);z-index:70}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) :is(.navigation-shortcuts,.ch-sidebar-bottom){gap:6px}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) :is(.navigation-shortcuts button,.ch-sidebar-bottom>button,.ch-sidebar-bottom>a,.sidebar-help button,.sidebar-back){font-size:0;justify-content:center;min-height:44px;gap:0;padding:8px;margin:0;width:100%}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) :is(.navigation-shortcuts button,.ch-sidebar-bottom>button,.ch-sidebar-bottom>a,.sidebar-help button) .ch-icon{width:20px;height:20px;font-size:20px}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .navigation-shortcuts{margin:0!important;padding:0!important}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) :is(.editor-navigation-top,.sidebar-help){padding:0;margin:0}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-document-slot .application-outline{padding:0;margin:0}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-document-slot :is(.outline-heading,.outline-intro,.outline-navigation-notice){display:none}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-document-slot :is(.outline-group,.outline-link){justify-content:center;min-height:44px;padding:10px 0;gap:0}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-document-slot :is(.outline-label,.outline-group>span),html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-back>span{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap!important}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-document-slot .outline-group>.ch-icon{display:none}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-document-slot .outline-children{padding:0;margin:0}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-document-slot :is(.outline-child,.outline-link)::before,html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-document-slot :is(.outline-child,.outline-link)::after{display:none}
+ html[data-sidebar-collapsed=true]:not(:has(.ch-app.ch-pack-focus .ch-sidebar.is-open)) .sidebar-document-slot .outline-marker{width:20px;height:20px}
 }
 @media screen and (max-width:800px){.sidebar-collapse-toggle{display:none!important}.sidebar-heading{padding:0}.sidebar-heading .sidebar-dock-brand{padding:18px 14px 14px}.sidebar-heading>.brand{display:flex!important}#workspace-sidebar>.sidebar-heading{padding:0}}
 @media print{.sidebar-collapse-toggle{display:none!important}}
