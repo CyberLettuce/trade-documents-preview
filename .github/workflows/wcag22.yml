@@ -1,0 +1,35 @@
+name: WCAG 2.2 evidence
+on:
+  push:
+    branches: [codex/wcag22-20261119]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/package-pages.mjs _site-check
+      - name: Prepare cloud browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/browser-check" --no-save --ignore-scripts playwright@1.56.1 axe-core@4.11.0
+          echo "PLAYWRIGHT_CHROMIUM_EXECUTABLE=$(command -v google-chrome)" >> "$GITHUB_ENV"
+      - name: Scan representative pages
+        env:
+          NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
+        run: node scripts/audit-sites.cjs
+      - name: Check keyboard, reflow and text resizing
+        env:
+          NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
+        run: node scripts/check-wcag22.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wcag22-evidence
+          path: qa-results/
+          retention-days: 7
