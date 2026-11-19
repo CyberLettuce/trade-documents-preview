@@ -16,7 +16,7 @@ async function openSignature(page,framework,workspace){
  const url=framework==='react'?(workspace==='chamber'?'/#chamber/setup/signatures':'/#settings'):`/vue/#/${workspace}/${workspace==='chamber'?'setup/signatures':'settings/signatories'}`;
  await loaded(page,url);
  if(framework==='react'&&workspace==='exporter')await page.getByRole('tab',{name:'Signatories',exact:true}).click();
- await page.getByRole('button',{name:framework==='react'?/New signatory/i:/^New$/}).click();
+ await page.getByRole('button',{name:framework==='react'?/^(New|Add) signatory$/i:/^New$/}).click();
  await page.locator('.signature-methods').waitFor();return page.getByRole('dialog');
 }
 async function transparentPng(page,src){assert(src.startsWith('data:image/png;base64,'));return page.evaluate(async src=>{const image=new Image();image.src=src;await image.decode();const c=document.createElement('canvas');c.width=image.width;c.height=image.height;const x=c.getContext('2d');x.drawImage(image,0,0);const pixels=x.getImageData(0,0,c.width,c.height).data;let ink=0,clear=0;for(let i=3;i<pixels.length;i+=4){if(pixels[i]>20)ink++;if(!pixels[i])clear++}return{ink,clear,width:c.width,height:c.height}},src)}
@@ -24,14 +24,14 @@ async function transparentPng(page,src){assert(src.startsWith('data:image/png;ba
  await new Promise(resolve=>server.listen(5204,'127.0.0.1',resolve));browser=await chromium.launch(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE?{executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE}:{});
  for(const framework of ['react','vue'])for(const workspace of ['exporter','chamber'])await check(framework+'-'+workspace+'-type-draw-signature',async page=>{
   let modal=await openSignature(page,framework,workspace);
-  const name=modal.getByLabel(/^(Signatory name|Name)\s*\*?$/i).first();await name.fill('Signature Test');
+  const name=modal.getByLabel(/^(Signatory name|Full name|Name)\s*\*?$/i).first();await name.fill('Signature Test');
   const reference=modal.getByLabel(/^Reference\s*\*?$/i);if(await reference.count())await reference.first().fill('SIG-TEST');
-  await modal.getByRole('button',{name:'Type signature',exact:true}).click();await modal.getByLabel('Signature text',{exact:true}).fill('Alex Morgan');
+  await modal.getByRole('button',{name:'Type signature',exact:true}).click();await modal.getByLabel('Signature text',{exact:true}).fill('Alex Morgan');assert.equal(await modal.getByLabel('Signature text',{exact:true}).inputValue(),'Alex Morgan');
   await page.waitForFunction(()=>document.querySelector('.signature-created-preview img')?.naturalWidth>0);
   const typed=await modal.locator('.signature-created-preview img').getAttribute('src'),pixels=await transparentPng(page,typed);assert(pixels.ink>100&&pixels.clear>100);assert(pixels.width<=1232);
   await screenshot(page,framework+'-'+workspace+'-typed-signature');
   await modal.getByRole('button',{name:'Use this signature',exact:true}).click();assert.equal(await modal.locator('.signature-saved-image img,.signature-thumb').first().getAttribute('src'),typed);
-  await modal.getByRole('button',{name:/^Save( signatory)?$/i}).click();await modal.waitFor({state:'hidden'});await page.reload();await ready(page);assert((await page.locator('main img').evaluateAll(images=>images.map(i=>i.getAttribute('src')))).includes(typed),'Saved typed signature must survive reload');await page.getByRole('row').filter({hasText:'Signature Test'}).getByRole('button',{name:/Edit/i}).first().click();modal=page.getByRole('dialog');
+  await modal.getByRole('button',{name:/^Save( signatory)?$/i}).click();await modal.waitFor({state:'hidden'});await page.reload();await ready(page);if(framework==='react'&&workspace==='exporter')await page.getByRole('tab',{name:'Signatories',exact:true}).click();assert((await page.locator('main img').evaluateAll(images=>images.map(i=>i.getAttribute('src')))).includes(typed),'Saved typed signature must survive reload');await page.getByRole('row').filter({hasText:'Signature Test'}).getByRole('button',{name:framework==='vue'?/^View /i:/Edit/i}).first().click();modal=page.getByRole('dialog');
   await modal.getByRole('button',{name:'Draw signature',exact:true}).click();const canvas=modal.locator('.signature-draw-canvas');await canvas.scrollIntoViewIfNeeded();const box=await canvas.boundingBox();
   async function stroke(offset){await canvas.scrollIntoViewIfNeeded();const box=await canvas.boundingBox();await page.mouse.move(box.x+box.width*.15,box.y+box.height*(.3+offset));await page.mouse.down();await page.mouse.move(box.x+box.width*.4,box.y+box.height*(.7-offset),{steps:12});await page.mouse.move(box.x+box.width*.75,box.y+box.height*(.3+offset),{steps:12});await page.mouse.up()}
   await stroke(0);await stroke(.1);const draw1=await modal.locator('.signature-created-preview img').getAttribute('src');await modal.getByRole('button',{name:'Undo last stroke',exact:true}).click();assert.notEqual(await modal.locator('.signature-created-preview img').getAttribute('src'),draw1);
@@ -45,7 +45,7 @@ async function transparentPng(page,src){assert(src.startsWith('data:image/png;ba
  for(const framework of ['react','vue'])for(const language of ['en','nl','et','ar','sv','pt'])await check(framework+'-signature-mobile-'+language,async page=>{
   const url=framework==='react'?'/#chamber/setup/signatures':'/vue/#/chamber/setup/signatures';await loaded(page,url);await preferences(page,framework,{language,theme:'dark'});await page.setViewportSize({width:390,height:844});
   await page.locator('main .button.primary,main button.primary').first().click();await page.locator('.signature-methods button').nth(1).click();await page.locator('.signature-create input').fill(language==='ar'?'أحمد محمد':'Alex Morgan');await page.waitForFunction(()=>document.querySelector('.signature-created-preview img')?.naturalWidth>0);await withinPage(page);
-  const dialog=page.getByRole('dialog');assert(await dialog.isVisible());const clipping=await dialog.evaluate(el=>({scroll:el.scrollWidth,width:el.clientWidth}));assert(clipping.scroll<=clipping.width+2);await screenshot(page,framework+'-signature-mobile-'+language);
+  const dialog=page.getByRole('dialog');assert(await dialog.isVisible());const clipping=await dialog.evaluate(el=>({scroll:el.scrollWidth,width:el.clientWidth}));assert(clipping.scroll<=clipping.width+2);await page.addScriptTag({content:axe});const scan=await page.evaluate(async()=>await axe.run(document.querySelector('[role=dialog],dialog[open]'),{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}}));assert.deepEqual(scan.violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)})),[]);await screenshot(page,framework+'-signature-mobile-'+language);
  });
  await browser.close();server.close();fs.writeFileSync(path.join(out,'signature-results.json'),JSON.stringify(results,null,2));console.log(JSON.stringify({checks:results.length,passed:results.filter(r=>r.pass).length,failed:results.filter(r=>!r.pass).map(r=>r.name)},null,2));process.exitCode=results.some(r=>!r.pass)?1:0;
 })().catch(error=>{console.error(error);process.exit(1)});

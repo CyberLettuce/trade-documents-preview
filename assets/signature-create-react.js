@@ -1,5 +1,5 @@
 import {r as React} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-signatures-r1';
-import {languageCreateElement as h,preserveValue} from './language-runtime-review1-57775012.js?v=2026-11-19-signatures-r1';
+import {languageCreateElement as h} from './language-runtime-review1-57775012.js?v=2026-11-19-signatures-r1';
 import {textSignature,signaturePad,SIGNATURE_STYLES} from './signature-create.js?v=2026-11-19-signatures-r1';
 const {useState,useEffect,useRef}=React;
 export function SignatureCreate({mode,onChange,onPendingChange,onCancel}) {
@@ -11,7 +11,7 @@ export function SignatureCreate({mode,onChange,onPendingChange,onCancel}) {
   function useSignature(){const image=mode==='type'?textSignature(name,style):pad.current?.image();if(!image){setError(mode==='type'?'Enter your signature text.':'Draw your signature first.');return}onChange(image);onCancel()}
   return h('section',{className:'signature-create','aria-label':mode==='type'?'Type signature':'Draw signature'},
     mode==='type'?h(React.Fragment,null,
-      h('label',null,'Signature text',h('input',{type:'text',value:preserveValue(name),maxLength:80,autoComplete:'off',onChange:e=>setName(e.target.value)})),
+      h('label',null,'Signature text',h('input',{type:'text',value:name,maxLength:80,autoComplete:'off',onChange:e=>setName(e.target.value)})),
       h('label',null,'Signature style',h('select',{value:style,onChange:e=>setStyle(e.target.value)},Object.keys(SIGNATURE_STYLES).map(value=>h('option',{key:value,value},value))))):h(React.Fragment,null,
       h('p',{className:'signature-draw-help'},'Draw with your mouse, finger or pen. You can also use Type for a keyboard-only signature.'),
       h('canvas',{ref:canvas,className:'signature-draw-canvas',role:'img','aria-label':'Signature drawing area'}),
