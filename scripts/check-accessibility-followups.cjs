@@ -20,7 +20,7 @@ for(const scan of scans){for(const issue of scan.violations)for(const node of is
 }for(const issue of scan.incomplete)if(issue.id==='aria-prohibited-attr')remaining.push({page:scan.name,rule:issue.id,nodes:issue.nodes});}
 (async()=>{
  await new Promise(resolve=>server.listen(5204,'127.0.0.1',resolve));browser=await chromium.launch(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE?{executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE}:{});
- await check('no-unresolved-accessibility-rule-failures',async()=>assert.deepEqual(remaining,[]));
+ await check('no-unresolved-accessibility-rule-failures',async()=>{assert.deepEqual(remaining,[]);assert.equal(known.length,0,'React focus-sentinel warnings must stay resolved')});
  for(const scan of scans.filter(s=>s.incomplete.some(i=>i.id==='color-contrast')))await check('contrast-followup-'+scan.name,async page=>{
   await loaded(page,scan.url);await preferences(page,scan.name.startsWith('react')?'react':'vue',{layout:'sidebar',language:scan.options.language||'en',theme:scan.options.theme||'light'});if(scan.options.width)await page.setViewportSize({width:scan.options.width,height:900});
   for(const issue of scan.incomplete.filter(i=>i.id==='color-contrast'))for(const node of issue.nodes){const target=page.locator(node.target[0]).first();if(!await target.count()||!await target.isVisible())continue;await target.scrollIntoViewIfNeeded();const result=await target.evaluate(el=>{

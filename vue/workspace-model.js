@@ -1,5 +1,5 @@
-import countries from './assets/countries.js?v=2026-11-19-signatures-r1';
-import {normalizeOrigin} from './assets/origins.js?v=2026-11-19-signatures-r1';
+import countries from './assets/countries.js?v=2026-11-19-wcag22-r1';
+import {normalizeOrigin} from './assets/origins.js?v=2026-11-19-wcag22-r1';
 export {countries,normalizeOrigin};
 export const clone=value=>JSON.parse(JSON.stringify(value));
 export const uid=()=>crypto.randomUUID();

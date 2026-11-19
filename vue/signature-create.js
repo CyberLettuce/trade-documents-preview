@@ -1,5 +1,5 @@
-import {ref,watch,nextTick,onUnmounted} from './assets/vue.esm-browser.prod.js?v=2026-11-19-signatures-r1';
-import {textSignature,signaturePad,SIGNATURE_STYLES} from '../assets/signature-create.js?v=2026-11-19-signatures-r1';
+import {ref,watch,nextTick,onUnmounted} from './assets/vue.esm-browser.prod.js?v=2026-11-19-wcag22-r1';
+import {textSignature,signaturePad,SIGNATURE_STYLES} from '../assets/signature-create.js?v=2026-11-19-wcag22-r1';
 export const SignatureCreate={props:['mode'],emits:['use','cancel','pending'],setup(props,{emit}){
   const name=ref(''),style=ref('Cursive'),count=ref(0),preview=ref(''),canvas=ref(null),error=ref('');let pad;
   watch([()=>props.mode,name,count],()=>emit('pending',props.mode==='type'?!!name.value.trim():count.value>0));

@@ -1,7 +1,7 @@
-import './application-pdf-translations1-review1-8a6839bf.js?v=2026-11-19-signatures-r1';
-import {r as React} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-signatures-r1';
-import {languageCreateElement as h} from './language-runtime-review1-57775012.js?v=2026-11-19-signatures-r1';
-import {storePdf} from './application-attachment-store1-review1-5e01d232.js?v=2026-11-19-signatures-r1';
+import './application-pdf-translations1-review1-8a6839bf.js?v=2026-11-19-wcag22-r1';
+import {r as React} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-wcag22-r1';
+import {languageCreateElement as h} from './language-runtime-review1-57775012.js?v=2026-11-19-wcag22-r1';
+import {storePdf} from './application-attachment-store1-review1-5e01d232.js?v=2026-11-19-wcag22-r1';
 export const PdfUploadContext=React.createContext(null);
 export function PdfUploadProvider({form,onPatch,children}){
  const latest=React.useRef({form,onPatch});latest.current={form,onPatch};
