@@ -13,4 +13,6 @@
 .pdf-viewer .pdf-controls{flex-wrap:wrap;min-width:0}.pdf-viewer .pdf-controls label{display:flex;flex-wrap:wrap;gap:6px;min-width:0}.pdf-viewer .pdf-controls a{overflow-wrap:anywhere}
 .application-pdf-pages[hidden],.pdf-canvas[hidden]{display:none!important}
 .section-tabs{gap:8px}.section-tabs>button{flex:0 0 auto;max-width:100%;padding:8px 12px;overflow-wrap:anywhere}
+/* At high browser zoom, keep the short viewport available for reading and focus. */
+@media screen and (max-height:480px){.review-actions{position:static;inset:auto}.toast{position:static;inset:auto;transform:none;max-width:calc(100% - 32px);width:auto;margin:16px}}
 @media(forced-colors:active){.pdf-view-choice button[aria-pressed=true]{border:3px solid Highlight}.pdf-view-choice button:focus-visible,.pdf-text-view:focus-visible{outline-color:Highlight}}
