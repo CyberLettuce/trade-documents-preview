@@ -21,7 +21,7 @@ jobs:
         run: node scripts/package-pages.mjs _site-check
       - name: Prepare cloud browser
         run: |
-          npm install --prefix "$RUNNER_TEMP/browser-check" --no-save --ignore-scripts playwright@1.56.1
+          npm install --prefix "$RUNNER_TEMP/browser-check" --no-save --ignore-scripts playwright@1.56.1 axe-core@4.11.0
           if command -v google-chrome >/dev/null; then
             echo "PLAYWRIGHT_CHROMIUM_EXECUTABLE=$(command -v google-chrome)" >> "$GITHUB_ENV"
           else
@@ -43,6 +43,11 @@ jobs:
         env:
           NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
         run: node scripts/preview-slimmer-rows.cjs
+      - name: Capture technical and design audit evidence
+        if: ${{ !cancelled() }}
+        env:
+          NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
+        run: node scripts/audit-sites.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

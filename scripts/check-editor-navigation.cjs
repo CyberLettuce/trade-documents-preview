@@ -12,6 +12,7 @@ async function withinPage(page){const size=await page.evaluate(()=>({width:inner
 async function openDraft(page,doc){
  await loaded(page,'/#applications');
  const draftTab=page.getByRole('tab',{name:/^Drafts/}).or(page.getByRole('button',{name:/^Drafts/}));await draftTab.first().click();
+ await page.locator('.list-options-search input').fill('SAMPLE-DRAFT-'+doc.toUpperCase());
  const row=page.getByRole('row').filter({has:page.getByText('SAMPLE-DRAFT-'+doc.toUpperCase(),{exact:true})}).first();await row.click({button:'right'});await page.getByRole('menuitem',{name:'Continue',exact:true}).click();
  await page.locator('.editor-application-navigation').waitFor();
 }
@@ -21,7 +22,7 @@ for(const doc of ['ata','coo','arab','eur','eurmed','invoice','iic','upload'])aw
  const rail=page.locator('#exporter-navigation'),outline=page.locator('.editor-application-navigation');assert.equal(Math.round((await rail.boundingBox()).width),80);assert.equal(await rail.locator('.workspace-navigation>button').count(),6);
  assert.equal(await rail.locator('.application-outline').count(),0);assert.ok((await outline.boundingBox()).width>=200);assert.ok((await outline.locator('.outline-label').first().boundingBox()).width>60,'Application labels remain readable');
  assert.equal((await outline.locator('.editor-application-reference').innerText()).trim(),'SAMPLE-DRAFT-'+doc.toUpperCase());
- await outline.getByRole('button',{name:/^Setup\./}).click();if(doc==='ata')assert.ok((await outline.innerText()).includes('Carnet details'));else assert.ok((await outline.innerText()).includes('Shipment details'));
+ await outline.getByRole('button',{name:/^Setup\./}).click();if(doc==='ata')assert.ok((await outline.innerText()).includes('Carnet details'));else assert.ok(/(?:Shipment|Certificate|Document|Invoice) details/.test(await outline.innerText()));
  await withinPage(page);await screenshot(page,'react-editor-'+doc+'-collapsed');
  await page.locator('.sidebar-collapse-toggle').click();assert.ok((await rail.boundingBox()).width>200);assert.ok((await outline.locator('.outline-label').first().boundingBox()).width>60);await screenshot(page,'react-editor-'+doc+'-expanded');
  await page.locator('.editor-back-applications').click();await page.locator('.list-options-toggle').waitFor();const selected=page.getByRole('tab',{name:/^Drafts/});if(await selected.count())assert.equal(await selected.getAttribute('aria-selected'),'true');

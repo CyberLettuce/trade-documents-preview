@@ -1,21 +1,21 @@
 /* Proposal only: injected into cloud preview captures, never loaded by either live app. */
-main table.density-preview-table {
+#row-density-preview main table.density-preview-table {
   border-collapse:collapse;
   width:100%;
 }
-main table.density-preview-table > :is(thead,tbody,tfoot) > tr > :is(th,td) {
+#row-density-preview main table.density-preview-table > :is(thead,tbody,tfoot) > tr > :is(th,td) {
   padding:7px 6px!important;
   text-align:center!important;
   vertical-align:middle!important;
   line-height:18px!important;
   font-size:13px!important;
 }
-main table.density-preview-table > thead > tr > th {
+#row-density-preview main table.density-preview-table > thead > tr > th {
   padding-block:9px!important;
   font-size:12px!important;
   font-weight:600;
 }
-main table.density-preview-table th>button {
+#row-density-preview main table.density-preview-table th>button {
   justify-content:center!important;
   text-align:center!important;
   gap:4px!important;
@@ -23,56 +23,57 @@ main table.density-preview-table th>button {
   min-height:28px!important;
   padding:2px 4px!important;
 }
-main table.density-preview-table :is(.row-actions,.application-icon-actions,.ch-lock,.ch-application-meta,.payment-indicator,.application-status-badges,.status-stack,.claim-due,.button-row) {
+#row-density-preview main table.density-preview-table :is(.row-actions,.application-icon-actions,.ch-lock,.ch-application-meta,.payment-indicator,.application-status-badges,.status-stack,.claim-due,.button-row) {
   justify-content:center!important;
   align-items:center!important;
   gap:4px!important;
 }
-main table.density-preview-table :is(.reference,.reference-button,.ch-reference,.report-reference,.claims-reference,.record-link) {
-  min-height:28px!important;
-  padding:3px 0!important;
+#row-density-preview main table.density-preview-table :is(.reference,.reference-button,.ch-reference,.report-reference,.claims-reference,.record-link) {
+  min-height:26px!important;
+  height:auto!important;
+  padding:2px 0!important;
   margin:0!important;
   line-height:18px!important;
   font-size:13px!important;
   text-align:center!important;
   justify-content:center!important;
 }
-main table.density-preview-table :is(.row-actions,.application-icon-actions,.actions) > button,
-main table.density-preview-table :is(.row-action-icon,.claims-view,.icon-button,.report-performance-action,.report-open-action) {
+#row-density-preview main table.density-preview-table :is(.row-actions,.application-icon-actions,.actions) > button,
+#row-density-preview main table.density-preview-table :is(.row-action-icon,.claims-view,.icon-button,.report-performance-action,.report-open-action) {
   min-width:32px!important;
   min-height:32px!important;
   height:32px!important;
   padding:6px!important;
   margin-block:0!important;
 }
-main table.density-preview-table :is(.row-action-icon,.claims-view,.icon-button) {
+#row-density-preview main table.density-preview-table :is(.row-action-icon,.claims-view,.icon-button) {
   width:32px!important;
 }
-main table.density-preview-table td > :is(button.button,a.button) {
+#row-density-preview main table.density-preview-table td > :is(button.button,a.button) {
   min-height:32px!important;
   padding:5px 10px!important;
   line-height:20px!important;
 }
-main table.density-preview-table :is(.application-reference-summary,.claims-holder,.claim-processing,.claim-ref) {
+#row-density-preview main table.density-preview-table :is(.application-reference-summary,.claims-holder,.claim-processing,.claim-ref) {
   text-align:center!important;
 }
-main table.density-preview-table :is(small,.cell-subtext,.muted) {
+#row-density-preview main table.density-preview-table :is(small,.cell-subtext,.muted) {
   line-height:16px!important;
   margin-block:2px 0!important;
 }
-main table.density-preview-table :is(.claims-progress,.claims-progress.is-compact) {
+#row-density-preview main table.density-preview-table :is(.claims-progress,.claims-progress.is-compact) {
   gap:4px!important;
   justify-items:center;
   text-align:center;
 }
-main table.density-preview-table progress {
+#row-density-preview main table.density-preview-table progress {
   margin:4px auto!important;
   max-width:108px;
 }
-main table.density-preview-table :is(.claims-task-text,.claims-holder) {
+#row-density-preview main table.density-preview-table :is(.claims-task-text,.claims-holder) {
   margin-block:0 2px!important;
 }
-main table.density-preview-table :is(.badge,.ch-badge,.application-status,.report-status,.claims-due) {
+#row-density-preview main table.density-preview-table :is(.badge,.ch-badge,.application-status,.report-status,.claims-due) {
   padding:3px 6px!important;
   min-height:24px!important;
   line-height:18px!important;
@@ -80,10 +81,16 @@ main table.density-preview-table :is(.badge,.ch-badge,.application-status,.repor
   justify-content:center!important;
   align-items:center!important;
 }
-main table.density-preview-table .application-reference-entry {gap:5px!important}
-main table.density-preview-table td :is(input[type=checkbox],.row-select) {vertical-align:middle}
+#row-density-preview main table.density-preview-table .application-reference-entry {gap:5px!important}
+#row-density-preview main table.density-preview-table td :is(input[type=checkbox],.row-select) {vertical-align:middle}
 @media(max-width:600px) {
-  main table.density-preview-table > :is(thead,tbody,tfoot) > tr > :is(th,td) {padding-inline:4px!important}
-  main table.density-preview-table :is(.row-actions,.application-icon-actions,.actions)>button,
-  main table.density-preview-table :is(.row-action-icon,.claims-view,.icon-button) {min-width:36px!important;min-height:36px!important;width:36px!important;height:36px!important}
+  #row-density-preview main table.density-preview-table > :is(thead,tbody,tfoot) > tr > :is(th,td) {padding-inline:4px!important}
+  #row-density-preview main table.density-preview-table :is(.row-actions,.application-icon-actions,.actions)>button,
+  #row-density-preview main table.density-preview-table :is(.row-action-icon,.claims-view,.icon-button) {min-width:36px!important;min-height:36px!important;width:36px!important;height:36px!important}
+}
+
+@media(min-width:1200px) {
+ #row-density-preview .application-table.density-preview-table th:last-child {width:180px!important}
+ #row-density-preview .application-table.density-preview-table :is(.row-actions,.application-icon-actions) {flex-wrap:nowrap!important;flex-direction:row!important}
+ #row-density-preview .ex-fluent .application-table.density-preview-table th[data-column=Reference] {width:27%!important}
 }

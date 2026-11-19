@@ -17,7 +17,7 @@ async function metrics(page){return page.locator('table.density-preview-table').
 for(const[name,label,url]of routes)await check('preview-'+name,async page=>{
  await page.setViewportSize({width:1600,height:1000});await loaded(page,url);await preferences(page,name.startsWith('react')?'react':'vue',{layout:'sidebar'});await page.locator('.list-options-toggle').waitFor();
  await page.locator('main table:visible').first().waitFor();await page.evaluate(()=>{for(const table of document.querySelectorAll('main table'))table.classList.add('density-preview-table')});await page.evaluate(()=>scrollTo(0,0));
- const before=await metrics(page);await screenshot(page,'rows-'+name+'-before');await page.addStyleTag({content:css});const after=await metrics(page);await withinPage(page);
+ const before=await metrics(page);await screenshot(page,'rows-'+name+'-before');await page.evaluate(()=>document.documentElement.id='row-density-preview');await page.addStyleTag({content:css});const after=await metrics(page);await withinPage(page);
  for(const table of after)for(const row of table.rows)for(const cell of row.cells)if(cell.display!=='none'){assert.equal(cell.align,'center');assert.equal(cell.vertical,'middle')}
  await screenshot(page,'rows-'+name+'-after');previews.push({name,label,url,before,after});
  if(name.includes('applications')||name.includes('claims')){await page.setViewportSize({width:390,height:844});await withinPage(page);await screenshot(page,'rows-'+name+'-mobile')}
