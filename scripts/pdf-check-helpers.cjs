@@ -17,16 +17,12 @@ function fixturePdf(){
  let data='%PDF-1.7\n',offsets=[0];objects.forEach((s,i)=>{offsets.push(Buffer.byteLength(data));data+=`${i+1} 0 obj\n${s}\nendobj\n`});const xref=Buffer.byteLength(data);data+=`xref\n0 ${objects.length+1}\n0000000000 65535 f \n`+offsets.slice(1).map(n=>String(n).padStart(10,'0')+' 00000 n \n').join('')+`trailer\n<< /Size ${objects.length+1} /Root ${catalog} 0 R >>\nstartxref\n${xref}\n%%EOF`;return Buffer.from(data);
 }
 async function seedPdf(page,framework){
- const version=await page.locator('meta[name=application-version]').getAttribute('content');
- await page.evaluate(async({framework,bytes,version})=>{
-  const data=new Uint8Array(bytes).buffer,name='accessible-test.pdf';localStorage.removeItem('trade-documents-pdf-reading-view-v1');
-  if(framework==='react'){
-   const {storePdf}=await import('/assets/application-attachment-store1-review1-5e01d232.js?v='+version);const saved=await storePdf(new File([data],name,{type:'application/pdf'}));const key='ecert-chamber-preview-v1',state=JSON.parse(localStorage.getItem(key)),record=state.apps.find(r=>r.id==='ch-app-0');record.files=[name];record.pdfFiles={files:{[name]:saved.id}};record.form={...record.form,files:[name],pdfFiles:record.pdfFiles};localStorage.setItem(key,JSON.stringify(state));
-  }else{
-   const {pdfStore}=await import('/vue/model.js?v='+version);await pdfStore('put','accessible-test',data);const key='trade-documents-vue-comparison-v1',state=JSON.parse(localStorage.getItem(key)),record=state.records.find(r=>r.id==='sample-0');record.files=[{id:'accessible-test',name,type:'application/pdf',size:data.byteLength,stamp:'none'}];localStorage.setItem(key,JSON.stringify(state));
-  }
- },{framework,bytes:[...fixturePdf()],version});
- await page.reload();await page.waitForFunction(()=>document.querySelector('main')?.innerText.length>200);
+ await page.evaluate(()=>localStorage.removeItem('trade-documents-pdf-reading-view-v1'));
+ if(framework==='react')await page.getByRole('tab',{name:'Documents & evidence',exact:true}).click();
+ else await page.locator('.processing .detail-tabs').getByRole('button',{name:'Files',exact:true}).click();
+ const input=framework==='react'?page.getByLabel('Attach documents',{exact:true}):page.locator('.processing input[type=file]');
+ await input.setInputFiles({name:'accessible-test.pdf',mimeType:'application/pdf',buffer:fixturePdf()});
+ await page.getByText('accessible-test.pdf',{exact:true}).first().waitFor();
 }
 async function openPdf(page,framework){
  const showFiles=page.getByRole('button',{name:/^Show files$/});if(await showFiles.count()&&await showFiles.isVisible())await showFiles.click();

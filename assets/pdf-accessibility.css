@@ -4,9 +4,9 @@
 .pdf-view-choice button:focus-visible,.pdf-text-view:focus-visible,.application-pdf-pages:focus-visible,.pdf-canvas:focus-visible{outline:3px solid #0078d4;outline-offset:-3px}
 .pdf-text-view{padding:16px;min-width:0;max-width:100%;background:var(--colorNeutralBackground1,var(--surface,#fff));color:var(--colorNeutralForeground1,var(--text,#242424));font-size:1rem;line-height:1.6;overflow-wrap:anywhere}
 .pdf-text-view>h2{font-size:1.2em;line-height:1.4;margin:0 0 12px}.pdf-reading-note{font-size:.9em;line-height:1.6;margin:8px 0 16px}
-.pdf-readable-content{white-space:pre-wrap;line-height:1.6;min-width:0;max-width:100%;overflow-wrap:anywhere}
+.pdf-readable-content{white-space:pre-wrap;line-height:1.6;min-width:0;max-width:100%;overflow-wrap:anywhere;text-align:start}
 .pdf-readable-content :is(p,div,section,article,aside,blockquote,figure){margin:0 0 1em;max-width:100%;min-width:0}
-.pdf-readable-content :is(h1,h2,h3,h4,h5,h6){font-size:1.15em;line-height:1.5;margin:1em 0 .5em}
+.pdf-readable-content :is(h1,h2,h3,h4,h5,h6){font-size:1.15em;line-height:1.5;margin:1em 0 .5em;text-align:start}
 .pdf-readable-content table{table-layout:fixed;width:100%;border-collapse:collapse;white-space:normal}
 .pdf-readable-content :is(td,th){padding:.5em;border:1px solid currentColor;text-align:start;overflow-wrap:anywhere;vertical-align:top}
 .pdf-readable-content :is(ul,ol){padding-inline-start:1.5em}.pdf-readable-content dd{margin:0 0 1em}.pdf-readable-content dt{font-weight:600}
