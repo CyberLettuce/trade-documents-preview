@@ -78,10 +78,18 @@ async function language(page,framework,name,code){
   await loaded(page,'/#chamber/applications/Pending');const row=page.locator('tbody tr').first();await row.focus();await page.keyboard.press('Shift+F10');assert(await page.getByRole('menu').isVisible());await page.keyboard.press('Escape');assert.equal(await row.getAttribute('aria-expanded'),null);
  });
 
- for(const [name,url] of [['records','/#stored/exporters'],['chamber-settings','/#chamber/settings'],['exporter-settings','/#settings'],['document-pack','/#chamber/applications/Pending/ch-app-0']])await check('react-keyboard-'+name,async page=>{
+ for(const [name,url] of [['records','/#stored'],['chamber-settings','/#chamber/settings'],['exporter-settings','/#settings'],['document-pack','/#chamber/applications/Pending/ch-app-0']])await check('react-keyboard-'+name,async page=>{
   await loaded(page,url);const focused=[];await page.locator('main').click({position:{x:5,y:5}});
   for(let i=0;i<45;i++){await page.keyboard.press('Tab');await page.evaluate(()=>new Promise(requestAnimationFrame));const state=await page.evaluate(()=>({hidden:document.activeElement?.getAttribute('aria-hidden'),dummy:document.activeElement?.hasAttribute('data-tabster-dummy'),name:document.activeElement?.getAttribute('aria-label')||document.activeElement?.textContent?.slice(0,60),tag:document.activeElement?.tagName}));assert(!state.dummy&&state.hidden!=='true','Keyboard focus must not land on a hidden focus sentinel');focused.push(state.name||state.tag)}
   assert(new Set(focused).size>4,'Keyboard should move through usable controls');
+ });
+
+ for(const framework of ['react','vue'])await check(framework+'-language-network-retry',async page=>{
+  await loaded(page,framework==='react'?'/#applications':'/vue/#/exporter/applications');let requests=0;
+  await page.route('**/assets/locales/nl.js*',route=>++requests===1?route.abort():route.continue());
+  await page.locator(framework==='react'?'.language-flag-button':'.language-control').first().click();await page.getByRole('menuitemradio',{name:'Dutch',exact:true}).click();
+  await page.locator('#language-load-error').waitFor();assert.equal(await page.locator('html').getAttribute('lang'),'en');
+  await page.locator('#language-load-error button').click();await page.waitForFunction(()=>document.documentElement.lang==='nl');assert.equal(await page.locator('#language-load-error').count(),0);assert(requests>=2);
  });
  await browser.close();server.close();fs.writeFileSync(path.join(out,'review-fixes-results.json'),JSON.stringify(results,null,2));console.log(JSON.stringify({checks:results.length,passed:results.filter(r=>r.pass).length,failed:results.filter(r=>!r.pass).map(r=>r.name)},null,2));process.exitCode=results.some(r=>!r.pass)?1:0;
 })().catch(error=>{console.error(error);process.exit(1)});
