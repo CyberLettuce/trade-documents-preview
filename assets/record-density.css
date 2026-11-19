@@ -1,21 +1,21 @@
 /* Shared record-table spacing. Document artwork and form grids retain their own layout. */
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) {
   border-collapse:collapse;
   width:100%;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) > :is(thead,tbody,tfoot) > tr > :is(th,td) {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) > :is(thead,tbody,tfoot) > tr > :is(th,td) {
   padding:7px 6px!important;
   text-align:center!important;
   vertical-align:middle!important;
   line-height:18px!important;
   font-size:13px!important;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) > thead > tr > th {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) > thead > tr > th {
   padding-block:9px!important;
   font-size:12px!important;
   font-weight:600;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) th>button {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) th>button {
   justify-content:center!important;
   text-align:center!important;
   gap:4px!important;
@@ -23,12 +23,12 @@ html body main table:is(.data-table,.records-table,.application-table,.ch-table)
   min-height:28px!important;
   padding:2px 4px!important;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.row-actions,.application-icon-actions,.ch-lock,.ch-application-meta,.payment-indicator,.application-status-badges,.status-stack,.claim-due,.button-row) {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(.row-actions,.application-icon-actions,.ch-lock,.ch-application-meta,.payment-indicator,.application-status-badges,.status-stack,.claim-due,.button-row) {
   justify-content:center!important;
   align-items:center!important;
   gap:4px!important;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.reference,.reference-button,.ch-reference,.report-reference,.claims-reference,.record-link) {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(.reference,.reference-button,.ch-reference,.report-reference,.claims-reference,.record-link) {
   min-height:26px!important;
   height:auto!important;
   padding:2px 0!important;
@@ -38,42 +38,42 @@ html body main table:is(.data-table,.records-table,.application-table,.ch-table)
   text-align:center!important;
   justify-content:center!important;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.row-actions,.application-icon-actions,.actions) > button,
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.row-action-icon,.claims-view,.icon-button,.report-performance-action,.report-open-action) {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(.row-actions,.application-icon-actions,.actions) > button,
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(.row-action-icon,.claims-view,.icon-button,.report-performance-action,.report-open-action) {
   min-width:32px!important;
   min-height:32px!important;
   height:32px!important;
   padding:6px!important;
   margin-block:0!important;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.row-action-icon,.claims-view,.icon-button) {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(.row-action-icon,.claims-view,.icon-button) {
   width:32px!important;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) td > :is(button.button,a.button) {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) td > :is(button.button,a.button) {
   min-height:32px!important;
   padding:5px 10px!important;
   line-height:20px!important;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.application-reference-summary,.claims-holder,.claim-processing,.claim-ref) {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(.application-reference-summary,.claims-holder,.claim-processing,.claim-ref) {
   text-align:center!important;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(small,.cell-subtext,.muted) {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(small,.cell-subtext,.muted) {
   line-height:16px!important;
   margin-block:2px 0!important;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.claims-progress,.claims-progress.is-compact) {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(.claims-progress,.claims-progress.is-compact) {
   gap:4px!important;
   justify-items:center;
   text-align:center;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) progress {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) progress {
   margin:4px auto!important;
   max-width:108px;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.claims-task-text,.claims-holder) {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(.claims-task-text,.claims-holder) {
   margin-block:0 2px!important;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.badge,.ch-badge,.application-status,.report-status,.claims-due) {
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(.badge,.ch-badge,.application-status,.report-status,.claims-due) {
   padding:3px 6px!important;
   min-height:24px!important;
   line-height:18px!important;
@@ -81,12 +81,12 @@ html body main table:is(.data-table,.records-table,.application-table,.ch-table)
   justify-content:center!important;
   align-items:center!important;
 }
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) .application-reference-entry {gap:5px!important}
-html body main table:is(.data-table,.records-table,.application-table,.ch-table) td :is(input[type=checkbox],.row-select) {vertical-align:middle}
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) .application-reference-entry {gap:5px!important}
+html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) td :is(input[type=checkbox],.row-select) {vertical-align:middle}
 @media(max-width:600px) {
-  html body main table:is(.data-table,.records-table,.application-table,.ch-table) > :is(thead,tbody,tfoot) > tr > :is(th,td) {padding-inline:4px!important}
-  html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.row-actions,.application-icon-actions,.actions)>button,
-  html body main table:is(.data-table,.records-table,.application-table,.ch-table) :is(.row-action-icon,.claims-view,.icon-button) {min-width:36px!important;min-height:36px!important;width:36px!important;height:36px!important}
+  html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) > :is(thead,tbody,tfoot) > tr > :is(th,td) {padding-inline:4px!important}
+  html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(.row-actions,.application-icon-actions,.actions)>button,
+  html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(.row-action-icon,.claims-view,.icon-button) {min-width:36px!important;min-height:36px!important;width:36px!important;height:36px!important}
 }
 
 @media(min-width:1200px) {
@@ -96,19 +96,19 @@ html body main table:is(.data-table,.records-table,.application-table,.ch-table)
 }
 
 /* Comfortable is the approved compact baseline; Compact trims the remaining padding. */
-html body main :is(.density-compact,.is-compact) table:is(.data-table,.records-table,.application-table,.ch-table)>tbody>tr>td,
-html body main table.records-table.compact>tbody>tr>td{padding-block:5px!important}
+html body :is(#main-content,#chamber-main,#main) :is(.density-compact,.is-compact) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table)>tbody>tr>td,
+html body :is(#main-content,#chamber-main,#main) table.records-table.compact>tbody>tr>td{padding-block:5px!important}
 html body .dashboard-performance-metrics dd small{display:block;font-size:12px;font-weight:400;line-height:1.5;margin-top:4px}
 html body .application-reference-summary>.reference-button{min-height:22px!important;padding-block:0!important;line-height:18px!important}
 @media(max-width:600px){
- html body .claims-table :is(th,td):is(:nth-child(2),:nth-child(3),:nth-child(4),:nth-child(6)){display:none!important}
- html body .claims-table{table-layout:fixed!important;min-width:0!important;width:100%!important}
- html body .claims-table :is(th,td):first-child{width:36%!important}
- html body .claims-table :is(th,td):nth-child(5){width:50%!important}
- html body .claims-table :is(th,td):last-child{width:14%!important}
- html body .claims-table th{white-space:normal!important;overflow-wrap:normal!important}
- html body .claims-table .claims-reference{white-space:normal!important;overflow-wrap:anywhere!important}
- html body .claims-table .claims-holder{overflow-wrap:normal!important}
+ html body #chamber-main .claims-workqueue-table :is(th,td):is(:nth-child(2),:nth-child(3),:nth-child(4),:nth-child(6)){display:none!important}
+ html body #chamber-main .claims-workqueue-table{table-layout:fixed!important;min-width:0!important;width:100%!important}
+ html body #chamber-main .claims-workqueue-table :is(th,td):first-child{width:36%!important}
+ html body #chamber-main .claims-workqueue-table :is(th,td):nth-child(5){width:50%!important}
+ html body #chamber-main .claims-workqueue-table :is(th,td):last-child{width:14%!important}
+ html body #chamber-main .claims-workqueue-table th{white-space:normal!important;overflow-wrap:normal!important}
+ html body #chamber-main .claims-workqueue-table .claims-reference{white-space:normal!important;overflow-wrap:anywhere!important}
+ html body #chamber-main .claims-workqueue-table .claims-holder{overflow-wrap:normal!important}
 }
 #language-load-error{position:fixed;inset:auto 16px 16px;z-index:10000;max-width:620px;margin-inline:auto;padding:16px;background:var(--colorNeutralBackground1,#fff);color:var(--colorNeutralForeground1,#222);border:1px solid currentColor;border-radius:6px;box-shadow:0 4px 20px #0002}
 #language-load-error button{min-height:36px;margin-inline-start:12px}

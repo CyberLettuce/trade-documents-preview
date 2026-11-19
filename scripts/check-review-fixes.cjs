@@ -26,7 +26,7 @@ async function language(page,framework,name,code){
   const resources=await page.evaluate(()=>performance.getEntriesByType('resource').map(r=>r.name));
   assert.equal(resources.filter(n=>/\/locales\/|language-(nl|sv|pt|other)/.test(n)).length,0,'English should not download other-language dictionaries');
   const cells=await page.locator('main tbody tr:first-child td').evaluateAll(cells=>cells.filter(c=>c.getBoundingClientRect().width>0).map(c=>({align:getComputedStyle(c).textAlign,vertical:getComputedStyle(c).verticalAlign,padding:parseFloat(getComputedStyle(c).paddingTop)})));
-  assert(cells.length>2);assert(cells.every(c=>c.align==='center'&&c.vertical==='middle'&&c.padding<=7));
+  assert(cells.length>2);assert(cells.every(c=>c.align==='center'&&c.vertical==='middle'&&c.padding<=7),JSON.stringify(cells));
   await screenshot(page,'fixed-'+framework+'-'+workspace+'-rows');
   for(const[name,code]of [['Dutch','nl'],['Estonian','et'],['العربية','ar'],['Swedish','sv'],['Portuguese','pt'],['English','en']]){
    await language(page,framework,name,code);await withinPage(page);
@@ -59,7 +59,7 @@ async function language(page,framework,name,code){
   assert.deepEqual((await page.locator('.document-choices button[aria-pressed=true]').allTextContents()).map(s=>s.trim()),['ATA Carnet','Uploaded document']);
   assert((await page.locator('.application-outline,.editor-outline,.workflow-outline').allTextContents()).join('').includes('Carnet details'));
   const reference=page.getByLabel('Your reference',{exact:false}).first();await reference.fill('SAVE-FLUSH-CHECK');
-  await page.getByRole('button',{name:'Back to Applications',exact:true}).click();await loaded(page,url);assert.equal(await page.getByLabel('Your reference',{exact:false}).first().inputValue(),'SAVE-FLUSH-CHECK');
+  await page.getByRole('button',{name:'Back to Applications',exact:true}).click();await page.waitForURL('**/#/exporter/applications');await loaded(page,url);assert.equal(await page.getByLabel('Your reference',{exact:false}).first().inputValue(),'SAVE-FLUSH-CHECK');
   await screenshot(page,'fixed-vue-combined-carnet');
  });
  for(const framework of ['react','vue'])await check(framework+'-dashboard-order',async page=>{
@@ -76,6 +76,12 @@ async function language(page,framework,name,code){
  });
  await check('react-row-context-menu-keeps-keyboard-access',async page=>{
   await loaded(page,'/#chamber/applications/Pending');const row=page.locator('tbody tr').first();await row.focus();await page.keyboard.press('Shift+F10');assert(await page.getByRole('menu').isVisible());await page.keyboard.press('Escape');assert.equal(await row.getAttribute('aria-expanded'),null);
+ });
+
+ for(const [name,url] of [['records','/#stored/exporters'],['chamber-settings','/#chamber/settings'],['exporter-settings','/#settings'],['document-pack','/#chamber/applications/Pending/ch-app-0']])await check('react-keyboard-'+name,async page=>{
+  await loaded(page,url);const focused=[];await page.locator('main').click({position:{x:5,y:5}});
+  for(let i=0;i<45;i++){await page.keyboard.press('Tab');await page.evaluate(()=>new Promise(requestAnimationFrame));const state=await page.evaluate(()=>({hidden:document.activeElement?.getAttribute('aria-hidden'),dummy:document.activeElement?.hasAttribute('data-tabster-dummy'),name:document.activeElement?.getAttribute('aria-label')||document.activeElement?.textContent?.slice(0,60),tag:document.activeElement?.tagName}));assert(!state.dummy&&state.hidden!=='true','Keyboard focus must not land on a hidden focus sentinel');focused.push(state.name||state.tag)}
+  assert(new Set(focused).size>4,'Keyboard should move through usable controls');
  });
  await browser.close();server.close();fs.writeFileSync(path.join(out,'review-fixes-results.json'),JSON.stringify(results,null,2));console.log(JSON.stringify({checks:results.length,passed:results.filter(r=>r.pass).length,failed:results.filter(r=>!r.pass).map(r=>r.name)},null,2));process.exitCode=results.some(r=>!r.pass)?1:0;
 })().catch(error=>{console.error(error);process.exit(1)});
