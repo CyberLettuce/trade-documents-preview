@@ -23,10 +23,10 @@ export const DocumentChooser={props:{record:Object},emits:['choose','preview'],c
    <button type="button" class="vue-document-select" :data-document="doc.value" :aria-pressed="selected(doc)" :aria-labelledby="id+'-'+doc.id+'-name'" :aria-describedby="id+'-'+doc.id+'-description'" :disabled="unavailable(doc)&&!selected(doc)" @click="$emit('choose',doc.value)">
     <span v-if="doc.x!==null" class="document-choice-thumbnail" aria-hidden="true" :style="{backgroundPosition:(-doc.x/5)+'px -39.6px'}"></span>
     <span v-else class="document-choice-upload" aria-hidden="true"></span>
-    <span class="document-choice-copy"><strong :id="id+'-'+doc.id+'-name'">{{doc.label}}</strong><span :id="id+'-'+doc.id+'-description'">{{doc.description}}<span v-if="record.destination&&unavailable(doc)" class="document-choice-unavailable">{{'Not available for '+record.destination}}</span></span></span>
+    <span class="document-choice-copy"><strong :id="id+'-'+doc.id+'-name'">{{doc.label}}</strong><span :id="id+'-'+doc.id+'-description'">{{doc.description}}<span v-if="record.destination&&unavailable(doc)" class="document-choice-unavailable">{{'Not available: '+record.destination}}</span></span></span>
     <span class="document-choice-marker" aria-hidden="true"><Icon v-if="selected(doc)" name="check"/></span>
    </button>
-   <button v-if="selected(doc)" class="icon-button document-choice-preview" type="button" :aria-label="'Preview '+doc.label" :data-tip="'Preview '+doc.label" @click="$emit('preview',doc.value)"><Icon name="eye"/></button>
+   <button v-if="selected(doc)" class="icon-button document-choice-preview" type="button" :aria-label="'Preview: '+doc.label" :data-tip="'Preview: '+doc.label" @click="$emit('preview',doc.value)"><Icon name="eye"/></button>
   </div>
  </div>
  <div class="document-choice-summary" role="status" aria-atomic="true"><strong>{{chosen.length?'Selected':'No documents selected'}}</strong><p v-if="chosen.length"><span v-for="(doc,i) in chosen" :key="doc.id"><span v-if="i" aria-hidden="true"> · </span>{{doc.label}}</span></p><p v-else>Choose a destination country first to see which documents are available.</p></div>
