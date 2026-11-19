@@ -134,4 +134,4 @@ html body .site-review-pack.preview-hidden .processing{max-width:none}
 }
 @media print{html body .review-layout-actions{display:none!important}}
 
-.dashboard-order{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin:0 0 16px;font-size:13px}.dashboard-order select{width:auto!important;min-width:170px;min-height:36px}.ch-dashboard .dashboard-order{grid-column:1/-1}@media(max-width:500px){.dashboard-order{justify-content:flex-start;flex-wrap:wrap}}
+.dashboard-order{display:flex!important;flex-direction:row!important;align-items:center;justify-content:flex-end;gap:10px;margin:0 0 16px;font-size:13px}.dashboard-order select{width:auto!important;min-width:170px;min-height:36px}.ch-dashboard .dashboard-order{grid-column:1/-1}@media(max-width:500px){.dashboard-order{justify-content:flex-start;flex-wrap:wrap}}
