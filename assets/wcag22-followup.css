@@ -1,0 +1,6 @@
+.native-section-tabs .native-section-tab{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:44px;max-width:100%;padding:10px 12px;border:0;border-bottom:3px solid transparent;border-radius:0;background:transparent;color:var(--colorNeutralForeground1,#242424);font:inherit;line-height:1.4;cursor:pointer;white-space:normal;overflow-wrap:anywhere}
+.native-section-tabs .native-section-tab[aria-selected=true]{border-bottom-color:var(--colorBrandForeground1,#a43d00);font-weight:600}
+.native-section-tabs .native-section-tab:hover{background:var(--colorNeutralBackground1Hover,#f0f0f0)}
+.native-section-tabs .native-section-tab:focus-visible,[role=tabpanel]:focus-visible,.paper-space:focus-visible{outline:3px solid var(--colorStrokeFocus2,#0078d4);outline-offset:-3px}
+.native-section-tabs .native-section-tab:disabled{opacity:.6;cursor:default}
+@media(forced-colors:active){.native-section-tabs .native-section-tab[aria-selected=true]{border-bottom-color:Highlight}.native-section-tabs .native-section-tab:focus-visible{outline-color:Highlight}}
