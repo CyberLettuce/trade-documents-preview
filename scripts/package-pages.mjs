@@ -22,6 +22,7 @@ function add(name) {
   if (!selected.has(name)) { selected.add(name); queue.push(name); }
 }
 add('index.html');
+add('previews/slimmer-rows/index.html');
 for (const name of tracked.keys()) {
   // The independent Vue comparison is published at /vue/ alongside React.
   if (name.startsWith('vue/')) add(name);
