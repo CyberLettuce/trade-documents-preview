@@ -22,10 +22,10 @@ async function seedPdf(page,framework){
  else await page.locator('.processing .detail-tabs').getByRole('button',{name:'Files',exact:true}).click();
  const input=framework==='react'?page.getByLabel('Attach documents',{exact:true}):page.locator('.processing input[type=file]');
  await input.setInputFiles({name:'accessible-test.pdf',mimeType:'application/pdf',buffer:fixturePdf()});
- await page.getByText('accessible-test.pdf',{exact:true}).first().waitFor();
+ await page.getByText('accessible-test.pdf',{exact:true}).first().waitFor({state:'attached'});
 }
 async function openPdf(page,framework){
- const showFiles=page.getByRole('button',{name:/^Show files$/});if(await showFiles.count()&&await showFiles.isVisible())await showFiles.click();
+ const showFiles=page.locator('button[aria-controls=pack-page-list][aria-expanded=false]');if(await showFiles.count()&&await showFiles.isVisible())await showFiles.click();
  const file=page.getByRole('button',{name:/accessible-test\.pdf/}).first();await file.click();
  const viewer=page.locator(framework==='react'?'.application-pdf-viewer':'.pdf-viewer');await viewer.locator('.pdf-view-choice').waitFor();return viewer;
 }
