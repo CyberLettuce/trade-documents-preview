@@ -12,7 +12,7 @@ async function withinPage(page){const size=await page.evaluate(()=>({width:inner
 async function openDraft(page,doc){
  await loaded(page,'/#applications');
  const draftTab=page.getByRole('tab',{name:/^Drafts/}).or(page.getByRole('button',{name:/^Drafts/}));await draftTab.first().click();
- const row=page.getByRole('row').filter({hasText:'SAMPLE-DRAFT-'+doc.toUpperCase()}).first();await row.click({button:'right'});await page.getByRole('menuitem',{name:'Continue',exact:true}).click();
+ const row=page.getByRole('row').filter({hasText:new RegExp('SAMPLE-DRAFT-'+doc.toUpperCase()+'(?:\\s|$)')}).first();await row.click({button:'right'});await page.getByRole('menuitem',{name:'Continue',exact:true}).click();
  await page.locator('.editor-application-navigation').waitFor();
 }
 (async()=>{await new Promise(resolve=>server.listen(5204,'127.0.0.1',resolve));browser=await chromium.launch(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE?{executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE}:{});
@@ -20,7 +20,7 @@ for(const doc of ['ata','coo','arab','eur','eurmed','invoice','iic','upload'])aw
  await loaded(page,'/#applications');await preferences(page,'react',{layout:'sidebar'});await page.locator('.sidebar-collapse-toggle').click();await openDraft(page,doc);
  const rail=page.locator('#exporter-navigation'),outline=page.locator('.editor-application-navigation');assert.equal(Math.round((await rail.boundingBox()).width),80);assert.equal(await rail.locator('.workspace-navigation>button').count(),6);
  assert.equal(await rail.locator('.application-outline').count(),0);assert.ok((await outline.boundingBox()).width>=200);assert.ok((await outline.locator('.outline-label').first().boundingBox()).width>60,'Application labels remain readable');
- assert.ok((await outline.locator('.editor-application-reference').innerText()).includes('SAMPLE-DRAFT-'+doc.toUpperCase()));
+ assert.equal((await outline.locator('.editor-application-reference').innerText()).trim(),'SAMPLE-DRAFT-'+doc.toUpperCase());
  await outline.getByRole('button',{name:/^Setup\./}).click();if(doc==='ata')assert.ok((await outline.innerText()).includes('Carnet details'));else assert.ok((await outline.innerText()).includes('Shipment details'));
  await withinPage(page);await screenshot(page,'react-editor-'+doc+'-collapsed');
  await page.locator('.sidebar-collapse-toggle').click();assert.ok((await rail.boundingBox()).width>200);assert.ok((await outline.locator('.outline-label').first().boundingBox()).width>60);await screenshot(page,'react-editor-'+doc+'-expanded');
