@@ -1,0 +1,31 @@
+name: ATA Carnet vertical Application preview
+on:
+  push:
+    branches: [codex/carnet-vertical-preview-20261120]
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1-noble
+      options: --user pwuser
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - run: node scripts/package-pages.mjs _site-check
+      - name: Prepare cloud browser
+        run: |
+          echo "NODE_PATH=$RUNNER_TEMP/browser-check/node_modules" >> "$GITHUB_ENV"
+          npm install --prefix "$RUNNER_TEMP/browser-check" --no-save --ignore-scripts playwright@1.56.1
+      - run: node scripts/capture-vertical-carnet.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: carnet-vertical-preview
+          path: qa-results/
+          retention-days: 14
