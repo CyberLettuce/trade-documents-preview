@@ -371,3 +371,20 @@ html body .pack-summary-bar .review-layout-actions button {
 }
 
 .processing .detail-tabs.has-summary { flex-wrap: wrap; }
+
+.carnet-summary-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 16px 24px;
+}
+
+.pack-details-sidebar .carnet-summary-grid > .page-panel { margin: 0; }
+.processing .carnet-summary-grid > section > h3 { margin-block-start: 0; }
+#pack-details-panel .carnet-summary-grid .review-processing-fields {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+}
+
+@container review-details (min-width: 560px) {
+  .carnet-summary-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+}

@@ -83,6 +83,8 @@ async function checkCarnet(page, framework) {
  await detailTab('Summary').click();
  await summaryTitle.waitFor();
  await feesTitle.waitFor();
+ const [summaryPosition,feesPosition]=await Promise.all([summaryTitle.boundingBox(),feesTitle.boundingBox()]);
+ assert(feesPosition.x>summaryPosition.x+100&&Math.abs(feesPosition.y-summaryPosition.y)<3,JSON.stringify({summaryPosition,feesPosition}));
  assert(await sidebar.getByText('Harbour Engineering Ltd',{exact:true}).isVisible());
  assert.equal(await details.count(),0);
  if(react)assert(await sidebar.getByLabel('Certification fee (£)',{exact:true}).isEditable());
@@ -166,6 +168,8 @@ async function checkCarnet(page, framework) {
  else assert.equal(await sidebar.getByRole('button',{name:'Recalculate fees',exact:true}).count(),0);
  await page.setViewportSize({width:390,height:844});
  await assertNoOverflow(page);
+ const [mobileSummary,mobileFees]=await Promise.all([summaryTitle.boundingBox(),feesTitle.boundingBox()]);
+ assert(Math.abs(mobileFees.x-mobileSummary.x)<3&&mobileFees.y>mobileSummary.y+20,JSON.stringify({mobileSummary,mobileFees}));
 }
 
 async function checkFit(page, preview, paper, details) {
