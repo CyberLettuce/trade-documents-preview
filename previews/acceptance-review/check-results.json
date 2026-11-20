@@ -1,0 +1,1887 @@
+{
+  "date": "2026-11-20",
+  "revision": "7a6e55c",
+  "humanReview": "Not run",
+  "engines": {
+    "chromium": [
+      {
+        "name": "react-chamber-applications",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-applications",
+        "pass": true
+      },
+      {
+        "name": "react-exporters",
+        "pass": true
+      },
+      {
+        "name": "react-claims",
+        "pass": true
+      },
+      {
+        "name": "react-performance",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-reports",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-records",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-reports",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-applications",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-applications",
+        "pass": true
+      },
+      {
+        "name": "vue-exporters",
+        "pass": true
+      },
+      {
+        "name": "vue-claims",
+        "pass": true
+      },
+      {
+        "name": "vue-performance",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-records",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-1366-en",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-390-en",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-1366-ar",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-390-ar",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-1366-en",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-390-en",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-1366-ar",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-390-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-1366-en",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-390-en",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-1366-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-390-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-1366-en",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-390-en",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-1366-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-390-ar",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-options-nl",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-options-et",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-options-sv",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-options-pt",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-options-nl",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-options-et",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-options-sv",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-options-pt",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-options-nl",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-options-et",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-options-sv",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-options-pt",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-options-nl",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-options-et",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-options-sv",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-options-pt",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-reviewed-rows-languages",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-reviewed-rows-languages",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-reviewed-rows-languages",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-reviewed-rows-languages",
+        "pass": true
+      },
+      {
+        "name": "react-mobile-claims-readable",
+        "pass": true
+      },
+      {
+        "name": "vue-mobile-claims-readable",
+        "pass": true
+      },
+      {
+        "name": "react-review-panels-and-zoom",
+        "pass": true
+      },
+      {
+        "name": "vue-review-panels-and-zoom",
+        "pass": true
+      },
+      {
+        "name": "vue-carnet-upload-and-save",
+        "pass": true
+      },
+      {
+        "name": "react-dashboard-order",
+        "pass": true
+      },
+      {
+        "name": "vue-dashboard-order",
+        "pass": true
+      },
+      {
+        "name": "vue-preferences-do-not-reserialize-applications",
+        "pass": true
+      },
+      {
+        "name": "react-row-context-menu-keeps-keyboard-access",
+        "pass": true
+      },
+      {
+        "name": "react-keyboard-records",
+        "pass": true
+      },
+      {
+        "name": "react-keyboard-chamber-settings",
+        "pass": true
+      },
+      {
+        "name": "react-keyboard-exporter-settings",
+        "pass": true
+      },
+      {
+        "name": "react-keyboard-document-pack",
+        "pass": true
+      },
+      {
+        "name": "react-language-network-retry",
+        "pass": true
+      },
+      {
+        "name": "vue-language-network-retry",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-type-draw-signature",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-type-draw-signature",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-type-draw-signature",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-type-draw-signature",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-en",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-nl",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-et",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-ar",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-sv",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-pt",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-en",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-nl",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-et",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-sv",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-pt",
+        "pass": true
+      },
+      {
+        "name": "vue-step-fields-save-and-live-preview",
+        "pass": true
+      },
+      {
+        "name": "vue-goods-cards-copy-csv-and-preview",
+        "pass": true
+      },
+      {
+        "name": "vue-carnet-country-and-goods-records",
+        "pass": true
+      },
+      {
+        "name": "vue-review-checkout-and-return-links",
+        "pass": true
+      },
+      {
+        "name": "vue-all-coo-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-ata-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-eur-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-eurmed-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-arab-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-invoice-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-iic-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-upload-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-narrow-editor-coo",
+        "pass": true
+      },
+      {
+        "name": "vue-narrow-editor-ata",
+        "pass": true
+      },
+      {
+        "name": "vue-narrow-editor-upload",
+        "pass": true
+      },
+      {
+        "name": "vue-editor-responsive-en",
+        "pass": true
+      },
+      {
+        "name": "vue-editor-responsive-nl",
+        "pass": true
+      },
+      {
+        "name": "vue-editor-responsive-et",
+        "pass": true
+      },
+      {
+        "name": "vue-editor-responsive-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-editor-responsive-sv",
+        "pass": true
+      },
+      {
+        "name": "vue-editor-responsive-pt",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-en-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-en-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-nl-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-nl-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-et-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-et-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-ar-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-ar-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-sv-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-sv-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-pt-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-pt-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-reading",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-en-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-en-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-nl-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-nl-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-et-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-et-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-ar-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-ar-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-sv-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-sv-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-pt-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-pt-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-reading",
+        "pass": true
+      },
+      {
+        "name": "chamber-setup-icons-match",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-applications-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-applications-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-settings-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-settings-header-200",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-settings-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-settings-header-400",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-stored-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-stored-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-editor-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-editor-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-reports-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-reports-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-applications-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-applications-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-settings-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-settings-header-200",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-settings-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-settings-header-400",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-claims-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-claims-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-review-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-review-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-applications-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-applications-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-settings-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-settings-header-200",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-settings-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-settings-header-400",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-stored-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-stored-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-editor-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-editor-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-reports-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-reports-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-applications-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-applications-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-settings-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-settings-header-200",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-settings-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-settings-header-400",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-claims-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-claims-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-review-sidebar-200",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-review-sidebar-400",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-text-400",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-text-400",
+        "pass": true
+      },
+      {
+        "name": "react-mixed-pdf-and-stamp",
+        "pass": true
+      },
+      {
+        "name": "react-malformed-pdf-recovery",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-text-spacing-keyboard",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-text-spacing-keyboard",
+        "pass": true
+      },
+      {
+        "name": "react-generated-document-print",
+        "pass": true
+      },
+      {
+        "name": "vue-mixed-pdf-and-stamp",
+        "pass": true
+      },
+      {
+        "name": "vue-malformed-pdf-recovery",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-text-spacing-keyboard",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-text-spacing-keyboard",
+        "pass": true
+      },
+      {
+        "name": "vue-generated-document-print",
+        "pass": true
+      }
+    ],
+    "firefox": [
+      {
+        "name": "react-chamber-applications",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-applications",
+        "pass": true
+      },
+      {
+        "name": "react-exporters",
+        "pass": true
+      },
+      {
+        "name": "react-claims",
+        "pass": true
+      },
+      {
+        "name": "react-performance",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-reports",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-records",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-reports",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-applications",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-applications",
+        "pass": true
+      },
+      {
+        "name": "vue-exporters",
+        "pass": true
+      },
+      {
+        "name": "vue-claims",
+        "pass": true
+      },
+      {
+        "name": "vue-performance",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-records",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-1366-en",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-390-en",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-1366-ar",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-390-ar",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-1366-en",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-390-en",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-1366-ar",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-390-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-1366-en",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-390-en",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-1366-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-390-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-1366-en",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-390-en",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-1366-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-390-ar",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-options-nl",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-options-et",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-options-sv",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-options-pt",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-options-nl",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-options-et",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-options-sv",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-options-pt",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-options-nl",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-options-et",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-options-sv",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-options-pt",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-options-nl",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-options-et",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-options-sv",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-options-pt",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-reviewed-rows-languages",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-reviewed-rows-languages",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-reviewed-rows-languages",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-reviewed-rows-languages",
+        "pass": true
+      },
+      {
+        "name": "react-mobile-claims-readable",
+        "pass": true
+      },
+      {
+        "name": "vue-mobile-claims-readable",
+        "pass": true
+      },
+      {
+        "name": "react-review-panels-and-zoom",
+        "pass": true
+      },
+      {
+        "name": "vue-review-panels-and-zoom",
+        "pass": true
+      },
+      {
+        "name": "vue-carnet-upload-and-save",
+        "pass": true
+      },
+      {
+        "name": "react-dashboard-order",
+        "pass": true
+      },
+      {
+        "name": "vue-dashboard-order",
+        "pass": true
+      },
+      {
+        "name": "vue-preferences-do-not-reserialize-applications",
+        "pass": true
+      },
+      {
+        "name": "react-row-context-menu-keeps-keyboard-access",
+        "pass": true
+      },
+      {
+        "name": "react-keyboard-records",
+        "pass": true
+      },
+      {
+        "name": "react-keyboard-chamber-settings",
+        "pass": true
+      },
+      {
+        "name": "react-keyboard-exporter-settings",
+        "pass": true
+      },
+      {
+        "name": "react-keyboard-document-pack",
+        "pass": true
+      },
+      {
+        "name": "react-language-network-retry",
+        "pass": true
+      },
+      {
+        "name": "vue-language-network-retry",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-type-draw-signature",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-type-draw-signature",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-type-draw-signature",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-type-draw-signature",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-en",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-nl",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-et",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-ar",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-sv",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-pt",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-en",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-nl",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-et",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-sv",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-pt",
+        "pass": true
+      },
+      {
+        "name": "vue-step-fields-save-and-live-preview",
+        "pass": true
+      },
+      {
+        "name": "vue-goods-cards-copy-csv-and-preview",
+        "pass": true
+      },
+      {
+        "name": "vue-carnet-country-and-goods-records",
+        "pass": true
+      },
+      {
+        "name": "vue-review-checkout-and-return-links",
+        "pass": true
+      },
+      {
+        "name": "vue-all-coo-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-ata-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-eur-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-eurmed-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-arab-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-invoice-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-iic-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-upload-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-narrow-editor-coo",
+        "pass": true
+      },
+      {
+        "name": "vue-narrow-editor-ata",
+        "pass": true
+      },
+      {
+        "name": "vue-narrow-editor-upload",
+        "pass": true
+      },
+      {
+        "name": "vue-editor-responsive-en",
+        "pass": true
+      },
+      {
+        "name": "vue-editor-responsive-nl",
+        "pass": true
+      },
+      {
+        "name": "vue-editor-responsive-et",
+        "pass": true
+      },
+      {
+        "name": "vue-editor-responsive-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-editor-responsive-sv",
+        "pass": true
+      },
+      {
+        "name": "vue-editor-responsive-pt",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-en-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-en-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-nl-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-nl-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-et-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-et-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-ar-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-ar-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-sv-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-sv-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-pt-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-pt-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-reading",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-en-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-en-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-nl-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-nl-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-et-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-et-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-ar-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-ar-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-sv-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-sv-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-pt-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-pt-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-reading",
+        "pass": true
+      },
+      {
+        "name": "chamber-setup-icons-match",
+        "pass": true
+      },
+      {
+        "name": "react-mixed-pdf-and-stamp",
+        "pass": true
+      },
+      {
+        "name": "react-malformed-pdf-recovery",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-text-spacing-keyboard",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-text-spacing-keyboard",
+        "pass": true
+      },
+      {
+        "name": "vue-mixed-pdf-and-stamp",
+        "pass": true
+      },
+      {
+        "name": "vue-malformed-pdf-recovery",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-text-spacing-keyboard",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-text-spacing-keyboard",
+        "pass": true
+      }
+    ],
+    "webkit": [
+      {
+        "name": "react-chamber-applications",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-applications",
+        "pass": true
+      },
+      {
+        "name": "react-exporters",
+        "pass": true
+      },
+      {
+        "name": "react-claims",
+        "pass": true
+      },
+      {
+        "name": "react-performance",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-reports",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-records",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-reports",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-applications",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-applications",
+        "pass": true
+      },
+      {
+        "name": "vue-exporters",
+        "pass": true
+      },
+      {
+        "name": "vue-claims",
+        "pass": true
+      },
+      {
+        "name": "vue-performance",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-records",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-1366-en",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-390-en",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-1366-ar",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-dashboard-390-ar",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-1366-en",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-390-en",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-1366-ar",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-dashboard-390-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-1366-en",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-390-en",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-1366-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-dashboard-390-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-1366-en",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-390-en",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-1366-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-dashboard-390-ar",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-options-nl",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-options-et",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-options-sv",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-options-pt",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-options-nl",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-options-et",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-options-sv",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-options-pt",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-options-nl",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-options-et",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-options-sv",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-options-pt",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-options-nl",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-options-et",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-options-sv",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-options-pt",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-reviewed-rows-languages",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-reviewed-rows-languages",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-reviewed-rows-languages",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-reviewed-rows-languages",
+        "pass": true
+      },
+      {
+        "name": "react-mobile-claims-readable",
+        "pass": true
+      },
+      {
+        "name": "vue-mobile-claims-readable",
+        "pass": true
+      },
+      {
+        "name": "react-review-panels-and-zoom",
+        "pass": true
+      },
+      {
+        "name": "vue-review-panels-and-zoom",
+        "pass": true
+      },
+      {
+        "name": "vue-carnet-upload-and-save",
+        "pass": true
+      },
+      {
+        "name": "react-dashboard-order",
+        "pass": true
+      },
+      {
+        "name": "vue-dashboard-order",
+        "pass": true
+      },
+      {
+        "name": "vue-preferences-do-not-reserialize-applications",
+        "pass": true
+      },
+      {
+        "name": "react-row-context-menu-keeps-keyboard-access",
+        "pass": true
+      },
+      {
+        "name": "react-keyboard-records",
+        "pass": true
+      },
+      {
+        "name": "react-keyboard-chamber-settings",
+        "pass": true
+      },
+      {
+        "name": "react-keyboard-exporter-settings",
+        "pass": true
+      },
+      {
+        "name": "react-keyboard-document-pack",
+        "pass": true
+      },
+      {
+        "name": "react-language-network-retry",
+        "pass": true
+      },
+      {
+        "name": "vue-language-network-retry",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-type-draw-signature",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-type-draw-signature",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-type-draw-signature",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-type-draw-signature",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-en",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-nl",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-et",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-ar",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-sv",
+        "pass": true
+      },
+      {
+        "name": "react-signature-mobile-pt",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-en",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-nl",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-et",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-ar",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-sv",
+        "pass": true
+      },
+      {
+        "name": "vue-signature-mobile-pt",
+        "pass": true
+      },
+      {
+        "name": "vue-step-fields-save-and-live-preview",
+        "pass": true
+      },
+      {
+        "name": "vue-goods-cards-copy-csv-and-preview",
+        "pass": true
+      },
+      {
+        "name": "vue-carnet-country-and-goods-records",
+        "pass": true
+      },
+      {
+        "name": "vue-review-checkout-and-return-links",
+        "pass": true
+      },
+      {
+        "name": "vue-all-coo-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-ata-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-eur-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-eurmed-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-arab-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-invoice-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-iic-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-all-upload-steps",
+        "pass": true
+      },
+      {
+        "name": "vue-narrow-editor-coo",
+        "pass": true
+      },
+      {
+        "name": "vue-narrow-editor-ata",
+        "pass": true
+      },
+      {
+        "name": "vue-narrow-editor-upload",
+        "pass": true
+      },
+      {
+        "name": "vue-editor-responsive-en",
+        "pass": false,
+        "error": "Page width 1174px exceeds 390px"
+      },
+      {
+        "name": "vue-editor-responsive-nl",
+        "pass": false,
+        "error": "Page width 1174px exceeds 390px"
+      },
+      {
+        "name": "vue-editor-responsive-et",
+        "pass": false,
+        "error": "Page width 1174px exceeds 390px"
+      },
+      {
+        "name": "vue-editor-responsive-ar",
+        "pass": false,
+        "error": "Page width 1174px exceeds 390px"
+      },
+      {
+        "name": "vue-editor-responsive-sv",
+        "pass": false,
+        "error": "Page width 1174px exceeds 390px"
+      },
+      {
+        "name": "vue-editor-responsive-pt",
+        "pass": false,
+        "error": "Page width 1174px exceeds 390px"
+      },
+      {
+        "name": "react-pdf-en-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-en-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-nl-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-nl-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-et-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-et-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-ar-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-ar-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-sv-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-sv-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-pt-light",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-pt-dark",
+        "pass": true
+      },
+      {
+        "name": "react-pdf-reading",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-en-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-en-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-nl-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-nl-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-et-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-et-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-ar-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-ar-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-sv-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-sv-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-pt-light",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-pt-dark",
+        "pass": true
+      },
+      {
+        "name": "vue-pdf-reading",
+        "pass": true
+      },
+      {
+        "name": "chamber-setup-icons-match",
+        "pass": true
+      },
+      {
+        "name": "react-mixed-pdf-and-stamp",
+        "pass": true
+      },
+      {
+        "name": "react-malformed-pdf-recovery",
+        "pass": true
+      },
+      {
+        "name": "react-exporter-text-spacing-keyboard",
+        "pass": true
+      },
+      {
+        "name": "react-chamber-text-spacing-keyboard",
+        "pass": true
+      },
+      {
+        "name": "vue-mixed-pdf-and-stamp",
+        "pass": true
+      },
+      {
+        "name": "vue-malformed-pdf-recovery",
+        "pass": true
+      },
+      {
+        "name": "vue-exporter-text-spacing-keyboard",
+        "pass": true
+      },
+      {
+        "name": "vue-chamber-text-spacing-keyboard",
+        "pass": true
+      }
+    ]
+  }
+}

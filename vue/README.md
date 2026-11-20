@@ -1,4 +1,4 @@
-# Trade Documents — Vue comparison
+# Trade Documents â€” Vue comparison
 
 Published beside the original React prototype:
 - Vue: https://cyberlettuce.github.io/trade-documents-preview/vue/
@@ -15,7 +15,7 @@ This is a separate Vue 3.5.45 implementation of the Exporter and Chamber workspa
 - Original supporting PDF and image uploads, multiple PDF pages, optional/enlarged previews, original-file download and document printing.
 - Chamber document processing through the Application tab with direct Approve and Reject actions, comments, history, fees and ownership. Review checklists and checklist settings are removed.
 - PDF stamping with vertical stamp choices, QR code, drag/drop or click placement, keyboard adjustment, size controls, multiple pages, saved stamped copies and original preservation. PDF-lib preserves source PDF content where supported; an explicitly selected rendered-copy fallback is available.
-- Signature uploads from images or PDFs, page selection, suggested signature regions, cropping, background removal and saved signatures.
+- Signature uploads from images or PDFs, page selection, suggested regions, cropping and background removal, plus typed and mouse/touch-drawn signatures. Explicit record saves persist before their dialog closes.
 - Stored Data, client CSV imports, Agent Accounts, per-client Auto Accept settings, Chamber exporter management, claims, reports, CSV exports, printable records, tariffs, payment/delivery options, workflow steps, content editing and browser preferences.
 - Exporter Basic/Administrator access previews. Basic users cannot manage users, company details or signatories. Client Auto Accept checkboxes are settings demonstrations; they do not automate approvals.
 
@@ -31,9 +31,9 @@ All runtime modules, libraries, fonts, flags and PDF assets are served locally. 
 
 Both sites are browser-based prototypes. Vue has separate storage keys beginning trade-documents-vue-comparison-v1, so it does not overwrite React records. Changes stay in the current browser; uploaded bytes use IndexedDB. There is no shared database, real authentication, server-enforced access control, payment collection, email delivery or official certification. Sample documents and stamps are labelled accordingly.
 
-PDF support depends on PDF.js and PDF-lib. Encrypted, malformed or unusual PDFs can require a different reader or a rendered copy. A canvas preview is not a complete accessible PDF text layer. UI translations have been checked for layout and obvious omissions; professional linguistic review remains appropriate before operational use.
+PDF support depends on PDF.js and PDF-lib. Encrypted, malformed or unusual PDFs can require a different reader or a rendered copy. Document view is complemented by Text view using the available PDF text, structure tags and form values. Scans still need an accessible source or checked transcript; Text view does not remediate the PDF. UI translations have been checked for layout and obvious omissions; professional linguistic review remains appropriate before operational use.
 
-## Validation — 17 November 2026
+## Validation â€” 17 November 2026
 
 48 automated checks pass, covering numbering, submission requirements, mixed document forms, CSV imports, roles, fees, print/reset eligibility, claims, queue filters and performance calculations. All 33 Vue component templates compile in the browser.
 
@@ -45,7 +45,7 @@ This is evidence for the tested workflows, not a guarantee that every possible d
 
 See the included third-party licence files under assets/.
 
-## Combined workspace update — 17 November 2026
+## Combined workspace update â€” 17 November 2026
 
 Vue now combines React's compact navigation, dashboard hierarchy and Claims work queue with the Vue editor and its existing document workflows. The exporter editor retains its steps, central form and optional live preview. React remains independently available at the original URL, with separate saved data.
 
@@ -55,3 +55,9 @@ Vue now combines React's compact navigation, dashboard hierarchy and Claims work
 - Dates and currency formatting update immediately with the interface language. Company names remain user data. Contact details use the configured chamber.
 
 The update passed all 48 automated checks and 33 template compilations. Browser verification covered layout switching in both workspaces, reload persistence, Claim filters and column preferences, stage updates, notification read counts, Help navigation, Chamber scoping, dashboard queue recovery, User Performance filters, and the retained exporter editor/guide/preview controls. Responsive checks covered six routes, six languages and widths of 360, 768 and 1366 pixels. A cramped Dutch metric was fixed and the affected Dashboard/Claims combinations rechecked without overflowing page widths or buttons. Arabic RTL/dark mode and matched-size React/Vue screenshots were inspected. These are prototype checks, not a claim of complete WCAG conformance or universal PDF compatibility.
+
+## Current acceptance review — 20 November 2026
+
+The current model suite contains 78 tests. The cloud acceptance workflows extend coverage to Chromium, Firefox and WebKit, including navigation, queues, signatures, all eight application types, translated layouts, PDF reading and stamping. Actual 200%/400% browser zoom is checked in Chromium. Results and outstanding human/device work are recorded in the [acceptance review](https://cyberlettuce.github.io/trade-documents-preview/previews/acceptance-review/); older counts above describe those historical runs only.
+
+Application steps now use consistent headings, field groups and spacing while retaining the side-by-side live preview. The source includes the document chooser, grouped outline, review summaries and checkout improvements.

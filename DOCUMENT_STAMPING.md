@@ -1,25 +1,25 @@
-# Document stamping
+# PDF uploads, previews and stamping
 
-Release: 2026-11-16-document-stamping
+Current scope, 20 November 2026. Both versions retain original uploaded PDF bytes in IndexedDB in the current browser. The Application document pack can preview them and offer the original for download. This replaces the earlier filename-only behavior. It does not transfer files between users or browsers.
 
-Supporting PDFs open through one Stamp document button in the Chamber application pack. Three black rectangular sample stamp styles can be placed, moved, resized, removed, saved to a separate PDF and printed across all pages. The original PDF and stamp placements remain in IndexedDB in the same browser, scoped by Chamber, application and attachment. Artwork records retain their own date, signatory and reference.
+## Review and accessible reading
 
-The interface supports English, Dutch, Estonian and Arabic. Document content and stamp artwork retain their original language. Sample signatures and stamps are demonstration material, not valid certification. Existing exporter stamp requests remain available.
+Document view renders the original pages. Text view extracts real PDF text, available structure tags and non-password form values. It preserves available heading/list/table structure and warns when reading order is incomplete. Scanned/image-only PDFs require a checked transcript or an accessible source copy; OCR is not implemented. Text view is an alternative reading view, not remediation of the source PDF. It does not reproduce every stamp, image or layout detail.
 
-Compatibility checks cover scanned and selectable-text pages, mixed sizes, cropped pages, rotations of 0/90/180/270 degrees and password-protected files. A password is used to open a file and is not stored. Signed originals remain unchanged; a separate flattened copy is produced. Pure XFA forms require a flattened PDF from the source application. Corrupt PDFs can fail to open. Universal PDF compatibility is not claimed.
+## Stamping
 
-The supporting-document upload in the existing exporter prototype retains filenames only. A Chamber user therefore selects the original PDF in the stamping window. Real cross-user file transfer, official stamp assets, server-enforced authorization and an issuance audit trail require a production backend.
+A Chamber user opens Stamp document, chooses a sample certification or QR stamp and places it on the selected page. Mouse placement and keyboard alternatives are available. Stamps can be moved and resized. The output is saved separately; the original remains unchanged. The sample QR contains the application reference and is not a verification service. Sample stamps and signatures are not valid certification.
 
-Verification: 429 automated language, state and sizing checks, 20 dashboard renders across four languages, PDF placement and export checks. Earlier browser checks exercised drag/drop and downloads, including a password-protected source. The English phone layout was inspected before browser control was stopped. Remaining visual mobile/RTL checks were not completed because the user requested no PC control or additional installation. Responsive rules and the translated component output were checked without a browser.
+PDF-lib preserves source text, form values and page geometry where supported. The explicit rendered-copy fallback creates page images, which loses selectable text and does not produce a tagged accessible PDF. Password protection, signatures, unsupported XFA and malformed documents require separate handling; universal PDF compatibility is not claimed. Use original-file download or a flattened/accessible source copy when necessary. Do not treat a stamped copy as retaining the original digital signature's validity.
 
-Stamp tray update: one vertical, independently scrolling left-hand column at every width. The QR stamp contains the application reference as scannable text; it does not link to a certificate-verification service. A QR and a certification stamp can coexist on each page.
+## Numbering
 
-C of O (UK and Arab) and EUR1 applications receive a cryptographically random ten-character certificate number containing lowercase letters and digits when a blank pending application is opened for Chamber review. Approval also assigns a missing eligible number. Existing numbers, closed applications and locks held by other officers are preserved. Numbers are checked for collisions against the applications retained in this browser. The software-generated application reference format is unchanged.
+Eligible C of O and EUR1 records receive a ten-character lowercase alphanumeric certificate number on submission, with a Chamber fallback for imported pending records. Existing numbers are retained. Collision checks are limited to records in the current browser. The certificate number appears in the relevant document previews and print layouts. Application references are separate, using the exporter code, generated number and document identifier.
 
-Document Pack layout: reduced interface heading/text sizes and spacing; official document typography and print styles are untouched. Review autosave status is now beside Back to Applications at the top. The bottom action bar retains review/print/archive actions. Phone controls retain 44px minimum target heights and form inputs retain 16px text.
+## Evidence and limits
 
-Numbering correction: C of O and EUR1 certificate numbers are now assigned and saved during exporter submission, displayed on the submission confirmation and Application Details. On reload, missing numbers on Submitted applications are filled without altering their status or existing numbers. Drafts and closed applications are not backfilled. Chamber review/approval retains its fallback for imported pending records.
+The current cloud acceptance report covers preview and stamping checks with tagged/untagged text, no-text pages, form fields, rotated pages, mixed dimensions, crop boxes, malformed input and original retention. It records actual Chromium print-to-PDF output and browser zoom. PDF Text view uses reader-based stream extraction for WebKit compatibility. Follow the linked report for exact engine results and the final revision.
 
-Document-number display correction: the saved certificate number is now shown in Exporter and Chamber UK/Arab C of O and EUR1 previews, including print-mode output. The UK C of O reverse-page header also carries the same number. Rendering reads the stored value and never generates a new number. Blank draft placeholders and other document types retain their existing behavior.
+Physical printer alignment, office-produced PDFs from the user's usual systems, official-paper accuracy and assistive-technology reading of generated/stamped downloads require the supplied reviewer tasks. A tagged browser-generated print PDF is not automatically PDF/UA compliant. There is no server-backed issuance or audit trail in this prototype.
 
-User Performance samples: refresh the twelve explicitly fictional examples into the current reporting period, with three Chamber Users, nine approved and three rejected applications, fifteen documents and recorded handling times. Only performanceSample records have their example timestamps refreshed. Real records, assigned certificate numbers, application references, archives and comments are retained.
+[Review evidence and test pack](https://cyberlettuce.github.io/trade-documents-preview/previews/acceptance-review/)

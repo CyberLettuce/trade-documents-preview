@@ -1,19 +1,17 @@
 # Interface languages
 
-The Exporter and Chamber workspaces support English, Dutch, Estonian and Arabic. Use the header language menu or the language control in Settings. The browser remembers the choice using only the trade-documents-language-v1 preference.
+Current scope, 20 November 2026: English, Dutch, Estonian, Arabic, Swedish and Portuguese in both React and Vue, for both Exporter and Chamber. The header/sidebar flag menu and Settings offer the same choices. Arabic uses right-to-left layout and the Saudi flag. Labels use Dutch and Estonian, as requested.
 
-Arabic uses a right-to-left document and Fluent provider, mirrored navigation and directional controls. Telephone numbers, email addresses, application references and original document pages retain their appropriate direction. Arabic uses a neutral Arabic-letter icon rather than a country flag.
+## Source and storage
 
-The language catalogues and runtime are readable source in assets/language-nl-accessdock1.js, assets/language-other-accessdock1.js and assets/language-runtime-accessdock1.js. Layout adjustments are in assets/language-accessdock1.css. English remains the business-data language: do not translate stored status values, option values, routes, IDs, CSV keys or submitted data. User-entered names, references, addresses, descriptions and notes retain their original wording. The interface choice does not translate issued forms or document previews.
+Shared active dictionaries are `assets/locales/{nl,et,ar,sv,pt}.js`, loaded on demand by `assets/locale-loader.js`. PDF-reading wording is merged from `assets/pdf-accessibility-i18n.js`. React uses `assets/language-runtime-review1-57775012.js`; Vue uses `vue/language.js`. Older language bundles are historical files, not the active dictionary source.
 
-Translations run locally in the browser, without a translation service or uploading application data. The existing browser-only application storage is retained. New catalogue or runtime releases should use new asset names and update the active module graph to avoid stale browser caches.
+React stores its interface choice under `trade-documents-language-v1`. Vue retains it in its separate UI preferences. Translation runs locally. Original document artwork, file contents and entered names, references, addresses and goods descriptions retain their source language. Stored enum values, route names and CSV keys are not rewritten. Native browser/operating-system controls can use the device language.
 
-Checks for this release: module parsing; English/Dutch/Estonian/Arabic translations; dynamic counts, messages, dates and countries; original form option values and entered values; original document language; Arabic document/provider direction; invalid preference fallback; English restoration; browser layouts at 390, 900 and 1280 pixels across dashboards, applications, reports, stored data, settings, guides and application review/forms. Long report references wrap within their cells. Narrow application references use an ellipsis with a full-reference hover label. Flags GB/NL follow assets/flag-icons-LICENSE.txt; the Estonian flag is a locally drawn SVG.
+## Review status
 
-## 12 November 2026 review
+Cloud checks exercise six-language layouts, both themes, Arabic direction, mobile widths, language-switch recovery, signatures and PDF reading views. All five dictionary files preserve their dynamic placeholders. The acceptance review corrected the Swedish Yes/No choice (`Nej`) and number abbreviations (`Nr.` / Portuguese `N.º`).
 
-The compact header keeps account identity inside its menu and uses consistent icon controls with hover and accessible labels. Generated interface messages, months, guide instructions, file actions and native form validation follow the selected language. Arabic duration wording and original-address direction are corrected. Report actions use icons with full accessible names. Long report labels wrap; application references remain on one line and use an ellipsis only when space is limited, with a full reference hover label. Small-screen editor actions wrap into usable rows. The User Performance selector has its own mobile row.
+These checks establish layout and selected wording fixes, not fluent-speaker sign-off. A context sheet is available at `previews/acceptance-review/language-review.csv`. Review trade terminology, plural forms, validation messages and instructions in full tasks with a fluent speaker for each language. English document artwork is intentionally excluded from UI translation.
 
-The full audit evidence and scope are in ../language-audit/report.html and checks.json. This review build is dated 12 November 2026; publication status is recorded in ../language-audit/release-status.json. Native date-picker chrome still follows browser/operating-system language. Original document wording, entered data, file names and legal declarations stay in their original language. This is not native-speaker sign-off or full accessibility certification.
-
-Document stamping (2026-11-16): 65 interface strings and 7 dynamic patterns added for Dutch, Estonian and Arabic. Stamp artwork and uploaded document contents remain in their original language.
+When changing shared modules, keep release query versions consistent throughout the active import graph so that a browser does not create duplicate runtime/state instances.

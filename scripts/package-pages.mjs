@@ -26,6 +26,8 @@ add('previews/slimmer-rows/index.html');
 add('previews/site-review/index.html');
 add('previews/wcag22/index.html');
 for (const name of tracked.keys()) {
+  // Publish the acceptance evidence and human-review CSVs with the sites.
+  if (name.startsWith('previews/acceptance-review/')) add(name);
   // The independent Vue comparison is published at /vue/ alongside React.
   if (name.startsWith('vue/')) add(name);
   // PDF rendering loads its fonts, character maps and worker dynamically.
