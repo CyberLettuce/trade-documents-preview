@@ -1,7 +1,7 @@
 import {useColumnSort} from './chamber-sort.js?v=2026-11-20-chamber-tables-r1';
 import {ref,reactive,computed,watch,nextTick} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import {schemas,clone,uid,validateRecord,importRecords,csvText,preservesAdministrator,defaultRates,documentTypes} from './workspace-model.js?v=2026-11-20-acceptance-r1';
-import {ws,useApp,audit,download,admin,saveWorkspace} from './workspace.js?v=2026-11-20-chamber-carnet-r1';
+import {ws,useApp,audit,download,admin,saveWorkspace} from './workspace.js?v=2026-11-20-certificate-review-r1';
 import {SignatureUpload} from './signature.js?v=2026-11-20-acceptance-r1';
 export const RecordManager={props:{kind:String,rows:Array,title:String,readonly:Boolean,accountId:String},components:{SignatureUpload},setup(props){const app=useApp(),query=ref(''),signaturePending=ref(false),draft=ref(null),errors=ref({}),remove=ref(null),csvInput=ref(null),imported=ref(null),importError=ref(''),context=ref(null),printRecord=ref(null),tariffDocument=ref(documentTypes[0]),page=ref(1),pageSize=ref(10);
  const columnSort=useColumnSort((record,key)=>key==='acceptance'?['autoEUR1','autoCOO','autoLegalised'].filter(field=>record[field]).length:key==='image'?(record.image?'Available':''):record[key],()=>page.value=1);

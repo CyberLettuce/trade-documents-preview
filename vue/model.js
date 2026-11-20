@@ -1,4 +1,4 @@
-import {certificateTypes,ensureCertificateNumber} from '../assets/certificate-numbering2.js?v=2026-11-20-acceptance-r1';
+import {certificateTypes,ensureCertificateNumber} from '../assets/certificate-numbering2.js?v=2026-11-20-certificate-review-r1';
 export const STORAGE='trade-documents-vue-comparison-v1';
 export const DOCS={'UK Certificate of Origin':'E','Arab Certificate of Origin':'A',EUR1:'U','EUR-MED':'M','ATA Carnet':'N','Import certificate':'G','Commercial invoice':'I','Uploaded document':'E'};
 export const OFFICERS=['Alex Morgan','Taylor Smith','Casey Williams'];

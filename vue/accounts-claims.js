@@ -1,12 +1,12 @@
 import {useColumnSort} from './chamber-sort.js?v=2026-11-20-chamber-tables-r1';
 import {sortableDate} from '../assets/chamber-column-sort.js?v=2026-11-20-chamber-tables-r1';
-import {inChamber} from './workspace-tools.js?v=2026-11-20-chamber-carnet-r1';
-import {CLAIM_LETTERS,claimProgress,claimDue} from './parity-model.js?v=2026-11-20-acceptance-r1';
+import {inChamber} from './workspace-tools.js?v=2026-11-20-certificate-review-r1';
+import {CLAIM_LETTERS,claimProgress,claimDue} from './parity-model.js?v=2026-11-20-certificate-review-r1';
 import {ref,computed,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
-import {ws,useApp,activeAccount,admin,audit,download,formatDate,money} from './workspace.js?v=2026-11-20-chamber-carnet-r1';
+import {ws,useApp,activeAccount,admin,audit,download,formatDate,money} from './workspace.js?v=2026-11-20-certificate-review-r1';
 import {clone,uid,now,csvText,schemas,validateRecord,countries} from './workspace-model.js?v=2026-11-20-acceptance-r1';
-import {RecordManager} from './records.js?v=2026-11-20-chamber-carnet-r1';
-import {pdfStore} from './model.js?v=2026-11-20-chamber-carnet-r1';
+import {RecordManager} from './records.js?v=2026-11-20-certificate-review-r1';
+import {pdfStore} from './model.js?v=2026-11-20-certificate-review-r1';
 export const ExportersPage={components:{RecordManager},setup(){const app=useApp(),query=ref(''),status=ref(''),type=ref(''),selected=ref(null),draft=ref(null),tab=ref('account'),error=ref('');
  const accountSort=useColumnSort((row,key)=>key==='renewal'?sortableDate(row.renewal):row[key]);
  const applicationSort=useColumnSort();

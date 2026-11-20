@@ -1,9 +1,9 @@
 import {useColumnSort} from './chamber-sort.js?v=2026-11-20-chamber-tables-r1';
 import {sortableDate} from '../assets/chamber-column-sort.js?v=2026-11-20-chamber-tables-r1';
-import {documentNames,decisionStatus,isDecision,decisionUser,decisionDate,handlingMinutes,duration,performanceSummary,performanceBy,reportMatches} from './parity-model.js?v=2026-11-20-acceptance-r1';
+import {documentNames,decisionStatus,isDecision,decisionUser,decisionDate,handlingMinutes,duration,performanceSummary,performanceBy,reportMatches} from './parity-model.js?v=2026-11-20-certificate-review-r1';
 import {quoteDocuments} from './form-model.js?v=2026-11-20-chamber-carnet-r1';
 import {ref,reactive,computed,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
-import {ws,useApp,download,formatDate,money} from './workspace.js?v=2026-11-20-chamber-carnet-r1';
+import {ws,useApp,download,formatDate,money} from './workspace.js?v=2026-11-20-certificate-review-r1';
 import {REPORTS,documentTypes,csvText,quoteApplication,uid,clone} from './workspace-model.js?v=2026-11-20-acceptance-r1';
 export function reportRecords(records,filters={}){return records.filter(r=>reportMatches(r,filters));}
 export function performanceRows(records,users=[]){return performanceBy(records).map(r=>{const times=r.records.map(handlingMinutes).filter(n=>n!==null);return {...r,total:r.documents,minutes:times.length?times.reduce((a,b)=>a+b,0)/times.length:null,documents:[...new Set(r.records.flatMap(documentNames))].join(', ')};});}

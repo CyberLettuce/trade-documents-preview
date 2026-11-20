@@ -1,5 +1,5 @@
-import {certificateHint, certificateNumberError, certificateForPrint, certificateOnRecord, certificateTypes, certificateEdit} from './certificate-numbering2.js?v=2026-11-20-acceptance-r1';
-import {fieldHelp} from './field-help.js?v=2026-11-20-vertical-review-r2';
+import {certificateHint, certificateNumberError, certificateForPrint, certificateOnRecord, certificateTypes, certificateEdit} from './certificate-numbering2.js?v=2026-11-20-certificate-review-r1';
+import {fieldHelp} from './field-help.js?v=2026-11-20-certificate-review-r1';
 
 const documentNames = {coo: 'UK Certificate of Origin', eur: 'EUR1', arab: 'Arab C of O'};
 const dates = {
