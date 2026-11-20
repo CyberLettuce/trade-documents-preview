@@ -1,0 +1,31 @@
+name: Live certificate review browser matrix
+on:
+  push:
+    branches: [codex/certificate-browser-matrix]
+permissions:
+  contents: read
+jobs:
+  browser:
+    name: ${{ matrix.browser }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {browser: Chrome, runner: ubuntu-24.04}
+          - {browser: Edge, runner: ubuntu-24.04}
+          - {browser: Firefox, runner: ubuntu-24.04}
+          - {browser: Safari, runner: macos-15}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - if: matrix.browser == 'Safari'
+        run: sudo safaridriver --enable
+      - name: Check the live React and Vue certificate screens
+        run: |
+          python -m venv "$RUNNER_TEMP/certificate-qa"
+          "$RUNNER_TEMP/certificate-qa/bin/python" -m pip install selenium==4.34.2
+          "$RUNNER_TEMP/certificate-qa/bin/python" scripts/check-live-certificate-browsers.py "${{ matrix.browser }}"
