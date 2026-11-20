@@ -1,5 +1,5 @@
 import {readPreference,savePreference} from '../assets/review-preferences.js?v=2026-11-20-acceptance-r1';
-import {copiedDraft} from './applications.js?v=2026-11-20-carnet-r1';
+import {copiedDraft} from './applications.js?v=2026-11-20-chamber-tables-r1';
 import {eligiblePrintActions,changePrintAccess,printActions} from './approved-actions.js?v=2026-11-20-acceptance-r1';
 import {ref,computed,watch,onUnmounted} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import {ws,useApp,audit,formatDate,money} from './workspace.js?v=2026-11-20-acceptance-r1';

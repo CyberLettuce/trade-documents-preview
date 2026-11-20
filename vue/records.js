@@ -1,4 +1,4 @@
-import {useColumnSort} from './chamber-sort.js?v=2026-11-20-column-sort-r1';
+import {useColumnSort} from './chamber-sort.js?v=2026-11-20-chamber-tables-r1';
 import {ref,reactive,computed,watch,nextTick} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import {schemas,clone,uid,validateRecord,importRecords,csvText,preservesAdministrator,defaultRates,documentTypes} from './workspace-model.js?v=2026-11-20-acceptance-r1';
 import {ws,useApp,audit,download,admin,saveWorkspace} from './workspace.js?v=2026-11-20-acceptance-r1';

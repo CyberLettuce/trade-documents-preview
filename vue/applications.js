@@ -1,5 +1,5 @@
-import {useColumnSort} from './chamber-sort.js?v=2026-11-20-column-sort-r1';
-import {sortableDate} from '../assets/chamber-column-sort.js?v=2026-11-20-column-sort-r1';
+import {useColumnSort} from './chamber-sort.js?v=2026-11-20-chamber-tables-r1';
+import {sortableDate} from '../assets/chamber-column-sort.js?v=2026-11-20-chamber-tables-r1';
 import {DocumentPreview} from './documents.js?v=2026-11-20-carnet-r1';
 import {CarnetDialog} from './carnet-dialog.js?v=2026-11-20-acceptance-r1';
 import {completedCarnet,carnetActions,clearCarnetAccess} from './assets/carnet-actions-model1.js?v=2026-11-20-acceptance-r1';

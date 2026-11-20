@@ -1,5 +1,5 @@
-import {useColumnSort} from './chamber-sort.js?v=2026-11-20-column-sort-r1';
-import {sortableDate} from '../assets/chamber-column-sort.js?v=2026-11-20-column-sort-r1';
+import {useColumnSort} from './chamber-sort.js?v=2026-11-20-chamber-tables-r1';
+import {sortableDate} from '../assets/chamber-column-sort.js?v=2026-11-20-chamber-tables-r1';
 import {documentNames,decisionStatus,isDecision,decisionUser,decisionDate,handlingMinutes,duration,performanceSummary,performanceBy,reportMatches} from './parity-model.js?v=2026-11-20-acceptance-r1';
 import {quoteDocuments} from './form-model.js?v=2026-11-20-carnet-r1';
 import {ref,reactive,computed,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';

@@ -1,5 +1,5 @@
 import {ref} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
-import {nextColumnSort, columnSortState, sortColumnRows} from '../assets/chamber-column-sort.js?v=2026-11-20-column-sort-r1';
+import {nextColumnSort, columnSortState, sortColumnRows} from '../assets/chamber-column-sort.js?v=2026-11-20-chamber-tables-r1';
 
 export function useColumnSort(valueOf = (row, key) => row[key], onChange) {
   const order = ref(null);

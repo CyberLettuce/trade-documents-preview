@@ -1,6 +1,6 @@
 import {ref,shallowRef,watch,nextTick,onMounted,onUnmounted} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import {pdfStore} from './model.js?v=2026-11-20-acceptance-r1';
-import {Icon} from './components.js?v=2026-11-20-acceptance-r1';
+import {Icon} from './components.js?v=2026-11-20-chamber-tables-r1';
 import {PdfTextView} from './pdf-readable.js?v=2026-11-20-acceptance-r1';
 import {savedPdfView,savePdfView} from '../assets/pdf-readable-text.js?v=2026-11-20-acceptance-r1';
 export const PdfViewer={props:['file'],components:{Icon,PdfTextView},setup(props){const pdf=shallowRef(null),view=ref(savedPdfView()),viewport=ref(null);let observer;const canvas=ref(null),page=ref(1),pages=ref(0),busy=ref('Opening PDF…'),error=ref(''),url=ref(''),zoom=ref('fit');let document,task,renderTask,generation=0,loadGeneration=0,original;
