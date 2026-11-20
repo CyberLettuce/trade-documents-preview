@@ -16,12 +16,12 @@ function fixturePdf(){
  set(heading,`<< /Type /StructElem /S /H1 /P ${tree} 0 R /Pg ${page1} 0 R /K 0 >>`);set(paragraph,`<< /Type /StructElem /S /P /P ${tree} 0 R /Pg ${page1} 0 R /K 1 >>`);set(parents,`<< /Nums [0 [${heading} 0 R ${paragraph} 0 R]] >>`);
  let data='%PDF-1.7\n',offsets=[0];objects.forEach((s,i)=>{offsets.push(Buffer.byteLength(data));data+=`${i+1} 0 obj\n${s}\nendobj\n`});const xref=Buffer.byteLength(data);data+=`xref\n0 ${objects.length+1}\n0000000000 65535 f \n`+offsets.slice(1).map(n=>String(n).padStart(10,'0')+' 00000 n \n').join('')+`trailer\n<< /Size ${objects.length+1} /Root ${catalog} 0 R >>\nstartxref\n${xref}\n%%EOF`;return Buffer.from(data);
 }
-async function seedPdf(page,framework){
+async function seedPdf(page,framework,buffer=fixturePdf()){
  await page.evaluate(()=>localStorage.removeItem('trade-documents-pdf-reading-view-v1'));
  if(framework==='react')await page.getByRole('tab',{name:'Documents & evidence',exact:true}).click();
  else await page.locator('.processing .detail-tabs').getByRole('button',{name:'Files',exact:true}).click();
  const input=framework==='react'?page.getByLabel('Attach documents',{exact:true}):page.locator('.processing input[type=file]');
- await input.setInputFiles({name:'accessible-test.pdf',mimeType:'application/pdf',buffer:fixturePdf()});
+ await input.setInputFiles({name:'accessible-test.pdf',mimeType:'application/pdf',buffer});
  await page.getByText('accessible-test.pdf',{exact:true}).first().waitFor({state:'attached'});
 }
 async function openPdf(page,framework){
