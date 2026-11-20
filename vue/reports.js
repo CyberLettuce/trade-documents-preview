@@ -59,6 +59,7 @@ export const ReportsPage={components:{Donut},setup(){
  const drillSort=useColumnSort(decisionValue);
  function decisionValue(row,column){return ({reference:row.reference,document:documentNames(row).join(', '),status:decisionStatus(row),user:decisionUser(row),date:sortableDate(decisionDate(row)),time:handlingMinutes(row)})[column];}
  watch([kind,view],()=>{resultSort.reset();performanceSort.reset();volumeSort.reset();page.value=1;});
+ watch(kind,current=>{if(current!=='invoice')filters.payment='';});
  watch(drill,()=>drillSort.reset());
  const names=computed(()=>chamber.value?REPORTS:{overview:'Overview',applications:'Applications report'});
  watch(app.route,()=>{const routeKind=app.route.value.split('/')[3]?.split('?')[0];kind.value=names.value[routeKind]?routeKind:'overview';if(kind.value==='users'&&app.ui.performanceReport){const context=app.ui.performanceReport;filters.user=context.user;filters.from=context.month?new Date().toISOString().slice(0,7)+'-01':'';filters.to=context.month?new Date().toISOString().slice(0,10):'';delete app.ui.performanceReport}},{immediate:true});

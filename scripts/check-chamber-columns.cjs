@@ -17,7 +17,7 @@ async function sortedValues(table,header,cellIndex,{numeric=false}={}){const hea
   const react=framework==='react',base=react?'/#chamber/':'/vue/#/chamber/';
   await check(framework+'-queue-headers-and-pages',async page=>{
    await page.setViewportSize({width:1440,height:900});await loaded(page,base+(react?'applications/Approved':'applications'));
-   if(!react)await page.getByRole('button',{name:/^Approved/}).first().click();
+   if(!react)await page.getByRole('tab',{name:/^Approved/}).first().click();
    const table=page.locator(react?'.ch-queue-panel table':'.application-table').first();await table.waitFor();
    if(!react)await page.getByLabel('Rows per page').selectOption('10');
    const sortable=table.locator('thead th').filter({has:page.locator('button.column-sort-button')});assert((await sortable.count())>=6);
@@ -47,7 +47,8 @@ async function sortedValues(table,header,cellIndex,{numeric=false}={}){const hea
   const url='/vue/#/chamber/reports/';await page.setViewportSize({width:1440,height:900});await loaded(page,url+'overview');
   const charts=page.locator('.vue-report-donut');assert.equal(await charts.count(),4);assert.equal(await page.locator('.report-metric-label svg').count(),4);
   const status=charts.first();await status.scrollIntoViewIfNeeded();await bounds(page,status,'vue-report-status-chart');
-  const legend=status.getByRole('button',{name:/Approved/}).first();await legend.click();await page.locator('.list-options-toggle').click();assert.equal(await page.getByLabel('Status',{exact:true}).inputValue(),'Approved');
+  await bounds(page,page.locator('.report-metrics').first(),'vue-report-metric-icons');
+  const legend=status.getByRole('button',{name:/Approved/}).first();await legend.click();await page.locator('.list-options-toggle').click();assert.equal(await page.locator('.report-filters label').filter({hasText:/^Status/}).locator('select').inputValue(),'Approved');
   await page.getByRole('button',{name:'Reset filters'}).click();
   for(const [kind,count] of [['audit',2],['bcc',2],['invoice',1],['aviva',1],['single',1]]){await loaded(page,url+kind);assert.equal(await charts.count(),count,kind);}
   await loaded(page,url+'overview');await page.setViewportSize({width:390,height:844});await page.screenshot();await withinPage(page);
