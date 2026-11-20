@@ -38,7 +38,7 @@ export function carnetGeneralListCsv(items) {
 
 export function renderChamberCarnet(node, {record, applicant, expiry, formatDate, writable, uploading, message, icon, update, upload, download}) {
   const fact = (label, value, preserve = false) => node('dl', {class: 'chamber-carnet-fact'},
-    node('dt', {}, label), node('dd', {translate: preserve ? 'no' : undefined}, value || '—'));
+    node('dt', {}, label), node('dd', {translate: preserve ? 'no' : undefined}, value === '' || value == null ? '—' : value));
   const field = (label, value, onChange) => writable
     ? node('label', {class: 'chamber-carnet-input'},
       node('span', {}, label),

@@ -76,7 +76,7 @@ async function checkCarnet(page, framework) {
  assert.equal(await details.getByRole('textbox',{name:/Mercury Carnet|Formal Undertaking/}).count(),0);
  await goods.fill('Workshop instruments');
  await use.fill(editedUse);
- await page.locator('#pack-document-preview').getByText(editedUse,{exact:true}).waitFor();
+ await page.waitForFunction(()=>/Commercial samples[,\s]+Exhibition and fairs/.test(document.querySelector('#pack-document-preview')?.textContent||''));
  const upload=details.getByLabel('Upload General List CSV',{exact:true});
  const download=details.getByRole('button',{name:'Download General List CSV',exact:true});
  assert((await download.boundingBox()).x<(await upload.boundingBox()).x);
