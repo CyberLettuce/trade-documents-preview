@@ -71,7 +71,7 @@ async function arrangePreview(page, react) {
  const browser=await chromium.launch();
  const outcomes=[];
  for(const framework of ['vue','react']){
-  const page=await browser.newPage({viewport:{width:1440,height:960},locale:'en-GB'});
+  const page=await browser.newPage({viewport:{width:1440,height:960},deviceScaleFactor:2,locale:'en-GB'});
   page.setDefaultTimeout(10000);
   const errors=[];
   page.on('pageerror',error=>errors.push(error.message));
@@ -79,6 +79,20 @@ async function arrangePreview(page, react) {
    await openSample(page,framework==='react');
    const aside=page.locator('#pack-details-panel');
    await aside.screenshot({path:path.join(out,framework+'-current-application.png')});
+   const main=page.locator('#pack-document-preview');
+   const zoom=main.locator('select').filter({has:page.getByRole('option',{name:'Fit page',exact:true})});
+   await zoom.selectOption({label:'100%'});
+   const sheet=main.locator(framework==='vue'?'.paper-space .native-paper':'.document-scaled-page').first();
+   await page.waitForFunction(selector=>document.querySelector(selector)?.getBoundingClientRect().width>=638,
+    framework==='vue'?'#pack-document-preview .paper-space .native-paper':'#pack-document-preview .document-scaled-page');
+   const pageBox=await sheet.boundingBox();
+   assert(pageBox.x+pageBox.width<=1441,JSON.stringify(pageBox));
+   await page.screenshot({path:path.join(out,framework+'-document-full-size.png'),clip:{
+    x:Math.max(0,Math.floor(pageBox.x)),y:Math.max(0,Math.floor(pageBox.y)),
+    width:Math.floor(pageBox.width),height:Math.floor(Math.min(390,950-pageBox.y))
+   }});
+   await zoom.selectOption({label:'Fit page'});
+   await page.waitForFunction(()=>!!document.querySelector('#pack-document-preview .compact-fit-page'));
    await page.addStyleTag({content:previewCss});
    await arrangePreview(page,framework==='react');
    const carnet=aside.locator('.chamber-carnet-application'), processing=aside.locator('.vertical-preview-processing');
