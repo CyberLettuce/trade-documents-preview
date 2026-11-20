@@ -19,10 +19,12 @@ jobs:
         run: |
           npm install --prefix "$RUNNER_TEMP/browser-check" --no-save --ignore-scripts playwright@1.56.1 axe-core@4.11.0
           echo "PLAYWRIGHT_CHROMIUM_EXECUTABLE=$(command -v google-chrome)" >> "$GITHUB_ENV"
-      - name: Compare document selection and check accessibility
+      - name: Compare application steps and check accessibility
         env:
           NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
-        run: node scripts/capture-editor-steps.cjs
+        run: |
+          node scripts/capture-editor-steps.cjs
+          node scripts/check-editor-steps.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -16,7 +16,7 @@ import {interfaceLocale,ws,activeAccount,activeUser,admin,audit} from './workspa
 import {normaliseApplication,applicationErrors} from './form-model.js?v=2026-11-19-pdf-zoom-r1';
 import {WorkspacePages,ChamberContent,Notifications} from './pages.js?v=2026-11-19-pdf-zoom-r1';
 import {ApplicationList,copiedDraft} from './applications.js?v=2026-11-19-pdf-zoom-r1';
-import {ApplicationEditor} from './editor.js?v=2026-11-19-document-chooser-r1';
+import {ApplicationEditor} from './editor.js?v=2026-11-20-editor-steps-r1';
 import {ReviewPage} from './review.js?v=2026-11-19-pdf-zoom-r1';
 import {LanguageControl,installLanguage} from './language.js?v=2026-11-19-pdf-zoom-r1';
 import{createApp,ref,reactive,computed,watch,nextTick,onMounted,onUnmounted,provide}from'./assets/vue.esm-browser.prod.js?v=2026-11-19-pdf-zoom-r1';

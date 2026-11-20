@@ -1,0 +1,115 @@
+/* Application steps use the existing React form rhythm, within Vue's split editor. */
+.editor-fields{container:editor-form/inline-size;padding:24px;min-width:0}
+.editor-fields .editor-step-heading{align-items:flex-start;gap:16px;margin-bottom:14px}
+.editor-fields .editor-step-heading h2{font-size:20px;line-height:1.35;margin:0;min-width:0}
+.editor-step-heading>small{font-size:12px;line-height:20px;flex-shrink:0;margin-inline-start:auto}
+.editor-step-description{margin:0 0 24px;line-height:1.55;font-size:14px}
+.editor-fields label{font-size:14px;line-height:1.5;min-width:0}
+.editor-fields input:not([type=checkbox]):not([type=radio]),.editor-fields select{min-height:44px;font-size:14px;padding:10px 12px;max-width:100%}
+.editor-fields textarea{min-height:96px;font-size:14px;line-height:1.5;padding:10px 12px;max-width:100%;resize:vertical}
+.editor-fields .fields-grid{gap:24px 18px}
+.editor-fields .form-field.checkbox-row{grid-column:1/-1;align-items:flex-start;padding:12px 0;gap:12px}
+.editor-fields .checkbox-row input,.editor-choice-row input{flex:0 0 18px;width:18px;height:18px;margin-block-start:2px;accent-color:var(--brand)}
+.editor-fields .checkbox-row span{min-width:0}
+.editor-fields .saved-record-picker{margin-bottom:24px}
+.editor-field-section+ .editor-field-section{border-top:1px solid var(--line);margin-top:24px;padding-top:24px}
+.editor-fields .editor-field-section>h3{margin:0 0 18px;font-size:16px}
+.editor-extra-details{border:1px solid var(--line);border-radius:5px;margin-top:22px}
+.editor-extra-details>summary{padding:16px;min-height:54px;cursor:pointer;font-size:14px}
+.editor-extra-details>summary small{float:inline-end;font-size:12px;font-weight:400;color:var(--muted)}
+.editor-extra-details>.fields-grid{padding:4px 16px 20px}
+.editor-extra-details[open]>summary{margin-bottom:12px}
+.editor-fields .editor-choice-list{border:0;padding:0;margin:0 0 24px}
+.editor-choice-list>legend{font-size:14px;font-weight:600;margin-bottom:12px}
+.editor-choice-row{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--line);border-radius:5px;padding:16px;margin:0 0 10px;min-height:56px;cursor:pointer}
+.editor-choice-row.is-selected{border-color:var(--brand);background:var(--tint)}
+.editor-choice-list>.checkbox-row{min-height:44px;margin:0;padding:12px 0;gap:12px}
+.editor-origin-list{border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.editor-origin-list>.origin-choice{display:flex;align-items:flex-start;gap:24px;margin:0;padding:18px;font-size:15px;line-height:1.55;cursor:pointer}
+.editor-origin-list>.origin-choice+.origin-choice{border-top:1px solid var(--line)}
+.editor-origin-list>.origin-choice input{order:2;margin-inline-start:auto;margin-top:4px}
+.editor-origin-list>.origin-choice span{order:1;flex:1}
+.editor-origin-list>.origin-choice:has(input:checked){background:var(--tint)}
+.editor-fields .supporting-files{margin:24px 0}
+.editor-fields .supporting-files h3{font-size:16px;margin:0 0 14px}
+.editor-fields .supporting-upload{display:flex;width:100%;min-height:96px;border:1px dashed var(--muted);color:var(--brand);gap:12px;justify-content:center;margin:0 0 12px}
+.editor-fields .supporting-files>p{font-size:13px;line-height:1.55;color:var(--muted)}
+.editor-fields .attachment-list li{padding:12px;background:var(--sidebar);border:0;border-radius:4px}
+.editor-fields .attachment-list .text-button{overflow-wrap:anywhere;min-width:0;text-align:start}
+.editor-section-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+.editor-fields .editor-section-heading h3{font-size:15px;line-height:1.5;margin:0}
+.editor-information{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 16px;margin:20px 0;background:var(--sidebar);border:1px solid var(--line);border-radius:5px;font-size:14px;line-height:1.5}
+.editor-information .text-button{margin-inline-start:auto}
+.editor-information.needs-attention{background:var(--tint);border-color:var(--brand)}
+.editor-review-section{padding:24px 0;border-bottom:1px solid var(--line)}
+.editor-review-section:last-child{border-bottom:0;padding-bottom:0}
+.editor-review-section .text-button{min-height:44px;padding:8px}
+.editor-review-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 24px;margin:0}
+.editor-review-values>div{min-width:0}
+.editor-review-values dt{font-size:13px;margin-bottom:6px;color:var(--muted)}
+.editor-review-values dd{font-size:14px;line-height:1.55;white-space:pre-line;overflow-wrap:anywhere;margin:0}
+.editor-checkout-nav{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:0 0 28px}
+.editor-checkout-nav button{background:none;border:0;border-bottom:2px solid transparent;border-radius:0;padding:4px 8px 16px;font-size:14px;min-height:44px;white-space:normal}
+.editor-checkout-nav button[aria-current=step]{border-bottom-color:var(--brand);color:var(--brand)}
+.editor-checkout-nav button[aria-current=step] .count{background:var(--tint);color:var(--brand)}
+.editor-order-summary{margin:12px 0 24px;table-layout:fixed}
+.editor-order-summary th,.editor-order-summary td{padding:12px;font-size:14px;line-height:1.5;vertical-align:middle;overflow-wrap:anywhere}
+.editor-order-summary th{width:35%;text-align:start;font-weight:400}
+.editor-order-summary td{text-align:end}
+.editor-order-summary .editor-order-total th,.editor-order-summary .editor-order-total td{font-weight:600;border-top:2px solid var(--line)}
+.editor-fields .editor-declaration{padding:18px 0;font-size:14px;line-height:1.5}
+.editor-preview-heading{display:flex;align-items:flex-start;gap:10px;padding:16px 16px 4px}
+.editor-preview-heading h3{margin:0 0 4px;font-size:16px;line-height:1.4}
+.editor-preview-heading small{font-size:12px;line-height:1.5}
+.editor-preview-heading>.icon{margin-top:2px}
+.goods-editor{container:goods-editor/inline-size}
+.editor-fields .goods-editor .record-toolbar{gap:12px;align-items:center;margin-bottom:20px}
+.goods-editor .record-toolbar>.button-row{margin-inline-start:0}
+.goods-editor .record-toolbar>.button-row:last-child{margin-inline-start:auto}
+.goods-entry-card{padding:16px;border:1px solid var(--line);border-radius:5px;margin-bottom:14px}
+.goods-entry-card .row-actions{justify-content:flex-end}
+.goods-description-fields{display:grid;grid-template-columns:1fr;gap:18px}
+.goods-description-fields label{display:flex;flex-direction:column;gap:6px;margin:0;font-size:13px}
+.goods-description-fields textarea{min-height:90px;width:100%}
+.goods-extra-details{margin-top:18px;border:0;border-top:1px solid var(--line);border-radius:0}
+.goods-extra-details>summary{padding:14px 0 0;min-height:40px;font-size:13px}
+.goods-extra-details>.fields-grid{padding:14px 0 0}
+.goods-cell-label{display:none}
+.editor-fields .goods-table-wrap{border:1px solid var(--line);border-radius:5px;margin-bottom:14px;overflow:hidden}
+.editor-fields .goods-table{table-layout:fixed;margin:0}
+.editor-fields .goods-table thead{background:var(--sidebar)}
+.editor-fields .goods-table th{font-size:12px;padding:12px 6px}
+.editor-fields .goods-table td{padding:10px 6px;vertical-align:middle}
+.editor-fields .goods-table input,.editor-fields .goods-table select{padding:8px;font-size:14px}
+.editor-fields .goods-table textarea{min-height:64px;padding:8px;font-size:14px}
+.editor-fields .goods-totals{display:flex;gap:20px;align-items:flex-end;flex-wrap:wrap;padding-top:22px;margin-top:24px}
+.goods-total{display:grid;gap:4px;min-width:85px}
+.goods-total strong{font-size:18px}
+.goods-total small{font-size:12px}
+.editor-fields .goods-totals label{max-width:180px}
+.editor-fields .goods-template{margin-top:24px}
+.editor-fields .repeat-row{padding:16px;border:1px solid var(--line);border-radius:5px;gap:12px}
+.editor-fields .repeat-row>.icon-button{min-height:44px}
+@container editor-form(max-width:540px){
+ .editor-step-heading{flex-wrap:wrap}.editor-step-heading>small{margin-inline-start:0}
+ .editor-fields .fields-grid,.editor-review-values{grid-template-columns:1fr}
+ .editor-fields .fields-grid>.form-field{grid-column:auto}
+ .editor-fields .repeat-row>label{flex-basis:100%}
+}
+@container goods-editor(min-width:650px){.goods-description-fields{grid-template-columns:1fr 1.15fr 1.65fr}}
+@container goods-editor(max-width:900px){
+ .editor-fields .goods-table,.editor-fields .goods-table tbody{display:block}
+ .editor-fields .goods-table thead{display:none}
+ .editor-fields .goods-table tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:16px;border-bottom:1px solid var(--line);margin:0}
+ .editor-fields .goods-table td{display:block;min-width:0;padding:0;border:0;text-align:start}
+ .editor-fields .goods-table td::before{content:none}
+ .editor-fields .goods-table td:nth-child(1),.editor-fields .goods-table td:nth-child(2),.editor-fields .goods-table td:nth-child(7),.editor-fields .goods-table td:nth-child(8){grid-column:1/-1}
+ .editor-fields .goods-table .goods-cell-label{display:block;font-size:13px;line-height:1.5;margin-bottom:6px}
+ .editor-fields .goods-table td:first-child{display:flex;gap:6px;font-weight:600}
+ .editor-fields .goods-table .row-actions{flex-direction:row;justify-content:flex-end}
+}
+@container goods-editor(max-width:440px){.editor-fields .goods-table tr{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1600px){.full-editor{grid-template-columns:210px minmax(0,1.15fr) minmax(340px,.95fr)}.full-editor.without-preview{grid-template-columns:210px minmax(0,1fr)}}
+@media(max-width:760px){.editor-fields{padding:18px}.editor-fields .goods-table tr{border:0;border-radius:0}.editor-checkout-nav{gap:4px}.editor-checkout-nav button{font-size:13px;padding-inline:4px;flex:1}.editor-fields .editor-step-heading h2{font-size:19px}.editor-preview-heading{padding:16px}}
+@media print{.editor-preview-heading{display:none}}
+
