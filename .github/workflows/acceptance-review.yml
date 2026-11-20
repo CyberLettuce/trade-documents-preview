@@ -1,0 +1,52 @@
+name: Cross-browser acceptance review
+on:
+  push:
+    branches: [codex/acceptance-review-20261120]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    env:
+      CHECK_BROWSER: ${{ matrix.browser }}
+      NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --test tests/vue/*.test.mjs
+      - run: node scripts/package-pages.mjs _site-check
+      - name: Prepare cloud browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/browser-check" --no-save --ignore-scripts playwright@1.56.1 axe-core@4.11.0 pdf-lib@1.17.1
+          "$RUNNER_TEMP/browser-check/node_modules/.bin/playwright" install --with-deps "${{ matrix.browser }}"
+      - name: Navigation, queues and translated layouts
+        run: node scripts/check-interface.cjs
+      - name: Review panels, keyboard and error recovery
+        if: ${{ !cancelled() }}
+        run: node scripts/check-review-fixes.cjs
+      - name: Typed and drawn signatures
+        if: ${{ !cancelled() }}
+        run: node scripts/check-signatures-accessibility.cjs
+      - name: Application steps and six languages
+        if: ${{ !cancelled() }}
+        run: node scripts/check-editor-steps.cjs
+      - name: PDF reading views
+        if: ${{ !cancelled() }}
+        run: node scripts/check-readable-pdfs.cjs
+      - name: Actual Chromium browser zoom
+        if: ${{ !cancelled() && matrix.browser == 'chromium' }}
+        run: node scripts/check-browser-zoom.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: acceptance-${{ matrix.browser }}
+          path: qa-results/
+          retention-days: 14
