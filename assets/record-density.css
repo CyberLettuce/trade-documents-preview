@@ -138,3 +138,9 @@ html body .site-review-pack.preview-hidden .processing{max-width:none}
 
 /* Match the opaque chart surface behind the total, including dark mode. */
 .report-donut-total{background:var(--donut-surface,var(--colorNeutralBackground1,#fff))}
+
+/* Preserve the phone-sized Reference label after shared row-density rules. */
+@media(max-width:600px){
+ html body #chamber-main .custom-table-grid > table.ch-table > thead > tr > th[data-column="Application / exporter / holder"]{font-size:0!important;line-height:0!important}
+ html body #chamber-main .custom-table-grid > table.ch-table > thead > tr > th[data-column="Application / exporter / holder"]::before{display:block;font-size:12px;line-height:1.5}
+}
