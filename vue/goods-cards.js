@@ -1,4 +1,4 @@
-import {UNITS,unitCodes} from './form-model.js?v=2026-11-20-acceptance-r1';
+import {UNITS,unitCodes} from './form-model.js?v=2026-11-20-carnet-r1';
 import {countries} from './workspace-model.js?v=2026-11-20-acceptance-r1';
 export const GoodsCards={props:['record','readonly'],emits:['copy','remove'],setup(){return{UNITS,unitCodes,countries}},template:String.raw`
 <div class="goods-entry-cards">

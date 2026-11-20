@@ -1,11 +1,11 @@
-import {DocumentPreview} from './documents.js?v=2026-11-20-acceptance-r1';
+import {DocumentPreview} from './documents.js?v=2026-11-20-carnet-r1';
 import {CarnetDialog} from './carnet-dialog.js?v=2026-11-20-acceptance-r1';
 import {completedCarnet,carnetActions,clearCarnetAccess} from './assets/carnet-actions-model1.js?v=2026-11-20-acceptance-r1';
 import {cleanDraftData,queueMatches} from './parity-model.js?v=2026-11-20-acceptance-r1';
 import {ref,computed,nextTick,onMounted,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import {ws,useApp,download,formatDate,audit} from './workspace.js?v=2026-11-20-acceptance-r1';
 import {clone,uid,now,csvText,documentTypes} from './workspace-model.js?v=2026-11-20-acceptance-r1';
-import {normaliseApplication} from './form-model.js?v=2026-11-20-acceptance-r1';
+import {normaliseApplication} from './form-model.js?v=2026-11-20-carnet-r1';
 import {number10} from './model.js?v=2026-11-20-acceptance-r1';
 export const filterFields=[['any','Any application detail'],['reference','Application reference'],['yourReference','Your reference'],['document','Document'],['exporter','Exporter'],['consignee','Consignee'],['destination','Destination country'],['status','Status'],['service','Service'],['owner','Chamber User'],['certificate','Certificate / Carnet number'],['paid','Paid'],['priority','Priority'],['goods','Goods description'],['items','Item details'],['origin','Country of origin'],['files','Supporting documents'],['submittedAt','Submitted'],['updatedAt','Updated'],['clientId','Client'],['payment','Payment method'],['stamp','Stamp requested']];
 export function matchesConditions(record,conditions){return conditions.every(({field,operator,value})=>{if(!field||!String(value??'').trim())return true;const source=field==='any'?JSON.stringify(record):typeof record[field]==='object'?JSON.stringify(record[field]):String(record[field]??''),a=source.toLowerCase(),b=String(value).toLowerCase();return operator==='equals'?a===b:operator==='not'? !a.includes(b):operator==='before'?a<b:operator==='after'?a>b:a.includes(b)});}
