@@ -224,3 +224,35 @@ html body .pack-summary-bar .review-layout-actions button {
     .site-review-pack #pack-details-panel { --review-control-height: 40px; }
   }
 }
+
+.review-magnifier {
+  position: fixed;
+  z-index: 40;
+  box-sizing: border-box;
+  width: var(--review-magnifier-size);
+  height: var(--review-magnifier-size);
+  overflow: hidden;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 3px #263142, 0 5px 16px #0004;
+  pointer-events: none;
+  user-select: none;
+}
+
+.review-magnifier-sample {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+}
+
+.review-magnifier > canvas.review-magnifier-sample {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0;
+  box-shadow: none;
+}
+
+@media print {
+  .review-magnifier { display: none !important; }
+}

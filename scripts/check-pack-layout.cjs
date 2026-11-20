@@ -19,6 +19,22 @@ const cases = [
 async function assertNoOverflow(page) {
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'Page has horizontal overflow');
 }
+async function showMagnifier(page, surface) {
+ const sheet=await surface.boundingBox();
+ const point={x:Math.round(sheet.x+sheet.width*.28),y:Math.round(sheet.y+sheet.height*.3)};
+ await page.mouse.move(point.x,point.y);
+ const lens=page.locator('.review-magnifier');
+ await page.waitForFunction(()=>!!document.querySelector('.review-magnifier')?.style.top);
+ assert.equal(await lens.count(),1);
+ assert.equal(await lens.getAttribute('aria-hidden'),'true');
+ assert(await lens.evaluate(el=>el.inert&&getComputedStyle(el).pointerEvents==='none'));
+ const rect=await lens.boundingBox();
+ assert(Math.abs(rect.x+rect.width/2-point.x)<2);
+ assert(Math.abs(rect.y+rect.height/2-point.y)<2);
+ assert(await page.evaluate(({x,y})=>!document.elementFromPoint(x,y)?.closest('.review-magnifier'),point));
+ return {lens,point};
+}
+
 async function checkFit(page, preview, paper, details) {
  await paper.locator.waitFor({state:'visible'});
  await page.waitForFunction(({preview,paper})=>{
@@ -79,6 +95,28 @@ async function checkFit(page, preview, paper, details) {
     const top=Math.max(0,Math.floor(rect.y)-8);
     await page.screenshot({path:path.join(out,framework+'-pending-layout.png'),clip:{x:0,y:top,width:1440,height:Math.min(550,900-top)}});
    }
+   const {lens,point}=await showMagnifier(page,paper.locator);
+   const scale=await lens.locator('.review-magnifier-sample').evaluate(sample=>new DOMMatrix(getComputedStyle(sample).transform).a);
+   assert.equal(scale,2);
+   await page.mouse.move(point.x+25,point.y+18);
+   await page.waitForFunction(previous=>Math.abs(document.querySelector('.review-magnifier').getBoundingClientRect().x+84-previous.x-25)<2,point);
+   if(engineName==='chromium'){
+    const bounds=await preview.locator.boundingBox();
+    const x=Math.max(0,Math.floor(bounds.x)-10),y=Math.max(0,Math.floor(bounds.y)-10);
+    await page.screenshot({path:path.join(out,framework+'-hover-magnifier.png'),clip:{x,y,width:Math.ceil(bounds.width+20),height:560}});
+   }
+   await page.keyboard.press('Escape');
+   assert.equal(await lens.count(),0);
+   await page.mouse.move(point.x+30,point.y+20);
+   assert.equal(await lens.count(),0);
+   await zoom.hover();
+   assert.equal(await lens.count(),0);
+   await showMagnifier(page,paper.locator);
+   await zoom.hover();
+   assert.equal(await lens.count(),0);
+   await paper.locator.dispatchEvent('pointermove',{pointerType:'touch',clientX:point.x,clientY:point.y});
+   assert.equal(await lens.count(),0);
+
    const showFiles=control('Show files');
    await showFiles.focus();
    await page.keyboard.press('Enter');
@@ -102,9 +140,14 @@ async function checkFit(page, preview, paper, details) {
    const viewer=await openPdf(page,framework);
    const pdfZoom=viewer.getByRole('combobox',{name:/zoom/i});
    assert.equal(await pdfZoom.inputValue(),'page');
-   const canvas=viewer.locator('canvas');
+   const canvas=viewer.locator('canvas').first();
    await page.waitForFunction(()=>[...document.querySelectorAll('.compact-fit-page canvas')].some(el=>el.style.width&&el.getBoundingClientRect().height>60));
    assert((await canvas.boundingBox()).width>90);
+   const pdfLens=(await showMagnifier(page,canvas)).lens;
+   const sample=pdfLens.locator('canvas');
+   assert(await sample.evaluate(canvas=>canvas.getContext('2d').getImageData(canvas.width/2,canvas.height/2,1,1).data[3]===255));
+   await pdfZoom.hover();
+   assert.equal(await pdfLens.count(),0);
    await viewer.getByRole('button',{name:'Text view',exact:true}).click();
    await viewer.locator('.pdf-readable-content').waitFor();
    await viewer.getByRole('button',{name:'Document view',exact:true}).click();
