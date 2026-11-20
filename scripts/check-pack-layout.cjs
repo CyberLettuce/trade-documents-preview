@@ -64,6 +64,16 @@ async function checkFit(page, preview, paper, details) {
    assert(Math.abs(actions.y+actions.height/2-back.y-back.height/2)<4);
    assert(await header.evaluate(el=>el.scrollWidth<=el.clientWidth+2));
    await assertNoOverflow(page);
+   const processing=details.locator('.review-processing-fields');
+   assert((await processing.locator('select').count())>=1);
+   const fields=processing.locator('select, input');
+   const bounds=await fields.evaluateAll(controls=>controls.map(control=>{
+    const r=control.getBoundingClientRect();
+    return {top:r.top,width:r.width,height:r.height,bottom:r.bottom};
+   }));
+   assert(bounds.every(r=>r.height>=32&&r.height<=40&&r.width>=120),JSON.stringify(bounds));
+   assert(Math.abs(bounds[0].top-bounds[1].top)<4,JSON.stringify(bounds));
+   assert(bounds.every(r=>r.bottom<page.viewportSize().height-65),JSON.stringify(bounds));
    if(engineName==='chromium'){
     const rect=await header.boundingBox();
     const top=Math.max(0,Math.floor(rect.y)-8);

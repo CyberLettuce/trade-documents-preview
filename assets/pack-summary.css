@@ -176,3 +176,48 @@ html body .pack-summary-bar .review-layout-actions button {
     html body .pack-summary-bar .review-layout-actions button { min-height: 40px; }
   }
 }
+
+@media screen {
+  .site-review-pack #pack-details-panel {
+    container: review-details / inline-size;
+  }
+
+  .review-processing-fields {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 10px 16px;
+    margin-block: 12px 8px;
+  }
+
+  html body .site-review-pack .review-processing-fields > :is(label, .form-field) {
+    min-width: 0;
+    margin: 0;
+  }
+
+  html body .site-review-pack :is(.review-processing-fields, .application-review-fields)
+    :is(select, input:not([type="checkbox"], [type="radio"], [type="file"]), .fui-Input) {
+    min-height: 36px;
+  }
+
+  html body .site-review-pack :is(.review-processing-fields, .application-review-fields)
+    :is(select, input:not([type="checkbox"], [type="radio"], [type="file"])) {
+    height: auto;
+    padding-block: 5px;
+  }
+
+  @container review-details (min-width: 520px) {
+    .review-processing-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .site-review-pack .pack-details-sidebar .ch-fluent-tabs button {
+      flex: 1 1 auto;
+      min-width: min-content;
+    }
+  }
+
+  @media (pointer: coarse), (max-width: 600px) {
+    html body .site-review-pack :is(.review-processing-fields, .application-review-fields)
+      :is(select, input:not([type="checkbox"], [type="radio"], [type="file"]), .fui-Input) {
+      min-height: 40px;
+    }
+  }
+}
