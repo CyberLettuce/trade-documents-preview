@@ -8,6 +8,7 @@ permissions:
 jobs:
   browser:
     runs-on: ubuntu-24.04
+    container: mcr.microsoft.com/playwright:v1.56.1-noble
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -26,7 +27,6 @@ jobs:
         run: |
           echo "NODE_PATH=$RUNNER_TEMP/browser-check/node_modules" >> "$GITHUB_ENV"
           npm install --prefix "$RUNNER_TEMP/browser-check" --no-save --ignore-scripts playwright@1.56.1 axe-core@4.11.0 pdf-lib@1.17.1
-          "$RUNNER_TEMP/browser-check/node_modules/.bin/playwright" install --with-deps "${{ matrix.browser }}"
       - name: Inspect responsive layout
         run: node scripts/check-webkit-resize.cjs
       - uses: actions/upload-artifact@v4

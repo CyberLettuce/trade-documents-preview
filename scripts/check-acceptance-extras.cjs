@@ -79,4 +79,3 @@ async function stampDownload(page,framework){
  }
  await browser.close();server.close();fs.writeFileSync(path.join(out,'acceptance-extras.json'),JSON.stringify({engine,version:require('playwright/package.json').version,results},null,2));console.log(JSON.stringify({checks:results.length,failed:results.filter(r=>!r.pass)},null,2));process.exitCode=results.some(r=>!r.pass)?1:0;
 })().catch(e=>{console.error(e);process.exit(1)});
-
