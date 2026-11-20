@@ -71,8 +71,8 @@ async function stampDownload(page,framework){
    if(engine!=='webkit'){await page.emulateMedia({forcedColors:'active'});assert(await page.evaluate(()=>matchMedia('(forced-colors:active)').matches));await toggle.focus();const style=await toggle.evaluate(e=>({outline:getComputedStyle(e).outlineStyle,width:parseFloat(getComputedStyle(e).outlineWidth)}));assert(style.outline!=='none'&&style.width>0,'Forced-colours keyboard focus needs an outline');await screenshot(page,framework+'-'+workspace+'-forced-colours');}
   });
   if(engine==='chromium')await check(framework+'-generated-document-print',async page=>{
-   await loaded(page,reviewURL(framework));await page.evaluate(()=>{window.print=()=>{window.printRequested=true}});
-   const button=page.getByRole('button',{name:/^Print this (page|document) \/ PDF$/});if(await button.count()){await button.first().click();await page.waitForFunction(()=>window.printRequested===true);}else{await page.evaluate(()=>window.print());}
+   await loaded(page,framework==='react'?'/#chamber/applications/Pending':reviewURL(framework));await page.evaluate(()=>{window.print=()=>{window.printRequested=true}});if(framework==='react'){await page.locator('tbody tr').first().getByRole('button',{name:/^Print /}).click();await page.getByRole('dialog').waitFor();}
+   const button=page.getByRole('button',{name:/^Print this (page|document) \/ PDF$/});await button.first().click();await page.waitForFunction(()=>window.printRequested===true);
    await page.emulateMedia({media:'print'});await page.pdf({path:path.join(out,framework+'-generated-print.pdf'),preferCSSPageSize:true,printBackground:true,tagged:true});
    await screenshot(page,framework+'-print-layout');assert.equal(await page.locator('a.skip:visible').count(),0,'Screen-only skip link must not print');const pdf=await PDFDocument.load(fs.readFileSync(path.join(out,framework+'-generated-print.pdf')));assert(pdf.getPageCount()>=1&&pdf.getPageCount()<=5,'Sample certificate should print a sensible number of pages');
   });
