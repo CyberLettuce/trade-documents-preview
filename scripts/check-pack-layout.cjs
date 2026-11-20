@@ -20,7 +20,7 @@ async function assertNoOverflow(page) {
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'Page has horizontal overflow');
 }
 async function checkFit(page, preview, paper, details) {
- await paper.waitFor({state:'visible'});
+ await paper.locator.waitFor({state:'visible'});
  await page.waitForFunction(({preview,paper})=>{
   const stage=document.querySelector(preview+' .compact-fit-page');
   const sheet=document.querySelector(preview+' '+paper)?.getBoundingClientRect();
@@ -56,11 +56,12 @@ async function checkFit(page, preview, paper, details) {
    assert.equal(await page.locator('.preview-toggle,.pack-preview-toggle').count(),0);
    const preview={selector:previewSelector,locator:page.locator(previewSelector)};
    const paper={selector:paperSelector,locator:page.locator(previewSelector+' '+paperSelector).first()};
-   paper.waitFor=options=>paper.locator.waitFor(options);
    const details=page.locator('#pack-details-panel');
    const metrics=await checkFit(page,preview,paper,details);
    const [actions,autosave]=await Promise.all([header.locator('.review-layout-actions').boundingBox(),header.locator('.pack-summary-save').boundingBox()]);
+   const back=await control(framework==='react'?'Back to pending applications':'Back to Applications').boundingBox();
    assert(Math.abs(actions.y+actions.height/2-autosave.y-autosave.height/2)<4);
+   assert(Math.abs(actions.y+actions.height/2-back.y-back.height/2)<4);
    assert(await header.evaluate(el=>el.scrollWidth<=el.clientWidth+2));
    await assertNoOverflow(page);
    if(engineName==='chromium'){

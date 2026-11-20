@@ -94,9 +94,10 @@
   min-width: 0;
 }
 .pack-summary-tools .pack-summary-save { margin-inline-start: 0; }
+
 .pack-summary-tools:has(.has-error, .autosave-recovered) { flex-basis: 100%; }
 .pack-summary-bar .review-layout-actions { justify-content: start; gap: 6px; }
-.pack-summary-bar .review-layout-actions button {
+html body .pack-summary-bar .review-layout-actions button {
   min-height: 32px;
   padding: 4px 9px;
   font-size: 12px;
@@ -112,6 +113,8 @@
 
   .site-review-pack :is(.document-canvas, .paper-space).compact-fit-page,
   .site-review-pack .compact-fit-page :is(.application-pdf-pages, .pdf-canvas) {
+    height: auto;
+    min-height: 0;
     max-height: none;
     padding: 8px;
     background: transparent;
@@ -119,11 +122,16 @@
   }
 
   .site-review-pack .document-canvas:has(.application-pdf-viewer.compact-fit-page) {
+    height: auto;
+    min-height: 0;
     max-height: none;
     padding: 0;
     background: transparent;
     scrollbar-gutter: auto;
   }
+
+  .site-review-pack .document-pane .document-page-name { padding-block: 0 6px; }
+  .site-review-pack .pack-details-sidebar .pack-summary-meta { margin-block: 0 8px; }
 
   .site-review-pack .compact-fit-page .native-paper,
   .site-review-pack .compact-fit-page .document-scaled-page { overflow: clip; }
@@ -165,6 +173,6 @@
 
   @media (max-width: 600px) {
     .pack-summary-tools { margin-inline-start: 0; }
-    .pack-summary-bar .review-layout-actions button { min-height: 40px; }
+    html body .pack-summary-bar .review-layout-actions button { min-height: 40px; }
   }
 }

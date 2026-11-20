@@ -1,3 +1,4 @@
+import {reviewPageHeight} from './review-preferences.js?v=2026-11-20-acceptance-r1';
 import {PdfTextView} from './pdf-readable-react.js?v=2026-11-20-chamber-tables-r1';
 import {savedPdfView,savePdfView} from './pdf-readable-text.js?v=2026-11-20-acceptance-r1';
 import './application-pdf-translations1-review1-8a6839bf.js?v=2026-11-20-acceptance-r1';
@@ -14,8 +15,19 @@ export function ApplicationPdfViewer({application,item,attachment,onFitPageWidth
   return()=>{active=false;reply.current=null;task?.destroy();if(objectUrl)URL.revokeObjectURL(objectUrl);};
  },[id]);
  const compactFit=!!onFitPageWidth&&zoom==='page'&&view==='document'&&!native;
- const [pageHeight,setPageHeight]=React.useState(()=>Math.max(200,window.innerHeight-240));
- React.useEffect(()=>{if(!compactFit)return;const resize=()=>setPageHeight(Math.max(200,window.innerHeight-240));window.addEventListener('resize',resize);resize();return()=>window.removeEventListener('resize',resize);},[compactFit]);
+ const [pageHeight,setPageHeight]=React.useState(450);
+ React.useEffect(()=>{
+  if(!compactFit||!box.current)return;
+  const stage=box.current;
+  const toolbar=stage.parentElement.querySelector('.application-pdf-toolbar');
+  const resize=()=>setPageHeight(toolbar?reviewPageHeight(toolbar,toolbar.offsetHeight+16):reviewPageHeight(stage));
+  const observer=new ResizeObserver(resize);
+  observer.observe(stage);
+  if(toolbar)observer.observe(toolbar);
+  window.addEventListener('resize',resize);
+  resize();
+  return()=>{observer.disconnect();window.removeEventListener('resize',resize);};
+ },[compactFit,pdf]);
  React.useEffect(()=>{if(!box.current)return;const observer=new ResizeObserver(entries=>setWidth(Math.max(1,entries[0].contentRect.width-(compactFit?0:24))));observer.observe(box.current);return()=>observer.disconnect();},[id,compactFit]);
  React.useEffect(()=>{if(view==='text'){setBusy(false);return;}if(!pdf||native||!canvas.current)return;let cancelled=false,render;setBusy(true);(async()=>{try{const previous=renderRef.current;previous?.cancel();try{await previous?.promise}catch{}if(cancelled)return;const source=await pdf.getPage(page);if(cancelled)return;const base=source.getViewport({scale:1}),pageScale=Math.min(2,pageHeight/base.height),scale=compactFit?Math.min(pageScale,width/base.width):zoom==='fit'?Math.min(2,width/base.width):Number(zoom)/100,view=source.getViewport({scale}),density=Math.min(window.devicePixelRatio||1,2),target=canvas.current;if(compactFit)onFitPageWidth(base.width*pageScale);target.width=Math.ceil(view.width*density);target.height=Math.ceil(view.height*density);target.style.width=view.width+'px';target.style.height=view.height+'px';render=source.render({canvasContext:target.getContext('2d'),viewport:view,transform:density===1?null:[density,0,0,density,0,0],annotationMode:1,background:'#fff'});renderRef.current=render;await render.promise;if(!cancelled)setError('');}catch(e){if(!cancelled&&e.name!=='RenderingCancelledException')setError('This page could not be displayed. Open the original PDF to view it.');}finally{if(!cancelled)setBusy(false);}})();return()=>{cancelled=true;render?.cancel();};},[pdf,page,width,zoom,native,view,compactFit,pageHeight,onFitPageWidth]);
  const button=(text,action,disabled)=>h('button',{type:'button',className:'button outline',onClick:action,disabled},text);

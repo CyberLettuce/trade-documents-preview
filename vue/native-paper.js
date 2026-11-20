@@ -1,3 +1,4 @@
+import {reviewPageHeight} from '../assets/review-preferences.js?v=2026-11-20-acceptance-r1';
 import {carnetTripCounts} from '../assets/carnet-review.js?v=2026-11-20-carnet-r1';
 import {h,ref,onMounted,onUpdated,onUnmounted,nextTick} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import {DocumentForm} from './assets/native-document-forms.js?v=2026-11-20-acceptance-r1';import {withPaperEdit} from './paper-runtime.js?v=2026-11-20-acceptance-r1';import {DOC_IDS} from './form-model.js?v=2026-11-20-carnet-r1';
@@ -16,7 +17,7 @@ export const NativePaper={
       emit('fit',height<=1132);
       sheet.style.setProperty('--paper-print-scale',String(Math.min(718/640,1009/height)));
       const compact=props.compactFitPage&&props.zoom==='page'&&!props.print;
-      const preferredWidth=Math.min(640,640*Math.max(200,window.innerHeight-240)/height);
+      const preferredWidth=Math.min(640,640*reviewPageHeight(container.parentElement)/height);
       const available=compact?container.parentElement.clientWidth-16:container.clientWidth;
       const numeric=Number(props.zoom)/100;
       const scale=props.print?1:numeric>0?numeric:compact

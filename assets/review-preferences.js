@@ -13,3 +13,12 @@ export function rememberedChamberZoom() {
   const value = readPreference('chamber-zoom', 'page');
   return ['width', 'page', '75', '100', '125'].includes(value) ? value : 'page';
 }
+
+export function reviewPageHeight(stage, offset = 0) {
+  // Size against the review at its starting scroll position so scrolling never changes zoom.
+  let top = stage.getBoundingClientRect().top + window.scrollY;
+  for (let parent = stage.parentElement; parent && parent !== document.scrollingElement; parent = parent.parentElement) {
+    top += parent.scrollTop;
+  }
+  return Math.max(160, Math.floor(window.innerHeight - top - offset - 80));
+}
