@@ -1,4 +1,5 @@
 const controls = 'button, a[href], [role="button"], [data-tip]';
+const compactControls = '.icon-button, .row-action-icon, .notification-trigger, .suite-chat, .suite-account, .suite-chamber, .suite-navigation, .language-flag-button';
 const hiddenText = 'svg, [hidden], [aria-hidden="true"], .visually-hidden, .outline-screen-reader, .sr-only';
 
 function visibleText(control) {
@@ -55,7 +56,7 @@ export function installTooltips() {
     const title = control.getAttribute('title');
     const label = control.getAttribute('aria-label')?.trim() || labelledBy(control);
     const text = visibleText(control);
-    const iconOnly = control.matches('.icon-button, .row-action-icon') || !text;
+    const iconOnly = control.matches(compactControls) || !text;
     const value = explicit || (iconOnly ? title?.trim() || label : '');
     if (!value) return;
     const named = !label && !text && (title || explicit);
