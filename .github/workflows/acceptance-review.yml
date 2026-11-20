@@ -15,7 +15,6 @@ jobs:
         browser: [chromium, firefox, webkit]
     env:
       CHECK_BROWSER: ${{ matrix.browser }}
-      NODE_PATH: ${{ runner.temp }}/browser-check/node_modules
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,6 +24,7 @@ jobs:
       - run: node scripts/package-pages.mjs _site-check
       - name: Prepare cloud browser
         run: |
+          echo "NODE_PATH=$RUNNER_TEMP/browser-check/node_modules" >> "$GITHUB_ENV"
           npm install --prefix "$RUNNER_TEMP/browser-check" --no-save --ignore-scripts playwright@1.56.1 axe-core@4.11.0 pdf-lib@1.17.1
           "$RUNNER_TEMP/browser-check/node_modules/.bin/playwright" install --with-deps "${{ matrix.browser }}"
       - name: Navigation, queues and translated layouts
