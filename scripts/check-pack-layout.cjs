@@ -223,6 +223,8 @@ async function checkCertificateReview(page, framework) {
    purchaseOrder:'PO-2026-123',applicantSignatory:'Jamie Taylor',applicantEmail:'jamie+exports@example.com',
    ...(react?{docs:['coo'],lockedBy:'',assigned:''}:{document:'UK Certificate of Origin',documents:['UK Certificate of Origin'],owner:''})};
   records.push(pending);
+  records.push({...pending,id:'cloud-combined-certificates',reference:'DEM0053204/123456789/U',
+   ...(react?{docs:['eur','arab']}:{document:'EUR1',documents:['EUR1','Arab Certificate of Origin']})});
   return {key,workspace};
  },react);
  await page.addInitScript(({key,workspace})=>{
@@ -289,6 +291,49 @@ async function checkCertificateReview(page, framework) {
  await assertNoOverflow(page);
  const [first,second]=await Promise.all([panels.nth(0).boundingBox(),panels.nth(1).boundingBox()]);
  assert(Math.abs(first.x-second.x)<3&&second.y>=first.y+first.height);
+
+ await page.setViewportSize({width:1440,height:900});
+ await page.goto(root+(react?'/#chamber/applications/Pending/cloud-combined-certificates':'/vue/#/chamber/applications/cloud-combined-certificates'));
+ const eur=layout.getByRole('textbox',{name:'EUR1 certificate number',exact:true});
+ const arab=layout.getByRole('textbox',{name:'Arab C of O certificate number',exact:true});
+ assert.match(await eur.inputValue(),/^[a-z]\d{7,8}$/);
+ assert.match(await arab.inputValue(),/^[a-z]{1,2}\d{6,9}$/);
+ const declaration=layout.getByLabel('Box 12 Date',{exact:true});
+ const endorsement=layout.getByLabel('Box 11 Date',{exact:true});
+ assert.equal(await declaration.inputValue(),today);
+ assert.equal(await endorsement.inputValue(),today);
+ await eur.fill('WRONG');
+ await arab.fill('A12345');
+ await layout.getByRole('alert').filter({hasText:'EUR1 certificate number is invalid - enter 1 letter followed by 7 to 8 digits'}).waitFor();
+ await layout.getByRole('alert').filter({hasText:'Arab C of O certificate number is invalid - enter 1 or 2 letters followed by 6 to 9 digits'}).waitFor();
+ await page.getByRole('button',{name:'Approve',exact:true}).click();
+ assert.equal(await eur.getAttribute('aria-invalid'),'true');
+ assert.equal(await arab.getAttribute('aria-invalid'),'true');
+ assert(await page.locator('.pack-summary-status').getByText('Pending',{exact:true}).isVisible());
+ await eur.fill('a1234567');
+ await arab.fill('AB123456789');
+ assert.equal(await layout.getByRole('alert').count(),0);
+ await declaration.fill('2026-11-18');
+ await endorsement.fill('2026-11-19');
+ const eurPaper=page.locator('#pack-document-preview .certificate-eur').first();
+ assert((await eurPaper.textContent()).includes('a1234567'));
+ assert.match(await eurPaper.locator('.movement-declaration').textContent(),/18\s+Nov|18\/11/);
+ assert.match(await eurPaper.locator('.movement-customs').textContent(),/19\s+Nov|19\/11/);
+ const preview=page.locator('#pack-document-preview');
+ if(react){
+  await preview.getByRole('button',{name:'Next',exact:true}).click();
+ }else{
+  await preview.getByRole('combobox',{name:'Document',exact:true}).selectOption({label:'Arab Certificate of Origin'});
+ }
+ const arabPaper=preview.locator('.certificate-arab').first();
+ assert((await arabPaper.textContent()).includes('AB123456789'));
+ assert(!(await arabPaper.textContent()).includes('a1234567'));
+ await page.waitForFunction(()=>Object.values(localStorage).some(value=>value.includes('AB123456789')&&value.includes('a1234567')));
+ await page.reload();
+ assert.equal(await eur.inputValue(),'a1234567');
+ assert.equal(await arab.inputValue(),'AB123456789');
+ assert.equal(await declaration.inputValue(),'2026-11-18');
+ assert.equal(await endorsement.inputValue(),'2026-11-19');
 }
 
 async function checkFit(page, preview, paper, details) {

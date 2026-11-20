@@ -48,7 +48,7 @@ export function claimProgress(c) { const count = CLAIM_LETTERS.filter(k => c.let
 export function claimDue(c, today = new Date().toISOString().slice(0,10)) { if (!c.nextDue) return 'none'; const days = Math.round((Date.parse(c.nextDue)-Date.parse(today))/86400000); return days < 0 ? 'overdue' : days <= 7 ? 'soon' : 'later'; }
 export function cleanDraftData(record) {
   const data = JSON.parse(JSON.stringify(record));
-  for (const key of ['certificate','owner','signatory','secondChecker','secondCheckedAt','secondCheckedBy','workflow','decidedAt','decisionBy','approvedAt','rejectedAt','handledMinutes','previousStatus','fees','rejectionReason','submittedAt','paid','editorStep','invoiceDate','eCarnetId','ecarnetId','eCarnetPin','ecarnetPin','eCarnetStatus','carnetReturned','carnetReturnedAt','issueDate','stampDate','chamberReference','applicantSignatory','applicantEmail']) delete data[key];
+  for (const key of ['certificate','owner','signatory','secondChecker','secondCheckedAt','secondCheckedBy','workflow','decidedAt','decisionBy','approvedAt','rejectedAt','handledMinutes','previousStatus','fees','rejectionReason','submittedAt','paid','editorStep','invoiceDate','eCarnetId','ecarnetId','eCarnetPin','ecarnetPin','eCarnetStatus','carnetReturned','carnetReturnedAt','issueDate','stampDate','eurBox11Date','eurBox12Date','chamberReference','certificateNumbers','applicantSignatory','applicantEmail']) delete data[key];
   data.files=(data.files||[]).map(({stampedId,stamps,...file})=>file); data.pdf=null;
   return data;
 }

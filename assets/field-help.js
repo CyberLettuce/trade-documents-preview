@@ -9,6 +9,8 @@ const explanations = {
   'chamber reference': 'Enter the Chamber’s internal reference for this application.',
   'issue date': 'Choose the date the Chamber issues the certificate.',
   'stamp date': 'Choose the date the Chamber stamps the document.',
+  'box 12 date': 'Set the date of the exporter’s declaration in Box 12.',
+  'box 11 date': 'Set the date of the Chamber endorsement in Box 11.',
   'chamber signatory': 'Choose the Chamber officer who will sign the document.',
   'workflow step': 'Track the application’s internal progress. Use the decision buttons to approve or reject it.',
   'second reviewer': 'Choose a different active Chamber officer to perform the second check.',

@@ -422,18 +422,36 @@ html body .pack-summary-bar .review-layout-actions button {
   }
 }
 
-.chamber-coo-application h3 { margin-block: 0 10px; }
-.chamber-coo-fields { display: grid; gap: 12px; }
-#pack-details-panel .chamber-coo-fact {
+.chamber-certificate-application h3 { margin-block: 0 10px; }
+.chamber-certificate-fields, .certificate-document-fields { display: grid; gap: 12px; }
+#pack-details-panel .chamber-certificate-fact {
   display: block;
   margin: 0;
 }
-#pack-details-panel .chamber-coo-fact dd {
+#pack-details-panel .chamber-certificate-fact dd {
   margin: 3px 0 0;
   font-weight: 600;
   overflow-wrap: anywhere;
 }
-.chamber-coo-fact a { display: block; margin-block-start: 4px; text-decoration: underline; }
+.chamber-certificate-fact a { display: block; margin-block-start: 4px; text-decoration: underline; }
+.certificate-date-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  gap: 9px;
+}
+#pack-details-panel .certificate-review-input {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  min-width: 0;
+}
+#pack-details-panel .certificate-review-input input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--review-control-height, 36px);
+  padding-block: 5px;
+}
 
 @media screen {
   .site-review-pack .review-read-button { flex: 0 0 auto; white-space: nowrap; }
