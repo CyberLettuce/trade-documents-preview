@@ -1,6 +1,6 @@
 import {reviewPageHeight} from '../assets/review-preferences.js?v=2026-11-20-pending-review-r1';
 import {ref,shallowRef,watch,nextTick,onMounted,onUnmounted} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
-import {pdfStore} from './model.js?v=2026-11-20-acceptance-r1';
+import {pdfStore} from './model.js?v=2026-11-20-chamber-carnet-r1';
 import {Icon} from './components.js?v=2026-11-20-pending-review-r1';
 import {PdfTextView} from './pdf-readable.js?v=2026-11-20-acceptance-r1';
 import {savedPdfView,savePdfView} from '../assets/pdf-readable-text.js?v=2026-11-20-acceptance-r1';

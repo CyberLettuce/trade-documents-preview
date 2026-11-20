@@ -1,5 +1,5 @@
 import {ref,computed,onMounted,onUnmounted,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
-import {useApp,ws,activeUser,admin} from './workspace.js?v=2026-11-20-acceptance-r1';
+import {useApp,ws,activeUser,admin} from './workspace.js?v=2026-11-20-chamber-carnet-r1';
 import {LanguageControl} from './language.js?v=2026-11-20-acceptance-r1';
 import {shortcutCatalog,shortcutDefaults,shortcutKey,readShortcuts,saveShortcuts} from './assets/quick-access-model1.js?v=2026-11-20-acceptance-r1';
 const iconMap={building:'exporters',chat:'chat',search:'search',moon:'theme',bell:'bell','question-circle':'support',globe2:'language',gear:'settings',people:'account',grid:'layout','house-door':'dashboard','file-earmark-text':'applications',inbox:'pending','hourglass-split':'progress','check-circle':'approved','exclamation-triangle':'warning','shield':'claims','bar-chart-line':'reports',pencil:'review',send:'applications',database:'stored',book:'book','plus-lg':'new',pen:'signature','person-plus':'user-plus'};
