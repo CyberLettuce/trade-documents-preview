@@ -74,10 +74,29 @@ async function checkCarnet(page, framework) {
  if(await hideFiles.isVisible())await hideFiles.click();
  const details=page.getByRole('region',{name:'ATA Carnet application details'});
  await details.waitFor();
+ const sidebar=page.locator('#pack-details-panel');
+ const detailTab=name=>sidebar.getByRole(react?'tab':'button',{name,exact:true});
+ const summaryTitle=sidebar.getByRole('heading',{name:'Application summary',exact:true});
+ const feesTitle=sidebar.getByRole('heading',{name:'Fees',exact:true});
+ assert.equal(await summaryTitle.count(),0);
+ assert.equal(await feesTitle.count(),0);
+ await detailTab('Summary').click();
+ await summaryTitle.waitFor();
+ await feesTitle.waitFor();
+ assert(await sidebar.getByText('Harbour Engineering Ltd',{exact:true}).isVisible());
+ assert.equal(await details.count(),0);
+ if(react)assert(await sidebar.getByLabel('Certification fee (£)',{exact:true}).isEditable());
+ else {
+  assert(await sidebar.getByText('Total',{exact:true}).isVisible());
+  assert(await sidebar.getByRole('button',{name:'Recalculate fees',exact:true}).isEnabled());
+ }
+ if(engineName==='chromium')await sidebar.screenshot({path:path.join(out,framework+'-carnet-summary.png')});
+ await detailTab('Application').click();
+ await details.waitFor();
  const fact=name=>details.locator('dl').filter({has:page.getByText(name,{exact:true})}).locator('dd');
  assert.equal(await fact('Signatory (Applicant)').textContent(),react?'Exporter sample signatory':'Alex Morgan');
  assert.match(await fact('Formal Undertaking Expiry Date').textContent(),/2027/);
- const useLabel='Box C – Intended Use of Goods';
+ const useLabel='Intended Use of Goods';
  const use=details.getByRole('textbox',{name:useLabel,exact:true});
  const goods=details.getByRole('textbox',{name:'Goods Type',exact:true});
  const editedUse='Commercial samples, Exhibition and fairs';
@@ -138,6 +157,13 @@ async function checkCarnet(page, framework) {
  assert.match(await fact(useLabel).textContent(),/professional equipment/i);
  assert.equal(await fact('Goods Type').textContent(),'Machinery');
  assert(await copyId.isEnabled()&&await copyPin.isEnabled());
+ await detailTab('Summary').click();
+ await summaryTitle.waitFor();
+ await feesTitle.waitFor();
+ if(react)assert(!(await sidebar.getByLabel('Certification fee (£)',{exact:true}).isEditable()));
+ else assert.equal(await sidebar.getByRole('button',{name:'Recalculate fees',exact:true}).count(),0);
+ await page.setViewportSize({width:390,height:844});
+ await assertNoOverflow(page);
  assert.equal(await upload.count(),0);
  assert(await download.isEnabled());
 }

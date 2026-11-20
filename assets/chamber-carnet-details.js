@@ -71,7 +71,7 @@ export function renderChamberCarnet(node, {record, applicant, expiry, formatDate
       fact('Mercury Carnet ID', record.eCarnetId ?? record.ecarnetId, true, true),
       fact('Mercury Carnet PIN', record.eCarnetPin ?? record.ecarnetPin, true, true),
       field('Goods Type', record.goodsType, value => update('goodsType', value)),
-      field('Box C – Intended Use of Goods', use, value => update('use', multipleUses ? value.split(', ') : value))),
+      field('Intended Use of Goods', use, value => update('use', multipleUses ? value.split(', ') : value))),
     node('div', {class: 'chamber-carnet-list-actions'},
       node('strong', {}, 'General List'),
       node('div', {class: 'button-row'},
