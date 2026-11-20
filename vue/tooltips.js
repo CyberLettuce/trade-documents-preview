@@ -32,15 +32,15 @@ export function installTooltips() {
     clearLeave();
     tip.hidden = true;
     if (!active) return;
-    const {control, title, named, described} = active;
+    const {control, title, named, descriptionTarget} = active;
     active = null;
     if (title && !control.hasAttribute('title')) control.setAttribute('title', title);
     if (named && control.getAttribute('aria-label') === named) control.removeAttribute('aria-label');
-    if (described) {
-      const ids = (control.getAttribute('aria-describedby') || '').split(/\s+/)
+    if (descriptionTarget) {
+      const ids = (descriptionTarget.getAttribute('aria-describedby') || '').split(/\s+/)
         .filter(id => id && id !== tip.id);
-      if (ids.length) control.setAttribute('aria-describedby', ids.join(' '));
-      else control.removeAttribute('aria-describedby');
+      if (ids.length) descriptionTarget.setAttribute('aria-describedby', ids.join(' '));
+      else descriptionTarget.removeAttribute('aria-describedby');
     }
   }
 
@@ -62,13 +62,15 @@ export function installTooltips() {
     const named = !label && !text && (title || explicit);
     if (named) control.setAttribute('aria-label', named);
     if (title) control.removeAttribute('title');
-    const described = value !== (label || named || text);
-    if (described) {
-      const previous = control.getAttribute('aria-describedby');
-      control.setAttribute('aria-describedby', [previous, tip.id].filter(Boolean).join(' '));
+    const descriptionTarget = value !== (label || named || text)
+      ? (explicit && target.matches('input, select, textarea') ? target : control)
+      : null;
+    if (descriptionTarget) {
+      const previous = descriptionTarget.getAttribute('aria-describedby');
+      descriptionTarget.setAttribute('aria-describedby', [previous, tip.id].filter(Boolean).join(' '));
     }
 
-    active = {control, title, named, described};
+    active = {control, title, named, descriptionTarget};
     const host = control.closest('dialog[open]') || document.body;
     if (tip.parentElement !== host) host.append(tip);
     tip.textContent = value;
@@ -98,7 +100,13 @@ export function installTooltips() {
   document.addEventListener('focusin', event => show(event.target), options);
   document.addEventListener('focusout', leave, options);
   document.addEventListener('keydown', event => { if (event.key === 'Escape') hide(); }, options);
-  document.addEventListener('click', hide, options);
+  document.addEventListener('click', event => {
+    const mark = event.target instanceof Element && event.target.closest('.field-help-mark');
+    if (mark) {
+      event.preventDefault();
+      show(mark);
+    } else hide();
+  }, {...options, capture: true});
   window.addEventListener('scroll', hide, {...options, capture: true});
   window.addEventListener('resize', hide, options);
   const changes = new MutationObserver(records => {

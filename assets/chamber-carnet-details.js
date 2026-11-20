@@ -1,3 +1,4 @@
+import {fieldHelp} from './field-help.js';
 import {prepareImport, csvColumns} from './general-list-logic-review1-2136caa2.js?v=2026-11-20-acceptance-r1';
 
 export function carnetApplicant(record, signatories) {
@@ -57,8 +58,8 @@ export function renderChamberCarnet(node, {record, applicant, expiry, formatDate
   };
   const field = (label, value, onChange) => writable
     ? node('label', {class: 'chamber-carnet-input'},
-      node('span', {}, label),
-      node('input', {type: 'text', value: value ?? '', placeholder: 'Not recorded',
+      node('span', {}, label, node('span', {class: 'field-help-mark', 'aria-hidden': true, 'data-tip': fieldHelp(label)}, '?')),
+      node('input', {type: 'text', value: value ?? '', placeholder: 'Not recorded', 'data-tip': fieldHelp(label),
         spellCheck: false, autoComplete: 'off', onInput: event => onChange(event.target.value)}))
     : fact(label, value, true);
   const multipleUses = Array.isArray(record.use);

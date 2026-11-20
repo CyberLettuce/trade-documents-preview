@@ -118,6 +118,16 @@ async function checkCarnet(page, framework) {
  const copyId=details.getByRole('button',{name:'Copy Mercury Carnet ID',exact:true});
  const copyPin=details.getByRole('button',{name:'Copy Mercury Carnet PIN',exact:true});
  const tooltip=page.locator('#workspace-tooltip');
+ const workflowStep=processing.getByRole('combobox',{name:'Workflow step',exact:true});
+ await workflowStep.focus();
+ await tooltip.waitFor();
+ assert.match(await tooltip.textContent(),/internal progress/i);
+ await page.keyboard.press('Escape');
+ await tooltip.waitFor({state:'hidden'});
+ await processing.locator('.field-help-mark[data-tip*="internal progress"]').click();
+ await tooltip.waitFor();
+ assert.match(await tooltip.textContent(),/approve or reject/i);
+ await page.keyboard.press('Escape');
  await copyId.hover();
  await tooltip.waitFor();
  assert.equal(await tooltip.textContent(),'Copy Mercury Carnet ID');
@@ -165,9 +175,12 @@ async function checkCarnet(page, framework) {
  if(engineName==='chromium')await columns.screenshot({path:path.join(out,framework+'-chamber-carnet-details.png')});
  await page.setViewportSize({width:390,height:844});
  await assertNoOverflow(page);
- const [mobileCarnet,mobileProcessing]=await Promise.all([details.boundingBox(),processing.boundingBox()]);
- assert(Math.abs(mobileCarnet.x-mobileProcessing.x)<3&&mobileProcessing.y>=mobileCarnet.y+mobileCarnet.height,
-  JSON.stringify({mobileCarnet,mobileProcessing}));
+ await page.waitForFunction(()=>{
+  const [details,processing]=document.querySelector('.carnet-application-columns').children;
+  const a=details.getBoundingClientRect(), b=processing.getBoundingClientRect();
+  const sheet=document.querySelector('#pack-document-preview .document-scaled-page, #pack-document-preview .paper-space .native-paper');
+  return Math.abs(a.x-b.x)<3&&b.y>=a.bottom&&sheet?.getBoundingClientRect().width>=90;
+ });
  await page.setViewportSize({width:1440,height:900});
  await page.goto(root+(react?'/#chamber/applications/Approved/cloud-ata-approved':'/vue/#/chamber/applications/cloud-ata-approved'));
  await details.waitFor();
@@ -344,6 +357,13 @@ async function checkFit(page, preview, paper, details) {
    await tip.waitFor();
    await page.evaluate(()=>{document.documentElement.dataset.theme='dark'});
    assert.equal(await tip.evaluate(el=>getComputedStyle(el).backgroundColor),'rgb(41, 43, 47)');
+   await page.goto('http://127.0.0.1:5204/after'+(framework==='react'?'/#new':'/vue/#/exporter/applications/sample-draft-20261117-ata'));
+   const reference=page.getByRole('textbox',{name:/Your reference/i}).first();
+   await reference.focus();
+   await tip.waitFor();
+   assert.match(await tip.textContent(),/service assigns the application reference/i);
+   await page.keyboard.press('Escape');
+   await tip.waitFor({state:'hidden'});
    assert.deepEqual(errors,[]);
    results.push({framework,...metrics,pass:true});
   } catch(error){

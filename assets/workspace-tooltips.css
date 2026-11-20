@@ -20,3 +20,20 @@
   color: #f5f5f5;
 }
 .workspace-tooltip[hidden] { display: none; }
+
+.field-help-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline-start: 5px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  color: var(--muted, var(--colorNeutralForeground2));
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  vertical-align: middle;
+  cursor: help;
+}
