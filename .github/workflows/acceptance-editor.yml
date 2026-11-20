@@ -8,7 +8,9 @@ permissions:
 jobs:
   browser:
     runs-on: ubuntu-24.04
-    container: mcr.microsoft.com/playwright:v1.56.1-noble
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1-noble
+      options: --user pwuser
     timeout-minutes: 30
     strategy:
       fail-fast: false
