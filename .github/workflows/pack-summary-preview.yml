@@ -1,0 +1,37 @@
+name: Chamber pack header preview
+on:
+  push:
+    branches: [codex/pack-header-preview-20261120]
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    container:
+      image: mcr.microsoft.com/playwright:v1.56.1-noble
+      options: --user pwuser
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: 49bf940
+          path: before
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE/before"
+          node scripts/package-pages.mjs _site-check
+          node before/scripts/package-pages.mjs _site-before
+      - run: |
+          echo "NODE_PATH=$RUNNER_TEMP/browser-check/node_modules" >> "$GITHUB_ENV"
+          npm install --prefix "$RUNNER_TEMP/browser-check" --no-save --ignore-scripts playwright@1.56.1
+      - run: node scripts/check-pack-summary.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: chamber-pack-header-preview
+          path: qa-results/
+          retention-days: 14

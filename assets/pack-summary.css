@@ -1,0 +1,86 @@
+.ch-app .pack-summary-bar,
+.pack-summary-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  min-width: 0;
+  margin-block-end: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.pack-summary-bar :is(.pack-summary-heading, .pack-summary-save-hint) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.pack-summary-bar .pack-summary-back,
+.ch-app .ch-main .pack-summary-bar .pack-summary-back {
+  min-height: 38px;
+  margin: 0;
+  font-size: 13px;
+}
+
+.pack-summary-identity,
+.pack-summary-meta {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.pack-summary-meta {
+  font-size: 12px;
+  color: var(--muted, var(--colorNeutralForeground2));
+}
+
+.pack-summary-status {
+  display: flex;
+  min-width: 0;
+}
+
+.pack-summary-save {
+  margin-inline-start: auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.pack-summary-bar .pack-summary-save .autosave-status {
+  margin: 0;
+  font-size: 12px;
+}
+
+.pack-summary-bar .pack-summary-save .autosave-status.is-compact:not(.has-error) {
+  padding: 0;
+}
+
+.pack-summary-save .autosave-browser-note {
+  display: none;
+}
+
+.pack-summary-save:has(.has-error, .autosave-recovered) {
+  flex-basis: 100%;
+}
+
+@media (max-width: 600px) {
+  .pack-summary-bar { column-gap: 12px; }
+  .pack-summary-identity { flex-basis: 100%; }
+  .pack-summary-bar .pack-summary-back,
+  .ch-app .ch-main .pack-summary-bar .pack-summary-back { min-height: 44px; }
+}
+
+@media print {
+  .pack-summary-bar { display: none !important; }
+}
