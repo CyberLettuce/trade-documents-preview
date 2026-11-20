@@ -45,6 +45,15 @@ export const Donut={
   <small v-if="segments.length" class="vue-donut-note">{{interactive?'Select a category to filter · Percentages rounded.':'Percentages rounded.'}}</small>
  </section>`,
 };
+const chamberReportIcons = {
+ overview: 'report-grid',
+ bcc: 'report-bar-chart',
+ invoice: 'report-receipt',
+ audit: 'report-clipboard-check',
+ aviva: 'report-shield-check',
+ single: 'report-person-check',
+ users: 'report-person-check',
+};
 export const ReportsPage={components:{Donut},setup(){
  const app=useApp(),chamber=app.chamber,kind=ref('overview'),view=ref('user'),filters=reactive({from:'',to:'',status:'',document:'',user:'',exporter:'',service:'',payment:'',query:''}),drill=ref(null),viewName=ref(''),viewDialog=ref(false),page=ref(1),pageSize=ref(25);
  const resultSort=useColumnSort((row,column)=>{
@@ -97,9 +106,11 @@ export const ReportsPage={components:{Donut},setup(){
  function reset(){Object.keys(filters).forEach(k=>filters[k]='')}
  function applyView(event){const v=ws.savedViews.find(v=>v.id===event.target.value);if(v){reset();Object.assign(filters,clone(v.filters));app.go('reports/'+v.report)}}
  function dateRange(days){if(!days){filters.from='';filters.to='';return}const end=new Date(),start=new Date(end);start.setDate(start.getDate()-days+1);filters.from=start.toISOString().slice(0,10);filters.to=end.toISOString().slice(0,10)}
- return{charts,selectChart,resultSort,performanceSort,volumeSort,drillSort,ws,chamber,kind,view,filters,drill,viewName,viewDialog,names,matching,byStatus,byDoc,byMonth,byExporter,users,userNames,exporters,metrics,summary,tableRows,paged,page,pageSize,pageCount,columns,values,bcc,reportViews,exportCSV,saveView,reset,applyView,dateRange,formatDate,documentTypes,documentNames,decisionUser,decisionStatus,decisionDate,handlingMinutes,duration,open:r=>app.go('applications/'+r.id),selectKind:k=>app.go('reports/'+k),print:()=>window.print(),money};
+ return{chamberReportIcons,charts,selectChart,resultSort,performanceSort,volumeSort,drillSort,ws,chamber,kind,view,filters,drill,viewName,viewDialog,names,matching,byStatus,byDoc,byMonth,byExporter,users,userNames,exporters,metrics,summary,tableRows,paged,page,pageSize,pageCount,columns,values,bcc,reportViews,exportCSV,saveView,reset,applyView,dateRange,formatDate,documentTypes,documentNames,decisionUser,decisionStatus,decisionDate,handlingMinutes,duration,open:r=>app.go('applications/'+r.id),selectKind:k=>app.go('reports/'+k),print:()=>window.print(),money};
 },template:String.raw`
-<div class="section-tabs"><button v-for="(name,key) in names" :aria-pressed="kind===key" @click="selectKind(key)">{{name}}</button></div>
+<div class="section-tabs" :class="{'chamber-report-tabs':chamber}" :role="chamber?'navigation':undefined" :aria-label="chamber?'Report type':undefined">
+ <button v-for="(name,key) in names" :key="key" type="button" :aria-pressed="kind===key" @click="selectKind(key)"><Icon v-if="chamber" :name="chamberReportIcons[key]"/><span>{{name}}</span></button>
+</div>
 
 <ListOptions :page="'reports-'+kind" :active="Object.entries(filters).some(([k,v])=>k!=='query'&&!!v)" :result="matching.length+' applications'"><template #search><label>Search records<input type="search" v-model="filters.query" placeholder="User, reference, exporter or document"></label></template><div class="record-toolbar"><label>Saved views<select @change="applyView"><option value="">Choose a saved view</option><option v-for="v in reportViews" :value="v.id">{{v.name}}</option></select></label><div class="button-row"><button @click="viewDialog=true">Save view</button><button @click="exportCSV"><Icon name="download"/>Export CSV</button><button @click="print"><Icon name="print"/>Print report</button></div></div><section class="card report-filters"><div class="fields-grid">
 <label>{{kind==='users'?'Decision from':'From'}}<input type="date" v-model="filters.from"></label><label>{{kind==='users'?'Decision to':'To'}}<input type="date" v-model="filters.to" :min="filters.from"></label>

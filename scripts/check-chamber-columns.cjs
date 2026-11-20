@@ -44,6 +44,19 @@ async function sortedValues(table,header,cellIndex,{numeric=false}={}){const hea
    await loaded(page,base+'reports/bcc');const bcc=page.locator('main table').first();await sortBoth(bcc,'Standard');await sortBoth(bcc,'Total');
   });
  }
+ await check('vue-chamber-report-tabs-match-react',async page=>{
+  await page.setViewportSize({width:1440,height:900});
+  const labels=['Overview','BCC report','Invoice report','Audit report','Aviva report','Single check report','User Performance'];
+  async function tabPaths(nav){const paths={};for(const label of labels){const tab=nav.getByRole('button',{name:label,exact:true});await tab.waitFor();paths[label]=await tab.locator('svg path').evaluateAll(nodes=>nodes.map(node=>node.getAttribute('d')));assert(paths[label].length,label+' has an icon');}return paths;}
+  await loaded(page,'/#chamber/reports/overview');
+  const reactNav=page.getByRole('navigation',{name:'Report type'});const expected=await tabPaths(reactNav);
+  await loaded(page,'/vue/#/chamber/reports/overview');
+  const vueNav=page.getByRole('navigation',{name:'Report type'});assert.deepEqual(await tabPaths(vueNav),expected);
+  await bounds(page,vueNav,'vue-chamber-report-tabs');
+  await page.setViewportSize({width:390,height:844});await page.screenshot();await withinPage(page);
+  const users=vueNav.getByRole('button',{name:'User Performance',exact:true});await users.press('Enter');await users.and(vueNav.locator('[aria-pressed=true]')).waitFor();
+  assert.deepEqual(await tabPaths(vueNav),expected);
+ });
  await check('vue-chamber-donut-reports',async page=>{
   const url='/vue/#/chamber/reports/';await page.setViewportSize({width:1440,height:900});await loaded(page,url+'overview');
   const charts=page.locator('.vue-report-donut');assert.equal(await charts.count(),4);assert.equal(await page.locator('.report-metric-label svg').count(),4);
