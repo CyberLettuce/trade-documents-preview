@@ -99,6 +99,7 @@
 .pack-summary-bar .review-layout-actions { justify-content: start; gap: 6px; }
 html body .pack-summary-bar .review-layout-actions button {
   min-height: 32px;
+  height: auto;
   padding: 4px 9px;
   font-size: 12px;
   line-height: 1.35;
@@ -180,6 +181,7 @@ html body .pack-summary-bar .review-layout-actions button {
 @media screen {
   .site-review-pack #pack-details-panel {
     container: review-details / inline-size;
+    --review-control-height: 36px;
   }
 
   .review-processing-fields {
@@ -195,14 +197,18 @@ html body .pack-summary-bar .review-layout-actions button {
     margin: 0;
   }
 
-  html body .site-review-pack :is(.review-processing-fields, .application-review-fields)
-    :is(select, input:not([type="checkbox"], [type="radio"], [type="file"]), .fui-Input) {
-    min-height: 36px;
+  #pack-details-panel :is(.review-processing-fields, .application-review-fields)
+    :is(select, input:not([type="checkbox"], [type="radio"], [type="file"]), .fui-Input, .fui-Select) {
+    height: var(--review-control-height);
+    min-height: var(--review-control-height);
   }
 
-  html body .site-review-pack :is(.review-processing-fields, .application-review-fields)
-    :is(select, input:not([type="checkbox"], [type="radio"], [type="file"])) {
-    height: auto;
+  #pack-details-panel :is(.review-processing-fields, .application-review-fields) .fui-Input > input {
+    height: 100%;
+    min-height: 0;
+  }
+
+  #pack-details-panel .review-processing-fields > label > :is(input, select) {
     padding-block: 5px;
   }
 
@@ -215,9 +221,6 @@ html body .pack-summary-bar .review-layout-actions button {
   }
 
   @media (pointer: coarse), (max-width: 600px) {
-    html body .site-review-pack :is(.review-processing-fields, .application-review-fields)
-      :is(select, input:not([type="checkbox"], [type="radio"], [type="file"]), .fui-Input) {
-      min-height: 40px;
-    }
+    .site-review-pack #pack-details-panel { --review-control-height: 40px; }
   }
 }
