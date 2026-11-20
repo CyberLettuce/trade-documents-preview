@@ -41,6 +41,8 @@ async function language(page,framework,name,code){
  });
  for(const framework of ['react','vue'])await check(framework+'-review-panels-and-zoom',async page=>{
   await loaded(page,framework==='react'?'/#chamber/applications/Pending/ch-app-0':'/vue/#/chamber/applications/sample-0');
+  const zoom=page.locator('select').filter({has:page.locator('option[value="page"]')}).first();
+  assert.equal(await zoom.inputValue(),'page');await zoom.selectOption({label:'Fit width'});
   const main=page.locator(framework==='react'?'.pack-main':'.document-pane');const before=await main.boundingBox();
   await page.getByRole('button',{name:'Hide application details',exact:true}).click();assert(!(await page.locator('#pack-details-panel').isVisible()));
   assert((await main.boundingBox()).width>before.width+100);
@@ -49,7 +51,7 @@ async function language(page,framework,name,code){
   await page.getByRole('button',{name:'Show application details',exact:true}).click();
   const input=page.locator(framework==='react'?'#review-certificate':'#pack-details-panel input').first();await input.fill('test123abc');
   await page.getByRole('button',{name:'Hide application details',exact:true}).click();await page.getByRole('button',{name:'Show application details',exact:true}).click();assert.equal(await input.inputValue(),'test123abc');
-  const zoom=page.locator('select').filter({has:page.locator('option[value="page"]')}).first();await zoom.selectOption('page');
+  await zoom.selectOption('page');
   await page.reload();await ready(page);assert.equal(await page.locator('select').filter({has:page.locator('option[value="page"]')}).first().inputValue(),'page');
   await screenshot(page,'fixed-'+framework+'-review');
  });

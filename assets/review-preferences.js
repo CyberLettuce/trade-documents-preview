@@ -8,3 +8,8 @@ export function rememberedZoom() {
   const value = readPreference('zoom', 'width');
   return ['width', 'page', '75', '100', '125'].includes(value) ? value : 'width';
 }
+
+export function rememberedChamberZoom() {
+  const value = readPreference('chamber-zoom', 'page');
+  return ['width', 'page', '75', '100', '125'].includes(value) ? value : 'page';
+}
