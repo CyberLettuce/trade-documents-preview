@@ -36,9 +36,25 @@ export function carnetGeneralListCsv(items) {
     .map(row => row.map(cell).join(',')).join('\r\n');
 }
 
-export function renderChamberCarnet(node, {record, applicant, expiry, formatDate, writable, uploading, message, icon, update, upload, download}) {
-  const fact = (label, value, preserve = false) => node('dl', {class: 'chamber-carnet-fact'},
-    node('dt', {}, label), node('dd', {translate: preserve ? 'no' : undefined}, value === '' || value == null ? '—' : value));
+export function renderChamberCarnet(node, {record, applicant, expiry, formatDate, writable, uploading, message, icon, update, upload, download, notify}) {
+  const fact = (label, value, preserve = false, copyable = false) => {
+    const hasValue = value !== '' && value != null;
+    const canCopy = copyable && hasValue;
+    const copyLabel = 'Copy ' + label;
+    return node('dl', {class: 'chamber-carnet-fact'},
+      node('dt', {}, label),
+      node('dd', {class: canCopy ? 'chamber-carnet-copy-value' : undefined},
+        node('span', {translate: preserve ? 'no' : undefined}, hasValue ? value : '—'),
+        canCopy ? node('button', {type: 'button', class: 'icon-button chamber-carnet-copy',
+          title: copyLabel, 'aria-label': copyLabel, onClick: async () => {
+            try {
+              await navigator.clipboard.writeText(String(value));
+              notify(label + ' copied.');
+            } catch {
+              notify('Clipboard unavailable. Select and copy the value manually.');
+            }
+          }}, icon('copy')) : null));
+  };
   const field = (label, value, onChange) => writable
     ? node('label', {class: 'chamber-carnet-input'},
       node('span', {}, label),
@@ -52,8 +68,8 @@ export function renderChamberCarnet(node, {record, applicant, expiry, formatDate
     node('div', {class: 'chamber-carnet-fields'},
       fact('Signatory (Applicant)', applicant, true),
       fact('Formal Undertaking Expiry Date', expiry ? formatDate(expiry) : ''),
-      fact('Mercury Carnet ID', record.eCarnetId ?? record.ecarnetId, true),
-      fact('Mercury Carnet PIN', record.eCarnetPin ?? record.ecarnetPin, true),
+      fact('Mercury Carnet ID', record.eCarnetId ?? record.ecarnetId, true, true),
+      fact('Mercury Carnet PIN', record.eCarnetPin ?? record.ecarnetPin, true, true),
       field('Goods Type', record.goodsType, value => update('goodsType', value)),
       field('Box C – Intended Use of Goods', use, value => update('use', multipleUses ? value.split(', ') : value))),
     node('div', {class: 'chamber-carnet-list-actions'},

@@ -41,7 +41,7 @@ const ChamberCarnetApplication={
    return renderChamberCarnet((tag,attrs,...children)=>h(tag,attrs,children),{
     record,applicant:carnetApplicant(record,ws.saved.signatories),expiry:account?.renewal,
     formatDate,writable:props.writable,uploading:uploading.value,message:message.value,
-    icon:name=>h(Icon,{name:name==='upload'?'new':name}),update,upload,download:()=>download('general-list.csv',carnetGeneralListCsv(record.items||[]))
+    icon:name=>h(Icon,{name:name==='upload'?'new':name}),update,upload,notify:app.notify,download:()=>download('general-list.csv',carnetGeneralListCsv(record.items||[]))
    });
   };
  }

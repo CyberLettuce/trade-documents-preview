@@ -284,6 +284,27 @@ html body .pack-summary-bar .review-layout-actions button {
   overflow-wrap: anywhere;
 }
 
+.chamber-carnet-copy-value {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chamber-carnet-copy-value > span { min-width: 0; }
+
+#pack-details-panel .chamber-carnet-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 3px;
+  border: 0;
+}
+
 .chamber-carnet-application .chamber-carnet-input {
   display: grid;
   gap: 4px;

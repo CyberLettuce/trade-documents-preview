@@ -57,6 +57,18 @@ async function checkCarnet(page, framework) {
   localStorage.setItem(key,JSON.stringify(data));
   sessionStorage.setItem('cloud-ata-seeded','1');
  },seed);
+ if(engineName==='chromium'){
+  await page.context().grantPermissions(['clipboard-read','clipboard-write'],{origin:new URL(root).origin});
+ }else{
+  await page.addInitScript(()=>{
+   // WebKit's automation permissions do not expose programmatic clipboard reads.
+   let copied='';
+   Object.defineProperty(navigator,'clipboard',{value:{
+    writeText:async value=>{copied=value;},
+    readText:async ()=>copied
+   }});
+  });
+ }
  await page.goto(root+route.replace('#','?cloud-carnet#'));
  const hideFiles=page.getByRole('button',{name:'Hide files',exact:true});
  if(await hideFiles.isVisible())await hideFiles.click();
@@ -77,6 +89,14 @@ async function checkCarnet(page, framework) {
   ['Signatory (Applicant)','Formal Undertaking Expiry Date','Mercury Carnet ID','Mercury Carnet PIN'].map(name=>fact(name).boundingBox())
  );
  assert(Math.abs(mercuryId.x-applicant.x)<2&&Math.abs(mercuryPin.x-expiry.x)<2);
+ const copyId=details.getByRole('button',{name:'Copy Mercury Carnet ID',exact:true});
+ const copyPin=details.getByRole('button',{name:'Copy Mercury Carnet PIN',exact:true});
+ await copyId.click();
+ await page.waitForFunction(async()=>await navigator.clipboard.readText()==='MERCURY-CHECK-041');
+ await copyPin.focus();
+ await page.keyboard.press('Enter');
+ await page.waitForFunction(async()=>await navigator.clipboard.readText()==='004219');
+ await page.getByText('Mercury Carnet PIN copied.').first().waitFor();
  assert.equal(await details.getByRole('textbox',{name:/Mercury Carnet|Formal Undertaking/}).count(),0);
  await goods.fill('Workshop instruments');
  await use.fill(editedUse);
@@ -117,6 +137,7 @@ async function checkCarnet(page, framework) {
  assert.equal(await details.getByRole('textbox').count(),0);
  assert.match(await fact(useLabel).textContent(),/professional equipment/i);
  assert.equal(await fact('Goods Type').textContent(),'Machinery');
+ assert(await copyId.isEnabled()&&await copyPin.isEnabled());
  assert.equal(await upload.count(),0);
  assert(await download.isEnabled());
 }
