@@ -7,6 +7,8 @@ export function stepTitle(step,record,fallback){
  if(step==='delivery')return'How would you like your documents?';
  if(step==='payment')return'Payment & submission';
  if(step==='applicant'&&!arab)return'Applicant / agent details';
+ if(step==='foreignEvidence')return'Foreign Origin Evidence';
+ if(step==='goods'&&d==='Import certificate')return'Goods & invoices';
  if(step==='parties')return arab?'Box 1 – Consignor':uk||movement?'Box 1 – Exporter':'Exporter details';
  if(step==='originCountry')return uk?'Box 3 – Country of Origin':arab?'Box 5 – Originated In':fallback;
  if(step==='transport')return uk?'Box 4 – Transport Details':arab?'Box 3 – Method of Transport':movement?'Box 6 – Transport Details':fallback;
@@ -40,7 +42,7 @@ export function fieldGroups(step,fields,record){
   consignee:[group('',['consignee','consigneeAddress']),group('Additional consignee details',['consigneeVat','deliveryTerms'],true)],
   transport:[group('',['transport']),group('Additional details',['vessel','portLoading','portDischarge','placeDelivery'],true)],
   originCountry:[group('',['origin']),group('Additional origin countries',['otherOrigins'],true)],
-  invoice:[group('Invoice details',['invoiceNumber','invoiceDate','currency']),group('Buyer',['buyer','buyerAddress']),group('Additional details',['paymentTerms','invoiceDeclaration'],true)],
+  invoice:[group('',['invoiceNumber','invoiceDate','currency']),group('Buyer',['buyer','buyerAddress']),group('Additional details',['paymentTerms','invoiceDeclaration'],true)],
   security:[group('',['security','securityReference','securityAmount','securityDetails']),group('Additional details',['departure','returnDate'])],
   quantities:[group('',['gross','net','weightUnit']),group('',['cube','cubeUnit','quantity'])],
   iic:[group('',['endUse','importValue','currency','sterling']),group('',['supplier','supplierAddress']),group('Additional details',['purchaseOrder','importLicence','endUser'])],
