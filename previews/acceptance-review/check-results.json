@@ -1,6 +1,6 @@
 {
   "date": "2026-11-20",
-  "revision": "7a6e55c",
+  "revision": "bd03c0f",
   "humanReview": "Not run",
   "engines": {
     "chromium": [
@@ -1714,33 +1714,27 @@
       },
       {
         "name": "vue-editor-responsive-en",
-        "pass": false,
-        "error": "Page width 1174px exceeds 390px"
+        "pass": true
       },
       {
         "name": "vue-editor-responsive-nl",
-        "pass": false,
-        "error": "Page width 1174px exceeds 390px"
+        "pass": true
       },
       {
         "name": "vue-editor-responsive-et",
-        "pass": false,
-        "error": "Page width 1174px exceeds 390px"
+        "pass": true
       },
       {
         "name": "vue-editor-responsive-ar",
-        "pass": false,
-        "error": "Page width 1174px exceeds 390px"
+        "pass": true
       },
       {
         "name": "vue-editor-responsive-sv",
-        "pass": false,
-        "error": "Page width 1174px exceeds 390px"
+        "pass": true
       },
       {
         "name": "vue-editor-responsive-pt",
-        "pass": false,
-        "error": "Page width 1174px exceeds 390px"
+        "pass": true
       },
       {
         "name": "react-pdf-en-light",
@@ -1883,5 +1877,34 @@
         "pass": true
       }
     ]
+  },
+  "evidence": [
+    {
+      "revision": "7a6e55c",
+      "run": 44723093792,
+      "scope": "Core checks; editor results superseded by follow-up"
+    },
+    {
+      "revision": "7a6e55c",
+      "run": 44723093713,
+      "scope": "PDF and input checks"
+    },
+    {
+      "revision": "b5ae0e5",
+      "run": 44725317867,
+      "scope": "Chromium and WebKit editor checks; Chromium PDF and print recheck"
+    },
+    {
+      "revision": "b69c4df",
+      "run": 44724909691,
+      "scope": "Report keyboard, responsive layout and automatic accessibility scan"
+    }
+  ],
+  "summary": {
+    "applicationChecks": 467,
+    "passed": 467,
+    "modelTests": 78,
+    "humanTasks": 12,
+    "humanTasksCompleted": 0
   }
 }
