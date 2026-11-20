@@ -157,6 +157,8 @@ async function checkCarnet(page, framework) {
  assert.match(await fact(useLabel).textContent(),/professional equipment/i);
  assert.equal(await fact('Goods Type').textContent(),'Machinery');
  assert(await copyId.isEnabled()&&await copyPin.isEnabled());
+ assert.equal(await upload.count(),0);
+ assert(await download.isEnabled());
  await detailTab('Summary').click();
  await summaryTitle.waitFor();
  await feesTitle.waitFor();
@@ -164,8 +166,6 @@ async function checkCarnet(page, framework) {
  else assert.equal(await sidebar.getByRole('button',{name:'Recalculate fees',exact:true}).count(),0);
  await page.setViewportSize({width:390,height:844});
  await assertNoOverflow(page);
- assert.equal(await upload.count(),0);
- assert(await download.isEnabled());
 }
 
 async function checkFit(page, preview, paper, details) {
