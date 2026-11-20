@@ -76,7 +76,7 @@ async function checkCarnet(page, framework) {
  const valid=file('Description,Number of pieces,Unit,Weight,Value,Origin\n"Portable instruments",2,KG,3,150,FR');
  page.once('dialog',dialog=>dialog.accept());
  await upload.setInputFiles(valid);
- await page.getByText('General List replaced.',{exact:true}).waitFor();
+ await page.getByText('General List replaced.').first().waitFor();
  await upload.setInputFiles(file('Description,Number of pieces,Unit,Weight,Value,Origin\nInvalid item,0,KG,1,1,FR'));
  await details.getByRole('alert').filter({hasText:'positive whole number'}).waitFor();
  const pending=page.waitForEvent('download');

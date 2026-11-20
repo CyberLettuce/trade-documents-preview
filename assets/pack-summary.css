@@ -346,3 +346,12 @@ html body .pack-summary-bar .review-layout-actions button {
   flex-wrap: wrap;
   gap: 6px;
 }
+
+#pack-details-panel .chamber-carnet-list-actions .chamber-list-upload {
+  flex-direction: row;
+  justify-content: center;
+  border: 1px solid var(--line, var(--colorNeutralStroke1));
+  border-radius: 4px;
+  background: var(--surface, var(--colorNeutralBackground1));
+  font-weight: 600;
+}
