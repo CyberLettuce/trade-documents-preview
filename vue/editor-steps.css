@@ -100,7 +100,7 @@
 @container goods-editor (max-width:900px){
  .editor-fields .goods-table,.editor-fields .goods-table tbody{display:block}
  .editor-fields .goods-table thead{display:none}
- .editor-fields .goods-table tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:16px;border-bottom:1px solid var(--line);margin:0}
+ .editor-fields .goods-table tr{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:16px;border-bottom:1px solid var(--line);margin:0}
  .editor-fields .goods-table td{display:block;min-width:0;padding:0;border:0;text-align:start}
  .editor-fields .goods-table td::before{content:none}
  .editor-fields .goods-table td:nth-child(1),.editor-fields .goods-table td:nth-child(2),.editor-fields .goods-table td:nth-child(7),.editor-fields .goods-table td:nth-child(8){grid-column:1/-1}
@@ -108,7 +108,7 @@
  .editor-fields .goods-table td:first-child{display:flex;gap:6px;font-weight:600}
  .editor-fields .goods-table .row-actions{flex-direction:row;justify-content:flex-end}
 }
-@container goods-editor (max-width:440px){.editor-fields .goods-table tr{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container goods-editor (max-width:600px){.editor-fields .goods-table tr{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(min-width:1600px){.full-editor{grid-template-columns:210px minmax(0,1.15fr) minmax(340px,.95fr)}.full-editor.without-preview{grid-template-columns:210px minmax(0,1fr)}}
 @media(max-width:760px){.editor-fields{padding:18px}.editor-fields .goods-table tr{border:0;border-radius:0}.editor-checkout-nav{gap:4px}.editor-checkout-nav button{font-size:13px;padding-inline:4px;flex:1}.editor-fields .editor-step-heading h2{font-size:19px}.editor-preview-heading{padding:16px}}
 @media print{.editor-preview-heading{display:none}}
