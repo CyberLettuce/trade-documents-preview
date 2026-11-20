@@ -18,10 +18,25 @@ th .column-sort-button {
 }
 
 .column-sort-button:hover { text-decoration: underline; }
-.column-sort-button > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.column-sort-button > span:first-child { min-width: 0; overflow-wrap: normal; word-break: normal; }
 .column-sort-button > :is(svg, .icon) { width: 13px; height: 13px; }
 .column-sort-button > .icon svg { width: 100%; height: 100%; }
 .column-sort-label-short { display: none; }
+
+@media (min-width: 601px) {
+  .ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Application / exporter / holder"] { width: 20%; }
+  .ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Certificate / Carnet number"] { width: 10%; }
+  .ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Destination country"] { width: 10%; }
+  .ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Payment"] { width: 8%; }
+  .ch-app .ch-queue-panel .custom-table-grid > table.ch-table th[data-column="Action"] { width: 10%; }
+}
+
+@media (min-width: 601px) and (max-width: 1200px) {
+  .ch-queue-panel th:is([data-column="Certificate / Carnet number"], [data-column="Payment"], [data-column="Destination country"]) .column-sort-button {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+  }
+}
 
 @media (max-width: 600px) {
   html body #chamber-main .custom-table-grid > table.ch-table > thead > tr > th[data-column="Application / exporter / holder"]:has(.column-sort-button)::before { content: none; }
