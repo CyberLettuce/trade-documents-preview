@@ -1,0 +1,60 @@
+.report-metric-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.report-metric-label .icon { flex-shrink: 0; }
+.vue-report-donuts { margin-block: 16px; align-items: stretch; }
+.vue-report-donut { min-width: 0; }
+.vue-report-donut h2 { margin-bottom: 4px; }
+.vue-report-donut > p { margin-top: 0; }
+
+.vue-donut-body {
+  display: grid;
+  grid-template-columns: minmax(110px, 185px) minmax(0, 1fr);
+  align-items: start;
+  gap: 12px 18px;
+}
+
+.vue-donut-ring { display: grid; place-items: center; width: 100%; max-width: 185px; }
+.vue-donut-ring > * { grid-area: 1 / 1; }
+.vue-donut-ring > svg { display: block; width: 100%; }
+.vue-donut-ring .donut-track { stroke: var(--line); }
+.vue-donut-ring .donut-divider { stroke: var(--surface); }
+.vue-donut-total { display: grid; width: 63%; text-align: center; overflow-wrap: anywhere; }
+.vue-donut-total strong { font-size: clamp(15px, 1.7vw, 23px); font-variant-numeric: tabular-nums; }
+.vue-donut-total small { font-size: 12px; }
+
+.vue-donut-legend { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.vue-donut-legend :is(button, .vue-donut-legend-row) {
+  display: grid;
+  grid-template-columns: 9px minmax(0, 1fr) auto auto 14px;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 34px;
+  padding: 5px 3px;
+  border: 0;
+  background: transparent;
+  font-size: 12px;
+  text-align: start;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+
+.vue-donut-legend button:hover { background: var(--tint); }
+.vue-donut-legend .icon { width: 14px; height: 14px; }
+.vue-donut-swatch { width: 9px; height: 9px; border-radius: 2px; }
+.vue-donut-note { display: block; margin-top: 12px; }
+
+@media (max-width: 1050px) {
+  .vue-donut-body { grid-template-columns: minmax(0, 1fr); }
+  .vue-donut-ring { justify-self: center; }
+}
+
+@media (forced-colors: active) {
+  .vue-donut-ring svg { forced-color-adjust: none; }
+  .vue-donut-swatch { forced-color-adjust: none; }
+}

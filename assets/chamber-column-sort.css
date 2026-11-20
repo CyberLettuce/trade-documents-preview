@@ -1,0 +1,33 @@
+th .column-sort-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  min-height: 24px;
+  max-width: 100%;
+  padding: 1px 2px;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  white-space: normal;
+}
+
+.column-sort-button:hover { text-decoration: underline; }
+.column-sort-button > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.column-sort-button > :is(svg, .icon) { flex: 0 0 13px; width: 13px; height: 13px; }
+.column-sort-button > .icon svg { width: 100%; height: 100%; }
+.column-sort-label-short { display: none; }
+
+@media (max-width: 600px) {
+  html body #chamber-main .custom-table-grid > table.ch-table > thead > tr > th[data-column="Application / exporter / holder"]:has(.column-sort-button)::before { content: none; }
+  html body #chamber-main .custom-table-grid th[data-column="Application / exporter / holder"] .column-sort-button { font-size: 11px; line-height: 1.4; }
+  .column-sort-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .column-sort-label-short { display: inline; }
+  .column-sort-button { gap: 3px; }
+}
+
+@media print { .column-sort-button > :is(svg, .icon) { display: none; } }
