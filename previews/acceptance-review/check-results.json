@@ -1890,9 +1890,9 @@
       "scope": "PDF and input checks"
     },
     {
-      "revision": "b5ae0e5",
-      "run": 44725317867,
-      "scope": "Chromium and WebKit editor checks; Chromium PDF and print recheck"
+      "revision": "bd03c0f",
+      "run": 44725678289,
+      "scope": "All three editor engines; Chromium PDF and print recheck"
     },
     {
       "revision": "b69c4df",
