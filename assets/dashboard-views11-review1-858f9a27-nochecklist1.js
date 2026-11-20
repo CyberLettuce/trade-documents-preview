@@ -1,7 +1,7 @@
-import { r as React, I as Icon, M as Modal } from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-20-vertical-review-r1';
+import { r as React, I as Icon, M as Modal } from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-20-vertical-review-r2';
 import { languageCreateElement as localiseElement, preserveValue } from './language-runtime-review1-57775012.js?v=2026-11-20-acceptance-r1';
 import { readProfile, chamberId, readUpdates, CONTENT_EVENT, CHAMBER_KEY } from './chamber-profile-review1-a5ba1943.js?v=2026-11-20-acceptance-r1';
-import { ChamberUpdateBlock } from './ChamberContent-PZCQTEV1-review1-b928b4e1-nochecklist1-options1.js?v=2026-11-20-vertical-review-r1';
+import { ChamberUpdateBlock } from './ChamberContent-PZCQTEV1-review1-b928b4e1-nochecklist1-options1.js?v=2026-11-20-vertical-review-r2';
 import { DEFAULT_SETTINGS, SETTINGS_PREFIX, PREFERENCE_PREFIX, SETTINGS_EVENT, readSettings, saveSettings, readPreference, savePreference, resolveView } from './dashboard-view-logic11.js?v=2026-11-20-acceptance-r1';
 function h(type, props, ...children) {
   return localiseElement(type, props, ...children.map((child, index) => React.isValidElement?.(child) && child.key == null ? React.cloneElement(child, {

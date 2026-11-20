@@ -1,6 +1,6 @@
 import {useColumnSort} from './chamber-sort.js?v=2026-11-20-chamber-tables-r1';
 import {sortableDate} from '../assets/chamber-column-sort.js?v=2026-11-20-chamber-tables-r1';
-import {DocumentPreview} from './documents.js?v=2026-11-20-vertical-review-r1';
+import {DocumentPreview} from './documents.js?v=2026-11-20-vertical-review-r2';
 import {CarnetDialog} from './carnet-dialog.js?v=2026-11-20-acceptance-r1';
 import {completedCarnet,carnetActions,clearCarnetAccess} from './assets/carnet-actions-model1.js?v=2026-11-20-acceptance-r1';
 import {cleanDraftData,queueMatches} from './parity-model.js?v=2026-11-20-acceptance-r1';

@@ -1,5 +1,5 @@
-import {useQuickCreate} from './shell-layout1-review1-60464f3b-nochecklist1-options1-sidebar1.js?v=2026-11-20-vertical-review-r1';
-import {r as React,I as Icon,F as Field,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-20-vertical-review-r1';
+import {useQuickCreate} from './shell-layout1-review1-60464f3b-nochecklist1-options1-sidebar1.js?v=2026-11-20-vertical-review-r2';
+import {r as React,I as Icon,F as Field,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-20-vertical-review-r2';
 import {languageCreateElement as h,preserveValue} from './language-runtime-review1-57775012.js?v=2026-11-20-acceptance-r1';
 import {currentExporterUser,accessLevel,isExporterAdmin,saveExporterUser,removeExporterUser} from './access-logic1.js?v=2026-11-20-acceptance-r1';
 export function AccountManagement({space,updateSpace,notify}){

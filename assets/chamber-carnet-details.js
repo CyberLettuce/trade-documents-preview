@@ -1,4 +1,4 @@
-import {fieldHelp} from './field-help.js';
+import {fieldHelp} from './field-help.js?v=2026-11-20-vertical-review-r2';
 import {prepareImport, csvColumns} from './general-list-logic-review1-2136caa2.js?v=2026-11-20-acceptance-r1';
 
 export function carnetApplicant(record, signatories) {

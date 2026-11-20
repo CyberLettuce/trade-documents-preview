@@ -1,4 +1,4 @@
-import {fieldHelp} from '../assets/field-help.js';
+import {fieldHelp} from '../assets/field-help.js?v=2026-11-20-vertical-review-r2';
 import {ref,onMounted,onUnmounted,watch,computed,nextTick} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import icons from './assets/icons.js?v=2026-11-20-acceptance-r1';
 import {countries} from './workspace-model.js?v=2026-11-20-acceptance-r1';
