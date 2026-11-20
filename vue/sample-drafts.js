@@ -28,7 +28,7 @@ export function sampleDocumentDrafts(account, at = new Date().toISOString()) {
     invoices: [{id: 'sample-invoice-' + code, number: 'INV-SAMPLE-2026', date: at.slice(0, 10)}],
     invoiceNumber: 'INV-SAMPLE-2026', invoiceDate: at.slice(0, 10), currency: 'GBP', buyer: 'Sample Trading Co.', buyerAddress: '10 Exhibition Avenue\n' + destination,
     representative: 'Alex Morgan', representativeAddress: '18 Harbour Road, Bristol', use: 'Professional equipment',
-    trips: [{id: 'sample-trip-' + code, country: 'European Union', type: 'Destination', visits: 1}],
+    trips: [{id: 'sample-trip-' + code, country: 'European Union', visits: 1, transits: 0}],
     security: 'Aviva guarantee', securityAmount: 4000, cumulation: 'No cumulation applied',
     endUse: 'Demonstration equipment', importValue: 4000, sterling: 4000, supplier: 'Sample Equipment Ltd', supplierAddress: 'Bristol, United Kingdom', importStatuses: ['Authorised Signatory'],
     stamp: document === 'Arab Certificate of Origin' ? 'uploaded' : 'none', stampReference: document === 'Arab Certificate of Origin' ? 'SAMPLE-STAMP' : '',

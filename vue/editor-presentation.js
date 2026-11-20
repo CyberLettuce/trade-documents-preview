@@ -1,3 +1,6 @@
+import {renderCarnetReview} from '../assets/carnet-review.js?v=2026-11-20-carnet-r1';
+import {h} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
+const money=new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format;
 import {computed} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import {sectionsFor,itemTotals} from './form-model.js?v=2026-11-20-acceptance-r1';
 
@@ -81,9 +84,17 @@ export function reviewGroups(f,ws){
  const available=new Set(sectionsFor(f).map(([id])=>id));
  return groups.filter(g=>available.has(g.step)).map(g=>({...g,...(g.actions?{actions:g.actions.filter(a=>available.has(a.step))}:{})}));
 }
-export const ApplicationReview={props:['record','workspace','problems'],emits:['edit','issues'],setup(props){return{groups:computed(()=>reviewGroups(props.record,props.workspace))}},template:String.raw`
+const CarnetReview={props:['record','workspace'],emits:['edit'],setup(props,{emit}){return()=>renderCarnetReview((tag,attrs,...children)=>h(tag,attrs,children),{
+ record:props.record,signatory:props.workspace.saved.signatories.find(entry=>entry.id===props.record.exporterSignatory)?.name,
+ edit:step=>emit('edit',step),formatMoney:money
+});}};
+export const ApplicationReview={components:{CarnetReview},props:['record','workspace','problems'],emits:['edit','issues'],setup(props){return{groups:computed(()=>{
+ const groups=reviewGroups(props.record,props.workspace);
+ return props.record.document==='ATA Carnet'?groups.filter(group=>group.step==='evidence'):groups;
+ })}},template:String.raw`
 <div class="application-review-summary">
  <div class="editor-information" :class="{'needs-attention':problems.length}"><Icon v-if="!problems.length" name="check"/><span>{{problems.length?'Check the following details':'Required application details are complete.'}}</span><button v-if="problems.length" class="text-button" @click="$emit('issues')">What’s missing? <span class="count">{{problems.length}}</span></button></div>
+ <CarnetReview v-if="record.document==='ATA Carnet'" :record="record" :workspace="workspace" @edit="$emit('edit',$event)"/>
  <section v-for="group in groups" :key="group.title" class="editor-review-section">
   <div class="editor-section-heading"><h3>{{group.title}}</h3><div class="button-row"><button v-for="action in group.actions||[{step:group.step}]" :key="action.step" type="button" class="text-button" :aria-label="'Edit: '+(action.label||group.title)" @click="$emit('edit',action.step)">{{action.label?'Edit: '+action.label:'Edit'}}</button></div></div>
   <dl class="editor-review-values"><div v-for="(row,i) in group.rows" :key="i"><dt>{{row.label}}</dt><dd :translate="row.user?'no':undefined">{{row.value}}</dd></div></dl>

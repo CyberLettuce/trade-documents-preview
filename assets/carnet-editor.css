@@ -1,0 +1,224 @@
+.carnet-use-options .editor-choice-row {
+  align-items: center;
+}
+
+.carnet-use-options .editor-choice-row input[type="radio"] {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.carnet-use-options .fui-Checkbox {
+  align-items: center;
+}
+
+.carnet-country-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) repeat(2, minmax(60px, 1fr)) auto;
+  align-items: end;
+}
+
+.carnet-country-row > label {
+  min-width: 0;
+  margin: 0;
+}
+
+.carnet-country-row .row-actions {
+  flex-direction: row;
+}
+
+.editor-fields .carnet-goods .record-toolbar > .button-row:first-child:empty {
+  display: none;
+}
+
+.carnet-bulk-unit {
+  background: var(--sidebar, var(--colorNeutralBackground3));
+}
+
+.carnet-bulk-unit .carnet-unit-picker {
+  border-block-start: 1px solid var(--line, var(--colorNeutralStroke2));
+}
+
+.carnet-bulk-unit :is(.carnet-unit-spacer, .carnet-unit-note) {
+  border-block-start: 1px solid var(--line, var(--colorNeutralStroke2));
+  vertical-align: middle;
+}
+
+.carnet-bulk-unit .carnet-unit-picker label {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  white-space: normal;
+  clip-path: none;
+}
+
+.carnet-bulk-unit .carnet-unit-picker button {
+  margin-block-start: 8px;
+  white-space: normal;
+}
+
+.carnet-unit-note small {
+  color: var(--muted, var(--colorNeutralForeground3));
+}
+
+.carnet-review-summary {
+  container: carnet-review / inline-size;
+  margin-block: 12px 20px;
+}
+
+.carnet-review-section {
+  border-block-end: 1px solid var(--line, var(--colorNeutralStroke2));
+  padding-block: 14px;
+  min-width: 0;
+}
+
+.carnet-review-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-block-end: 8px;
+}
+
+.carnet-review-heading h3 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.carnet-review-values {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 20px;
+  margin: 0;
+}
+
+.carnet-review-overview {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 12px;
+  border-radius: 5px;
+  background: var(--sidebar, var(--colorNeutralBackground3));
+}
+
+.carnet-review-values dt {
+  font-size: 12px;
+  color: var(--muted, var(--colorNeutralForeground3));
+}
+
+.carnet-review-values dd {
+  margin: 4px 0 0;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.carnet-review-itinerary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 0 20px;
+}
+
+.carnet-review-itinerary .carnet-review-values {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.carnet-review-movements {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-block-end: 8px;
+}
+
+.carnet-movement-tag {
+  display: inline-block;
+  margin: 0;
+  padding: 4px 9px;
+  border-radius: 5px;
+  background: #dcefe3;
+  color: #17442a;
+  font-size: 13px;
+}
+
+.carnet-movement-tag.transits {
+  background: #e0ebfd;
+  color: #173964;
+}
+
+.carnet-review-movements ul {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+}
+
+.carnet-review-movements li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding-block: 4px;
+  overflow-wrap: anywhere;
+}
+
+.carnet-movement-count {
+  font-variant-numeric: tabular-nums;
+}
+
+.carnet-review-empty {
+  margin: 6px 0;
+  color: var(--muted, var(--colorNeutralForeground3));
+}
+
+.carnet-review-goods {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.carnet-review-caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.carnet-review-goods :is(th, td) {
+  padding: 8px 6px;
+  border-block-end: 1px solid var(--line, var(--colorNeutralStroke2));
+  text-align: start;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.carnet-review-goods :is(thead, tfoot) {
+  background: var(--sidebar, var(--colorNeutralBackground3));
+  font-weight: 600;
+}
+
+.carnet-review-goods thead th:nth-child(2) { width: 20%; }
+.carnet-review-goods thead th:nth-child(3) { width: 30%; }
+.carnet-review-goods :is(th, td):not(:first-child) { text-align: end; }
+
+@container carnet-review (max-width: 575px) {
+  .carnet-review-itinerary { grid-template-columns: minmax(0, 1fr); }
+  .carnet-review-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@container goods-editor (max-width: 900px) {
+  .carnet-goods .goods-table .carnet-bulk-unit { display: block; }
+  .carnet-goods .goods-table .carnet-bulk-unit tr { grid-template-columns: minmax(0, 1fr); }
+  .carnet-goods .goods-table .carnet-bulk-unit .carnet-unit-spacer { display: none; }
+  .carnet-goods .goods-table .carnet-bulk-unit td { grid-column: 1 / -1; }
+}
+
+@container editor-form (max-width: 500px) {
+  .carnet-country-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .carnet-country-row > :first-child, .carnet-country-row .row-actions { grid-column: 1 / -1; }
+}
+
+@media (max-width: 760px) {
+  .general-list-table .carnet-bulk-unit,
+  .general-list-table .carnet-bulk-unit :is(tr, td) { display: block; }
+  .general-list-table .carnet-bulk-unit .carnet-unit-spacer { display: none; }
+  .general-list-table .carnet-bulk-unit td { padding: 10px 16px; }
+}
