@@ -18,7 +18,18 @@ const cases = [
  {framework:'vue', route:'/vue/#/chamber/applications/sample-0', preview:'.document-pane', paper:'.native-paper'}
 ];
 async function assertNoOverflow(page) {
- assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'Page has horizontal overflow');
+ try{
+  await page.waitForFunction(()=>document.documentElement.scrollWidth<=innerWidth+2,undefined,{timeout:3500});
+ }catch{
+  const sizes=await page.evaluate(()=>({
+   viewport:innerWidth,content:document.documentElement.scrollWidth,
+   elements:[...document.querySelectorAll('body *')].flatMap(element=>{
+    const rect=element.getBoundingClientRect();
+    return rect.right>innerWidth+2&&rect.width>2?[{tag:element.tagName,id:element.id,className:element.getAttribute('class'),right:Math.round(rect.right)}]:[];
+   }).slice(0,12)
+  }));
+  assert.fail('Page has horizontal overflow '+JSON.stringify(sizes));
+ }
 }
 async function showMagnifier(page, surface) {
  const sheet=await surface.boundingBox();
