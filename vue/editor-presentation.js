@@ -1,10 +1,12 @@
 import {computed} from './assets/vue.esm-browser.prod.js?v=2026-11-19-pdf-zoom-r1';
+import {sectionsFor,itemTotals} from './form-model.js?v=2026-11-19-pdf-zoom-r1';
 
 export function stepTitle(step,record,fallback){
  const d=record.document,movement=['EUR1','EUR-MED'].includes(d),uk=d==='UK Certificate of Origin',arab=d==='Arab Certificate of Origin';
  if(step==='review')return'Review your application';
  if(step==='delivery')return'How would you like your documents?';
  if(step==='payment')return'Payment & submission';
+ if(step==='applicant'&&!arab)return'Applicant / agent details';
  if(step==='parties')return arab?'Box 1 – Consignor':uk||movement?'Box 1 – Exporter':'Exporter details';
  if(step==='originCountry')return uk?'Box 3 – Country of Origin':arab?'Box 5 – Originated In':fallback;
  if(step==='transport')return uk?'Box 4 – Transport Details':arab?'Box 3 – Method of Transport':movement?'Box 6 – Transport Details':fallback;
@@ -69,15 +71,17 @@ export function reviewGroups(f,ws){
  const groups=[{title:'Documents & setup',step:'setup',rows:[row('Your reference',f.yourReference,true),row('Documents',f.documents.join(', ')),row('Destination country',f.destination),row('Originals / copies',f.originals+' / '+f.copies),row('Signatory',signatory,true)]},
  {title:ata?'Holder & representative':'Exporter & consignee',step:ata?'holder':'parties',actions:ata?[{label:'Holder',step:'holder'},{label:'Representative',step:'representative'}]:[{label:'Exporter',step:'parties'},{label:'Consignee',step:'consignee'}],rows:[row(ata?'Holder':'Exporter',[f.exporter,f.exporterAddress].filter(Boolean).join('\n'),true),row(ata?'Representative':'Consignee',ata?[f.representative,f.representativeAddress].filter(Boolean).join('\n'):[f.consignee,f.consigneeAddress].filter(Boolean).join('\n'),true)]}];
  if(ata)groups.push({title:'Intended use of goods',step:'intendedUse',rows:[row('Intended use of goods',f.use)]},{title:'Destination and transit countries',step:'countries',rows:f.trips.map(t=>row(t.country,t.type+' · '+t.visits))},{title:'Security',step:'security',rows:[row('Security arrangement',f.security),row('Security reference',f.securityReference,true),row('Security details',f.securityDetails,true)]});
- groups.push({title:ata?'General list':'Goods & origin',step:'goods',rows:[row('Goods',(f.items?.length?f.items.map((item,i)=>(i+1)+'. '+item.description).join('\n'):f.goods),true),row('Country of origin',f.origin),row('Total gross',f.gross),row('Total net',f.net)]});
+ const totals=itemTotals(f.items||[]);
+ groups.push({title:ata?'General list':'Goods & origin',step:'goods',rows:[row('Goods',(f.items?.length?f.items.map((item,i)=>(i+1)+'. '+item.description).join('\n'):f.goods),true),...(ata?[row('Number of pieces',totals.pieces),row('Weight',Object.entries(totals.weights).map(([unit,weight])=>weight+' '+unit).join(', ')),row('Value',totals.value)]:[row('Country of origin',f.origin),row('Total gross',f.gross),row('Total net',f.net)])]});
  if(f.document==='Import certificate')groups.push({title:'Import details',step:'iic',rows:[row('End use of goods',f.endUse,true),row('Import value',f.importValue),row('Currency',f.currency),row('Supplier name',f.supplier,true),row('Purchase order number',f.purchaseOrder,true)]});
  if(f.documents.includes('Commercial invoice'))groups.push({title:'Invoice details',step:'invoice',rows:[row('Invoice number',f.invoiceNumber,true),row('Invoice date',f.invoiceDate),row('Buyer',f.buyer,true),row('Currency',f.currency)]});
- groups.push({title:'Evidence & declarations',step:'evidence',rows:[row('Files',f.files?.map(file=>file.name).join('\n')||'—',true),row('Evidence method',({upload:'Uploaded documents',post:'Documents sent separately',held:'Evidence held on file'})[f.evidence]||f.evidence),row('Stamp reference',f.stampReference,true),row('Evidence details',f.evidenceDetails,true)]});
- return groups;
+ groups.push({title:'Evidence & declarations',step:'evidence',rows:[row('Files',f.files?.map(file=>file.name).join('\n')||'—',true),row('Evidence method',({upload:'Uploaded documents',post:'Documents sent separately',held:'Evidence held on file'})[f.evidence]||f.evidence),...(f.originBasis?.length?[row('Origin declaration',f.originBasis.join('\n'))]:[]),...(f.place?[row('Place of issue',f.place,true)]:[]),row('Stamp reference',f.stampReference,true),row('Evidence details',f.evidenceDetails,true)]});
+ const available=new Set(sectionsFor(f).map(([id])=>id));
+ return groups.filter(g=>available.has(g.step)).map(g=>({...g,...(g.actions?{actions:g.actions.filter(a=>available.has(a.step))}:{})}));
 }
 export const ApplicationReview={props:['record','workspace','problems'],emits:['edit','issues'],setup(props){return{groups:computed(()=>reviewGroups(props.record,props.workspace))}},template:String.raw`
 <div class="application-review-summary">
- <div class="editor-information" :class="{'needs-attention':problems.length}"><Icon v-if="!problems.length" name="check"/><span>{{problems.length?'Check the following details':'Required application details are complete.'}}</span><button v-if="problems.length" class="text-button" @click="$emit('issues')">What's missing? <span class="count">{{problems.length}}</span></button></div>
+ <div class="editor-information" :class="{'needs-attention':problems.length}"><Icon v-if="!problems.length" name="check"/><span>{{problems.length?'Check the following details':'Required application details are complete.'}}</span><button v-if="problems.length" class="text-button" @click="$emit('issues')">What’s missing? <span class="count">{{problems.length}}</span></button></div>
  <section v-for="group in groups" :key="group.title" class="editor-review-section">
   <div class="editor-section-heading"><h3>{{group.title}}</h3><div class="button-row"><button v-for="action in group.actions||[{step:group.step}]" :key="action.step" type="button" class="text-button" :aria-label="'Edit: '+(action.label||group.title)" @click="$emit('edit',action.step)">{{action.label?'Edit: '+action.label:'Edit'}}</button></div></div>
   <dl class="editor-review-values"><div v-for="(row,i) in group.rows" :key="i"><dt>{{row.label}}</dt><dd :translate="row.user?'no':undefined">{{row.value}}</dd></div></dl>

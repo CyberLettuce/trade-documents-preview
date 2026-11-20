@@ -5,9 +5,9 @@ export const GoodsCards={props:['record','readonly'],emits:['copy','remove'],set
  <section v-for="(item,i) in record.items" :key="item.id" class="goods-entry-card" :aria-label="'Item '+(i+1)">
   <div class="editor-section-heading"><h3>Item {{i+1}}</h3><div class="row-actions" v-if="!readonly"><button type="button" class="icon-button" :aria-label="'Copy item '+(i+1)" data-tip="Copy" @click="$emit('copy',item)"><Icon name="copy"/></button><button type="button" class="icon-button" :aria-label="'Delete item '+(i+1)" data-tip="Delete" @click="$emit('remove',item)"><Icon name="delete"/></button></div></div>
   <div class="goods-description-fields">
-   <label>Marks and numbers<textarea v-model="item.marks" :disabled="readonly" :aria-label="'Marks and numbers: '+(i+1)"></textarea></label>
-   <label>Number and type of packages<textarea v-model="item.packages" :disabled="readonly" :aria-label="'Number and type of packages: '+(i+1)"></textarea></label>
-   <label>Goods description<textarea v-model="item.description" :disabled="readonly" :aria-label="'Item '+(i+1)+' description'"></textarea></label>
+   <label><span>Marks and numbers</span><textarea v-model="item.marks" :disabled="readonly" :aria-label="'Marks and numbers: '+(i+1)"></textarea></label>
+   <label><span>Number and type of packages</span><textarea v-model="item.packages" :disabled="readonly" :aria-label="'Number and type of packages: '+(i+1)"></textarea></label>
+   <label><span>Goods description</span><textarea v-model="item.description" :disabled="readonly" :aria-label="'Item '+(i+1)+' description'"></textarea></label>
   </div>
   <details class="editor-extra-details goods-extra-details" :open="(record.documents||[record.document]).includes('Commercial invoice')">
    <summary><strong>Package and invoice details</strong></summary>

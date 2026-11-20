@@ -21,7 +21,7 @@
 .editor-extra-details[open]>summary{margin-bottom:12px}
 .editor-fields .editor-choice-list{border:0;padding:0;margin:0 0 24px}
 .editor-choice-list>legend{font-size:14px;font-weight:600;margin-bottom:12px}
-.editor-choice-row{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--line);border-radius:5px;padding:16px;margin:0 0 10px;min-height:56px;cursor:pointer}
+.editor-choice-row{display:flex;flex-direction:row;align-items:flex-start;gap:12px;border:1px solid var(--line);border-radius:5px;padding:16px;margin:0 0 10px;min-height:56px;cursor:pointer}
 .editor-choice-row.is-selected{border-color:var(--brand);background:var(--tint)}
 .editor-choice-list>.checkbox-row{min-height:44px;margin:0;padding:12px 0;gap:12px}
 .editor-origin-list{border:1px solid var(--line);border-radius:6px;overflow:hidden}
@@ -69,7 +69,7 @@
 .goods-entry-card{padding:16px;border:1px solid var(--line);border-radius:5px;margin-bottom:14px}
 .goods-entry-card .row-actions{justify-content:flex-end}
 .goods-description-fields{display:grid;grid-template-columns:1fr;gap:18px}
-.goods-description-fields label{display:flex;flex-direction:column;gap:6px;margin:0;font-size:13px}
+.goods-description-fields label{display:grid;grid-template-rows:subgrid;grid-row:span 2;gap:6px;margin:0;font-size:13px}
 .goods-description-fields textarea{min-height:90px;width:100%}
 .goods-extra-details{margin-top:18px;border:0;border-top:1px solid var(--line);border-radius:0}
 .goods-extra-details>summary{padding:14px 0 0;min-height:40px;font-size:13px}
@@ -90,14 +90,14 @@
 .editor-fields .goods-template{margin-top:24px}
 .editor-fields .repeat-row{padding:16px;border:1px solid var(--line);border-radius:5px;gap:12px}
 .editor-fields .repeat-row>.icon-button{min-height:44px}
-@container editor-form(max-width:540px){
+@container editor-form (max-width:540px){
  .editor-step-heading{flex-wrap:wrap}.editor-step-heading>small{margin-inline-start:0}
  .editor-fields .fields-grid,.editor-review-values{grid-template-columns:1fr}
  .editor-fields .fields-grid>.form-field{grid-column:auto}
  .editor-fields .repeat-row>label{flex-basis:100%}
 }
-@container goods-editor(min-width:650px){.goods-description-fields{grid-template-columns:1fr 1.15fr 1.65fr}}
-@container goods-editor(max-width:900px){
+@container goods-editor (min-width:560px){.goods-description-fields{grid-template-columns:1fr 1.15fr 1.65fr}}
+@container goods-editor (max-width:900px){
  .editor-fields .goods-table,.editor-fields .goods-table tbody{display:block}
  .editor-fields .goods-table thead{display:none}
  .editor-fields .goods-table tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:16px;border-bottom:1px solid var(--line);margin:0}
@@ -108,7 +108,7 @@
  .editor-fields .goods-table td:first-child{display:flex;gap:6px;font-weight:600}
  .editor-fields .goods-table .row-actions{flex-direction:row;justify-content:flex-end}
 }
-@container goods-editor(max-width:440px){.editor-fields .goods-table tr{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container goods-editor (max-width:440px){.editor-fields .goods-table tr{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(min-width:1600px){.full-editor{grid-template-columns:210px minmax(0,1.15fr) minmax(340px,.95fr)}.full-editor.without-preview{grid-template-columns:210px minmax(0,1fr)}}
 @media(max-width:760px){.editor-fields{padding:18px}.editor-fields .goods-table tr{border:0;border-radius:0}.editor-checkout-nav{gap:4px}.editor-checkout-nav button{font-size:13px;padding-inline:4px;flex:1}.editor-fields .editor-step-heading h2{font-size:19px}.editor-preview-heading{padding:16px}}
 @media print{.editor-preview-heading{display:none}}
