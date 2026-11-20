@@ -73,6 +73,10 @@ async function checkCarnet(page, framework) {
  assert.match(await goods.inputValue(),/machinery/i);
  assert.equal(await fact('Mercury Carnet ID').textContent(),'MERCURY-CHECK-041');
  assert.equal(await fact('Mercury Carnet PIN').textContent(),'004219');
+ const [applicant,expiry,mercuryId,mercuryPin]=await Promise.all(
+  ['Signatory (Applicant)','Formal Undertaking Expiry Date','Mercury Carnet ID','Mercury Carnet PIN'].map(name=>fact(name).boundingBox())
+ );
+ assert(Math.abs(mercuryId.x-applicant.x)<2&&Math.abs(mercuryPin.x-expiry.x)<2);
  assert.equal(await details.getByRole('textbox',{name:/Mercury Carnet|Formal Undertaking/}).count(),0);
  await goods.fill('Workshop instruments');
  await use.fill(editedUse);

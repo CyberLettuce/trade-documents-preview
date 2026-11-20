@@ -298,14 +298,6 @@ html body .pack-summary-bar .review-layout-actions button {
   padding-block: 5px;
 }
 
-.chamber-carnet-credentials {
-  grid-column: 1 / -1;
-  border-inline-start: 3px solid var(--brand, var(--colorBrandStroke1, #a74100));
-  padding-inline-start: 10px;
-}
-
-.chamber-carnet-credentials dt { font-weight: 600; }
-.chamber-carnet-credentials dd { font-variant-numeric: tabular-nums; }
 .chamber-carnet-list-actions {
   display: flex;
   flex-wrap: wrap;
