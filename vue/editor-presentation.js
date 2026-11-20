@@ -1,5 +1,5 @@
-import {computed} from './assets/vue.esm-browser.prod.js?v=2026-11-19-pdf-zoom-r1';
-import {sectionsFor,itemTotals} from './form-model.js?v=2026-11-19-pdf-zoom-r1';
+import {computed} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
+import {sectionsFor,itemTotals} from './form-model.js?v=2026-11-20-acceptance-r1';
 
 export function stepTitle(step,record,fallback){
  const d=record.document,movement=['EUR1','EUR-MED'].includes(d),uk=d==='UK Certificate of Origin',arab=d==='Arab Certificate of Origin';

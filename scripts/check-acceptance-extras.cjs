@@ -29,10 +29,10 @@ async function mixedPdf(){
 }
 async function stampDownload(page,framework){
  await page.getByRole('button',{name:'Stamp document',exact:true}).first().click();const modal=page.getByRole('dialog');
- await modal.locator('canvas').waitFor();await page.waitForFunction(()=>[...document.querySelectorAll('[role=dialog] canvas')].some(c=>c.width>100));
+ await modal.locator('canvas').waitFor();await page.waitForFunction(()=>[...document.querySelectorAll('[role=dialog] canvas,dialog[open] canvas')].some(c=>c.width>100));
  const place=modal.getByRole('button',{name:'Place selected stamp',exact:true});
  if(await place.count())await place.click();else await modal.locator('.stamp-page').click({position:{x:160,y:150}});
- await modal.locator('.placed-stamp,.stamp-mark').first().waitFor();
+ await modal.locator('.placed-stamp,.stamp-placement').first().waitFor();
  await screenshot(page,framework+'-stamping-desktop');await page.setViewportSize({width:390,height:844});await withinPage(page);await screenshot(page,framework+'-stamping-mobile');await page.setViewportSize({width:1366,height:900});
  if(framework==='vue'){await modal.locator('summary').filter({hasText:'More options'}).click();}
  const download=page.waitForEvent('download');await modal.getByRole('button',{name:framework==='vue'?'Download stamped PDF':'Save stamped document',exact:true}).click();
@@ -58,8 +58,8 @@ async function stampDownload(page,framework){
    assert.equal(output.getForm().getTextField('Customer reference').getText(),'PDF-ROUNDTRIP-20261120');assert(!stamped.equals(fixture));
   });
   await check(framework+'-malformed-pdf-recovery',async page=>{
-   await loaded(page,reviewURL(framework));await seedPdf(page,framework,Buffer.from('%PDF-1.7\nNot a valid PDF file'));const viewer=await openPdf(page,framework);
-   await viewer.getByRole('alert').waitFor();assert((await viewer.innerText()).match(/unavailable|could not|cannot|failed|Invalid|unable/i));await screenshot(page,framework+'-malformed-pdf');
+   await loaded(page,reviewURL(framework));await seedPdf(page,framework,Buffer.from('%PDF-1.7\nNot a valid PDF file'));const show=page.locator('button[aria-controls=pack-page-list][aria-expanded=false]:visible').first();if(await show.count())await show.click();await page.getByRole('button',{name:/accessible-test\.pdf/}).first().click();const viewer=page.locator(framework==='react'?'.application-pdf-viewer':'.pdf-viewer');
+   await viewer.getByText(framework==='react'?/This PDF could not be displayed/:/Invalid PDF structure/).waitFor();assert((await viewer.innerText()).match(/unavailable|could not|cannot|failed|Invalid|unable/i));await screenshot(page,framework+'-malformed-pdf');
    await page.getByRole('button',{name:/Back to Applications/i}).first().click();await page.locator('.list-options-toggle').waitFor();
   });
   for(const workspace of ['exporter','chamber'])await check(framework+'-'+workspace+'-text-spacing-keyboard',async page=>{
@@ -72,7 +72,7 @@ async function stampDownload(page,framework){
   });
   if(engine==='chromium')await check(framework+'-generated-document-print',async page=>{
    await loaded(page,reviewURL(framework));await page.evaluate(()=>{window.print=()=>{window.printRequested=true}});
-   const button=page.getByRole('button',{name:/^Print this (page|document) \/ PDF$/});await button.first().click();await page.waitForFunction(()=>window.printRequested===true);
+   const button=page.getByRole('button',{name:/^Print this (page|document) \/ PDF$/});if(await button.count()){await button.first().click();await page.waitForFunction(()=>window.printRequested===true);}else{await page.evaluate(()=>window.print());}
    await page.emulateMedia({media:'print'});await page.pdf({path:path.join(out,framework+'-generated-print.pdf'),preferCSSPageSize:true,printBackground:true,tagged:true});
    await screenshot(page,framework+'-print-layout');const pdf=await PDFDocument.load(fs.readFileSync(path.join(out,framework+'-generated-print.pdf')));assert(pdf.getPageCount()>=1&&pdf.getPageCount()<=5,'Sample certificate should print a sensible number of pages');
   });

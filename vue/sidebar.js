@@ -1,5 +1,5 @@
-import {ref,onMounted,onUnmounted} from './assets/vue.esm-browser.prod.js?v=2026-11-19-pdf-zoom-r1';
-import {sidebarKey,readSidebar,saveSidebar,bindSidebarLabels} from '../assets/sidebar-state.js?v=2026-11-19-pdf-zoom-r1';
+import {ref,onMounted,onUnmounted} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
+import {sidebarKey,readSidebar,saveSidebar,bindSidebarLabels} from '../assets/sidebar-state.js?v=2026-11-20-acceptance-r1';
 export const SidebarCollapse={setup(){
   const collapsed=ref(readSidebar(localStorage,'vue')),button=ref(null);
   const apply=()=>document.documentElement.dataset.sidebarCollapsed=String(collapsed.value);

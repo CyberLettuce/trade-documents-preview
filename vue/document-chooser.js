@@ -1,6 +1,6 @@
-import {computed} from './assets/vue.esm-browser.prod.js?v=2026-11-19-pdf-zoom-r1';
-import {Icon} from './components.js?v=2026-11-19-pdf-zoom-r1';
-import {documentAllowed} from './assets/destinations.js?v=2026-11-19-pdf-zoom-r1';
+import {computed} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
+import {Icon} from './components.js?v=2026-11-20-acceptance-r1';
+import {documentAllowed} from './assets/destinations.js?v=2026-11-20-acceptance-r1';
 
 // Reuse React's document artwork, labels and descriptions; keep Vue's record values.
 const cards=[

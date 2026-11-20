@@ -1,4 +1,4 @@
-import qrcodegen from './qrcodegen1.js?v=2026-11-19-pdf-zoom-r1';
+import qrcodegen from './qrcodegen1.js?v=2026-11-20-acceptance-r1';
 
 export function createReferenceQr(application={}){
  const payload=String(application.reference||application.stampReference||'SAMPLE');

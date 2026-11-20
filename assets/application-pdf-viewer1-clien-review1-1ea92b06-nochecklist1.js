@@ -1,10 +1,10 @@
-import {PdfTextView} from './pdf-readable-react.js?v=2026-11-19-pdf-zoom-r1';
-import {savedPdfView,savePdfView} from './pdf-readable-text.js?v=2026-11-19-pdf-zoom-r1';
-import './application-pdf-translations1-review1-8a6839bf.js?v=2026-11-19-pdf-zoom-r1';
-import {r as React} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-19-pdf-zoom-r1';
-import {languageCreateElement as h,preserveValue} from './language-runtime-review1-57775012.js?v=2026-11-19-pdf-zoom-r1';
-import {readPdf,attachmentEntries,findAttachment} from './application-attachment-store1-review1-5e01d232.js?v=2026-11-19-pdf-zoom-r1';
-import {loadPdfjs,pdfOptions} from './stamp-logic3.js?v=2026-11-19-pdf-zoom-r1';
+import {PdfTextView} from './pdf-readable-react.js?v=2026-11-20-acceptance-r1';
+import {savedPdfView,savePdfView} from './pdf-readable-text.js?v=2026-11-20-acceptance-r1';
+import './application-pdf-translations1-review1-8a6839bf.js?v=2026-11-20-acceptance-r1';
+import {r as React} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-20-acceptance-r1';
+import {languageCreateElement as h,preserveValue} from './language-runtime-review1-57775012.js?v=2026-11-20-acceptance-r1';
+import {readPdf,attachmentEntries,findAttachment} from './application-attachment-store1-review1-5e01d232.js?v=2026-11-20-acceptance-r1';
+import {loadPdfjs,pdfOptions} from './stamp-logic3.js?v=2026-11-20-acceptance-r1';
 export function ApplicationPdfViewer({application,item,attachment}){
  const entry=attachment||findAttachment(application,item||{}),id=entry?.id,name=entry?.name||item?.name||'PDF';
  const [view,setView]=React.useState(savedPdfView);

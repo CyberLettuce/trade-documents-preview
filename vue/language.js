@@ -1,6 +1,6 @@
-import {loadLocale} from '../assets/locale-loader.js?v=2026-11-19-pdf-zoom-r1';
-import {languageLoadFailure,languageLoadSuccess} from '../assets/language-load-status.js?v=2026-11-19-pdf-zoom-r1';
-import {ref,computed,nextTick,onMounted,onUnmounted,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-19-pdf-zoom-r1';
+import {loadLocale} from '../assets/locale-loader.js?v=2026-11-20-acceptance-r1';
+import {languageLoadFailure,languageLoadSuccess} from '../assets/language-load-status.js?v=2026-11-20-acceptance-r1';
+import {ref,computed,nextTick,onMounted,onUnmounted,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 export const LANGUAGES=[{code:'en',name:'English',flag:'gb'},{code:'nl',name:'Dutch',flag:'nl'},{code:'et',name:'Estonian',flag:'ee'},{code:'ar',name:'العربية',flag:'sa'},{code:'sv',name:'Swedish',flag:'se'},{code:'pt',name:'Portuguese',flag:'pt'}];
 const dictionaries={},folded={};
 export async function ensureLanguage(language){if(language==='en'||dictionaries[language])return;const words=await loadLocale(language);dictionaries[language]=words;folded[language]=Object.fromEntries(Object.entries(words).map(([k,v])=>[k.toLowerCase(),v]));}
