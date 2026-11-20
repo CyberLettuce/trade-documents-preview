@@ -39,7 +39,7 @@ async function checkCarnet(page, framework) {
  const react=framework==='react';
  const root='http://127.0.0.1:5204/after';
  const route=react?'/#chamber/applications/Pending/cloud-ata-pending':'/vue/#/chamber/applications/cloud-ata-pending';
- await page.evaluate(react=>{
+ const seed=await page.evaluate(react=>{
   const key=react?'ecert-chamber-preview-v1':'trade-documents-vue-comparison-v1';
   const data=JSON.parse(localStorage.getItem(key));
   const records=react?data.apps:data.records;
@@ -50,15 +50,19 @@ async function checkCarnet(page, framework) {
    ...(react?{docs:['ata'],signatory:'Exporter sample signatory',lockedBy:'',assigned:''}
       :{document:'ATA Carnet',documents:['ATA Carnet'],applicantSignatory:'Alex Morgan',owner:''})};
   records.push({...sample,...changes},{...sample,...changes,id:'cloud-ata-approved',reference:'DEMO-CLOUD/987654321/N',status:'Approved'});
-  localStorage.setItem(key,JSON.stringify(data));
+  return {key,data};
  },react);
- await page.goto(root+route);
- await page.reload();
+ await page.addInitScript(({key,data})=>{
+  if(sessionStorage.getItem('cloud-ata-seeded'))return;
+  localStorage.setItem(key,JSON.stringify(data));
+  sessionStorage.setItem('cloud-ata-seeded','1');
+ },seed);
+ await page.goto(root+route.replace('#','?cloud-carnet#'));
  const hideFiles=page.getByRole('button',{name:'Hide files',exact:true});
  if(await hideFiles.isVisible())await hideFiles.click();
  const details=page.getByRole('region',{name:'ATA Carnet application details'});
  await details.waitFor();
- const fact=name=>details.locator('dl').filter({has:details.getByText(name,{exact:true})}).locator('dd');
+ const fact=name=>details.locator('dl').filter({has:page.getByText(name,{exact:true})}).locator('dd');
  assert.equal(await fact('Signatory (Applicant)').textContent(),react?'Exporter sample signatory':'Alex Morgan');
  assert.match(await fact('Formal Undertaking Expiry Date').textContent(),/2027/);
  assert.match(await fact('Box C – Intended Use of Goods').textContent(),/professional equipment/i);

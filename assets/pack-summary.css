@@ -339,3 +339,10 @@ html body .pack-summary-bar .review-layout-actions button {
 @container review-details (max-width: 420px) {
   .chamber-carnet-fields { grid-template-columns: minmax(0, 1fr); }
 }
+
+.chamber-carnet-list-actions .button-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
