@@ -1,8 +1,7 @@
 import {renderCarnetReview} from '../assets/carnet-review.js?v=2026-11-20-carnet-r1';
-import {h} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
-const money=new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format;
-import {computed} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
+import {computed,h} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import {sectionsFor,itemTotals} from './form-model.js?v=2026-11-20-acceptance-r1';
+const money = new Intl.NumberFormat('en-GB', {style: 'currency', currency: 'GBP'}).format;
 
 export function stepTitle(step,record,fallback){
  const d=record.document,movement=['EUR1','EUR-MED'].includes(d),uk=d==='UK Certificate of Origin',arab=d==='Arab Certificate of Origin';

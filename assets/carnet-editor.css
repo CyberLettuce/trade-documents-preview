@@ -206,9 +206,13 @@
 
 @container goods-editor (max-width: 900px) {
   .carnet-goods .goods-table .carnet-bulk-unit { display: block; }
-  .carnet-goods .goods-table .carnet-bulk-unit tr { grid-template-columns: minmax(0, 1fr); }
-  .carnet-goods .goods-table .carnet-bulk-unit .carnet-unit-spacer { display: none; }
-  .carnet-goods .goods-table .carnet-bulk-unit td { grid-column: 1 / -1; }
+  .carnet-goods .goods-table .carnet-bulk-unit .carnet-unit-spacer { grid-column: 1; }
+  .carnet-goods .goods-table .carnet-bulk-unit .carnet-unit-picker { grid-column: 2; }
+  .carnet-goods .goods-table .carnet-bulk-unit .carnet-unit-note { grid-column: 3 / -1; }
+}
+
+@container goods-editor (max-width: 600px) {
+  .carnet-goods .goods-table .carnet-bulk-unit .carnet-unit-note { grid-column: 1 / -1; }
 }
 
 @container editor-form (max-width: 500px) {
