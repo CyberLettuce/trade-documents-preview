@@ -1,0 +1,41 @@
+name: Editor viewport acceptance
+on:
+  push:
+    branches: [codex/acceptance-editor-20261120]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    container: mcr.microsoft.com/playwright:v1.56.1-noble
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    env:
+      CHECK_BROWSER: ${{ matrix.browser }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --test tests/vue/*.test.mjs
+      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - run: node scripts/package-pages.mjs _site-check
+      - name: Prepare cloud browser
+        run: |
+          echo "NODE_PATH=$RUNNER_TEMP/browser-check/node_modules" >> "$GITHUB_ENV"
+          npm install --prefix "$RUNNER_TEMP/browser-check" --no-save --ignore-scripts playwright@1.56.1 axe-core@4.11.0 pdf-lib@1.17.1
+      - name: Editor steps, translated layouts and live preview
+        run: node scripts/check-editor-steps.cjs
+      - name: Confirm PDF output after print measurement cleanup
+        if: ${{ !cancelled() && matrix.browser == 'chromium' }}
+        run: node scripts/check-acceptance-extras.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: acceptance-editor-${{ matrix.browser }}
+          path: qa-results/
+          retention-days: 14
