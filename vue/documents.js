@@ -2,7 +2,7 @@ import {rememberedZoom,rememberedChamberZoom,savePreference} from '../assets/rev
 import {quoteDocuments} from './form-model.js?v=2026-11-20-chamber-carnet-r1';
 import {onMounted,nextTick} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import {useApp,download} from './workspace.js?v=2026-11-20-chamber-carnet-r1';
-import {NativePaper} from './native-paper.js?v=2026-11-20-chamber-carnet-r1';
+import {NativePaper} from './native-paper.js?v=2026-11-20-vertical-review-r1';
 import {computed,ref,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import {DOC_IDS,itemTotals,invoiceTotal,unitCodes} from './form-model.js?v=2026-11-20-chamber-carnet-r1';
 import {ws,money} from './workspace.js?v=2026-11-20-chamber-carnet-r1';
