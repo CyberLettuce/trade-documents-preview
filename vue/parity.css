@@ -35,3 +35,6 @@
 @media(max-width:600px){.application-table .actions-col{width:48px}.application-table .reference-col{width:30%}.application-table .document-col{width:27%}.application-table .status-col{width:76px}.application-table .row-actions{flex-direction:column;align-items:center}.application-table .badge{white-space:normal;max-width:100%;line-height:1.4}.application-table th,.application-table td{word-break:normal}.application-table .document-col{overflow-wrap:break-word}}
 
 @media(max-width:600px){.application-table .actions-col{width:60px}.application-table .status-col{width:70px}.application-table .reference-col{width:auto}.application-table .document-col{width:28%}}
+
+/* Navigation aids are for the screen, not issued paper copies. */
+@media print{a.skip{display:none!important}}

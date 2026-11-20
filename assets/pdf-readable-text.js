@@ -36,9 +36,20 @@ export function pdfTextModel(content, structure, annotations = []) {
  return {nodes,hasText:Boolean(hasText),tagged:Boolean(structure&&used.size),partial:Boolean(structure&&remaining.some(r=>r.text.trim())),lang:safeLanguage(content.lang),plain:runs.map(r=>r.text).join('').trim()};
 }
 
+async function textContent(page) {
+ // Read PDF.js's public stream without requiring ReadableStream async iteration,
+ // which is absent in some WebKit versions. Preserve the special XFA path.
+ if(page.isPureXfa || typeof page.streamTextContent!=='function')return page.getTextContent({includeMarkedContent:true});
+ const reader=page.streamTextContent({includeMarkedContent:true}).getReader();
+ const content={items:[],styles:{},lang:null};
+ try { while(true) { const {done,value}=await reader.read();if(done)break;content.items.push(...value.items);Object.assign(content.styles,value.styles);content.lang??=value.lang; } }
+ finally { reader.releaseLock(); }
+ return content;
+}
+
 export function readPdfText(page) {
  if(!cache.has(page))cache.set(page,(async()=>{
-  const [content,structure,annotations]=await Promise.allSettled([page.getTextContent({includeMarkedContent:true}),page.getStructTree(),page.getAnnotations({intent:'display'})]);
+  const [content,structure,annotations]=await Promise.allSettled([textContent(page),page.getStructTree(),page.getAnnotations({intent:'display'})]);
   if(content.status==='rejected')throw content.reason;
   return pdfTextModel(content.value,structure.status==='fulfilled'?structure.value:null,annotations.status==='fulfilled'?annotations.value:[]);
  })());

@@ -60,7 +60,7 @@ async function stampDownload(page,framework){
   await check(framework+'-malformed-pdf-recovery',async page=>{
    await loaded(page,reviewURL(framework));await seedPdf(page,framework,Buffer.from('%PDF-1.7\nNot a valid PDF file'));const show=page.locator('button[aria-controls=pack-page-list][aria-expanded=false]:visible').first();if(await show.count())await show.click();await page.getByRole('button',{name:/accessible-test\.pdf/}).first().click();const viewer=page.locator(framework==='react'?'.application-pdf-viewer':'.pdf-viewer');
    await viewer.getByText(framework==='react'?/This PDF could not be displayed/:/Invalid PDF structure/).waitFor();assert((await viewer.innerText()).match(/unavailable|could not|cannot|failed|Invalid|unable/i));await screenshot(page,framework+'-malformed-pdf');
-   await page.getByRole('button',{name:/Back to Applications/i}).first().click();await page.locator('.list-options-toggle').waitFor();
+   await page.getByRole('button',{name:/Back to.*applications/i}).first().click();await page.locator('.list-options-toggle').waitFor();
   });
   for(const workspace of ['exporter','chamber'])await check(framework+'-'+workspace+'-text-spacing-keyboard',async page=>{
    const url=framework==='react'?(workspace==='chamber'?'/#chamber/applications/Pending':'/#applications'):`/vue/#/${workspace}/applications`;
@@ -74,7 +74,7 @@ async function stampDownload(page,framework){
    await loaded(page,reviewURL(framework));await page.evaluate(()=>{window.print=()=>{window.printRequested=true}});
    const button=page.getByRole('button',{name:/^Print this (page|document) \/ PDF$/});if(await button.count()){await button.first().click();await page.waitForFunction(()=>window.printRequested===true);}else{await page.evaluate(()=>window.print());}
    await page.emulateMedia({media:'print'});await page.pdf({path:path.join(out,framework+'-generated-print.pdf'),preferCSSPageSize:true,printBackground:true,tagged:true});
-   await screenshot(page,framework+'-print-layout');const pdf=await PDFDocument.load(fs.readFileSync(path.join(out,framework+'-generated-print.pdf')));assert(pdf.getPageCount()>=1&&pdf.getPageCount()<=5,'Sample certificate should print a sensible number of pages');
+   await screenshot(page,framework+'-print-layout');assert.equal(await page.locator('a.skip:visible').count(),0,'Screen-only skip link must not print');const pdf=await PDFDocument.load(fs.readFileSync(path.join(out,framework+'-generated-print.pdf')));assert(pdf.getPageCount()>=1&&pdf.getPageCount()<=5,'Sample certificate should print a sensible number of pages');
   });
  }
  await browser.close();server.close();fs.writeFileSync(path.join(out,'acceptance-extras.json'),JSON.stringify({engine,version:require('playwright/package.json').version,results},null,2));console.log(JSON.stringify({checks:results.length,failed:results.filter(r=>!r.pass)},null,2));process.exitCode=results.some(r=>!r.pass)?1:0;
