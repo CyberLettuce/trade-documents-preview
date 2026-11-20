@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: 22
       - run: node --test tests/vue/*.test.mjs
+      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - run: node scripts/package-pages.mjs _site-check
       - name: Prepare cloud browser
         run: |
