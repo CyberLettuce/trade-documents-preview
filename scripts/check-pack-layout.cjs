@@ -38,8 +38,24 @@ async function showMagnifier(page, surface) {
 async function checkCarnet(page, framework) {
  const react=framework==='react';
  const root='http://127.0.0.1:5204/after';
- const route=react?'/#chamber/applications/Pending/ch-app-1':'/vue/#/chamber/applications/sample-21';
+ const route=react?'/#chamber/applications/Pending/cloud-ata-pending':'/vue/#/chamber/applications/cloud-ata-pending';
+ await page.evaluate(react=>{
+  const key=react?'ecert-chamber-preview-v1':'trade-documents-vue-comparison-v1';
+  const data=JSON.parse(localStorage.getItem(key));
+  const records=react?data.apps:data.records;
+  const sample=records.find(record=>record.id===(react?'ch-app-0':'sample-0'));
+  const changes={id:'cloud-ata-pending',reference:'DEMO-CLOUD/123456789/N',status:'Pending',goodsType:'Machinery',
+   items:[{id:'original-item',description:'Original instruments',pieces:1,unit:'Kilogram',weight:1,value:80,origin:'United Kingdom'}],
+   use:react?['Professional equipment']:'Professional equipment',
+   ...(react?{docs:['ata'],signatory:'Exporter sample signatory',lockedBy:'',assigned:''}
+      :{document:'ATA Carnet',documents:['ATA Carnet'],applicantSignatory:'Alex Morgan',owner:''})};
+  records.push({...sample,...changes},{...sample,...changes,id:'cloud-ata-approved',reference:'DEMO-CLOUD/987654321/N',status:'Approved'});
+  localStorage.setItem(key,JSON.stringify(data));
+ },react);
  await page.goto(root+route);
+ await page.reload();
+ const hideFiles=page.getByRole('button',{name:'Hide files',exact:true});
+ if(await hideFiles.isVisible())await hideFiles.click();
  const details=page.getByRole('region',{name:'ATA Carnet application details'});
  await details.waitFor();
  const fact=name=>details.locator('dl').filter({has:details.getByText(name,{exact:true})}).locator('dd');
@@ -54,7 +70,7 @@ async function checkCarnet(page, framework) {
  const download=details.getByRole('button',{name:'Download General List CSV',exact:true});
  const file=text=>({name:'general-list.csv',mimeType:'text/csv',buffer:Buffer.from(text)});
  const valid=file('Description,Number of pieces,Unit,Weight,Value,Origin\n"Portable instruments",2,KG,3,150,FR');
- if(react)page.once('dialog',dialog=>dialog.accept());
+ page.once('dialog',dialog=>dialog.accept());
  await upload.setInputFiles(valid);
  await page.getByText('General List replaced.',{exact:true}).waitFor();
  await upload.setInputFiles(file('Description,Number of pieces,Unit,Weight,Value,Origin\nInvalid item,0,KG,1,1,FR'));
@@ -75,7 +91,7 @@ async function checkCarnet(page, framework) {
  await page.setViewportSize({width:390,height:844});
  await assertNoOverflow(page);
  await page.setViewportSize({width:1440,height:900});
- await page.goto(root+(react?'/#chamber/applications/Approved/ch-app-21':'/vue/#/chamber/applications/sample-13'));
+ await page.goto(root+(react?'/#chamber/applications/Approved/cloud-ata-approved':'/vue/#/chamber/applications/cloud-ata-approved'));
  await details.waitFor();
  assert.equal(await id.getAttribute('readonly'), '');
  assert.equal(await upload.count(),0);

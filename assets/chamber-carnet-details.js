@@ -36,15 +36,6 @@ export function carnetGeneralListCsv(items) {
     .map(row => row.map(cell).join(',')).join('\r\n');
 }
 
-export function downloadCarnetGeneralList(items) {
-  const url = URL.createObjectURL(new Blob([carnetGeneralListCsv(items)], {type: 'text/csv;charset=utf-8'}));
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'general-list.csv';
-  link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 15000);
-}
-
 export function renderChamberCarnet(node, {record, applicant, expiry, formatDate, writable, uploading, message, icon, update, upload, download}) {
   const fact = (label, value, preserve = false) => node('dl', {class: 'chamber-carnet-fact'},
     node('dt', {}, label), node('dd', {translate: preserve ? 'no' : undefined}, value || '—'));

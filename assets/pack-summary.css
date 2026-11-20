@@ -268,7 +268,7 @@ html body .pack-summary-bar .review-layout-actions button {
 .chamber-carnet-application h3 { margin: 0 0 10px; }
 .chamber-carnet-fields {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px 14px;
 }
 
@@ -334,4 +334,8 @@ html body .pack-summary-bar .review-layout-actions button {
 .chamber-list-upload:focus-within {
   outline: 2px solid var(--focus, var(--colorStrokeFocus2, #0078d4));
   outline-offset: 2px;
+}
+
+@container review-details (max-width: 420px) {
+  .chamber-carnet-fields { grid-template-columns: minmax(0, 1fr); }
 }
