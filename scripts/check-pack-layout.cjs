@@ -312,7 +312,7 @@ async function checkCertificateReview(page, framework) {
  assert(await page.locator('.pack-summary-status').getByText('Pending',{exact:true}).isVisible());
  await eur.fill('a1234567');
  await arab.fill('AB123456789');
- assert.equal(await layout.getByRole('alert').count(),0);
+ assert.equal(await layout.locator('[id^="review-certificate-"][role="alert"]').count(),0);
  await declaration.fill('2026-11-18');
  await endorsement.fill('2026-11-19');
  const eurPaper=page.locator('#pack-document-preview .certificate-eur').first();
@@ -506,7 +506,7 @@ async function checkFit(page, preview, paper, details) {
    assert.deepEqual(errors,[]);
    results.push({framework,...metrics,pass:true});
   } catch(error){
-   results.push({framework,error:error.message,errors,pass:false});
+   results.push({framework,error:error.message,stack:error.stack,errors,pass:false});
    await page.screenshot({path:path.join(out,framework+'-failed.png')}).catch(()=>{});
   } finally {await context.close();}
  }

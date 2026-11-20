@@ -433,7 +433,12 @@ html body .pack-summary-bar .review-layout-actions button {
   font-weight: 600;
   overflow-wrap: anywhere;
 }
-.chamber-certificate-fact a { display: block; margin-block-start: 4px; text-decoration: underline; }
+.chamber-certificate-fact a {
+  display: block;
+  margin-block-start: 4px;
+  color: var(--brand, var(--colorBrandForeground1, currentColor));
+  text-decoration: underline;
+}
 .certificate-date-fields {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
