@@ -389,7 +389,7 @@ html body .pack-summary-bar .review-layout-actions button {
   .carnet-summary-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
 }
 
-#pack-details-panel .carnet-application-columns {
+#pack-details-panel :is(.carnet-application-columns, .certificate-application-columns) {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 14px;
@@ -397,7 +397,7 @@ html body .pack-summary-bar .review-layout-actions button {
   padding-block-end: 4px;
 }
 
-#pack-details-panel .carnet-application-columns > :is(.chamber-carnet-application, .page-panel, section) {
+#pack-details-panel :is(.carnet-application-columns, .certificate-application-columns) > :is(.page-panel, section) {
   min-width: 0;
   margin: 0;
   padding: 14px;
@@ -406,21 +406,34 @@ html body .pack-summary-bar .review-layout-actions button {
   background: var(--surface, var(--colorNeutralBackground1, #fff));
 }
 
-#pack-details-panel .carnet-application-columns :is(.chamber-carnet-fields, .review-processing-fields) {
+#pack-details-panel :is(.carnet-application-columns, .certificate-application-columns) :is(.chamber-carnet-fields, .review-processing-fields) {
   grid-template-columns: minmax(0, 1fr);
   gap: 9px;
 }
 
-#pack-details-panel .carnet-application-columns > section h3:first-child,
-#pack-details-panel .carnet-application-columns .ch-assignment {
+#pack-details-panel :is(.carnet-application-columns, .certificate-application-columns) > section h3:first-child,
+#pack-details-panel :is(.carnet-application-columns, .certificate-application-columns) .ch-assignment {
   margin-block-start: 0;
 }
 
 @container review-details (min-width: 540px) {
-  #pack-details-panel .carnet-application-columns {
+  #pack-details-panel :is(.carnet-application-columns, .certificate-application-columns) {
     grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
   }
 }
+
+.chamber-coo-application h3 { margin-block: 0 10px; }
+.chamber-coo-fields { display: grid; gap: 12px; }
+#pack-details-panel .chamber-coo-fact {
+  display: block;
+  margin: 0;
+}
+#pack-details-panel .chamber-coo-fact dd {
+  margin: 3px 0 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.chamber-coo-fact a { display: block; margin-block-start: 4px; text-decoration: underline; }
 
 @media screen {
   .site-review-pack .review-read-button { flex: 0 0 auto; white-space: nowrap; }

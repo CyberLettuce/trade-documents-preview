@@ -212,6 +212,85 @@ async function checkCarnet(page, framework) {
  assert(Math.abs(mobileFees.x-mobileSummary.x)<3&&mobileFees.y>mobileSummary.y+20,JSON.stringify({mobileSummary,mobileFees}));
 }
 
+async function checkCertificateReview(page, framework) {
+ const react=framework==='react';
+ const data=await page.evaluate(react=>{
+  const key=react?'ecert-chamber-preview-v1':'trade-documents-vue-comparison-v1';
+  const workspace=JSON.parse(localStorage.getItem(key));
+  const records=react?workspace.apps:workspace.records;
+  const sample=records.find(record=>record.id===(react?'ch-app-0':'sample-0'));
+  const pending={...sample,id:'cloud-uk-certificate',status:'Pending',certificate:'',issueDate:'',stampDate:'',
+   purchaseOrder:'PO-2026-123',applicantSignatory:'Jamie Taylor',applicantEmail:'jamie+exports@example.com',
+   ...(react?{docs:['coo'],lockedBy:'',assigned:''}:{document:'UK Certificate of Origin',documents:['UK Certificate of Origin'],owner:''})};
+  records.push(pending);
+  return {key,workspace};
+ },react);
+ await page.addInitScript(({key,workspace})=>{
+  if(sessionStorage.getItem('cloud-coo-seeded'))return;
+  localStorage.setItem(key,JSON.stringify(workspace));
+  sessionStorage.setItem('cloud-coo-seeded','1');
+ },data);
+ const root='http://127.0.0.1:5204/after';
+ await page.goto(root+(react?'/?cloud-coo#chamber/applications/Pending/cloud-uk-certificate':'/vue/?cloud-coo#/chamber/applications/cloud-uk-certificate'));
+ const sidebar=page.locator('#pack-details-panel');
+ const tab=name=>sidebar.getByRole(react?'tab':'button',{name,exact:true});
+ const layout=sidebar.locator('.certificate-application-columns');
+ const applicant=layout.getByRole('region',{name:'UK Certificate of Origin application details'});
+ await applicant.waitFor();
+ assert(await applicant.getByText('Jamie Taylor',{exact:true}).isVisible());
+ assert.equal(await applicant.getByRole('link',{name:'jamie+exports@example.com'}).getAttribute('href'),'mailto:jamie%2Bexports@example.com');
+ assert.match(await applicant.locator('dl').filter({hasText:'Formal Undertaking Expiry Date'}).locator('dd').textContent(),/2027/);
+ const number=await applicant.locator('#review-certificate').textContent();
+ assert.match(number,/^[a-z\d]{10}$/);
+ assert.match(number,/[a-z]/);
+ assert.match(number,/\d/);
+ const paper=page.locator('#pack-document-preview .certificate-coo').first();
+ assert((await paper.textContent()).includes(number));
+ await page.locator('#pack-document-preview').getByRole('button',{name:'Read full size',exact:true}).click();
+ const reader=page.getByRole('dialog',{name:'Read document',exact:true});
+ await reader.waitFor();
+ assert((await reader.locator('.certificate-coo').first().textContent()).includes(number));
+ await page.keyboard.press('Escape');
+ await reader.waitFor({state:'hidden'});
+ const issue=layout.getByLabel(/Issue Date/i),stamp=layout.getByLabel(/Stamp Date/i);
+ const today=await page.evaluate(()=>{
+  const now=new Date();
+  return [now.getFullYear(),now.getMonth()+1,now.getDate()].map(n=>String(n).padStart(2,'0')).join('-');
+ });
+ assert.equal(await issue.getAttribute('type'),'date');
+ assert.equal(await stamp.getAttribute('type'),'date');
+ assert.equal(await issue.inputValue(),today);
+ assert.equal(await stamp.inputValue(),today);
+ const po=layout.getByRole('textbox',{name:/P\.O\. Number/});
+ const reference=layout.getByRole('textbox',{name:/Chamber Reference/});
+ assert.equal(await po.inputValue(),'PO-2026-123');
+ await po.fill('PO-CHECK-2');
+ await reference.fill('CH-COO-42');
+ await issue.fill('2026-11-18');
+ await stamp.fill('2026-11-19');
+ await layout.getByRole('combobox',{name:'Workflow step',exact:true}).selectOption({index:1});
+ await page.waitForFunction(()=>Object.values(localStorage).some(value=>value.includes('CH-COO-42')&&value.includes('2026-11-19')));
+ await page.reload();
+ await applicant.waitFor();
+ assert.equal(await applicant.locator('#review-certificate').textContent(),number);
+ assert.equal(await po.inputValue(),'PO-CHECK-2');
+ assert.equal(await reference.inputValue(),'CH-COO-42');
+ assert.equal(await issue.inputValue(),'2026-11-18');
+ assert.equal(await stamp.inputValue(),'2026-11-19');
+ await tab('Summary').click();
+ await sidebar.getByRole('heading',{name:'Application summary',exact:true}).waitFor();
+ await sidebar.getByRole('heading',{name:'Fees',exact:true}).waitFor();
+ await tab('Application').click();
+ const panels=layout.locator(':scope > *');
+ const [left,right]=await Promise.all([panels.nth(0).boundingBox(),panels.nth(1).boundingBox()]);
+ assert(right.x>=left.x+left.width&&Math.abs(right.y-left.y)<3);
+ if(engineName==='chromium')await sidebar.screenshot({path:path.join(out,framework+'-pending-uk-certificate.png')});
+ await page.setViewportSize({width:390,height:844});
+ await assertNoOverflow(page);
+ const [first,second]=await Promise.all([panels.nth(0).boundingBox(),panels.nth(1).boundingBox()]);
+ assert(Math.abs(first.x-second.x)<3&&second.y>=first.y+first.height);
+}
+
 async function checkFit(page, preview, paper, details) {
  await paper.locator.waitFor({state:'visible'});
  await page.waitForFunction(({preview,paper})=>{
@@ -278,7 +357,9 @@ async function checkFit(page, preview, paper, details) {
     return {top:r.top,width:r.width,height:r.height,bottom:r.bottom};
    }));
    assert(bounds.every(r=>r.height>=32&&r.height<=40&&r.width>=120),JSON.stringify(bounds));
-   assert(Math.abs(bounds[0].top-bounds[1].top)<4,JSON.stringify(bounds));
+   if(!(await details.locator('.certificate-application-columns').count())){
+    assert(Math.abs(bounds[0].top-bounds[1].top)<4,JSON.stringify(bounds));
+   }
    assert(bounds.every(r=>r.bottom<page.viewportSize().height-65),JSON.stringify(bounds));
    if(engineName==='chromium'){
     const rect=await header.boundingBox();
@@ -350,6 +431,8 @@ async function checkFit(page, preview, paper, details) {
    assert(await header.evaluate(el=>el.scrollWidth<=el.clientWidth+2));
    await page.setViewportSize({width:1440,height:900});
    await checkCarnet(page,framework);
+   await page.setViewportSize({width:1440,height:900});
+   await checkCertificateReview(page,framework);
    await page.setViewportSize({width:1440,height:900});
    await page.goto('http://127.0.0.1:5204/after'+(framework==='react'?'/#dashboard':'/vue/#/exporter/dashboard'));
    const rail=page.locator('.sidebar-collapse-toggle:visible').first();
