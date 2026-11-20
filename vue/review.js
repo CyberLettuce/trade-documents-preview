@@ -10,7 +10,7 @@ import {StampEditor} from './stamping.js?v=2026-11-20-chamber-carnet-r1';
 import {quoteDocuments} from './form-model.js?v=2026-11-20-chamber-carnet-r1';
 import {Icon} from './components.js?v=2026-11-20-pending-review-r1';
 import {parseCSV,uid} from './workspace-model.js?v=2026-11-20-acceptance-r1';
-import {carnetApplicant,readCarnetGeneralList,carnetGeneralListCsv,renderChamberCarnet} from '../assets/chamber-carnet-details.js?v=2026-11-20-chamber-carnet-r1';
+import {carnetApplicant,readCarnetGeneralList,carnetGeneralListCsv,renderChamberCarnet} from '../assets/chamber-carnet-details.js?v=2026-11-20-carnet-summary-r1';
 const ChamberCarnetApplication={
  props:{record:Object,writable:Boolean},
  setup(props){

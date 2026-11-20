@@ -1,4 +1,4 @@
-import {carnetApplicant} from '../assets/chamber-carnet-details.js?v=2026-11-20-chamber-carnet-r1';
+import {carnetApplicant} from '../assets/chamber-carnet-details.js?v=2026-11-20-carnet-summary-r1';
 import {SortHeading} from './chamber-sort.js?v=2026-11-20-chamber-tables-r1';
 import {PdfViewer} from './pdf-viewer.js?v=2026-11-20-chamber-carnet-r1';
 import {createDeferredSave} from './persistence.js?v=2026-11-20-acceptance-r1';
@@ -19,7 +19,7 @@ import {normaliseApplication,applicationErrors} from './form-model.js?v=2026-11-
 import {WorkspacePages,ChamberContent,Notifications} from './pages.js?v=2026-11-20-chamber-carnet-r1';
 import {ApplicationList,copiedDraft} from './applications.js?v=2026-11-20-chamber-carnet-r1';
 import {ApplicationEditor} from './editor.js?v=2026-11-20-chamber-carnet-r1';
-import {ReviewPage} from './review.js?v=2026-11-20-chamber-carnet-r1';
+import {ReviewPage} from './review.js?v=2026-11-20-carnet-summary-r1';
 import {LanguageControl,installLanguage} from './language.js?v=2026-11-20-acceptance-r1';
 import{createApp,ref,reactive,computed,watch,nextTick,onMounted,onUnmounted,provide}from'./assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import{STORAGE,DOCS,OFFICERS,makeSamples,number10,submitRecord,decisionErrors,pdfStore}from'./model.js?v=2026-11-20-chamber-carnet-r1';
