@@ -14,7 +14,7 @@ jobs:
       matrix:
         include:
           - {browser: Chrome, runner: ubuntu-24.04}
-          - {browser: Edge, runner: ubuntu-24.04}
+          - {browser: Edge, runner: windows-2025}
           - {browser: Firefox, runner: ubuntu-24.04}
           - {browser: Safari, runner: macos-15}
     steps:
@@ -26,6 +26,5 @@ jobs:
         run: sudo safaridriver --enable
       - name: Check the live React and Vue certificate screens
         run: |
-          python -m venv "$RUNNER_TEMP/certificate-qa"
-          "$RUNNER_TEMP/certificate-qa/bin/python" -m pip install selenium==4.34.2
-          "$RUNNER_TEMP/certificate-qa/bin/python" scripts/check-live-certificate-browsers.py "${{ matrix.browser }}"
+          python -m pip install selenium==4.34.2
+          python scripts/check-live-certificate-browsers.py "${{ matrix.browser }}"

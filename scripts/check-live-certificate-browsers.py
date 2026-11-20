@@ -1,10 +1,13 @@
 """Smoke-test both live sample workspaces in an isolated browser session."""
+import os
 import re
 import sys
+from pathlib import Path
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.support.ui import WebDriverWait
 
 
@@ -17,6 +20,9 @@ def start_browser(name):
         return webdriver.Safari()
     options = getattr(webdriver, name + "Options")()
     options.add_argument("-headless" if name == "Firefox" else "--headless=new")
+    if name == "Edge":
+        driver = Path(os.environ["EDGEWEBDRIVER"]) / "msedgedriver.exe"
+        return webdriver.Edge(options=options, service=EdgeService(executable_path=str(driver)))
     return getattr(webdriver, name)(options=options)
 
 
