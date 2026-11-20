@@ -9,6 +9,7 @@ export const NativePaper={
   setup(props,{emit}){
     const host=ref(null);
     let observer,frame;
+    const layoutZoom=props.compactFitPage&&!props.print&&CSS.supports("zoom","1");
     function measure(){
       const container=host.value;
       const sheet=container?.querySelector('.certificate-form');
@@ -23,7 +24,8 @@ export const NativePaper={
       const scale=props.print?1:numeric>0?numeric:compact
         ?Math.max(0,Math.min(preferredWidth,available))/640
         :Math.min(1,available/640,props.zoom==='page'?Math.max(250,window.innerHeight-220)/height:1);
-      sheet.style.transform='scale('+scale+')';
+      if(layoutZoom)sheet.style.zoom=String(scale);
+      else sheet.style.transform='scale('+scale+')';
       container.style.height=height*scale+'px';
       container.style.width=compact?640*scale+'px':'';
       if(compact)emit('fit-page-width',preferredWidth);

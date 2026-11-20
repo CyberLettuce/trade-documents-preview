@@ -12,6 +12,7 @@ const server=http.createServer((req,res)=>{
  res.writeHead(200,{'Content-Type':contentTypes[path.extname(file)]||'application/octet-stream'});fs.createReadStream(file).pipe(res);
 });
 
+const willReadPaper={react:".document-scaled-page",vue:".fit-100 .native-paper"};
 const cases = [
  {framework:'react', route:'/#chamber/applications/Pending/ch-app-0', preview:'.pack-main', paper:'.document-scaled-page'},
  {framework:'vue', route:'/vue/#/chamber/applications/sample-0', preview:'.document-pane', paper:'.native-paper'}
@@ -95,6 +96,10 @@ async function checkCarnet(page, framework) {
  if(engineName==='chromium')await sidebar.screenshot({path:path.join(out,framework+'-carnet-summary.png')});
  await detailTab('Application').click();
  await details.waitFor();
+ const columns=sidebar.locator('.carnet-application-columns');
+ const processing=columns.locator(':scope > :nth-child(2)');
+ const [carnetPanel,processingPanel]=await Promise.all([details.boundingBox(),processing.boundingBox()]);
+ assert(processingPanel.x>=carnetPanel.x+carnetPanel.width&&Math.abs(processingPanel.y-carnetPanel.y)<3,JSON.stringify({carnetPanel,processingPanel}));
  const fact=name=>details.locator('dl').filter({has:page.getByText(name,{exact:true})}).locator('dd');
  assert.equal(await fact('Signatory (Applicant)').textContent(),react?'Exporter sample signatory':'Alex Morgan');
  assert.match(await fact('Formal Undertaking Expiry Date').textContent(),/2027/);
@@ -112,9 +117,17 @@ async function checkCarnet(page, framework) {
  assert(Math.abs(mercuryId.x-applicant.x)<2&&Math.abs(mercuryPin.x-expiry.x)<2);
  const copyId=details.getByRole('button',{name:'Copy Mercury Carnet ID',exact:true});
  const copyPin=details.getByRole('button',{name:'Copy Mercury Carnet PIN',exact:true});
+ const tooltip=page.locator('#workspace-tooltip');
+ await copyId.hover();
+ await tooltip.waitFor();
+ assert.equal(await tooltip.textContent(),'Copy Mercury Carnet ID');
+ await page.keyboard.press('Escape');
+ await tooltip.waitFor({state:'hidden'});
  await copyId.click();
  await page.waitForFunction(async()=>await navigator.clipboard.readText()==='MERCURY-CHECK-041');
  await copyPin.focus();
+ await tooltip.waitFor();
+ assert.equal(await tooltip.textContent(),'Copy Mercury Carnet PIN');
  await page.keyboard.press('Enter');
  await page.waitForFunction(async()=>await navigator.clipboard.readText()==='004219');
  await page.getByText('Mercury Carnet PIN copied.').first().waitFor();
@@ -149,9 +162,12 @@ async function checkCarnet(page, framework) {
  assert.equal(await goods.inputValue(),'Workshop instruments');
  assert.equal(await fact('Mercury Carnet ID').textContent(),'MERCURY-CHECK-041');
  assert.equal(await fact('Mercury Carnet PIN').textContent(),'004219');
- if(engineName==='chromium')await details.screenshot({path:path.join(out,framework+'-chamber-carnet-details.png')});
+ if(engineName==='chromium')await columns.screenshot({path:path.join(out,framework+'-chamber-carnet-details.png')});
  await page.setViewportSize({width:390,height:844});
  await assertNoOverflow(page);
+ const [mobileCarnet,mobileProcessing]=await Promise.all([details.boundingBox(),processing.boundingBox()]);
+ assert(Math.abs(mobileCarnet.x-mobileProcessing.x)<3&&mobileProcessing.y>=mobileCarnet.y+mobileCarnet.height,
+  JSON.stringify({mobileCarnet,mobileProcessing}));
  await page.setViewportSize({width:1440,height:900});
  await page.goto(root+(react?'/#chamber/applications/Approved/cloud-ata-approved':'/vue/#/chamber/applications/cloud-ata-approved'));
  await details.waitFor();
@@ -211,6 +227,19 @@ async function checkFit(page, preview, paper, details) {
    const paper={selector:paperSelector,locator:page.locator(previewSelector+' '+paperSelector).first()};
    const details=page.locator('#pack-details-panel');
    const metrics=await checkFit(page,preview,paper,details);
+   const readFullSize=preview.locator.getByRole('button',{name:'Read full size',exact:true});
+   await readFullSize.click();
+   const reader=page.getByRole('dialog',{name:'Read document',exact:true});
+   await reader.waitFor();
+   if(framework==='react')assert.equal(await reader.getByRole('combobox',{name:'Zoom',exact:true}).inputValue(),'100');
+   else assert(await reader.locator('.fit-100').isVisible());
+   const readerPaper=reader.locator(willReadPaper[framework]).first();
+   await readerPaper.waitFor({state:'visible'});
+   await page.waitForFunction(selector=>document.querySelector(selector)?.getBoundingClientRect().width>=638,
+    (framework==='vue'?'dialog[open] ':'.chamber-document-dialog ')+willReadPaper[framework]);
+   await page.keyboard.press('Escape');
+   await reader.waitFor({state:'hidden'});
+   assert.equal(await zoom.inputValue(),'page');
    const [actions,autosave]=await Promise.all([header.locator('.review-layout-actions').boundingBox(),header.locator('.pack-summary-save').boundingBox()]);
    const back=await control(framework==='react'?'Back to pending applications':'Back to Applications').boundingBox();
    assert(Math.abs(actions.y+actions.height/2-autosave.y-autosave.height/2)<4);
@@ -280,6 +309,7 @@ async function checkFit(page, preview, paper, details) {
    const canvas=viewer.locator('canvas').first();
    await page.waitForFunction(()=>[...document.querySelectorAll('.compact-fit-page canvas')].some(el=>el.style.width&&el.getBoundingClientRect().height>60));
    assert((await canvas.boundingBox()).width>90);
+   assert(await canvas.evaluate(element=>element.width/parseFloat(element.style.width)>=1.99));
    const pdfLens=(await showMagnifier(page,canvas)).lens;
    const sample=pdfLens.locator('canvas');
    assert(await sample.evaluate(canvas=>canvas.getContext('2d').getImageData(canvas.width/2,canvas.height/2,1,1).data[3]===255));
@@ -296,6 +326,24 @@ async function checkFit(page, preview, paper, details) {
    assert(await header.evaluate(el=>el.scrollWidth<=el.clientWidth+2));
    await page.setViewportSize({width:1440,height:900});
    await checkCarnet(page,framework);
+   await page.setViewportSize({width:1440,height:900});
+   await page.goto('http://127.0.0.1:5204/after'+(framework==='react'?'/#dashboard':'/vue/#/exporter/dashboard'));
+   const rail=page.locator('.sidebar-collapse-toggle:visible').first();
+   await rail.waitFor();
+   const label=await rail.getAttribute('aria-label');
+   assert(label);
+   await rail.hover();
+   const tip=page.locator('#workspace-tooltip');
+   await tip.waitFor();
+   assert.equal(await tip.textContent(),label);
+   const tooltipBounds=await tip.boundingBox();
+   assert(tooltipBounds.x>=0&&tooltipBounds.y>=0&&tooltipBounds.x+tooltipBounds.width<=1440);
+   await page.keyboard.press('Escape');
+   await tip.waitFor({state:'hidden'});
+   await rail.focus();
+   await tip.waitFor();
+   await page.evaluate(()=>{document.documentElement.dataset.theme='dark'});
+   assert.equal(await tip.evaluate(el=>getComputedStyle(el).backgroundColor),'rgb(41, 43, 47)');
    assert.deepEqual(errors,[]);
    results.push({framework,...metrics,pass:true});
   } catch(error){

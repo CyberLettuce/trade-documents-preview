@@ -24,9 +24,6 @@
 .quick-access-header .quick-access-edit {border:0;background:transparent;min-width:40px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;color:inherit;cursor:pointer}
 @media(max-width:540px){.quick-access-options {grid-template-columns:1fr}.quick-access-footer>button {flex:1 1 auto}}
 
-[data-tip]::after {display:none!important}
-.workspace-tooltip {position:fixed;z-index:1500;max-width:min(260px,calc(100vw - 16px));padding:8px 10px;border:1px solid var(--line);border-radius:5px;background:var(--surface);color:var(--text);font-size:12px;line-height:1.4;box-shadow:0 3px 12px #0003;overflow-wrap:anywhere;pointer-events:auto}
-.workspace-tooltip[hidden] {display:none}
 
 .top-header .header-tools {flex:1 1 0;min-width:0;justify-content:flex-end}
 .top-header .quick-access-header {flex:1 1 0;min-width:0}

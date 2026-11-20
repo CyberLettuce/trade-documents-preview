@@ -388,3 +388,42 @@ html body .pack-summary-bar .review-layout-actions button {
 @container review-details (min-width: 560px) {
   .carnet-summary-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
 }
+
+#pack-details-panel .carnet-application-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  padding-block-end: 4px;
+}
+
+#pack-details-panel .carnet-application-columns > :is(.chamber-carnet-application, .page-panel, section) {
+  min-width: 0;
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--line, var(--colorNeutralStroke2, #dedede));
+  border-radius: 6px;
+  background: var(--surface, var(--colorNeutralBackground1, #fff));
+}
+
+#pack-details-panel .carnet-application-columns :is(.chamber-carnet-fields, .review-processing-fields) {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 9px;
+}
+
+#pack-details-panel .carnet-application-columns > section h3:first-child,
+#pack-details-panel .carnet-application-columns .ch-assignment {
+  margin-block-start: 0;
+}
+
+@container review-details (min-width: 540px) {
+  #pack-details-panel .carnet-application-columns {
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
+  }
+}
+
+@media screen {
+  .site-review-pack .review-read-button { flex: 0 0 auto; white-space: nowrap; }
+  .site-review-pack .pack-view-controls { flex-wrap: wrap; }
+  .site-review-pack :is(.document-canvas, .paper-space) .certificate-blank { color: #505247; }
+}
