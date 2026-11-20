@@ -44,7 +44,7 @@ async function checkCarnet(page, framework) {
   const data=JSON.parse(localStorage.getItem(key));
   const records=react?data.apps:data.records;
   const sample=records.find(record=>record.id===(react?'ch-app-0':'sample-0'));
-  const changes={id:'cloud-ata-pending',reference:'DEMO-CLOUD/123456789/N',status:'Pending',goodsType:'Machinery',
+  const changes={id:'cloud-ata-pending',reference:'DEMO-CLOUD/123456789/N',status:'Pending',goodsType:'Machinery',eCarnetId:'MERCURY-CHECK-041',eCarnetPin:'004219',
    items:[{id:'original-item',description:'Original instruments',pieces:1,unit:'Kilogram',weight:1,value:80,origin:'United Kingdom'}],
    use:react?['Professional equipment']:'Professional equipment',
    ...(react?{docs:['ata'],signatory:'Exporter sample signatory',lockedBy:'',assigned:''}
@@ -65,13 +65,21 @@ async function checkCarnet(page, framework) {
  const fact=name=>details.locator('dl').filter({has:page.getByText(name,{exact:true})}).locator('dd');
  assert.equal(await fact('Signatory (Applicant)').textContent(),react?'Exporter sample signatory':'Alex Morgan');
  assert.match(await fact('Formal Undertaking Expiry Date').textContent(),/2027/);
- assert.match(await fact('Box C – Intended Use of Goods').textContent(),/professional equipment/i);
- assert.match(await details.getByLabel('Goods Type',{exact:true}).inputValue(),/machinery/i);
- const id=details.getByLabel('Mercury Carnet ID',{exact:true}),pin=details.getByLabel('Mercury Carnet PIN',{exact:true});
- await id.fill('MERCURY-CHECK-041');
- await pin.fill('004219');
+ const useLabel='Box C – Intended Use of Goods';
+ const use=details.getByRole('textbox',{name:useLabel,exact:true});
+ const goods=details.getByRole('textbox',{name:'Goods Type',exact:true});
+ const editedUse='Commercial samples, Exhibition and fairs';
+ assert.match(await use.inputValue(),/professional equipment/i);
+ assert.match(await goods.inputValue(),/machinery/i);
+ assert.equal(await fact('Mercury Carnet ID').textContent(),'MERCURY-CHECK-041');
+ assert.equal(await fact('Mercury Carnet PIN').textContent(),'004219');
+ assert.equal(await details.getByRole('textbox',{name:/Mercury Carnet|Formal Undertaking/}).count(),0);
+ await goods.fill('Workshop instruments');
+ await use.fill(editedUse);
+ await page.locator('#pack-document-preview').getByText(editedUse,{exact:true}).waitFor();
  const upload=details.getByLabel('Upload General List CSV',{exact:true});
  const download=details.getByRole('button',{name:'Download General List CSV',exact:true});
+ assert((await download.boundingBox()).x<(await upload.boundingBox()).x);
  const file=text=>({name:'general-list.csv',mimeType:'text/csv',buffer:Buffer.from(text)});
  const valid=file('Description,Number of pieces,Unit,Weight,Value,Origin\n"Portable instruments",2,KG,3,150,FR');
  page.once('dialog',dialog=>dialog.accept());
@@ -86,18 +94,25 @@ async function checkCarnet(page, framework) {
  const content=fs.readFileSync(await csv.path(),'utf8');
  assert(content.includes('Portable instruments')&&content.includes('Kilogram')&&content.includes('France'));
  assert(!content.includes('Invalid item'));
- await page.waitForFunction(()=>Object.values(localStorage).some(value=>value.includes('MERCURY-CHECK-041')&&value.includes('004219')&&value.includes('Portable instruments')));
+ await page.waitForFunction(react=>Object.values(localStorage).some(value=>
+  value.includes('Workshop instruments')&&value.includes('Portable instruments')&&value.includes(
+    react?'"use":["Commercial samples","Exhibition and fairs"]':'"use":"Commercial samples, Exhibition and fairs"'
+  )),react);
  await page.reload();
  await details.waitFor();
- assert.equal(await id.inputValue(),'MERCURY-CHECK-041');
- assert.equal(await pin.inputValue(),'004219');
+ assert.equal(await use.inputValue(),editedUse);
+ assert.equal(await goods.inputValue(),'Workshop instruments');
+ assert.equal(await fact('Mercury Carnet ID').textContent(),'MERCURY-CHECK-041');
+ assert.equal(await fact('Mercury Carnet PIN').textContent(),'004219');
  if(engineName==='chromium')await details.screenshot({path:path.join(out,framework+'-chamber-carnet-details.png')});
  await page.setViewportSize({width:390,height:844});
  await assertNoOverflow(page);
  await page.setViewportSize({width:1440,height:900});
  await page.goto(root+(react?'/#chamber/applications/Approved/cloud-ata-approved':'/vue/#/chamber/applications/cloud-ata-approved'));
  await details.waitFor();
- assert.equal(await id.getAttribute('readonly'), '');
+ assert.equal(await details.getByRole('textbox').count(),0);
+ assert.match(await fact(useLabel).textContent(),/professional equipment/i);
+ assert.equal(await fact('Goods Type').textContent(),'Machinery');
  assert.equal(await upload.count(),0);
  assert(await download.isEnabled());
 }

@@ -39,28 +39,31 @@ export function carnetGeneralListCsv(items) {
 export function renderChamberCarnet(node, {record, applicant, expiry, formatDate, writable, uploading, message, icon, update, upload, download}) {
   const fact = (label, value, preserve = false) => node('dl', {class: 'chamber-carnet-fact'},
     node('dt', {}, label), node('dd', {translate: preserve ? 'no' : undefined}, value || '—'));
-  const field = (label, key, fallback) => node('label', {class: 'chamber-carnet-input'},
-    node('span', {}, label),
-    node('input', {type: 'text', value: record[key] ?? fallback ?? '', readOnly: !writable, placeholder: 'Not recorded',
-      spellCheck: false, autoComplete: 'off', onInput: event => update(key, event.target.value)}));
-  const use = Array.isArray(record.use) ? record.use.filter(Boolean).join(', ') : record.use;
+  const field = (label, value, onChange) => writable
+    ? node('label', {class: 'chamber-carnet-input'},
+      node('span', {}, label),
+      node('input', {type: 'text', value: value ?? '', placeholder: 'Not recorded',
+        spellCheck: false, autoComplete: 'off', onInput: event => onChange(event.target.value)}))
+    : fact(label, value, true);
+  const multipleUses = Array.isArray(record.use);
+  const use = multipleUses ? record.use.join(', ') : record.use;
   return node('section', {class: 'chamber-carnet-application', 'aria-label': 'ATA Carnet application details'},
     node('h3', {}, 'ATA Carnet details'),
     node('div', {class: 'chamber-carnet-fields'},
       fact('Signatory (Applicant)', applicant, true),
       fact('Formal Undertaking Expiry Date', expiry ? formatDate(expiry) : ''),
       node('div', {class: 'chamber-carnet-fields chamber-carnet-credentials'},
-        field('Mercury Carnet ID', 'eCarnetId', record.ecarnetId),
-        field('Mercury Carnet PIN', 'eCarnetPin', record.ecarnetPin)),
-      field('Goods Type', 'goodsType'),
-      fact('Box C – Intended Use of Goods', use)),
+        fact('Mercury Carnet ID', record.eCarnetId ?? record.ecarnetId, true),
+        fact('Mercury Carnet PIN', record.eCarnetPin ?? record.ecarnetPin, true)),
+      field('Goods Type', record.goodsType, value => update('goodsType', value)),
+      field('Box C – Intended Use of Goods', use, value => update('use', multipleUses ? value.split(', ') : value))),
     node('div', {class: 'chamber-carnet-list-actions'},
       node('strong', {}, 'General List'),
       node('div', {class: 'button-row'},
+        node('button', {type: 'button', class: 'button outline small', 'aria-label': 'Download General List CSV', onClick: download},
+          icon('download'), 'Download CSV'),
         writable ? node('label', {class: 'button outline small file-inline chamber-list-upload'},
           icon('upload'), uploading ? 'Reading…' : 'Upload CSV',
-          node('input', {type: 'file', accept: '.csv,text/csv', disabled: uploading, 'aria-label': 'Upload General List CSV', onChange: upload})) : null,
-        node('button', {type: 'button', class: 'button outline small', 'aria-label': 'Download General List CSV', onClick: download},
-          icon('download'), 'Download CSV'))),
+          node('input', {type: 'file', accept: '.csv,text/csv', disabled: uploading, 'aria-label': 'Upload General List CSV', onChange: upload})) : null)),
     message ? node('p', {class: 'field-error', role: 'alert'}, message) : null);
 }

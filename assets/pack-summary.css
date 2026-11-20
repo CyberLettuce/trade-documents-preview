@@ -304,7 +304,8 @@ html body .pack-summary-bar .review-layout-actions button {
   padding-inline-start: 10px;
 }
 
-.chamber-carnet-credentials .chamber-carnet-input > span { font-weight: 700; }
+.chamber-carnet-credentials dt { font-weight: 600; }
+.chamber-carnet-credentials dd { font-variant-numeric: tabular-nums; }
 .chamber-carnet-list-actions {
   display: flex;
   flex-wrap: wrap;
