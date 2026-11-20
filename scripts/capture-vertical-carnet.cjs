@@ -98,7 +98,7 @@ async function arrangePreview(page, react) {
    const carnet=aside.locator('.chamber-carnet-application'), processing=aside.locator('.vertical-preview-processing');
    const [a,b]=await Promise.all([carnet.boundingBox(),processing.boundingBox()]);
    assert(Math.abs(a.y-b.y)<2&&b.x>=a.x+a.width,JSON.stringify({a,b}));
-   assert(await processing.getByText('Chamber signatory',{exact:framework==='vue'}).first().isVisible());
+   assert(await processing.locator('#review-signatory').isVisible());
    assert(await carnet.getByRole('button',{name:'Copy Mercury Carnet PIN'}).isVisible());
    assert(await carnet.getByRole('textbox',{name:'Intended Use of Goods'}).isVisible());
    await aside.screenshot({path:path.join(out,framework+'-vertical-application.png')});
