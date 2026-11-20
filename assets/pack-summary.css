@@ -256,3 +256,82 @@ html body .pack-summary-bar .review-layout-actions button {
 @media print {
   .review-magnifier { display: none !important; }
 }
+
+.chamber-carnet-application {
+  border: 1px solid var(--line, var(--colorNeutralStroke2));
+  border-radius: 6px;
+  padding: 12px;
+  margin-block: 0 16px;
+  min-width: 0;
+}
+
+.chamber-carnet-application h3 { margin: 0 0 10px; }
+.chamber-carnet-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 10px 14px;
+}
+
+.chamber-carnet-application dl.chamber-carnet-fact {
+  display: block;
+  min-width: 0;
+  margin: 0;
+}
+
+.chamber-carnet-application .chamber-carnet-fact dd {
+  margin: 3px 0 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.chamber-carnet-application .chamber-carnet-input {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  min-width: 0;
+}
+
+#pack-details-panel .chamber-carnet-input input {
+  width: 100%;
+  min-width: 0;
+  min-height: var(--review-control-height, 36px);
+  padding-block: 5px;
+}
+
+.chamber-carnet-credentials {
+  grid-column: 1 / -1;
+  border-inline-start: 3px solid var(--brand, var(--colorBrandStroke1, #a74100));
+  padding-inline-start: 10px;
+}
+
+.chamber-carnet-credentials .chamber-carnet-input > span { font-weight: 700; }
+.chamber-carnet-list-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin-block-start: 12px;
+}
+
+#pack-details-panel .chamber-carnet-list-actions .button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: var(--review-control-height, 36px);
+  padding: 4px 9px;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.chamber-list-upload { position: relative; cursor: pointer; }
+.chamber-list-upload input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  cursor: pointer;
+}
+.chamber-list-upload:focus-within {
+  outline: 2px solid var(--focus, var(--colorStrokeFocus2, #0078d4));
+  outline-offset: 2px;
+}

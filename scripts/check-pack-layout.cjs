@@ -35,6 +35,53 @@ async function showMagnifier(page, surface) {
  return {lens,point};
 }
 
+async function checkCarnet(page, framework) {
+ const react=framework==='react';
+ const root='http://127.0.0.1:5204/after';
+ const route=react?'/#chamber/applications/Pending/ch-app-1':'/vue/#/chamber/applications/sample-21';
+ await page.goto(root+route);
+ const details=page.getByRole('region',{name:'ATA Carnet application details'});
+ await details.waitFor();
+ const fact=name=>details.locator('dl').filter({has:details.getByText(name,{exact:true})}).locator('dd');
+ assert.equal(await fact('Signatory (Applicant)').textContent(),react?'Exporter sample signatory':'Alex Morgan');
+ assert.match(await fact('Formal Undertaking Expiry Date').textContent(),/2027/);
+ assert.match(await fact('Box C – Intended Use of Goods').textContent(),/professional equipment/i);
+ assert.match(await details.getByLabel('Goods Type',{exact:true}).inputValue(),/machinery/i);
+ const id=details.getByLabel('Mercury Carnet ID',{exact:true}),pin=details.getByLabel('Mercury Carnet PIN',{exact:true});
+ await id.fill('MERCURY-CHECK-041');
+ await pin.fill('004219');
+ const upload=details.getByLabel('Upload General List CSV',{exact:true});
+ const download=details.getByRole('button',{name:'Download General List CSV',exact:true});
+ const file=text=>({name:'general-list.csv',mimeType:'text/csv',buffer:Buffer.from(text)});
+ const valid=file('Description,Number of pieces,Unit,Weight,Value,Origin\n"Portable instruments",2,KG,3,150,FR');
+ if(react)page.once('dialog',dialog=>dialog.accept());
+ await upload.setInputFiles(valid);
+ await page.getByText('General List replaced.',{exact:true}).waitFor();
+ await upload.setInputFiles(file('Description,Number of pieces,Unit,Weight,Value,Origin\nInvalid item,0,KG,1,1,FR'));
+ await details.getByRole('alert').filter({hasText:'positive whole number'}).waitFor();
+ const pending=page.waitForEvent('download');
+ await download.click();
+ const csv=await pending;
+ assert.equal(csv.suggestedFilename(),'general-list.csv');
+ const content=fs.readFileSync(await csv.path(),'utf8');
+ assert(content.includes('Portable instruments')&&content.includes('Kilogram')&&content.includes('France'));
+ assert(!content.includes('Invalid item'));
+ await page.waitForFunction(()=>Object.values(localStorage).some(value=>value.includes('MERCURY-CHECK-041')&&value.includes('004219')&&value.includes('Portable instruments')));
+ await page.reload();
+ await details.waitFor();
+ assert.equal(await id.inputValue(),'MERCURY-CHECK-041');
+ assert.equal(await pin.inputValue(),'004219');
+ if(engineName==='chromium')await details.screenshot({path:path.join(out,framework+'-chamber-carnet-details.png')});
+ await page.setViewportSize({width:390,height:844});
+ await assertNoOverflow(page);
+ await page.setViewportSize({width:1440,height:900});
+ await page.goto(root+(react?'/#chamber/applications/Approved/ch-app-21':'/vue/#/chamber/applications/sample-13'));
+ await details.waitFor();
+ assert.equal(await id.getAttribute('readonly'), '');
+ assert.equal(await upload.count(),0);
+ assert(await download.isEnabled());
+}
+
 async function checkFit(page, preview, paper, details) {
  await paper.locator.waitFor({state:'visible'});
  await page.waitForFunction(({preview,paper})=>{
@@ -157,6 +204,8 @@ async function checkFit(page, preview, paper, details) {
    await page.setViewportSize({width:320,height:768});
    await assertNoOverflow(page);
    assert(await header.evaluate(el=>el.scrollWidth<=el.clientWidth+2));
+   await page.setViewportSize({width:1440,height:900});
+   await checkCarnet(page,framework);
    assert.deepEqual(errors,[]);
    results.push({framework,...metrics,pass:true});
   } catch(error){
