@@ -1,4 +1,4 @@
-import {renderCarnetReview} from '../assets/carnet-review.js?v=2026-11-20-carnet-r1';
+import {carnetTripCounts,renderCarnetReview} from '../assets/carnet-review.js?v=2026-11-20-carnet-r1';
 import {computed,h} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import {sectionsFor,itemTotals} from './form-model.js?v=2026-11-20-acceptance-r1';
 const money = new Intl.NumberFormat('en-GB', {style: 'currency', currency: 'GBP'}).format;
@@ -74,7 +74,7 @@ export function reviewGroups(f,ws){
  const ata=f.document==='ATA Carnet',signatory=ws.saved.signatories.find(s=>s.id===f.exporterSignatory)?.name||'—';
  const groups=[{title:'Documents & setup',step:'setup',rows:[row('Your reference',f.yourReference,true),row('Documents',f.documents.join(', ')),row('Destination country',f.destination),row('Originals / copies',f.originals+' / '+f.copies),row('Signatory',signatory,true)]},
  {title:ata?'Holder & representative':'Exporter & consignee',step:ata?'holder':'parties',actions:ata?[{label:'Holder',step:'holder'},{label:'Representative',step:'representative'}]:[{label:'Exporter',step:'parties'},{label:'Consignee',step:'consignee'}],rows:[row(ata?'Holder':'Exporter',[f.exporter,f.exporterAddress].filter(Boolean).join('\n'),true),row(ata?'Representative':'Consignee',ata?[f.representative,f.representativeAddress].filter(Boolean).join('\n'):[f.consignee,f.consigneeAddress].filter(Boolean).join('\n'),true)]}];
- if(ata)groups.push({title:'Intended use of goods',step:'intendedUse',rows:[row('Intended use of goods',f.use)]},{title:'Destination and transit countries',step:'countries',rows:f.trips.map(t=>row(t.country,t.type+' · '+t.visits))},{title:'Security',step:'security',rows:[row('Security arrangement',f.security),row('Security reference',f.securityReference,true),row('Security details',f.securityDetails,true)]});
+ if(ata)groups.push({title:'Intended use of goods',step:'intendedUse',rows:[row('Intended use of goods',f.use)]},{title:'Destination and transit countries',step:'countries',rows:f.trips.map(trip=>{const {visits,transits}=carnetTripCounts(trip);return row(trip.country,visits+' / '+transits);})},{title:'Security',step:'security',rows:[row('Security arrangement',f.security),row('Security reference',f.securityReference,true),row('Security details',f.securityDetails,true)]});
  const totals=itemTotals(f.items||[]);
  groups.push({title:ata?'General list':'Goods & origin',step:'goods',rows:[row('Goods',(f.items?.length?f.items.map((item,i)=>(i+1)+'. '+item.description).join('\n'):f.goods),true),...(ata?[row('Number of pieces',totals.pieces),row('Weight',Object.entries(totals.weights).map(([unit,weight])=>weight+' '+unit).join(', ')),row('Value',totals.value)]:[row('Country of origin',f.origin),row('Total gross',f.gross),row('Total net',f.net)])]});
  if(f.document==='Import certificate')groups.push({title:'Import details',step:'iic',rows:[row('End use of goods',f.endUse,true),row('Import value',f.importValue),row('Currency',f.currency),row('Supplier name',f.supplier,true),row('Purchase order number',f.purchaseOrder,true)]});
@@ -84,7 +84,8 @@ export function reviewGroups(f,ws){
  return groups.filter(g=>available.has(g.step)).map(g=>({...g,...(g.actions?{actions:g.actions.filter(a=>available.has(a.step))}:{})}));
 }
 const CarnetReview={props:['record','workspace'],emits:['edit'],setup(props,{emit}){return()=>renderCarnetReview((tag,attrs,...children)=>h(tag,attrs,children),{
- record:props.record,signatory:props.workspace.saved.signatories.find(entry=>entry.id===props.record.exporterSignatory)?.name,
+ record:props.record,documents:props.record.documents.join(', '),totals:itemTotals(props.record.items||[]),
+ signatory:props.workspace.saved.signatories.find(entry=>entry.id===props.record.exporterSignatory)?.name,
  edit:step=>emit('edit',step),formatMoney:money
 });}};
 export const ApplicationReview={components:{CarnetReview},props:['record','workspace','problems'],emits:['edit','issues'],setup(props){return{groups:computed(()=>{

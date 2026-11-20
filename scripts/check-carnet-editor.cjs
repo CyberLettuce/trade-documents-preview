@@ -36,7 +36,7 @@ async function openDraft(page,doc){
   }));assert(alignment.length&&alignment.every(delta=>delta<=4),JSON.stringify(alignment));
   await go(/Box P/);assert.equal(await page.getByLabel('Use',{exact:true}).count(),0);
   const visits=page.getByRole('spinbutton',{name:/^Visits 1/}),transits=page.getByRole('spinbutton',{name:/^Transits 1/});
-  await visits.fill('0');await transits.fill('2');await screenshot(page,framework+'-box-p');
+  await visits.fill('0');await transits.fill('2');assert.equal(await visits.inputValue(),'0');await visits.fill('1');await screenshot(page,framework+'-box-p');
   await go(/General List/);
   const template=page.getByRole('button',{name:'CSV template',exact:true}),downloadCsv=page.getByRole('button',{name:'Download CSV',exact:true});
   assert((await template.boundingBox()).x<(await downloadCsv.boundingBox()).x,'Template is directly before Download CSV');
@@ -48,8 +48,11 @@ async function openDraft(page,doc){
   await go(/^Review/);
   const summary=page.locator('.carnet-review-summary');await summary.waitFor();
   assert((await summary.locator('.transits').locator('..').innerText()).includes('2'));
+  assert((await summary.locator('.visits').locator('..').innerText()).includes('1'));
+  await summary.getByText('Total weight / volume',{exact:true}).waitFor();
   assert.equal(await summary.getByRole('table',{name:'ATA Carnet General List'}).count(),1);
   assert((await page.locator(react?'.editor-preview-column':'.editor-preview').boundingBox()).x>(await summary.boundingBox()).x,'Live preview alongside Review');
+  const dismiss=page.getByRole('button',{name:/^(Close|Dismiss) notification$/i});if(await dismiss.count())await dismiss.first().click();
   await page.evaluate(()=>scrollTo(0,0));await screenshot(page,framework+'-carnet-review');
   await summary.getByRole('button',{name:'Edit: Destination and transit countries'}).click();await transits.waitFor();assert.equal(await transits.inputValue(),'2');
   await go(/^Review/);await summary.waitFor();

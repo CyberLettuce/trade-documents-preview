@@ -198,6 +198,7 @@
 .carnet-review-goods thead th:nth-child(2) { width: 20%; }
 .carnet-review-goods thead th:nth-child(3) { width: 30%; }
 .carnet-review-goods :is(th, td):not(:first-child) { text-align: end; }
+.carnet-review-weight { margin-block-start: 10px; }
 
 @container carnet-review (max-width: 575px) {
   .carnet-review-itinerary { grid-template-columns: minmax(0, 1fr); }
