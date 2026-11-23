@@ -1,0 +1,28 @@
+name: Live screenshots for Figma review
+on:
+  push:
+    branches: [codex/figma-site-audit]
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      AUDIT_LIVE: '1'
+      PLAYWRIGHT_CHROMIUM_EXECUTABLE: /usr/bin/google-chrome
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: |
+          echo "NODE_PATH=$RUNNER_TEMP/audit-tools/node_modules" >> "$GITHUB_ENV"
+          npm install --prefix "$RUNNER_TEMP/audit-tools" --no-save --ignore-scripts playwright@1.56.1 axe-core@4.11.0
+      - run: node scripts/audit-sites.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-figma-audit
+          path: qa-results/
+          retention-days: 7
