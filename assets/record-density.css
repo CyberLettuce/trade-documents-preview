@@ -100,6 +100,37 @@ html body :is(#main-content,#chamber-main,#main) :is(.density-compact,.is-compac
 html body :is(#main-content,#chamber-main,#main) table.records-table.compact>tbody>tr>td{padding-block:5px!important}
 html body .dashboard-performance-metrics dd small{display:block;font-size:12px;font-weight:400;line-height:1.5;margin-top:4px}
 html body .application-reference-summary>.reference-button{min-height:22px!important;padding-block:0!important;line-height:18px!important}
+
+/* Match headings to the reading direction, controls, or numeric values below them. */
+html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table [data-table-align="start"] {
+  --table-cell-align:start;
+  text-align:start!important;
+}
+html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table [data-table-align="center"] {
+  --table-cell-align:center;
+  text-align:center!important;
+}
+html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table [data-table-align="end"] {
+  --table-cell-align:end;
+  text-align:end!important;
+  font-variant-numeric:tabular-nums;
+}
+html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table th[data-table-align] > button {
+  text-align:inherit!important;
+  justify-content:var(--table-cell-align)!important;
+  justify-items:var(--table-cell-align);
+  margin-inline:0!important;
+}
+html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table th[data-table-align="start"] > button {
+  padding-inline-start:0!important;
+}
+html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table [data-table-align] :is(.reference,.reference-button,.ch-reference,.report-reference,.claims-reference,.record-link,.application-reference-summary,.claims-holder,.claim-ref) {
+  text-align:var(--table-cell-align)!important;
+  justify-content:var(--table-cell-align)!important;
+}
+html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table [data-table-align="start"] :is(.ch-lock,.ch-application-meta,.claim-due) {
+  justify-content:start!important;
+}
 @media(max-width:600px){
  html body #chamber-main .claims-workqueue-table :is(th,td):is(:nth-child(2),:nth-child(3),:nth-child(4),:nth-child(6)){display:none!important}
  html body #chamber-main .claims-workqueue-table{table-layout:fixed!important;min-width:0!important;width:100%!important}

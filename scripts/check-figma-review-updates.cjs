@@ -34,6 +34,85 @@ async function noOverflow(page) {
   await page.waitForFunction(() => document.documentElement.scrollWidth <= innerWidth + 2);
 }
 
+const alignmentRoutes = {
+  react: {applications:'/#applications', claims:'/#chamber/claims/Open', accounts:'/#chamber/exporters', records:'/#stored'},
+  vue: {applications:'/vue/#/exporter/applications', claims:'/vue/#/chamber/claims', accounts:'/vue/#/chamber/exporters', records:'/vue/#/exporter/stored/buyers'}
+};
+
+async function checkAlignment(table, rules) {
+  await table.locator('th[data-table-align]').first().waitFor({state:'attached'});
+  const columns = await table.evaluate(node => {
+    const header = node.tHead.rows[node.tHead.rows.length - 1];
+    const row = Array.from(node.tBodies[0].rows).find(row => row.cells.length === header.cells.length);
+    return Array.from(header.cells, (cell, index) => {
+      const value = row?.cells[index];
+      const alignment = element => {
+        if (!element) return;
+        const {textAlign,direction} = getComputedStyle(element);
+        return textAlign === (direction === 'rtl' ? 'right' : 'left') ? 'start' : textAlign === (direction === 'rtl' ? 'left' : 'right') ? 'end' : textAlign;
+      };
+      return {
+        label:(cell.querySelector('.column-sort-label') || cell).textContent.trim(),
+        source:cell.dataset.column,
+        heading:alignment(cell),
+        sortButton:alignment(cell.querySelector(':scope > button')),
+        value:alignment(value),
+        ref:alignment(value?.querySelector('.reference, .reference-button, .ch-reference, .report-reference, .claims-reference'))
+      };
+    });
+  });
+  for (const [label, expected] of rules) {
+    const column = columns.find(col => label.test(col.label) || label.test(col.source || ''));
+    assert(column, 'Missing ' + label + ' in ' + JSON.stringify(columns));
+    assert.equal(column.heading, expected, JSON.stringify(column));
+    if (column.sortButton) assert.equal(column.sortButton, expected, JSON.stringify(column));
+    if (column.value) assert.equal(column.value, expected, JSON.stringify(column));
+    if (column.ref) assert.equal(column.ref, expected, JSON.stringify(column));
+  }
+}
+
+async function checkWorkspaceTables(page, framework, routes) {
+  const table = () => page.locator('main table:visible').first();
+  const applicationRules = [[/^(Application \/ exporter \/ holder|Reference|Application)$/i, 'start'], [/^Documents?$/i, 'start'], [/^Status$/i, 'center'], [/^Actions?$/i, 'center']];
+  const areas = alignmentRoutes[framework];
+  for (const [name, route, rules] of [
+    ['chamber-applications', routes.queue, applicationRules],
+    ['exporter-applications', areas.applications, applicationRules],
+    ['claims', areas.claims, [[/^Claim(?: \/ (?:carnet|holder))?$/i, 'start'], [/^Processing$/i, 'center'], [/^Next action$/i, 'start']]],
+    ['exporters', areas.accounts, [[/^Company(?: \/ account)?$/i, 'start'], [/^(Account )?Status$/i, 'center']]],
+    ['stored-data', areas.records, [[/^(Reference|Name|Company name)$/i, 'start'], [/^Actions?$/i, 'center']]],
+    ['user-performance', routes.performance, [[/^Chamber User$/i, 'start'], [/^Applications$/i, 'end'], [/^(?:Avg|Average) approval time$/i, 'end'], [/^Actions?$/i, 'center']]]
+  ]) {
+    await page.goto(local + route);
+    await checkAlignment(table(), rules);
+    if (name === 'chamber-applications' || name === 'user-performance') await shot(page, framework+'-alignment-'+name);
+  }
+
+  await page.setViewportSize({width:390,height:844});
+  await page.goto(local + routes.queue);
+  await checkAlignment(table(), applicationRules);
+  await noOverflow(page);
+
+  await page.evaluate(framework => {
+    if (framework === 'react') localStorage.setItem('trade-documents-language-v1','ar');
+    else {
+      const key = 'trade-documents-vue-comparison-v1-ui';
+      localStorage.setItem(key,JSON.stringify({...JSON.parse(localStorage.getItem(key) || '{}'), language:'ar'}));
+    }
+  }, framework);
+  await page.setViewportSize({width:1366,height:900});
+  await page.goto(local + routes.performance);
+  await page.waitForFunction(() => document.documentElement.dir === 'rtl');
+  await page.waitForFunction(() => {
+    const headers = Array.from(document.querySelector('main table')?.tHead?.rows[0]?.cells || []);
+    return headers[1]?.dataset.tableAlign === 'end' && /[\u0600-\u06ff]/.test(headers[1].textContent);
+  });
+  const arabic = await table().evaluate(node => Array.from(node.tHead.rows[0].cells).slice(0,2).map(cell => ({alignment:getComputedStyle(cell).textAlign,direction:getComputedStyle(cell).direction})));
+  assert.equal(arabic[0].direction,'rtl');
+  assert(['start','right'].includes(arabic[0].alignment),JSON.stringify(arabic));
+  assert(['end','left'].includes(arabic[1].alignment),JSON.stringify(arabic));
+}
+
 async function compare(browser, framework, routes, revision) {
   const after = revision === 'after';
   const context = await browser.newContext({viewport:{width:390,height:844}, locale:'en-GB'});
@@ -116,6 +195,7 @@ async function compare(browser, framework, routes, revision) {
       await page.getByRole('button',{name:'View User Performance report'}).click();
       await page.waitForURL(/reports\/users/);
       await noOverflow(page);
+      await checkWorkspaceTables(page, framework, routes);
     }
   } catch(error) {
     await shot(page,framework+'-'+revision+'-failure').catch(()=>{});
