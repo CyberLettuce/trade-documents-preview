@@ -5,7 +5,7 @@ html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-t
 }
 html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) > :is(thead,tbody,tfoot) > tr > :is(th,td) {
   padding:7px 6px!important;
-  text-align:center!important;
+  text-align:var(--table-cell-align,start)!important;
   vertical-align:middle!important;
   line-height:18px!important;
   font-size:13px!important;
@@ -53,9 +53,6 @@ html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-t
   min-height:32px!important;
   padding:5px 10px!important;
   line-height:20px!important;
-}
-html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(.application-reference-summary,.claims-holder,.claim-processing,.claim-ref) {
-  text-align:center!important;
 }
 html body :is(#main-content,#chamber-main,#main) table:is(.data-table,.records-table,.application-table,.ch-table,.claims-table,.performance-table,.report-table,.recent-table) :is(small,.cell-subtext,.muted) {
   line-height:16px!important;
