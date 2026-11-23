@@ -59,7 +59,7 @@ export function renderChamberCarnet(node, {record, applicant, expiry, formatDate
   const field = (label, value, onChange) => writable
     ? node('label', {class: 'chamber-carnet-input'},
       node('span', {}, label, node('span', {class: 'field-help-mark', 'aria-hidden': true, 'data-tip': fieldHelp(label)}, '?')),
-      node('input', {type: 'text', value: value ?? '', placeholder: 'Not recorded', 'data-tip': fieldHelp(label),
+      node('input', {type: 'text', value: value ?? '', placeholder: 'Not recorded', 'aria-label': label, 'data-tip': fieldHelp(label),
         spellCheck: false, autoComplete: 'off', onInput: event => onChange(event.target.value)}))
     : fact(label, value, true);
   const multipleUses = Array.isArray(record.use);
