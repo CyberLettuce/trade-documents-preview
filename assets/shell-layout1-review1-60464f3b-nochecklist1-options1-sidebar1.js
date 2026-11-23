@@ -4,7 +4,7 @@ import {registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11
 for(const [locale,words] of Object.entries(sidebarWords))registerPatterns(Object.entries(words),locale);
 import './quick-access-translations1.js?v=2026-11-20-acceptance-r1';
 import {shortcutCatalog,normaliseShortcuts,shortcutDefaults,shortcutKey,readShortcuts,saveShortcuts} from './quick-access-model1.js?v=2026-11-20-acceptance-r1';
-import {r as React,I as Icon,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-20-certificate-review-r1';
+import {r as React,I as Icon,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-23-site-review-r1';
 import {languageCreateElement as h,LanguageFlag} from './language-runtime-review1-57775012.js?v=2026-11-20-acceptance-r1';
 const KEY='trade-documents-shell-layout-v1',EVENT='trade-documents-shell-layout',TAB='trade-documents-exporter-settings-tab';
 const valid=value=>value==='sidebar'?'sidebar':'header';

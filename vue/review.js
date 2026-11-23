@@ -4,7 +4,7 @@ import {certificateTypes,ensureCertificateNumber} from '../assets/certificate-nu
 import {fieldHelp} from '../assets/field-help.js?v=2026-11-20-certificate-review-r1';
 import {installReviewMagnifier} from '../assets/review-magnifier.js?v=2026-11-20-pending-review-r1';
 import {readPreference,savePreference} from '../assets/review-preferences.js?v=2026-11-20-pending-review-r1';
-import {copiedDraft} from './applications.js?v=2026-11-20-certificate-review-r1';
+import {copiedDraft} from './applications.js?v=2026-11-23-site-review-r1';
 import {eligiblePrintActions,changePrintAccess,printActions} from './approved-actions.js?v=2026-11-20-certificate-review-r1';
 import {h,ref,computed,watch,onMounted,onUnmounted} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
 import {ws,useApp,audit,formatDate,money,download} from './workspace.js?v=2026-11-20-certificate-review-r1';
@@ -14,7 +14,7 @@ import {StampEditor} from './stamping.js?v=2026-11-20-certificate-review-r1';
 import {quoteDocuments} from './form-model.js?v=2026-11-20-chamber-carnet-r1';
 import {Icon} from './components.js?v=2026-11-20-certificate-review-r1';
 import {parseCSV,uid} from './workspace-model.js?v=2026-11-20-acceptance-r1';
-import {carnetApplicant,readCarnetGeneralList,carnetGeneralListCsv,renderChamberCarnet} from '../assets/chamber-carnet-details.js?v=2026-11-20-certificate-review-r1';
+import {carnetApplicant,readCarnetGeneralList,carnetGeneralListCsv,renderChamberCarnet} from '../assets/chamber-carnet-details.js?v=2026-11-23-site-review-r1';
 const ChamberCarnetApplication={
  props:{record:Object,writable:Boolean},
  setup(props){

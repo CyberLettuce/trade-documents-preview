@@ -1,6 +1,6 @@
-import {ApplicationPdfViewer} from "./application-pdf-viewer1-clien-review1-1ea92b06-nochecklist1.js?v=2026-11-20-certificate-review-r1";
+import {ApplicationPdfViewer} from "./application-pdf-viewer1-clien-review1-1ea92b06-nochecklist1.js?v=2026-11-23-site-review-r1";
 import {findAttachment,readPdf} from "./application-attachment-store1-review1-5e01d232.js?v=2026-11-20-acceptance-r1";
-import {r as React,I as Icon,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-20-certificate-review-r1';
+import {r as React,I as Icon,M as Modal} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-23-site-review-r1';
 import {languageCreateElement as h,preserveValue,translate} from './language-runtime-review1-57775012.js?v=2026-11-20-acceptance-r1';
 import {STAMPS,documentKey,fitStamp,stampImage,readDocument,writeDocument,loadPdfjs,pdfOptions,exportStamped,hasSignature,createStamps,placedStamp,stampSize} from './stamp-logic3.js?v=2026-11-20-acceptance-r1';
 import {placedStampForPage} from './qr-stamp1.js?v=2026-11-20-acceptance-r1';
