@@ -73,7 +73,7 @@ async function checkAlignment(table, rules) {
 
 async function checkWorkspaceTables(page, framework, routes) {
   const table = () => page.locator('main table:visible').first();
-  const applicationRules = [[/^(Application \/ exporter \/ holder|Reference|Application)$/i, 'start'], [/^Documents?$/i, 'start'], [/^Status$/i, 'center'], [/^Actions?$/i, 'center']];
+  const applicationRules = [[/^(Application \/ exporter \/ holder|Reference(?: \/ exporter)?|Application)$/i, 'start'], [/^Documents?$/i, 'start'], [/^Status$/i, 'center'], [/^Actions?$/i, 'center']];
   const areas = alignmentRoutes[framework];
   for (const [name, route, rules] of [
     ['chamber-applications', routes.queue, applicationRules],

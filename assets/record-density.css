@@ -102,18 +102,21 @@ html body .dashboard-performance-metrics dd small{display:block;font-size:12px;f
 html body .application-reference-summary>.reference-button{min-height:22px!important;padding-block:0!important;line-height:18px!important}
 
 /* Match headings to the reading direction, controls, or numeric values below them. */
-html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table [data-table-align="start"] {
+html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table > :is(thead,tbody,tfoot) > tr > :is(th,td)[data-table-align="start"] {
   --table-cell-align:start;
   text-align:start!important;
 }
-html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table [data-table-align="center"] {
+html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table > :is(thead,tbody,tfoot) > tr > :is(th,td)[data-table-align="center"] {
   --table-cell-align:center;
   text-align:center!important;
 }
-html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table [data-table-align="end"] {
+html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table > :is(thead,tbody,tfoot) > tr > :is(th,td)[data-table-align="end"] {
   --table-cell-align:end;
   text-align:end!important;
   font-variant-numeric:tabular-nums;
+}
+html body table td[data-table-align="end"] :is(input[type="number"],input[inputmode="decimal"],input[inputmode="numeric"]) {
+  text-align:end;
 }
 html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table th[data-table-align] > button {
   text-align:inherit!important;

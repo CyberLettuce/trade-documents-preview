@@ -4,18 +4,20 @@ import {loadLocale} from './locale-loader.js?v=2026-11-20-acceptance-r1';
 // values, so dates and identifiers with digits still align with other text.
 const centered = [
   'Select', 'Selection', 'Status', 'Account status', 'Application status',
-  'Decision', 'Payment', 'Payment status', 'Processing', 'Actions',
+  'Decision', 'Payment', 'Payment status', 'Processing', 'Claim status', 'Actions',
 ];
 const numeric = [
   'Amount', 'Applications', 'Applications processed', 'Approved', 'Approved documents',
   'Average approval time', 'Average rejection time', 'Average time to approval',
   'Average time to rejection', 'Avg approval time', 'Avg rejection time',
-  'Copies', 'Count', 'Documents processed', 'Fee', 'Fees', 'Gross', 'Handling time',
+  'Copies', 'Count', 'Documents processed', 'Fee', 'Fees', 'Gross', 'Gross total',
+  'Gross weight', 'Handling time', 'Member / non-member fee', 'Net fees', 'Net weight',
   'Net', 'No. of pieces', 'Number of pieces', 'Originals', 'Pieces', 'Quantity',
   'Quantity / weight', 'Re-submission fee', 'Re-submission fee (£)', 'Rejected',
-  'Rejected documents', 'Resubmission fee', 'Sample amount', 'Submission fee',
-  'Submission fee (£)', 'Tax', 'Tax (%)', 'Timed applications', 'Total',
-  'Total documents', 'Unit price', 'Value', 'VAT', 'Weight', 'Weight / volume',
+  'Rejected documents', 'Resubmission fee', 'Sample amount', 'Sample total',
+  'Sample VAT', 'Submission fee', 'Submission fee (£)', 'Tax', 'Tax (%)', 'Tax rate (%)',
+  'Timed applications', 'Total', 'Total documents', 'Unit price', 'Value', 'VAT',
+  'VAT (20%)', 'Volume', 'Weight', 'Weight / volume',
 ];
 const headings = [...centered, ...numeric, 'Action', 'Standard', 'eXpress'];
 const normalize = value => value?.trim().replace(/\s+/g, ' ').toLowerCase() || '';
