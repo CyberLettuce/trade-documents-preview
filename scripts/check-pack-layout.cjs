@@ -313,12 +313,13 @@ async function checkCertificateReview(page, framework) {
  await layout.getByRole('alert').filter({hasText:'EUR1 certificate number is invalid - enter 1 letter followed by 7 to 8 digits'}).waitFor();
  await layout.getByRole('alert').filter({hasText:'Arab C of O certificate number is invalid - enter 1 or 2 letters followed by 6 to 9 digits'}).waitFor();
  await page.getByRole('button',{name:'Approve',exact:true}).click();
+ await page.waitForFunction(()=>document.activeElement?.id==='review-certificate-eur');
  assert.equal(await eur.getAttribute('aria-invalid'),'true');
  assert.equal(await arab.getAttribute('aria-invalid'),'true');
  assert(await page.locator('.pack-summary-status').getByText('Pending',{exact:true}).isVisible());
  await eur.fill('a1234567');
  await arab.fill('AB123456789');
- assert.equal(await layout.locator('[id^="review-certificate-"][role="alert"]').count(),0);
+ await page.waitForFunction(()=>!document.querySelector('.certificate-application-columns [id^="review-certificate-"][role="alert"]'));
  await declaration.fill('2026-11-18');
  await endorsement.fill('2026-11-19');
  const eurPaper=page.locator('#pack-document-preview .certificate-eur').first();
