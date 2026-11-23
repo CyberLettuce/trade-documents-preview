@@ -10,16 +10,17 @@ const numeric = [
   'Amount', 'Applications', 'Applications processed', 'Approved', 'Approved documents',
   'Average approval time', 'Average rejection time', 'Average time to approval',
   'Average time to rejection', 'Avg approval time', 'Avg rejection time',
-  'Copies', 'Count', 'Documents processed', 'Fee', 'Fees', 'Gross', 'Gross total',
+  'Copies', 'Count', 'Documents processed', 'Fee', 'Fees', 'Goods value (£)', 'Gross', 'Gross total',
   'Gross weight', 'Handling time', 'Member / non-member fee', 'Net fees', 'Net weight',
-  'Net', 'No. of pieces', 'Number of pieces', 'Originals', 'Pieces', 'Quantity',
+  'Net', 'Net (£)', 'No. of pieces', 'Number of pieces', 'Originals', 'Pieces', 'Quantity',
   'Quantity / weight', 'Re-submission fee', 'Re-submission fee (£)', 'Rejected',
   'Rejected documents', 'Resubmission fee', 'Sample amount', 'Sample total',
-  'Sample VAT', 'Submission fee', 'Submission fee (£)', 'Tax', 'Tax (%)', 'Tax rate (%)',
-  'Timed applications', 'Total', 'Total documents', 'Unit price', 'Value', 'VAT',
+  'Sample VAT', 'Sample VAT (£)', 'Submission fee', 'Submission fee (£)', 'Tax', 'Tax (%)', 'Tax rate (%)',
+  'Timed applications', 'Total', 'Total (£)', 'Total documents', 'Unit price', 'Value', 'VAT',
   'VAT (20%)', 'Volume', 'Weight', 'Weight / volume',
 ];
-const headings = [...centered, ...numeric, 'Action', 'Standard', 'eXpress'];
+const volumeLabels = ['Standard', 'eXpress', 'Other / not recorded'];
+const headings = [...centered, ...numeric, ...volumeLabels, 'Action'];
 const normalize = value => value?.trim().replace(/\s+/g, ' ').toLowerCase() || '';
 const labels = new Map(headings.map(label => [normalize(label), label]));
 const numericLabels = new Set(numeric);
@@ -37,7 +38,7 @@ function roleOf(header, label, volumeTable, bodyCell) {
   if (centeredLabels.has(label) || (!header.textContent.trim() && header.querySelector('input[type="checkbox"]'))) return 'center';
   // Audit log actions are written descriptions. Queue actions are controls.
   if (label === 'Action' && (!bodyCell || bodyCell.querySelector('button, a, [role="button"]'))) return 'center';
-  if (numericLabels.has(label) || (volumeTable && (label === 'Standard' || label === 'eXpress'))) return 'end';
+  if (numericLabels.has(label) || (volumeTable && volumeLabels.includes(label))) return 'end';
   return 'start';
 }
 

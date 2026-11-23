@@ -73,15 +73,18 @@ async function checkAlignment(table, rules) {
 
 async function checkWorkspaceTables(page, framework, routes) {
   const table = () => page.locator('main table:visible').first();
-  const applicationRules = [[/^(Application \/ exporter \/ holder|Reference(?: \/ exporter)?|Application)$/i, 'start'], [/^Documents?$/i, 'start'], [/^Status$/i, 'center'], [/^Actions?$/i, 'center']];
+  const applicationRules = [[/^(Application \/ exporter \/ holder|Reference(?: \/ (?:exporter|your reference))?|Application)$/i, 'start'], [/^Documents?$/i, 'start'], [/^Status$/i, 'center'], [/^Actions?$/i, 'center']];
   const areas = alignmentRoutes[framework];
+  const reports = routes.performance.replace(/users$/, '');
   for (const [name, route, rules] of [
     ['chamber-applications', routes.queue, applicationRules],
     ['exporter-applications', areas.applications, applicationRules],
     ['claims', areas.claims, [[/^Claim(?: \/ (?:carnet|holder))?$/i, 'start'], [/^Processing$/i, 'center'], [/^Next action$/i, 'start']]],
     ['exporters', areas.accounts, [[/^Company(?: \/ account)?$/i, 'start'], [/^(Account )?Status$/i, 'center']]],
     ['stored-data', areas.records, [[/^(Reference|Name|Company name)$/i, 'start'], [/^Actions?$/i, 'center']]],
-    ['user-performance', routes.performance, [[/^Chamber User$/i, 'start'], [/^Applications$/i, 'end'], [/^(?:Avg|Average) approval time$/i, 'end'], [/^Actions?$/i, 'center']]]
+    ['user-performance', routes.performance, [[/^Chamber User$/i, 'start'], [/^Applications$/i, 'end'], [/^(?:Avg|Average) approval time$/i, 'end'], [/^Actions?$/i, 'center']]],
+    ['invoice-report', reports + 'invoice', [[/^Exporter$/i, 'start'], [/^Net(?: \(£\))?$/i, 'end'], [/^Total(?: \(£\))?$/i, 'end'], [/^Payment$/i, 'center']]],
+    ['bcc-report', reports + 'bcc', [[/^Document$/i, 'start'], [/^Standard$/i, 'end'], [/^eXpress$/i, 'end'], [/^Total$/i, 'end']]]
   ]) {
     await page.goto(local + route);
     await checkAlignment(table(), rules);
