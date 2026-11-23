@@ -70,7 +70,7 @@
   display: none;
 }
 
-.pack-summary-save:has(.has-error, .autosave-recovered) {
+.pack-summary-save:has(.has-error) {
   flex-basis: 100%;
 }
 
@@ -95,7 +95,7 @@
 }
 .pack-summary-tools .pack-summary-save { margin-inline-start: 0; }
 
-.pack-summary-tools:has(.has-error, .autosave-recovered) { flex-basis: 100%; }
+.pack-summary-tools:has(.has-error) { flex-basis: 100%; }
 .pack-summary-bar .review-layout-actions { justify-content: start; gap: 6px; }
 html body .pack-summary-bar .review-layout-actions button {
   min-height: 32px;

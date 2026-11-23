@@ -1,0 +1,72 @@
+.reference-short,
+.queue-payment-notice,
+.mobile-review-switch { display: none; }
+
+.dashboard-draft-action { white-space: nowrap; }
+.dashboard-performance-heading select { max-width: 154px; }
+.exporter-home .work-row:has(.dashboard-draft-action),
+#app .work-row:has(.dashboard-draft-action) {
+  grid-template-columns: minmax(0, 1fr) auto auto;
+}
+#app .work-row:has(.dashboard-draft-action) .draft-next-step { margin: 3px 0; }
+.performance-time-definition { margin: 0 0 14px; }
+.queue-payment-notice { margin-block-start: 3px; }
+.queue-payment-notice .badge { white-space: normal; }
+
+[data-theme="dark"] .search-input input::placeholder {
+  color: var(--muted, #d1d1d1);
+  opacity: 1;
+}
+
+.pack-summary-bar .autosave-status.is-compact .autosave-recovered {
+  margin-block: 3px 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+@media (max-width: 600px) {
+  html body :is(.ch-app, .ex-fluent) .status-tabs.application-queue-tabs,
+  html body #main .status-tabs.application-queue-tabs {
+    flex-wrap: wrap;
+    overflow: visible;
+    white-space: normal;
+    gap: 0 12px;
+  }
+
+  html body .status-tabs.application-queue-tabs > button {
+    flex: 0 1 auto;
+    max-width: 100%;
+    min-height: 40px;
+    white-space: normal;
+  }
+
+  .reference-short { display: inline; font-size: 11.5px; white-space: nowrap; }
+  .reference-full.has-short { display: none; }
+  .application-reference-link:not(:has(.reference-short)) { overflow-wrap: anywhere; word-break: normal; }
+  .queue-payment-notice { display: block; }
+  .queue-payment-notice .badge { font-size: 11px !important; }
+  #app .work-row:has(.dashboard-draft-action) { grid-template-columns: minmax(0, 1fr) auto; }
+  #app .work-row .dashboard-draft-action { grid-column: 1 / -1; justify-self: start; }
+
+  .pack-summary-bar .review-desktop-toggle { display: none !important; }
+  .mobile-review-switch {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+  }
+  html body .mobile-review-switch button {
+    min-height: 44px;
+    padding: 6px;
+    white-space: normal;
+  }
+  .mobile-review-switch button[aria-pressed="true"] {
+    color: var(--brand, var(--colorBrandForeground1, currentColor));
+    border-color: currentColor;
+    font-weight: 700;
+  }
+  html body :is(.pack-action-bar, .review-actions).mobile-review-decision-hidden { display: none !important; }
+}
