@@ -80,6 +80,8 @@ async function compare(browser, framework, routes, revision) {
       await details.getByRole('heading',{name:'Certificate details'}).waitFor();
       assert.equal(await preview.isVisible(),false);
       assert(await approve.isVisible());
+      await page.evaluate(()=>window.scrollTo(0,0));
+      await shot(page,framework+'-details-after');
       const processing=details.locator('.review-processing-fields :is(input,select)');
       const order=await processing.evaluateAll(fields=>fields.map(field=>field.getAttribute('aria-label')||field.closest('label')?.textContent?.trim()||field.id));
       const signatoryIndex=order.findIndex(label=>/signatory/i.test(label));
@@ -87,7 +89,6 @@ async function compare(browser, framework, routes, revision) {
       const reference=details.getByRole('textbox',{name:/Chamber Reference/i});
       await reference.fill('CH-FIGMA-CHECK');
       await noOverflow(page);
-      await shot(page,framework+'-details-after');
       await switcher.getByRole('button',{name:'Document',exact:true}).click();
       await preview.waitFor();
       await switcher.getByRole('button',{name:'Application details',exact:true}).click();
@@ -106,8 +107,10 @@ async function compare(browser, framework, routes, revision) {
     await page.getByText('Average time to approval',{exact:true}).first().waitFor();
     if(after)await page.getByText(/Handling time runs from submission to the final decision/).first().waitFor();
     await shot(page,framework+'-performance-'+revision);
+    await open(routes.dashboard);
+    await page.getByRole('heading',{name:'Applications to review',exact:true}).waitFor();
+    await shot(page,framework+'-chamber-dashboard-'+revision);
     if(after){
-      await open(routes.dashboard);
       const period=page.getByRole('combobox',{name:'Performance period'});
       await period.selectOption({label:'All dates'});
       await page.getByRole('button',{name:'View User Performance report'}).click();

@@ -187,10 +187,14 @@ async function checkCarnet(page, framework) {
  await page.setViewportSize({width:390,height:844});
  await assertNoOverflow(page);
  await page.waitForFunction(()=>{
+  const sheet=document.querySelector('#pack-document-preview .document-scaled-page, #pack-document-preview .paper-space .native-paper');
+  return sheet?.getBoundingClientRect().width>=90;
+ });
+ await page.getByRole('group',{name:'Review view'}).getByRole('button',{name:'Application details',exact:true}).click();
+ await page.waitForFunction(()=>{
   const [details,processing]=document.querySelector('.carnet-application-columns').children;
   const a=details.getBoundingClientRect(), b=processing.getBoundingClientRect();
-  const sheet=document.querySelector('#pack-document-preview .document-scaled-page, #pack-document-preview .paper-space .native-paper');
-  return Math.abs(a.x-b.x)<3&&b.y>=a.bottom&&sheet?.getBoundingClientRect().width>=90;
+  return a.width>0&&Math.abs(a.x-b.x)<3&&b.y>=a.bottom;
  });
  await page.setViewportSize({width:1440,height:900});
  await page.goto(root+(react?'/#chamber/applications/Approved/cloud-ata-approved':'/vue/#/chamber/applications/cloud-ata-approved'));
@@ -207,6 +211,7 @@ async function checkCarnet(page, framework) {
  if(react)assert(!(await sidebar.getByLabel('Certification fee (£)',{exact:true}).isEditable()));
  else assert.equal(await sidebar.getByRole('button',{name:'Recalculate fees',exact:true}).count(),0);
  await page.setViewportSize({width:390,height:844});
+ await page.getByRole('group',{name:'Review view'}).getByRole('button',{name:'Application details',exact:true}).click();
  await assertNoOverflow(page);
  const [mobileSummary,mobileFees]=await Promise.all([summaryTitle.boundingBox(),feesTitle.boundingBox()]);
  assert(Math.abs(mobileFees.x-mobileSummary.x)<3&&mobileFees.y>mobileSummary.y+20,JSON.stringify({mobileSummary,mobileFees}));
@@ -288,6 +293,7 @@ async function checkCertificateReview(page, framework) {
  assert(right.x>=left.x+left.width&&Math.abs(right.y-left.y)<3);
  if(engineName==='chromium')await sidebar.screenshot({path:path.join(out,framework+'-pending-uk-certificate.png')});
  await page.setViewportSize({width:390,height:844});
+ await page.getByRole('group',{name:'Review view'}).getByRole('button',{name:'Application details',exact:true}).click();
  await assertNoOverflow(page);
  const [first,second]=await Promise.all([panels.nth(0).boundingBox(),panels.nth(1).boundingBox()]);
  assert(Math.abs(first.x-second.x)<3&&second.y>=first.y+first.height);

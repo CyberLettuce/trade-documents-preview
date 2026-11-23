@@ -4,7 +4,6 @@
 
 .dashboard-draft-action { white-space: nowrap; }
 .dashboard-performance-heading select { max-width: 154px; }
-.exporter-home .work-row:has(.dashboard-draft-action),
 #app .work-row:has(.dashboard-draft-action) {
   grid-template-columns: minmax(0, 1fr) auto auto;
 }
@@ -28,6 +27,10 @@
 }
 
 @media (max-width: 600px) {
+  .page-heading:has(+ .application-queue-tabs) {
+    min-height: 0;
+    margin-block-end: 12px;
+  }
   html body :is(.ch-app, .ex-fluent) .status-tabs.application-queue-tabs,
   html body #main .status-tabs.application-queue-tabs {
     flex-wrap: wrap;
@@ -52,6 +55,7 @@
   #app .work-row .dashboard-draft-action { grid-column: 1 / -1; justify-self: start; }
 
   .pack-summary-bar .review-desktop-toggle { display: none !important; }
+  html:has(.mobile-review-switch) { scroll-padding-block-end: 110px; }
   .mobile-review-switch {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
