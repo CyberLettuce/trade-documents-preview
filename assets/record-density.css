@@ -131,6 +131,21 @@ html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) tab
 html body :is(main,#main,#main-content,#chamber-main,dialog,[role="dialog"]) table [data-table-align="start"] :is(.ch-lock,.ch-application-meta,.claim-due) {
   justify-content:start!important;
 }
+@media (min-width:761px) and (max-width:1450px) {
+  /* Keep the sort glyph clear of longer labels when the Vue queue is narrow. */
+  html body main table.application-table th.secondary-col > .column-sort-button {
+    grid-template-columns:minmax(0,1fr);
+    row-gap:2px!important;
+  }
+  html body main table.application-table th.secondary-col > .column-sort-button > span:first-child {
+    overflow-wrap:break-word;
+  }
+}
+@media (min-width:1200px) and (max-width:1450px) {
+  html body main table.application-table:has(.reference-col > .column-sort-button) th.actions-col {
+    width:132px!important;
+  }
+}
 @media(max-width:600px){
  html body #chamber-main .claims-workqueue-table :is(th,td):is(:nth-child(2),:nth-child(3),:nth-child(4),:nth-child(6)){display:none!important}
  html body #chamber-main .claims-workqueue-table{table-layout:fixed!important;min-width:0!important;width:100%!important}

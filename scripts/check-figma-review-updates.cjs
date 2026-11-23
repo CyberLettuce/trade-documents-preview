@@ -96,6 +96,9 @@ async function checkWorkspaceTables(page, framework, routes) {
   await checkAlignment(table(), applicationRules);
   await noOverflow(page);
 
+  await page.setViewportSize({width:1366,height:900});
+  await page.goto(local + routes.performance);
+  await table().locator('th[data-table-align]').first().waitFor({state:'attached'});
   await page.evaluate(framework => {
     if (framework === 'react') localStorage.setItem('trade-documents-language-v1','ar');
     else {
@@ -103,8 +106,7 @@ async function checkWorkspaceTables(page, framework, routes) {
       localStorage.setItem(key,JSON.stringify({...JSON.parse(localStorage.getItem(key) || '{}'), language:'ar'}));
     }
   }, framework);
-  await page.setViewportSize({width:1366,height:900});
-  await page.goto(local + routes.performance);
+  await page.reload();
   await page.waitForFunction(() => document.documentElement.dir === 'rtl');
   await page.waitForFunction(() => {
     const headers = Array.from(document.querySelector('main table')?.tHead?.rows[0]?.cells || []);
