@@ -11,12 +11,12 @@ jobs:
     timeout-minutes: 18
     strategy:
       matrix:
-        shard: [0,1,2,3]
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
       fail-fast: false
     env:
       HF_HUB_DISABLE_XET: '1'
       DANISH_SHARD: ${{ matrix.shard }}
-      DANISH_PARTS: '4'
+      DANISH_PARTS: '16'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,4 +28,33 @@ jobs:
         with:
           name: danish-interface-dictionary-${{ matrix.shard }}
           path: qa-results/
+          retention-days: 14
+  collect:
+    needs: dictionary
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: danish-interface-dictionary-*
+          path: shards
+      - name: Combine all Danish interface strings
+        run: |
+          mkdir collected
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          parts=list(Path('shards').glob('*/da.json'))
+          assert len(parts)==16
+          words={}
+          for part in parts:
+              next_words=json.loads(part.read_text(encoding='utf-8'))
+              assert not set(words).intersection(next_words)
+              words.update(next_words)
+          print(f'{len(words)} Danish interface entries')
+          Path('collected/da.json').write_text(json.dumps(words,ensure_ascii=False),encoding='utf-8')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: danish-interface-dictionary
+          path: collected/
           retention-days: 14

@@ -48,8 +48,17 @@ def translate(segments):
     if not segments:
         return []
     tokenized = source.encode(segments, out_type=str)
-    answers = translator.translate_batch(tokenized, beam_size=1, max_batch_size=768, batch_type="tokens", max_decoding_length=350)
-    return target.decode([answer.hypotheses[0] for answer in answers])
+    ordered = sorted(enumerate(tokenized), key=lambda item: len(item[1]))
+    output_tokens = [[] for _ in tokenized]
+    for start in range(0,len(ordered),32):
+        batch = ordered[start:start+32]
+        longest = len(batch[-1][1])
+        answers = translator.translate_batch([tokens for _,tokens in batch], beam_size=1,
+            max_batch_size=384, batch_type="tokens", max_decoding_length=min(350,max(18,2*longest+8)),
+            no_repeat_ngram_size=3)
+        for (index,_),answer in zip(batch,answers):
+            output_tokens[index] = answer.hypotheses[0]
+    return target.decode(output_tokens)
 
 
 unique = list(this_shard.values())
