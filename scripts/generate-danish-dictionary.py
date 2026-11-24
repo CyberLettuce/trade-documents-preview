@@ -4,6 +4,7 @@ from pathlib import Path
 import json
 import os
 import re
+from tempfile import TemporaryDirectory
 
 from ctranslate2 import Translator
 from huggingface_hub import snapshot_download
@@ -22,7 +23,15 @@ folder = Path(snapshot_download(
     revision="d5fb205eb145ee1fef933d16f9c102108518261d",
     allow_patterns=["opus-mt-en-da/*"],
 )) / "opus-mt-en-da"
-translator = Translator(str(folder), device="cpu", compute_type="int8", intra_threads=2, inter_threads=2)
+# Match the encoder EOS and decoder start token in the original Marian model.
+model_dir = TemporaryDirectory(prefix="danish-marian-")
+model = Path(model_dir.name)
+config = json.loads((folder / "config.json").read_text(encoding="utf-8"))
+config.update(add_source_eos=True, decoder_start_token="<pad>")
+(model / "config.json").write_text(json.dumps(config), encoding="utf-8")
+for filename in ("model.bin", "shared_vocabulary.json"):
+    (model / filename).symlink_to((folder / filename).resolve())
+translator = Translator(str(model), device="cpu", compute_type="int8", intra_threads=2, inter_threads=2)
 source = SentencePieceProcessor(model_file=str(folder / "source.spm"))
 target = SentencePieceProcessor(model_file=str(folder / "target.spm"))
 
@@ -60,6 +69,11 @@ def translate(segments):
             output_tokens[index] = answer.hypotheses[0]
     return target.decode(output_tokens)
 
+
+samples = translate(["Upload image", "Account status", "Add a document"])
+print(f"Sample translations: {samples!r}", flush=True)
+assert all(stem in phrase.casefold() and len(phrase) < 50
+           for stem, phrase in zip(("billed", "status", "dokument"), samples)), "The translation model output failed the quality probe"
 
 unique = list(this_shard.values())
 translated = {}
