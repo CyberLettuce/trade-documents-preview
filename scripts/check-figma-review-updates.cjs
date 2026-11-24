@@ -289,7 +289,7 @@ async function checkDashboardImage(browser, framework, routes) {
     });
     const buffer=Buffer.from(upload,'base64');
     assert(buffer.length>600*1024, 'The sample must exceed the previous limit');
-    await page.getByRole('button',{name:'Image',exact:true}).last().click();
+    await page.getByRole('button',{name:/^image$/i}).last().click();
     const block=page.locator(vue?'.content-editor':'.cd-block-fields').last();
     await block.getByRole('textbox',{name:vue?'Title':'Block title'}).fill('Export documentation workshop');
     await block.getByRole('textbox',{name:'Image description'}).fill('Export documentation workshop poster with an illustration of shipping containers');
