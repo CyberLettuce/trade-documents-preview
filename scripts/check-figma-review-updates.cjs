@@ -208,6 +208,54 @@ async function compare(browser, framework, routes, revision) {
   } finally { await context.close(); }
 }
 
+async function workspaceIcons(browser, framework, routes, theme) {
+  const context=await browser.newContext({viewport:{width:1440,height:900},colorScheme:theme});
+  await context.addInitScript(({framework,theme})=>{
+    localStorage.setItem('trade-documents-sidebar-collapsed-'+framework+'-v1','true');
+    if(framework==='react') {
+      localStorage.setItem('trade-documents-shell-layout-v1','sidebar');
+      localStorage.setItem('ecert-appearance-v1',theme);
+    } else {
+      const key='trade-documents-vue-comparison-v1-ui';
+      const current=JSON.parse(localStorage.getItem(key)||'{}');
+      localStorage.setItem(key,JSON.stringify({...current,layout:'sidebar',theme}));
+    }
+  },{framework,theme});
+  const page=await context.newPage();
+  page.setDefaultTimeout(9000);
+  const svgShape=locator=>locator.locator('svg:visible').first().evaluate(svg=>{
+    const bounds=svg.getBoundingClientRect();
+    if(bounds.width<10||bounds.height<10) throw new Error('Icon is too small to see');
+    const paths=Array.from(svg.querySelectorAll('path'),path=>path.getAttribute('d'));
+    if(!paths.length) throw new Error('Icon is missing its vector path');
+    return paths;
+  });
+  const snapshot={};
+  try {
+    for(const [workspace,route] of [['chamber',routes.dashboard],['exporter',routes.exporter]]) {
+      await page.goto(local+route);
+      await page.getByRole('button',{name:'Expand sidebar',exact:true}).waitFor();
+      const metrics=page.locator(framework==='vue' ? '.metrics button' : '.status-strip .stat, .ch-status-strip .stat');
+      await metrics.first().waitFor();
+      assert.equal(await metrics.count(),4);
+      const match={};
+      for(const label of workspace==='chamber'?['Dashboard','Applications','Reports','Claims']:['Dashboard','Applications','Stored Data','Reports']) {
+        match[label]=await svgShape(page.locator('nav').getByRole('button',{name:label,exact:true}).first());
+      }
+      match.notifications=await svgShape(page.getByRole('button',{name:/^Notifications(?:,|$)/}).first());
+      if(workspace==='chamber')match.help=await svgShape(page.getByRole('button',{name:'Help & support',exact:true}).first());
+      match.metrics=[];
+      for(const tile of await metrics.all())match.metrics.push(await svgShape(tile));
+      const filled=await page.locator('svg[fill="none"]:visible').evaluateAll(icons=>icons.filter(svg=>getComputedStyle(svg).fill!=='none').map(svg=>svg.outerHTML.slice(0,160)));
+      assert.deepEqual(filled,[],framework+' '+workspace+' outline icons');
+      await noOverflow(page);
+      if(theme==='light')await shot(page,framework+'-'+workspace+'-icon-parity');
+      snapshot[workspace]=match;
+    }
+  } finally { await context.close(); }
+  return snapshot;
+}
+
 (async()=>{
   await new Promise(r=>server.listen(5204,'127.0.0.1',r));
   const browser=await chromium.launch();
@@ -218,6 +266,16 @@ async function compare(browser, framework, routes, revision) {
         try { await compare(browser,framework,routes,revision); results.push({framework,revision,pass:true}); }
         catch(error) { results.push({framework,revision,pass:false,error:error.stack}); }
       }
+    }
+    for(const theme of ['light','dark']) {
+      try {
+        const react=await workspaceIcons(browser,'react',cases.react,theme);
+        const vue=await workspaceIcons(browser,'vue',cases.vue,theme);
+        for(const workspace of ['chamber','exporter']) {
+          for(const name of Object.keys(react[workspace]))assert.deepEqual(vue[workspace][name],react[workspace][name],workspace+' '+name+' differs from React');
+        }
+        results.push({check:'workspace icon parity',theme,pass:true});
+      } catch(error) { results.push({check:'workspace icon parity',theme,pass:false,error:error.stack}); }
     }
   } finally {
     await browser.close();

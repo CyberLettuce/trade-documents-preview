@@ -37,7 +37,11 @@ main:not(.application-editor-page){padding:24px}
 .account-preferences .comparison-link{display:inline-block;margin-top:6px}
 .chamber-dashboard-top{margin:0}
 .metrics strong{display:flex;align-items:center;gap:12px}
-.metrics strong .icon,.metrics strong svg{width:22px;height:22px;color:var(--muted)}
+.metrics strong .icon{flex:none;width:24px;height:24px;color:var(--muted)}
+.metrics strong .icon svg{width:100%;height:100%}
+.metrics strong .metric-icon-danger{color:var(--danger)}
+.metrics strong .metric-icon-success{color:#176535}
+[data-theme=dark] .metrics strong .metric-icon-success{color:#a7e3b8}
 .card.performance{display:grid;grid-template-columns:minmax(130px,.9fr) repeat(3,minmax(110px,1fr)) minmax(145px,.9fr);gap:16px;padding:16px 20px;align-items:center}
 .card.performance>div{min-width:0}
 .performance h2{font-size:15px;margin-bottom:6px}

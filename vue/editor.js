@@ -1,6 +1,6 @@
 import {carnetTripCounts} from '../assets/carnet-review.js?v=2026-11-20-carnet-r1';
 import {StepFields,ApplicationReview,stepTitle,stepDescription} from './editor-presentation.js?v=2026-11-20-chamber-carnet-r1';
-import {DocumentChooser} from './document-chooser.js?v=2026-11-20-certificate-review-r1';
+import {DocumentChooser} from './document-chooser.js?v=2026-11-24-icon-parity-r1';
 import {nextDocumentSelection} from './document-selection.js?v=2026-11-20-acceptance-r1';
 import {cleanDraftData} from './parity-model.js?v=2026-11-20-certificate-review-r1';
 import {ref,computed,watch,nextTick,onUnmounted} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
