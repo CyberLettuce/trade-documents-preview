@@ -9,8 +9,14 @@ jobs:
   dictionary:
     runs-on: ubuntu-24.04
     timeout-minutes: 18
+    strategy:
+      matrix:
+        shard: [0,1,2,3]
+      fail-fast: false
     env:
       HF_HUB_DISABLE_XET: '1'
+      DANISH_SHARD: ${{ matrix.shard }}
+      DANISH_PARTS: '4'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -20,6 +26,6 @@ jobs:
       - run: python scripts/generate-danish-dictionary.py
       - uses: actions/upload-artifact@v4
         with:
-          name: danish-interface-dictionary
+          name: danish-interface-dictionary-${{ matrix.shard }}
           path: qa-results/
           retention-days: 14

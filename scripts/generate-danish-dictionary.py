@@ -2,6 +2,7 @@
 from collections import Counter
 from pathlib import Path
 import json
+import os
 import re
 
 from ctranslate2 import Translator
@@ -27,6 +28,10 @@ target = SentencePieceProcessor(model_file=str(folder / "target.spm"))
 
 keys = list(dict.fromkeys([*catalog("sv"), *catalog("nl")]))
 canonical = {key.strip().casefold(): key.strip() for key in reversed(keys) if key.strip()}
+parts_count = int(os.getenv("DANISH_PARTS", "1"))
+part_number = int(os.getenv("DANISH_SHARD", "0"))
+this_shard = dict(list(canonical.items())[part_number::parts_count])
+keys = [key for key in keys if key.strip().casefold() in this_shard]
 protected = re.compile(r"https?://[^\s]+|\{\d+\}|\beXpress\b|\b(?:ATA|EUR-MED|EUR1|EORI|CSV|PDF|VAT|IIC|REX)\b")
 
 
@@ -43,11 +48,11 @@ def translate(segments):
     if not segments:
         return []
     tokenized = source.encode(segments, out_type=str)
-    answers = translator.translate_batch(tokenized, beam_size=2, max_batch_size=768, batch_type="tokens", max_decoding_length=400)
+    answers = translator.translate_batch(tokenized, beam_size=1, max_batch_size=768, batch_type="tokens", max_decoding_length=350)
     return target.decode([answer.hypotheses[0] for answer in answers])
 
 
-unique = list(canonical.values())
+unique = list(this_shard.values())
 translated = {}
 repair = []
 for start in range(0, len(unique), 192):
