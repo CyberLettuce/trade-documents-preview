@@ -1,0 +1,47 @@
+name: Recheck compact preview at Windows scaling
+on:
+  push:
+    branches: [codex/windows-scaling-20261124]
+    paths: ['.github/workflows/windows-scaling-preview.yml']
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: windows-2022
+    timeout-minutes: 12
+    strategy:
+      matrix:
+        display: ['1366x768','1920x1080']
+      fail-fast: false
+    env:
+      AUDIT_DISPLAY: ${{ matrix.display }}
+      AUDIT_SCALE: '150'
+      AUDIT_ZOOM_LEVELS: '125'
+      AUDIT_VERSION: '2026-11-24-danish-density-r1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: 93dbdbc806b6de65ef5bd7e9b459186b1d89f986
+          path: preview-app
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Package the site to be tested
+        run: node preview-app/scripts/package-pages.mjs ../_scale-preview
+      - name: Check the compact preview on the cloud runner
+        shell: pwsh
+        run: |
+          npm install --prefix "$env:RUNNER_TEMP/scale-check" --no-save --ignore-scripts playwright@1.56.1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:NODE_PATH = Join-Path $env:RUNNER_TEMP 'scale-check/node_modules'
+          node "$env:NODE_PATH/playwright/cli.js" install chromium
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:AUDIT_STATIC_ROOT = Join-Path $env:GITHUB_WORKSPACE '_scale-preview'
+          node scripts/audit-windows-scaling.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: preview-scaling-${{ matrix.display }}
+          path: qa-results/
+          retention-days: 14

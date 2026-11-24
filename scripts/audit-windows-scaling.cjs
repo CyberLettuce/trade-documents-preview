@@ -1,10 +1,11 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs/promises');
+const {createServer} = require('node:http');
 const os = require('node:os');
 const path = require('node:path');
 const {chromium} = require('playwright');
 
-const live = 'https://cyberlettuce.github.io/trade-documents-preview/';
+const live = process.env.AUDIT_STATIC_ROOT ? 'http://127.0.0.1:5214/' : 'https://cyberlettuce.github.io/trade-documents-preview/';
 const release = process.env.AUDIT_VERSION;
 const display = process.env.AUDIT_DISPLAY;
 const [width, height] = display.split('x').map(Number);
@@ -118,6 +119,21 @@ async function inspect(page) {
   });
 }
 
+async function servePreview(root){
+  const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.woff2':'font/woff2','.pdf':'application/pdf','.json':'application/json','.wasm':'application/wasm'};
+  const server=createServer(async (req,res)=>{
+    const url=new URL(req.url,live);
+    const requested=path.resolve(root,'.'+url.pathname+(url.pathname.endsWith('/')?'index.html':''));
+    if(!requested.startsWith(root+path.sep)){res.writeHead(404).end();return;}
+    try{
+      const bytes=await fs.readFile(requested);
+      res.writeHead(200,{'Content-Type':types[path.extname(requested)]||'application/octet-stream'}).end(bytes);
+    }catch{res.writeHead(404).end();}
+  });
+  await new Promise(resolve=>server.listen(5214,'127.0.0.1',resolve));
+  return server;
+}
+
 async function run(){
   await fs.mkdir(output,{recursive:true});
   const context=await initialiseBrowser();
@@ -168,4 +184,7 @@ async function run(){
   console.log(JSON.stringify({checks:results.length,errors:errors.length,issues:issues.length}));
   if(errors.length)process.exitCode=1;
 }
-run().catch(error=>{console.error(error);process.exitCode=1;});
+(async()=>{
+  const server=process.env.AUDIT_STATIC_ROOT?await servePreview(path.resolve(process.env.AUDIT_STATIC_ROOT)):null;
+  try{await run();}finally{server?.close();}
+})().catch(error=>{console.error(error);process.exitCode=1;});
