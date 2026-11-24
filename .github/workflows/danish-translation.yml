@@ -1,0 +1,25 @@
+name: Generate Danish interface dictionary
+on:
+  push:
+    branches: [codex/windows-scaling-20261124]
+    paths: ['.github/workflows/danish-translation.yml','scripts/generate-danish-dictionary.py']
+permissions:
+  contents: read
+jobs:
+  dictionary:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    env:
+      HF_HUB_DISABLE_XET: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --disable-pip-version-check ctranslate2==4.6.0 sentencepiece==0.2.1 huggingface-hub==0.36.0
+      - run: python scripts/generate-danish-dictionary.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: danish-interface-dictionary
+          path: qa-results/
+          retention-days: 14

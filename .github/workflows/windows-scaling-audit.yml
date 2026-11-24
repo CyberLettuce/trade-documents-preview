@@ -2,6 +2,7 @@ name: Windows display scaling and browser zoom
 on:
   push:
     branches: [codex/windows-scaling-20261124]
+    paths: ['.github/workflows/windows-scaling-audit.yml','scripts/audit-windows-scaling.cjs']
 permissions:
   contents: read
 jobs:
