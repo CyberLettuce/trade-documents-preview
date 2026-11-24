@@ -297,24 +297,33 @@ async function checkDashboardImage(browser, framework, routes) {
     await block.locator('input[type="file"]').setInputFiles({name:'workshop.png',mimeType:'image/png',buffer});
     await block.locator('img').first().waitFor();
     await block.getByRole('checkbox',{name:'Feature on Exporter dashboard'}).check();
+    const size=block.getByRole('combobox',{name:'Display size'});
+    assert.equal(await size.inputValue(),'full');
+    await size.selectOption('compact');
     if(vue)await page.getByRole('button',{name:'Preview',exact:true}).click();
-    await page.locator('.exporter-dashboard-image img').waitFor();
+    await page.locator('.exporter-dashboard-image[data-size="compact"] img').waitFor();
+    if(vue)await page.getByRole('button',{name:'Edit content',exact:true}).click();
+    await size.selectOption('medium');
+    await size.scrollIntoViewIfNeeded();
+    await shot(page,framework+'-featured-image-size-control');
+    if(vue)await page.getByRole('button',{name:'Preview',exact:true}).click();
+    await page.locator('.exporter-dashboard-image[data-size="medium"] img').waitFor();
     await page.getByRole('button',{name:vue?'Publish content':/^Publish(?: changes)?$/}).first().click();
     await page.waitForFunction(vue=>{
       const stored=vue?JSON.parse(localStorage.getItem('trade-documents-vue-comparison-v1-workspace'))?.content:
         JSON.parse(localStorage.getItem('ecert-dashboard-content-v1:demo'));
       const blocks=vue?stored?.published:stored?.published?.blocks;
-      return blocks?.some(block=>block.type==='image'&&block.featured);
+      return blocks?.some(block=>block.type==='image'&&block.featured&&block.displaySize==='medium');
     },vue);
     await page.goto(local+routes.exporter);
     await page.reload();
-    const image=page.locator('main .exporter-dashboard-image img');
+    const image=page.locator('main .exporter-dashboard-image[data-size="medium"] img');
     await image.waitFor();
     await image.evaluate(element=>element.decode());
     assert.equal(await image.count(),1);
     const desktop=await image.boundingBox();
-    assert(desktop.width>850 && desktop.y<220,JSON.stringify(desktop));
-    await shot(page,framework+'-featured-exporter-image');
+    assert(desktop.width>=800 && desktop.width<=840 && desktop.y<220,JSON.stringify(desktop));
+    await shot(page,framework+'-featured-image-medium');
     await page.getByRole('button',{name:'Announcements',exact:true}).click();
     await image.waitFor();
     await page.setViewportSize({width:390,height:844});

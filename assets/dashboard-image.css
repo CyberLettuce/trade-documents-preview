@@ -8,9 +8,22 @@
 .exporter-dashboard-image img {
   display:block;
   inline-size:100%;
-  max-block-size:min(60vh,640px);
+  max-block-size:var(--dashboard-image-height,min(60vh,640px));
   object-fit:contain;
   background:var(--colorNeutralBackground2,var(--bg,#fafafa));
+}
+.exporter-dashboard-image[data-size="compact"] {
+  inline-size:min(64%,560px);
+  --dashboard-image-height:min(35vh,300px);
+}
+.exporter-dashboard-image[data-size="medium"] {
+  inline-size:min(82%,840px);
+  --dashboard-image-height:min(50vh,460px);
+}
+.exporter-dashboard-image:is([data-size="compact"],[data-size="medium"]) { margin-inline:auto; }
+@media (max-width:600px) {
+  .exporter-dashboard-image[data-size="compact"] { inline-size:84%; }
+  .exporter-dashboard-image[data-size="medium"] { inline-size:94%; }
 }
 .exporter-dashboard-image figcaption {
   padding:12px 16px;

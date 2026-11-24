@@ -4,6 +4,15 @@ const storedLimit = 600 * 1024;
 
 export const dashboardImageHint = 'PNG, JPEG or WebP · up to 20 MB';
 export const featureDashboardImageLabel = 'Feature on Exporter dashboard';
+export const dashboardImageSizes = [
+  {value:'compact', label:'Compact'},
+  {value:'medium', label:'Medium'},
+  {value:'full', label:'Full width'},
+];
+
+export function dashboardImageSize(block) {
+  return dashboardImageSizes.some(size => size.value === block?.displaySize) ? block.displaySize : 'full';
+}
 
 export function dashboardImageIsValid(value) {
   const comma = typeof value === 'string' ? value.indexOf(',') : -1;

@@ -1,4 +1,4 @@
-import {r as React, Q as ReactDOM, I as Icon} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-24-dashboard-image-r1';
+import {r as React, Q as ReactDOM, I as Icon} from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-24-dashboard-image-size-r1';
 import {languageCreateElement as h, registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-20-acceptance-r1';
 import words from './list-options-language.js?v=2026-11-20-acceptance-r1';
 import {optionsStorage,optionsStorageKey, readOptionsOpen, writeOptionsOpen} from './list-options-model.js?v=2026-11-20-acceptance-r1';
