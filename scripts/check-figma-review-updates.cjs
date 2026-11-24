@@ -377,6 +377,56 @@ async function checkCompactEditor(browser, framework) {
   } finally {await context.close();}
 }
 
+async function checkShortViewport(browser, framework, routes) {
+  const context=await browser.newContext({viewport:{width:729,height:398}});
+  const page=await context.newPage();
+  const vue=framework==='vue';
+  try {
+    await page.goto(local+routes.exporter);
+    await page.getByRole('heading',{name:'Your next steps',exact:true}).waitFor();
+    const firstPanel=page.locator(vue?'.work-column>.card':'.dashboard-section.attention-section').first();
+    assert.equal(await firstPanel.evaluate(node=>getComputedStyle(node).paddingBlockStart),'16px');
+    await noOverflow(page);
+    await page.goto(local+alignmentRoutes[framework].applications);
+    await page.locator('main table tbody tr').first().waitFor();
+    await noOverflow(page);
+    if(!vue){
+      const references=page.locator('.application-reference-link:visible');
+      assert(await references.count()>0);
+      assert.equal(await references.evaluateAll(links=>links.filter(link=>link.scrollWidth>link.clientWidth+4).length),0);
+      assert(await page.locator('.application-reference-summary .reference-short:visible').count()>0);
+    }
+    await shot(page,framework+'-short-viewport');
+  } finally {await context.close();}
+}
+
+async function checkDanish(browser, framework, routes) {
+  const context=await browser.newContext({viewport:{width:1366,height:768}});
+  const page=await context.newPage();
+  page.setDefaultTimeout(10000);
+  try {
+    await page.goto(local+routes.exporter);
+    await page.locator('.language-flag-button:visible, .language-control:visible').first().click();
+    await page.getByRole('menuitemradio',{name:'Danish',exact:true}).click();
+    await page.waitForFunction(()=>document.documentElement.lang==='da'&&document.documentElement.dir==='ltr');
+    await page.getByRole('button',{name:'Oversigt',exact:true}).first().waitFor();
+    const flag=page.locator('.language-flag-button img:visible, .language-control img:visible').first();
+    await flag.evaluate(image=>image.decode());
+    assert.match(await flag.getAttribute('src'),/flag-dk/);
+    for(const route of [alignmentRoutes[framework].applications,routes.queue]){
+      await page.goto(local+route);
+      await page.getByLabel('Søg efter ansøgninger',{exact:true}).waitFor();
+      await noOverflow(page);
+    }
+    await page.setViewportSize({width:390,height:844});
+    await noOverflow(page);
+    await page.reload();
+    await page.waitForFunction(()=>document.documentElement.lang==='da');
+    await page.getByLabel('Søg efter ansøgninger',{exact:true}).waitFor();
+    await shot(page,framework+'-danish-chamber');
+  } finally {await context.close();}
+}
+
 (async()=>{
   await new Promise(r=>server.listen(5204,'127.0.0.1',r));
   const browser=await chromium.launch();
@@ -405,6 +455,12 @@ async function checkCompactEditor(browser, framework) {
     for(const framework of Object.keys(cases)) {
       try {const heights=await checkCompactEditor(browser,framework);results.push({check:'compact editor header',framework,pass:true,...heights});}
       catch(error){results.push({check:'compact editor header',framework,pass:false,error:error.stack});}
+    }
+    for(const [framework,routes] of Object.entries(cases)) {
+      for(const [check,run] of [['short viewport',checkShortViewport],['Danish workspace',checkDanish]]) {
+        try{await run(browser,framework,routes);results.push({check,framework,pass:true});}
+        catch(error){results.push({check,framework,pass:false,error:error.stack});}
+      }
     }
   } finally {
     await browser.close();

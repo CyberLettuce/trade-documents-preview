@@ -1,4 +1,4 @@
-import {loadLocale} from './locale-loader.js?v=2026-11-20-acceptance-r1';
+import {loadLocale} from './locale-loader.js?v=2026-11-24-danish-density-r1';
 
 // Common column roles for the React and Vue workspaces. Match labels, never cell
 // values, so dates and identifiers with digits still align with other text.

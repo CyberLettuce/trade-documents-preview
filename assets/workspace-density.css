@@ -1,0 +1,29 @@
+@media screen {
+  .ex-fluent .application-reference-summary { container:application-reference / inline-size; }
+
+  @container application-reference (max-width:192px) {
+    .application-reference-summary .reference-short { display:inline; white-space:nowrap; }
+    .application-reference-summary .reference-full.has-short { display:none; }
+    .application-reference-summary .application-reference-link:not(:has(.reference-short)) {
+      white-space:normal!important;
+      overflow-wrap:anywhere;
+    }
+  }
+}
+
+/* Recover vertical space in smaller browser windows and at higher page zoom. */
+@media screen and (max-height:760px) {
+  html body :is(#main-content,#chamber-main,#main) .page-heading:not(.compact-page-heading,.chooser-page-heading,.editor-work-area > .page-heading) { margin-block-end:14px; }
+  html body :is(#main-content,#chamber-main,#main) .page-heading:not(.chooser-page-heading) h1 { font-size:22px; line-height:1.25; margin-block:0; }
+  html body :is(#main-content,#chamber-main,#main) .editor-work-area .page-heading:not(.chooser-page-heading) h1 { font-size:18px; }
+  html body :is(#main-content,#chamber-main,#main) .page-heading p { margin-block:4px 0; }
+  html body :is(#main-content,#chamber-main,#main) :is(.card,.page-panel,.dashboard-section,.editor-form,.editor-fields) { padding-block:16px; }
+  html body :is(#main-content,#chamber-main,#main) :is(.section-heading,.card-heading,.editor-step-heading) { margin-block-end:12px; }
+  html body :is(#main-content,#chamber-main,#main) :is(.section-heading,.card-heading,.editor-form,.editor-step-heading) > h2 { font-size:18px; line-height:1.35; }
+  html body :is(#main-content,#chamber-main,#main) :is(.page-panel,.record-toolbar,.search-toolbar,.reports-grid) { margin-block-end:14px; }
+  html body :is(#main-content,#chamber-main,#main) :is(.dashboard-grid,.ch-dashboard-grid,.reports-grid) { row-gap:14px; }
+  html body :is(#main-content,#chamber-main,#main) :is(.stat strong,.metrics strong,.report-metrics .card > strong) { font-size:26px; line-height:1.2; }
+  html body :is(#main-content,#chamber-main,#main) .card + .card { margin-block-start:14px; }
+  html body :is(#main-content,#chamber-main,#main) :is(.editor-form,.editor-fields) .fields-grid { row-gap:14px; }
+  html body :is(#main-content,#chamber-main,#main) :is(.editor-form,.editor-fields) :is(.saved-record-picker,.editor-choice-list) { margin-block-end:16px; }
+}

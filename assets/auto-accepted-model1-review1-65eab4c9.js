@@ -1,4 +1,4 @@
-import {assignSubmissionReference,clearSubmissionReference} from './application-references-review1-efab1313.js?v=2026-11-20-certificate-review-r1';
+import {assignSubmissionReference,clearSubmissionReference} from './application-references-review1-efab1313.js?v=2026-11-24-danish-density-r1';
 import {ensureCertificateNumber} from './certificate-numbering2.js?v=2026-11-20-certificate-review-r1';
 export const isAutoAcceptedApplication=app=>app?.status==='Approved'&&app.autoAccepted===true;
 export function addAutoAcceptedSamples(state,sampleFactory,now=new Date()){

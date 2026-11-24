@@ -1,5 +1,5 @@
 import {fieldHelp} from './field-help.js?v=2026-11-20-certificate-review-r1';
-import {prepareImport, csvColumns} from './general-list-logic-review1-2136caa2.js?v=2026-11-20-acceptance-r1';
+import {prepareImport, csvColumns} from './general-list-logic-review1-2136caa2.js?v=2026-11-24-danish-density-r1';
 
 export function carnetApplicant(record, signatories) {
   const key = record.exporterSignatory;

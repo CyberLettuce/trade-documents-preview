@@ -1,4 +1,4 @@
-import {createDocumentSampleDrafts} from './ChamberContent-PZCQTEV1-review1-b928b4e1-nochecklist1-options1.js?v=2026-11-24-dashboard-image-size-r1';
+import {createDocumentSampleDrafts} from './ChamberContent-PZCQTEV1-review1-b928b4e1-nochecklist1-options1.js?v=2026-11-24-danish-density-r1';
 export function addExporterDraftSamples(store) {
   const date=new Date().toISOString().slice(0,10), spaces={...store.spaces};
   for(const [accountId,space] of Object.entries(spaces)) {
