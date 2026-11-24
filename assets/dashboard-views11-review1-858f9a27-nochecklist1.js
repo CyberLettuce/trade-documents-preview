@@ -1,7 +1,8 @@
-import { r as React, I as Icon, M as Modal } from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-23-site-review-r1';
+import {featuredDashboardImage} from './dashboard-image.js?v=2026-11-24-dashboard-image-r1';
+import { r as React, I as Icon, M as Modal } from './index-Cj32ATD7-review1-d3188122-nochecklist1-options1-sidebar1-editorcol1.js?v=2026-11-24-dashboard-image-r1';
 import { languageCreateElement as localiseElement, preserveValue } from './language-runtime-review1-57775012.js?v=2026-11-20-acceptance-r1';
 import { readProfile, chamberId, readUpdates, CONTENT_EVENT, CHAMBER_KEY } from './chamber-profile-review1-a5ba1943.js?v=2026-11-20-acceptance-r1';
-import { ChamberUpdateBlock } from './ChamberContent-PZCQTEV1-review1-b928b4e1-nochecklist1-options1.js?v=2026-11-23-site-review-r1';
+import { ChamberUpdateBlock, FeaturedDashboardImage } from './ChamberContent-PZCQTEV1-review1-b928b4e1-nochecklist1-options1.js?v=2026-11-24-dashboard-image-r1';
 import { DEFAULT_SETTINGS, SETTINGS_PREFIX, PREFERENCE_PREFIX, SETTINGS_EVENT, readSettings, saveSettings, readPreference, savePreference, resolveView } from './dashboard-view-logic11.js?v=2026-11-20-acceptance-r1';
 function h(type, props, ...children) {
   return localiseElement(type, props, ...children.map((child, index) => React.isValidElement?.(child) && child.key == null ? React.cloneElement(child, {
@@ -36,12 +37,15 @@ function useExporter(account) {
     scope = chamberId(account, profile),
     settings = readSettings(localStorage, scope).settings,
     preference = readPreference(localStorage, scope, account?.id, settings.defaultView),
-    updates = readUpdates(localStorage, scope);
+    original = readUpdates(localStorage, scope),
+    featured = featuredDashboardImage(original.blocks),
+    updates = {...original, blocks: original.blocks.filter(block => block !== featured)};
   return {
     profile,
     scope,
     settings,
     preference,
+    featured,
     updates,
     ...resolveView(settings, preference)
   };
@@ -184,7 +188,7 @@ export function DashboardViews({
   return h(React.Fragment, null, heading, data.controlsVisible ? h(ViewControls, {
     data,
     account
-  }) : null, h('div', {
+  }) : null, data.featured && h(FeaturedDashboardImage, {block: data.featured}), h('div', {
     className: 'dv-dashboard dv-mode-' + data.view
   }, h('div', {
     className: 'dv-main'

@@ -256,6 +256,73 @@ async function workspaceIcons(browser, framework, routes, theme) {
   return snapshot;
 }
 
+async function checkDashboardImage(browser, framework, routes) {
+  const context=await browser.newContext({viewport:{width:1440,height:900}});
+  const page=await context.newPage();
+  try {
+    const vue=framework==='vue';
+    await page.goto(local+(vue?'/vue/#/chamber/setup/content':'/#chamber/setup/exporter-dashboard'));
+    await page.getByRole('heading',{name:'Announcements & Chamber content',exact:true}).waitFor();
+    const upload=await page.evaluate(()=>{
+      const canvas=document.createElement('canvas');
+      canvas.width=2160;
+      canvas.height=920;
+      const ctx=canvas.getContext('2d');
+      const pixels=ctx.createImageData(canvas.width,canvas.height);
+      let seed=31;
+      for(let i=0;i<pixels.data.length;i+=4){
+        seed=(Math.imul(seed,1664525)+1013904223)>>>0;
+        const shade=(seed>>>24)%17, accent=i/4%canvas.width>1440;
+        pixels.data.set(accent?[179+shade,62+shade,16+shade,255]:[17+shade,29+shade,43+shade,255],i);
+      }
+      ctx.putImageData(pixels,0,0);
+      ctx.strokeStyle='#ffd2b0';ctx.lineWidth=5;
+      const container=(x,y,w,h)=>{
+        ctx.strokeRect(x,y,w,h);
+        for(let line=x+30;line<x+w;line+=30){ctx.beginPath();ctx.moveTo(line,y+12);ctx.lineTo(line,y+h-12);ctx.stroke();}
+      };
+      container(1550,560,470,180);container(1605,352,415,180);container(1730,144,290,180);
+      ctx.fillStyle='#ffb98a';ctx.font='bold 32px sans-serif';ctx.fillText('CHAMBER WORKSHOP',126,188);
+      ctx.fillStyle='#fff';ctx.font='bold 104px sans-serif';ctx.fillText('Export documentation',120,372);ctx.fillText('workshop',120,495);
+      ctx.fillStyle='#ffdbc2';ctx.font='42px sans-serif';ctx.fillText('A practical session for exporters',126,633);
+      return canvas.toDataURL('image/png').split(',')[1];
+    });
+    const buffer=Buffer.from(upload,'base64');
+    assert(buffer.length>600*1024, 'The sample must exceed the previous limit');
+    await page.getByRole('button',{name:'Image',exact:true}).last().click();
+    const block=page.locator(vue?'.content-editor':'.cd-block-fields').last();
+    await block.getByRole('textbox',{name:vue?'Title':'Block title'}).fill('Export documentation workshop');
+    await block.getByRole('textbox',{name:'Image description'}).fill('Export documentation workshop poster with an illustration of shipping containers');
+    await block.getByRole('textbox',{name:'Caption (optional)'}).fill('A practical session from your chamber.');
+    await block.locator('input[type="file"]').setInputFiles({name:'workshop.png',mimeType:'image/png',buffer});
+    await block.locator('img').first().waitFor();
+    await block.getByRole('checkbox',{name:'Feature on Exporter dashboard'}).check();
+    if(vue)await page.getByRole('button',{name:'Preview',exact:true}).click();
+    await page.locator('.exporter-dashboard-image img').waitFor();
+    await page.getByRole('button',{name:vue?'Publish content':/^Publish(?: changes)?$/}).first().click();
+    await page.waitForFunction(vue=>{
+      const stored=vue?JSON.parse(localStorage.getItem('trade-documents-vue-comparison-v1-workspace'))?.content:
+        JSON.parse(localStorage.getItem('ecert-dashboard-content-v1:demo'));
+      const blocks=vue?stored?.published:stored?.published?.blocks;
+      return blocks?.some(block=>block.type==='image'&&block.featured);
+    },vue);
+    await page.goto(local+routes.exporter);
+    await page.reload();
+    const image=page.locator('main .exporter-dashboard-image img');
+    await image.waitFor();
+    await image.evaluate(element=>element.decode());
+    assert.equal(await image.count(),1);
+    const desktop=await image.boundingBox();
+    assert(desktop.width>850 && desktop.y<220,JSON.stringify(desktop));
+    await shot(page,framework+'-featured-exporter-image');
+    await page.getByRole('button',{name:'Announcements',exact:true}).click();
+    await image.waitFor();
+    await page.setViewportSize({width:390,height:844});
+    await noOverflow(page);
+    assert((await image.boundingBox()).width>300);
+  } finally {await context.close();}
+}
+
 (async()=>{
   await new Promise(r=>server.listen(5204,'127.0.0.1',r));
   const browser=await chromium.launch();
@@ -276,6 +343,10 @@ async function workspaceIcons(browser, framework, routes, theme) {
         }
         results.push({check:'workspace icon parity',theme,pass:true});
       } catch(error) { results.push({check:'workspace icon parity',theme,pass:false,error:error.stack}); }
+    }
+    for(const [framework,routes] of Object.entries(cases)) {
+      try {await checkDashboardImage(browser,framework,routes);results.push({check:'featured Exporter image',framework,pass:true});}
+      catch(error){results.push({check:'featured Exporter image',framework,pass:false,error:error.stack});}
     }
   } finally {
     await browser.close();

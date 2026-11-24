@@ -9,7 +9,7 @@ export const activeAccount=computed(()=>ws.accounts.find(a=>a.id===ws.activeAcco
 export const activeUser=computed(()=>ws.users.find(u=>u.id===ws.activeUser)||ws.users[0]);
 export const admin=computed(()=>canManageUsers(ws.users,ws.activeUser));
 export function audit(title,detail=''){ws.audit.unshift({id:uid(),at:now(),user:ws.officer,title,detail});ws.audit.splice(1000);}
-export function saveWorkspace(){try{localStorage.setItem(key,JSON.stringify(ws));return true}catch(e){window.dispatchEvent(new CustomEvent('vue-save-error',{detail:'This browser could not save changes. Export important records before closing.'}));return false;}}
+export function saveWorkspace(snapshot=ws){try{localStorage.setItem(key,JSON.stringify(snapshot));return true}catch(e){window.dispatchEvent(new CustomEvent('vue-save-error',{detail:'This browser could not save changes. Export important records before closing.'}));return false;}}
 const workspaceSaver=createDeferredSave(saveWorkspace);
 watch(ws,workspaceSaver.schedule,{deep:true,flush:'sync'});
 if(typeof window!=='undefined'){window.addEventListener('pagehide',workspaceSaver.flush);

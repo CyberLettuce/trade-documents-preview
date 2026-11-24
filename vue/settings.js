@@ -1,11 +1,50 @@
+import {prepareDashboardImage,dashboardImageIsValid,dashboardImageHint,featuredDashboardImage,featureDashboardImage,featureDashboardImageLabel} from '../assets/dashboard-image.js?v=2026-11-24-dashboard-image-r1';
+import {FeaturedDashboardImage} from './dashboard-image.js?v=2026-11-24-dashboard-image-r1';
 import {useColumnSort} from './chamber-sort.js?v=2026-11-20-chamber-tables-r1';
 import {sortableDate} from '../assets/chamber-column-sort.js?v=2026-11-20-chamber-tables-r1';
-import {ProfilePage} from './profile.js?v=2026-11-20-certificate-review-r1';
+import {ProfilePage} from './profile.js?v=2026-11-24-dashboard-image-r1';
 import {ref,computed,watch} from './assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';
-import {ws,useApp,activeAccount,activeUser,admin,audit,safeLink,formatDate,download} from './workspace.js?v=2026-11-20-certificate-review-r1';
+import {saveWorkspace,ws,useApp,activeAccount,activeUser,admin,audit,safeLink,formatDate,download} from './workspace.js?v=2026-11-24-dashboard-image-r1';
 import {clone,configurationGroups,STORED_TYPES,SETUP_TYPES,csvText,now,uid} from './workspace-model.js?v=2026-11-20-acceptance-r1';
-import {RecordManager} from './records.js?v=2026-11-20-certificate-review-r1';
-export const ContentManager={setup(){const app=useApp(),draft=ref(clone(ws.content.draft)),preview=ref(false),error=ref('');function add(type){draft.value.push({id:uid(),type,title:'',body:'',url:'',linkLabel:'Open link',visible:true})}function save(publish=false){error.value='';if(draft.value.some(b=>!b.title.trim())){error.value='Enter a title for each content block.';return}if(draft.value.some(b=>b.type==='link'&&!safeLink(b.url))){error.value='Use a valid http or https link.';return}ws.content.draft=clone(draft.value);if(publish){ws.content.published=clone(draft.value);ws.content.publishedAt=now();audit('Chamber content published')}app.notify(publish?'Announcements published to both dashboard views.':'Content draft saved.')}function move(i,d){const j=i+d;if(j<0||j>=draft.value.length)return;[draft.value[i],draft.value[j]]=[draft.value[j],draft.value[i]]}async function image(event,block){const f=event.target.files?.[0];if(!f)return;if(!['image/png','image/jpeg','image/webp'].includes(f.type)||f.size>600000){error.value='Choose a PNG, JPEG or WebP image under 600 KB.';return}block.image=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(f)});}return{ws,draft,preview,error,add,save,move,image}},template:String.raw`<div class="page-heading"><div><h2>Announcements & Chamber content</h2><p>Published content appears in both Exporter dashboard views and on Your Chamber.</p></div><div class="button-row"><button @click="preview=!preview">{{preview?'Edit content':'Preview'}}</button><button @click="save()">Save draft</button><button class="primary" @click="save(true)">Publish content</button></div></div><p v-if="error" class="error" role="alert">{{error}}</p><div v-if="preview" class="content-grid"><article class="card" v-for="block in draft.filter(b=>b.visible)"><img v-if="block.image" :src="block.image" :alt="block.alt||block.title" class="content-image"><h2 translate="no">{{block.title}}</h2><p class="pre-line" translate="no">{{block.body}}</p><span v-if="block.type==='link'">{{block.linkLabel}}</span></article></div><template v-else><article class="card content-editor" v-for="(block,i) in draft" :key="block.id"><div class="card-heading"><strong>{{block.type}}</strong><div class="button-row"><button :disabled="i===0" @click="move(i,-1)" aria-label="Move content up">↑</button><button :disabled="i===draft.length-1" @click="move(i,1)" aria-label="Move content down">↓</button><button class="icon-button" aria-label="Delete content block" @click="draft.splice(i,1)"><Icon name="delete"/></button></div></div><div class="fields-grid"><label>Title<input v-model="block.title"></label><label class="checkbox-row"><input type="checkbox" v-model="block.visible">Visible to exporters</label><label class="field-wide">Content<textarea v-model="block.body" rows="5"></textarea></label><template v-if="block.type==='link'"><label>Web address<input type="url" v-model="block.url"></label><label>Button label<input v-model="block.linkLabel"></label></template><template v-if="block.type==='image'"><label>Image<input type="file" accept="image/png,image/jpeg,image/webp" @change="image($event,block)"></label><label>Image description<input v-model="block.alt"></label><img v-if="block.image" class="content-image" :src="block.image" :alt="block.alt||''"></template></div></article><div class="button-row"><button v-for="type in ['announcement','notice','text','image','link']" @click="add(type)"><Icon name="new"/>{{type}}</button></div></template>`};
+import {RecordManager} from './records.js?v=2026-11-24-dashboard-image-r1';
+export const ContentManager={
+  components:{FeaturedDashboardImage},
+  setup(){
+    const app=useApp(),draft=ref(clone(ws.content.draft)),preview=ref(false),error=ref(''),busy=ref(false);
+    const featured=computed(()=>featuredDashboardImage(draft.value.filter(block=>block.visible)));
+    function add(type){draft.value.push({id:uid(),type,title:'',body:'',url:'',linkLabel:'Open link',visible:true})}
+    function save(publish=false){
+      if(busy.value)return;
+      error.value='';
+      if(draft.value.some(block=>!block.title.trim())){error.value='Enter a title for each content block.';return}
+      if(draft.value.some(block=>block.type==='link'&&!safeLink(block.url))){error.value='Use a valid http or https link.';return}
+      if(publish&&draft.value.some(block=>block.visible&&block.type==='image'&&!dashboardImageIsValid(block.image))){
+        error.value='Upload a valid image for each visible image block.';return;
+      }
+      const next={...ws.content,draft:clone(draft.value)};
+      if(publish){next.published=clone(draft.value);next.publishedAt=now();}
+      if(!saveWorkspace({...ws,content:next})){error.value='Browser storage is full or unavailable. Your saved dashboard is unchanged.';return;}
+      ws.content=next;
+      if(publish)audit('Chamber content published');
+      app.notify(publish?'Announcements published to both dashboard views.':'Content draft saved.');
+    }
+    function move(i,d){const j=i+d;if(j<0||j>=draft.value.length)return;[draft.value[i],draft.value[j]]=[draft.value[j],draft.value[i]]}
+    async function image(event,block){
+      const file=event.target.files?.[0];
+      event.target.value='';
+      if(!file||busy.value)return;
+      busy.value=true;error.value='';
+      try{
+        const source=await prepareDashboardImage(file);
+        const current=draft.value.find(item=>item.id===block.id);
+        if(current)current.image=source;
+      } catch(failure){error.value=failure.message;}
+      finally{busy.value=false;}
+    }
+    function feature(id,selected){draft.value=featureDashboardImage(draft.value,id,selected);}
+    return{draft,preview,error,busy,featured,add,save,move,image,feature,dashboardImageHint,featureDashboardImageLabel};
+  },
+  template:String.raw`<div class="page-heading"><div><h2>Announcements & Chamber content</h2><p>Published content appears in both Exporter dashboard views and on Your Chamber.</p></div><div class="button-row"><button @click="preview=!preview">{{preview?'Edit content':'Preview'}}</button><button  :disabled="busy" @click="save()">Save draft</button><button class="primary" :disabled="busy" @click="save(true)">Publish content</button></div></div><p v-if="error" class="error" role="alert">{{error}}</p><FeaturedDashboardImage v-if="preview" :block="featured"/><div v-if="preview" class="content-grid"><article class="card" v-for="block in draft.filter(b=>b.visible&&b!==featured)"><img v-if="block.image" :src="block.image" :alt="block.alt||block.title" class="content-image"><h2 translate="no">{{block.title}}</h2><p class="pre-line" translate="no">{{block.body}}</p><span v-if="block.type==='link'">{{block.linkLabel}}</span></article></div><template v-else><article class="card content-editor" v-for="(block,i) in draft" :key="block.id"><div class="card-heading"><strong>{{block.type}}</strong><div class="button-row"><button :disabled="i===0" @click="move(i,-1)" aria-label="Move content up">↑</button><button :disabled="i===draft.length-1" @click="move(i,1)" aria-label="Move content down">↓</button><button class="icon-button" aria-label="Delete content block" @click="draft.splice(i,1)"><Icon name="delete"/></button></div></div><div class="fields-grid"><label>Title<input v-model="block.title"></label><label class="checkbox-row"><input type="checkbox" v-model="block.visible">Visible to exporters</label><label class="field-wide">Content<textarea v-model="block.body" rows="5"></textarea></label><template v-if="block.type==='link'"><label>Web address<input type="url" v-model="block.url"></label><label>Button label<input v-model="block.linkLabel"></label></template><template v-if="block.type==='image'"><label>Image<input type="file" accept="image/png,image/jpeg,image/webp" :disabled="busy" @change="image($event,block)"><small>{{dashboardImageHint}}</small></label><label>Image description<input v-model="block.alt"></label><label>Caption (optional)<input v-model="block.caption" maxlength="300"></label><label class="checkbox-row dashboard-image-option"><input type="checkbox" :checked="!!block.featured" @change="feature(block.id,$event.target.checked)">{{featureDashboardImageLabel}}</label><img v-if="block.image" class="content-image" :src="block.image" :alt="block.alt||''"></template></div></article><div class="button-row"><button v-for="type in ['announcement','notice','text','image','link']" @click="add(type)"><Icon name="new"/>{{type}}</button></div></template>`};
 export const SettingsPage={components:{RecordManager,ProfilePage},setup(){const app=useApp(),section=ref('appearance'),profile=ref(clone(activeAccount.value)),chamberDetails=ref(clone(ws.settings)),message=ref(''),group=ref('exporter');
  const chamber=app.chamber,ui=app.ui,tabs=computed(()=>chamber.value?[['profile','My account'],['appearance','Language & display'],['details','Chamber details'],['configuration','Configuration'],['dashboard','Exporter dashboard'],['staff','Users'],['notifications','Notifications'],['archive','Archived records'],['activity','Activity log']]:[['profile','My account'],['appearance','Language & display'],['defaults','Account defaults'],['dashboard','Dashboard preferences'],['signatories','Signatories'],['company','Company details'],['users','Account Management'],['notifications','Notifications']]);
  const archiveSort=useColumnSort((item,key)=>key==='name'?item.row.name:item.title);
