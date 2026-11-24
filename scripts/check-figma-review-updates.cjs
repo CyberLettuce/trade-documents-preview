@@ -332,6 +332,51 @@ async function checkDashboardImage(browser, framework, routes) {
   } finally {await context.close();}
 }
 
+async function checkCompactEditor(browser, framework) {
+  const context=await browser.newContext({viewport:{width:1440,height:900}});
+  const page=await context.newPage();
+  page.setDefaultTimeout(12000);
+  const vue=framework==='vue';
+  async function open(base){
+    await page.goto(base+(vue?'/vue/#/exporter/applications/sample-draft-20261117-ata':'/#applications'));
+    if(!vue){
+      await page.getByRole('tab',{name:/^Drafts/}).or(page.getByRole('button',{name:/^Drafts/})).first().click();
+      await page.locator('.list-options-search input').fill('SAMPLE-DRAFT-ATA');
+      const draft=page.getByRole('row').filter({has:page.getByText('SAMPLE-DRAFT-ATA',{exact:true})}).first();
+      await draft.click({button:'right'});
+      await page.getByRole('menuitem',{name:'Continue',exact:true}).click();
+      const steps=page.locator('.editor-application-navigation');
+      const holder=steps.getByRole('button',{name:/Holder Details/i});
+      if(!await holder.isVisible())await steps.getByRole('button',{name:/^Carnet details/i}).click();
+      await holder.click();
+      await page.locator('.editor-current-section strong').filter({hasText:/Holder Details/i}).waitFor();
+    }
+    const form=page.locator(vue?'.full-editor':'.editor-form-column');
+    await form.waitFor();
+    await page.evaluate(()=>{window.scrollTo(0,0);return document.fonts.ready;});
+    await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+    const y=await form.evaluate(node=>node.getBoundingClientRect().top+window.scrollY);
+    return y;
+  }
+  try {
+    const before=await open(source);
+    await shot(page,framework+'-editor-header-before');
+    const after=await open(local);
+    assert(before-after>=(vue?12:26),JSON.stringify({framework,before,after}));
+    const toolbar=page.locator(vue?'.editor-top':'.editor-work-area > .page-heading');
+    await toolbar.getByRole(vue?'button':'switch',{name:/^Live preview$/i}).waitFor();
+    if(!vue){
+      await toolbar.getByRole('button',{name:'Preview documents',exact:true}).waitFor();
+      await toolbar.getByRole('button',{name:'Save as template',exact:true}).waitFor();
+    }
+    await shot(page,framework+'-editor-header-after');
+    await page.setViewportSize({width:390,height:844});
+    await noOverflow(page);
+    await toolbar.getByRole(vue?'button':'switch',{name:/^Live preview$/i}).waitFor();
+    return {before,after};
+  } finally {await context.close();}
+}
+
 (async()=>{
   await new Promise(r=>server.listen(5204,'127.0.0.1',r));
   const browser=await chromium.launch();
@@ -356,6 +401,10 @@ async function checkDashboardImage(browser, framework, routes) {
     for(const [framework,routes] of Object.entries(cases)) {
       try {await checkDashboardImage(browser,framework,routes);results.push({check:'featured Exporter image',framework,pass:true});}
       catch(error){results.push({check:'featured Exporter image',framework,pass:false,error:error.stack});}
+    }
+    for(const framework of Object.keys(cases)) {
+      try {const heights=await checkCompactEditor(browser,framework);results.push({check:'compact editor header',framework,pass:true,...heights});}
+      catch(error){results.push({check:'compact editor header',framework,pass:false,error:error.stack});}
     }
   } finally {
     await browser.close();

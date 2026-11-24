@@ -20,9 +20,9 @@ import {documentNames,decisionUser,isDecision,decisionDate,performanceSummary,du
 import {Icon,Field,Modal,ContextMenu,EmptyState} from './components.js?v=2026-11-24-icon-parity-r1';
 import {interfaceLocale,ws,activeAccount,activeUser,admin,audit} from './workspace.js?v=2026-11-24-dashboard-image-r1';
 import {normaliseApplication,applicationErrors} from './form-model.js?v=2026-11-20-chamber-carnet-r1';
-import {WorkspacePages,ChamberContent,Notifications} from './pages.js?v=2026-11-24-dashboard-image-size-r1';
+import {WorkspacePages,ChamberContent,Notifications} from './pages.js?v=2026-11-24-compact-editor-header-r1';
 import {ApplicationList,copiedDraft} from './applications.js?v=2026-11-24-dashboard-image-r1';
-import {ApplicationEditor} from './editor.js?v=2026-11-24-dashboard-image-r1';
+import {ApplicationEditor} from './editor.js?v=2026-11-24-compact-editor-header-r1';
 import {ReviewPage} from './review.js?v=2026-11-24-dashboard-image-r1';
 import {LanguageControl,installLanguage} from './language.js?v=2026-11-20-acceptance-r1';
 import{createApp,ref,reactive,computed,watch,nextTick,onMounted,onUnmounted,provide}from'./assets/vue.esm-browser.prod.js?v=2026-11-20-acceptance-r1';

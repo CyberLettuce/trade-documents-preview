@@ -1,0 +1,67 @@
+@media screen {
+  .editor-work-area:has(> .page-heading.with-action:not(.chooser-page-heading)) {
+    display:grid;
+    grid-template-columns:max-content minmax(0,1fr);
+    align-items:start;
+    column-gap:16px;
+  }
+  .editor-work-area:has(> .page-heading.with-action:not(.chooser-page-heading)) > * { grid-column:1/-1; }
+  .editor-work-area > .page-heading.with-action:not(.chooser-page-heading) {
+    align-items:center;
+    gap:6px 16px;
+    margin:0 0 6px;
+  }
+  .editor-work-area > .page-heading.with-action:not(.chooser-page-heading) > div:first-child {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:2px 10px;
+    min-width:0;
+    overflow-wrap:anywhere;
+  }
+  .editor-work-area > .page-heading.with-action:not(.chooser-page-heading) h1 { margin:0; font-size:18px; line-height:1.35; }
+  .editor-work-area > .page-heading.with-action:not(.chooser-page-heading) p { margin:0; font-size:13px; line-height:1.5; }
+  .editor-work-area > .page-heading.with-action:not(.chooser-page-heading) > .button-group { min-width:0; gap:6px; }
+  .editor-work-area:has(> .page-heading.with-action:not(.chooser-page-heading)) > .autosave-status.is-compact:not(.has-error):not(:has(.autosave-recovered)) {
+    min-height:32px;
+    padding:0;
+    margin:0;
+  }
+  .editor-work-area > .editor-current-section:not(.chooser-current-section) {
+    min-width:0;
+    min-height:32px;
+    margin:0 0 8px;
+    align-content:center;
+  }
+  .editor-work-area > .editor-current-section:not(.chooser-current-section) > span {
+    border-right:0;
+    padding-right:0;
+    border-inline-end:1px solid var(--colorNeutralStroke2);
+    padding-inline-end:8px;
+  }
+
+  .application-editor-page > .editor-top.compact-editor-top {
+    justify-content:flex-start;
+    align-items:center;
+    gap:6px 14px;
+    margin-block-end:10px;
+  }
+  .compact-editor-top > .editor-heading { flex:1 1 220px; min-width:0; margin:0; gap:4px 8px; }
+  .compact-editor-top > .editor-heading > span:first-child { min-width:0; overflow-wrap:anywhere; }
+  .compact-editor-top > .editor-heading > small { margin-inline-start:0; }
+  .compact-editor-top > .button-row { margin-inline-start:auto; gap:6px; }
+  .compact-editor-top > .button-row button { max-width:100%; white-space:normal; }
+  .application-editor-page > .comparison-bar { margin-block-end:12px; }
+}
+
+@media screen and (min-width:1200px) {
+  .editor-work-area:has(> .page-heading.with-action:not(.chooser-page-heading)) > .autosave-status.is-compact:not(.has-error):not(:has(.autosave-recovered)) {
+    grid-column:1;
+    grid-row:2;
+    align-self:start;
+  }
+  .editor-work-area:has(> .autosave-status.is-compact:not(.has-error):not(:has(.autosave-recovered))) > .editor-current-section:not(.chooser-current-section) {
+    grid-column:2;
+    grid-row:2;
+  }
+}
