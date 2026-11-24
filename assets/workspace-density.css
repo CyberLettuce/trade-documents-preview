@@ -13,7 +13,7 @@
 
 /* Recover vertical space in smaller browser windows and at higher page zoom. */
 @media screen and (max-height:760px) {
-  html body :is(#main-content,#chamber-main,#main) .page-heading:not(.compact-page-heading,.chooser-page-heading,.editor-work-area > .page-heading) { margin-block-end:14px; }
+  html body :is(#main-content,#chamber-main,#main) .page-heading:not(.compact-page-heading,.chooser-page-heading,.compact-editor-stage > .page-heading) { margin-block-end:14px; }
   html body :is(#main-content,#chamber-main,#main) .page-heading:not(.chooser-page-heading) h1 { font-size:22px; line-height:1.25; margin-block:0; }
   html body :is(#main-content,#chamber-main,#main) .editor-work-area .page-heading:not(.chooser-page-heading) h1 { font-size:18px; }
   html body :is(#main-content,#chamber-main,#main) .page-heading p { margin-block:4px 0; }

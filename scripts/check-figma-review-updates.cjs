@@ -363,7 +363,10 @@ async function checkCompactEditor(browser, framework) {
     await shot(page,framework+'-editor-header-before');
     const after=await open(local);
     assert(before-after>=(vue?12:26),JSON.stringify({framework,before,after}));
-    const toolbar=page.locator(vue?'.editor-top':'.editor-work-area > .page-heading');
+    const toolbar=page.locator(vue?'.editor-top':'.compact-editor-stage .button-group');
+    const editorHeader=page.locator(vue?'.editor-top':'.compact-editor-stage');
+    const desktopHeader=await editorHeader.boundingBox();
+    assert(desktopHeader.height<=60,JSON.stringify({framework,desktopHeader}));
     await toolbar.getByRole(vue?'button':'switch',{name:/^Live preview$/i}).waitFor();
     if(!vue){
       await toolbar.getByRole('button',{name:'Preview documents',exact:true}).waitFor();

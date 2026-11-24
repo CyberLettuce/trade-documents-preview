@@ -1,4 +1,4 @@
-import {Flash16Filled} from "./auto-accepted-flash2-review1-a216b1b7-nochecklist1.js?v=2026-11-24-danish-density-r1";
+import {Flash16Filled} from "./auto-accepted-flash2-review1-a216b1b7-nochecklist1.js?v=2026-11-24-inline-editor-r1";
 import {languageCreateElement as h,registerPatterns} from './language-runtime-review1-57775012.js?v=2026-11-24-danish-density-r1';
 import {isAutoAcceptedApplication} from './auto-accepted-model1-review1-65eab4c9.js?v=2026-11-24-danish-density-r1';
 registerPatterns([['Auto Accepted','Automatisch geaccepteerd'],['Automatic','Automatisch'],['Auto Accepted (sample)','Automatisch geaccepteerd (voorbeeld)']],'nl');
