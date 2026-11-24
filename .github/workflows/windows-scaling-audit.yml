@@ -22,7 +22,6 @@ jobs:
       AUDIT_SCALE: ${{ matrix.scale }}
       AUDIT_ZOOM_LEVELS: ${{ matrix.zoom }}
       AUDIT_VERSION: '2026-11-24-dashboard-image-size-r1'
-      NODE_PATH: ${{ runner.temp }}/scale-check/node_modules
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -33,9 +32,12 @@ jobs:
         run: |
           npm install --prefix "$env:RUNNER_TEMP/scale-check" --no-save --ignore-scripts playwright@1.56.1
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node "$env:NODE_PATH/playwright/cli.js" install chromium
+          node "$env:RUNNER_TEMP/scale-check/node_modules/playwright/cli.js" install chromium
       - name: Check the live sites at Windows display scaling and browser zoom combinations
-        run: node scripts/audit-windows-scaling.cjs
+        shell: pwsh
+        run: |
+          $env:NODE_PATH = Join-Path $env:RUNNER_TEMP 'scale-check/node_modules'
+          node scripts/audit-windows-scaling.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
